@@ -2,6 +2,7 @@ from app import config
 from flask import Flask
 from flask_assets import Bundle
 from flask_assets import Environment
+from flask.ext.sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CsrfProtect
 
 
@@ -9,7 +10,9 @@ app = Flask(__name__,
             template_folder=config.TEMPLATE_FOLDER,
             static_folder=config.STATIC_FOLDER)
 app.config.from_object(config)
+
 CsrfProtect(app)
+db = SQLAlchemy(app)
 assets = Environment(app)
 
 base_js = Bundle('js/external/jquery-1.11.1.min.js',
