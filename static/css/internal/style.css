@@ -1,0 +1,169 @@
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container .credit {
+    margin: 10px 0;
+}
+
+.login-form {
+    width:600px;
+    margin:auto;
+    padding-top:10px;
+}
+
+.login-form div {
+    margin:auto;
+}
+
+.login-form .center {
+    padding-top:70px;
+}
+
+.login-form .facebook_button {
+    padding-top:65px;
+}
+
+.login-form .alert {
+    margin-bottom: 20px;
+}
+
+.login-form .alert-space {
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 20px;
+}
+
+#popup {
+    display:none;
+}
+
+.modal {
+    top:50%;
+}
+
+.request-invite input {
+    margin:0 25px 0 0;
+}
+
+.social_media_icons img {
+    width:170px;
+    margin:15px 0;
+}
+
+#about_page .main-image {
+    margin-bottom:30px;
+}
+
+#about_page {
+    min-height:500px;
+    background-image:url('static/images/self-portrait.png');
+    background-repeat:no-repeat;
+    background-size:100%;
+    margin-top:50px;
+}
+
+#kateheddleston-wrap .columns {
+    -moz-column-count:2; /* Firefox */
+    -webkit-column-count:2; /* Safari and Chrome */
+    column-count:2;
+    min-height:60px;
+}
+
+#contact-me {
+    position:relative;
+    top:50px;
+    left:-31px;
+}
+
+#contact-me a:hover {
+    text-decoration:none;
+    color:#585b5b;
+}
+
+#contact-me a:first-child {
+    border-left:none;
+    padding-left: 0px;
+}
+
+#contact-me a {
+    color:#585b5b;
+    font-weight:700;
+    border-left:2px solid #585b5b;
+    padding-left:5px;
+}
+
+#kateheddleston-wrap .navbar a {
+    color:#fff;
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+#kateheddleston-wrap .navbar li a {
+    line-height:30px;
+    color:#fff;
+}
+
+#kateheddleston-wrap .navbar-nav li.active a {
+    background:none;
+    color:#79C040;
+}
+
+#kateheddleston-wrap .navbar {
+    font-size:18px;
+    border:none;
+    background-color:#0F6095;
+    padding-right:20px;
+    padding-left:20px;
+    width:100%;
+}
+
+#kateheddleston-wrap .navbar img {
+    width:30px;
+}
+
+#kateheddleston-wrap .navbar .navbar-brand {
+    font-family:'Lato', sans-serif;
+    font-size:175%;
+    font-weight:300px;
+}
+
+#kateheddleston-wrap .dark-blue {
+    color:#0F6095;
+}
+
+#kateheddleston-wrap .light-blue {
+    color:#74BBD4;
+}
+
+#kateheddleston-wrap .orange {
+    color:#ff4000;
+}
+
+#kateheddleston-wrap .light-green {
+    color:#79C040;
+}
+
+#kateheddleston-wrap a {
+    color:#0F6095;
+}
+
+#kateheddleston-wrap .custom-gray {
+    colog:#585b5b;
+}
+
+#kateheddleston-wrap p {
+    color:#585b5b;
+}
+
+#kateheddleston-wrap .subheader {
+    font-weight:700;
+}
+
+#content {
+    padding-top:100px;
+}
+
+#kateheddleston-wrap .video {
+    padding-top:25px;
+}
+

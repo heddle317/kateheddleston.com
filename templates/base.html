@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html ng-app='angularApp' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />    
+        <link rel="shortcut icon" href="{{static_base}}images/winery_bowl_small.jpg">
+
+        <!-- Google fonts -->
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
+        {% assets "base_css" %}
+            <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+        {% endassets %}
+
+        <script type="text/javascript">
+            var csrftoken = '{{ csrf_token() }}';
+        </script>
+        {% block head%}{% endblock %}
+    </head>
+    <body id="kateheddleston-wrap" class=''>
+        <nav class="navbar navbar-default container-fluid navbar-static-top affix" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://kateheddleston.com">Kate Heddleston</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class='nav navbar-nav navbar-right' style='margin-left:10px;'>
+                    <!--<li><a href="http://katestechnicalblog.tumblr.com" target="_blank">Technical Blog&nbsp;<i class="fa fa-external-link"></i></a></li>-->
+                    <li><a href='http://kheddleston.tumblr.com' target="_blank"><img src='/static/images/tumblr.png'/></a></li>
+                    <li><a href='https://www.facebook.com/kate.heddleston' target="_blank"><img src='/static/images/facebook_icon.png'/></a></li>
+                    <li><a href='https://twitter.com/heddle317' target="_blank"><img src='/static/images/twitter_icon.png'/></a></li>
+                    <li><a href='http://www.linkedin.com/in/kateheddleston' target="_blank"><img src='/static/images/linkedin_icon.gif'/></a></li>
+                    <li><a href='https://github.com/heddle317' target="_blank"><img src='/static/images/github_icon2.png'/></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{% if nav_selected == 'about' %}active{% endif %}"><a href="{{g.app_base_link}}/">About</a></li>
+                    <li class="{% if nav_selected == 'talks' %}active{% endif %}"><a href="{{g.app_base_link}}/talks/">Talks</a></li>
+                    <li class="{% if nav_selected == 'resources' %}active{% endif %}"><a href="{{g.app_base_link}}/resources/">Resources</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </nav>
+        <div class='container'>
+            <section id="content" class='row'>
+                {% block content %}{% endblock %}
+                <div id="popup">
+                    {% block popup %}{% endblock %}
+                </div>
+            </section>
+        </div>
+        <div id="push">
+        </div>
+        {% assets "base_js" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+    </body>
+</html>

@@ -1,3 +1,7 @@
 *.swp
 *.swo
 *.pyc
+keys.sh
+run.sh
+static/.webassets-cache/
+static/gen
