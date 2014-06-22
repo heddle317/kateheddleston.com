@@ -1,11 +1,10 @@
 from app import db
-from app.db import Base
 
 from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import UUID
 
 
-class BlogPosts(Base):
+class BlogPosts(db.Model):
     __tablename__ = 'blog_posts'
     uuid = db.Column(UUID, primary_key=True)
     title = db.Column(db.String(500), nullable=False)
