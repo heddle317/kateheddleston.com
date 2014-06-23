@@ -12,7 +12,7 @@ app = Flask(__name__,
 app.config.from_object(config)
 
 CsrfProtect(app)
-db = SQLAlchemy(app)
+app_db = SQLAlchemy(app)
 assets = Environment(app)
 
 base_js = Bundle('js/external/jquery-1.11.1.min.js',

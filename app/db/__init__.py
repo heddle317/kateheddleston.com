@@ -1,23 +1,23 @@
-from app import db
+from app import app_db
 
 
 def get(model, **kwargs):
-    return db.get_session().query(model).filter_by(**kwargs).first()
+    return app_db.session.query(model).filter_by(**kwargs).first()
 
 
 def save(obj, refresh=True):
-    obj = db.get_session().merge(obj)
-    db.get_session().commit()
+    obj = app_db.session.merge(obj)
+    app_db.session.commit()
 
     if refresh:
-        db.get_session().refresh(obj)
+        app_db.session.refresh(obj)
 
     return obj
 
 
 def delete(obj):
-    db.get_session().delete(obj)
-    db.get_session().commit()
+    app_db.session.delete(obj)
+    app_db.session.commit()
 
 
 def update(obj, data, allow_none=False):

@@ -1,6 +1,9 @@
 Flask==0.10.1
+Flask-Alembic==1.0.0
 Flask-Assets==0.9
 Flask-Components==0.1.1
+Flask-Login==0.2.11
+Flask-Migrate==1.2.0
 Flask-SQLAlchemy==1.0
 Flask-Script==2.0.5
 Flask-WTF==0.9.5
@@ -15,7 +18,9 @@ WTForms==1.0.5
 Werkzeug==0.9.6
 alchemist==0.3.7
 alembic==0.6.5
+bcrypt==1.0.2
 blinker==1.3
+cffi==0.8.2
 colorama==0.3.1
 cov-core==1.13.0
 coverage==3.7.1
@@ -30,6 +35,7 @@ pbr==0.8.2
 pep8==1.5.7
 psycopg2==2.5.3
 py==1.4.20
+pycparser==2.10
 pytest==2.5.2
 pytest-cache==1.0
 pytest-cov==1.7.0
@@ -39,6 +45,7 @@ requests==2.3.0
 six==1.7.2
 sqlalchemy-migrate==0.9.1
 termcolor==1.1.0
+uuid==1.30
 webassets==0.9
 wsgi-intercept==0.6.4
 wsgiref==0.1.2
