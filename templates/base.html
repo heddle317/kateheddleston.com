@@ -16,7 +16,7 @@
         </script>
         {% block head%}{% endblock %}
     </head>
-    <body id="kateheddleston-wrap" class='background-image'>
+    <body id="kateheddleston-wrap" {% if g.nav_view == 'home' %}class='background-image'{% endif %}>
         <nav class="navbar container-fluid navbar-static-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -34,9 +34,9 @@
                 </div>
                 <div class='navbar-block text navbar-left'>
                     <ul class="nav navbar-nav">
-                        <li class="{% if nav_selected == 'about' %}active{% endif %}"><a href="{{g.app_base_link}}/">About</a></li>
-                        <li class="{% if nav_selected == 'talks' %}active{% endif %}"><a href="{{g.app_base_link}}/talks/">Talks</a></li>
-                        <li class="{% if nav_selected == 'resources' %}active{% endif %}"><a href="{{g.app_base_link}}/blog/">Blog</a></li>
+                        <li class="{% if g.nav_view == 'about' %}active{% endif %}"><a href="{{g.app_base_link}}/">About</a></li>
+                        <li class="{% if g.nav_view == 'talks' %}active{% endif %}"><a href="{{g.app_base_link}}/talks/">Talks</a></li>
+                        <li class="{% if g.nav_view == 'blog' %}active{% endif %}"><a href="{{g.app_base_link}}/blog/">Blog</a></li>
                     </ul>
                 </div>
                 <div class='navbar-block text navbar-right'>
