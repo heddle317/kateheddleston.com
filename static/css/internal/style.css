@@ -58,3 +58,28 @@
 .maroon-dark {
     color:#582939;
 }
+
+.talk_item {
+    width:410px;
+    display:block;
+    margin:0 auto;
+    color:#777;
+    overflow:hidden;
+    padding:5px;
+    margin-bottom:40px;
+    cursor:pointer;
+}
+
+.talk_item .info {
+    background-color:#ffffff;
+}
+
+.talk_item .info h3 {
+    margin-bottom:0;
+    color:#777;
+}
+
+.talk_item iframe {
+    width:400px;
+    height:225px;
+}

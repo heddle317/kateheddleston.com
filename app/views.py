@@ -25,6 +25,20 @@ def about():
     return render_template('about.html')
 
 
+@app.route('/blog')
+@use_template_globals
+def blog():
+    g.nav_view = 'blog'
+    return render_template('blog.html')
+
+
+@app.route('/talks')
+@use_template_globals
+def talks():
+    g.nav_view = 'talks'
+    return render_template('talks.html')
+
+
 @app.route('/admin')
 @login_required
 @use_template_globals
