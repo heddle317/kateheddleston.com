@@ -4,3 +4,4 @@
 keys.sh
 static/.webassets-cache/
 static/gen
+*.psd
