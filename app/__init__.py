@@ -46,4 +46,4 @@ assets.register('base_css', base_css)
 def before_request():
     g.user = current_user
 
-from app import views
+from app import views  # NOQA

@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html ng-app='angularApp' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />    
+        <link rel="shortcut icon" href="/static/images/winery_bowl_small.jpg">
+
+        <!-- Google fonts -->
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
+        {% assets "base_css" %}
+            <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+        {% endassets %}
+
+        <script type="text/javascript">
+            var csrftoken = '{{ csrf_token() }}';
+        </script>
+        {% block head%}{% endblock %}
+    </head>
+    <body id="kateheddleston-wrap">
+        <div class='container-fluid'>
+            {% block content %}{% endblock %}
+        </div>
+        {% assets "base_js" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+    </body>
+</html>

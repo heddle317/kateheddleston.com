@@ -8,6 +8,7 @@ from flask import render_template
 from flask import request
 from flask_login import login_required
 from flask_login import login_user
+from flask_login import logout_user
 
 
 @app.route('/')
@@ -46,4 +47,10 @@ def login():
     if user:
         login_user(user, remember=True)
         return redirect('/admin')
+    return redirect('/login')
+
+
+@app.route('/logout', methods=["GET"])
+def logout():
+    logout_user()
     return redirect('/login')
