@@ -4,6 +4,7 @@ Flask-Assets==0.9
 Flask-Components==0.1.1
 Flask-Login==0.2.11
 Flask-Migrate==1.2.0
+Flask-Pystmark==0.11.1
 Flask-SQLAlchemy==1.0
 Flask-Script==2.0.5
 Flask-WTF==0.9.5
@@ -42,6 +43,7 @@ psycopg2==2.5.3
 py==1.4.20
 pyasn1==0.1.7
 pycparser==2.10
+pystmark==0.4.4
 pytest==2.5.2
 pytest-cache==1.0
 pytest-cov==1.7.0
