@@ -1,0 +1,65 @@
+{% extends "admin_base.html" %}
+{% block head %}
+<script src='{{g.app_base_link}}/static/js/internal/admin_talks.js'></script>
+{% endblock %}
+{% block content %}
+    <div ng-controller='TalksCtrl'>
+        <div class='row'>
+            <form class='col-md-6' ng-submit='createTalk()'>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" ng-model='title'>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea rows=4 class='form-control' name='description' ng-model='description'></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Description Link</label>
+                    <input type="text" class="form-control" name="descriptionLink" ng-model='descriptionLink'>
+                </div>
+                <div class="form-group">
+                    <label>Slides Link</label>
+                    <input type="text" class="form-control" name="slides" ng-model='slidesLink'>
+                </div>
+                <div class="form-group">
+                    <label>Video Link</label>
+                    <input type="text" class="form-control" name="video" ng-model='videoLink'>
+                </div>
+                <div class="form-group">
+                    <label>Image Link</label>
+                    <input type="text" class="form-control" name="image" ng-model='imageLink'>
+                </div>
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" class="form-control" name="location" ng-model='location'>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" class="form-control" name="date" ng-model='date'>
+                </div>
+                <button type="submit" class="btn btn-default">Create Talk</button>
+            </form>
+        </div>
+        <div class='row edit_talk' ng-repeat='talk in talks'>
+            <div class='col-md-4'>
+                <div class='talk_item thumbnail'>
+                    <img src="{{talk.image_link}}" />
+                    <div class='info caption'>
+                        <p><small class='subheader'>{{talk.date}} - {{talk.location}}</small></p>
+                        <h3>{{ talk.title }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class='col-md-8'>
+                <div class='video_display thumbnail'>
+                    {{talk.video_link|safe}}
+                    <p>{{talk.description|safe}}</p>
+                    <a target="_blank" href="{{talk.description_link}}">Talk Description</a>
+                    </br>
+                    <a href='{{talk.slides_link}}'>Slides</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

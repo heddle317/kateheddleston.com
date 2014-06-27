@@ -77,7 +77,11 @@
     margin-bottom:0;
 }
 
-.talk_item iframe {
-    width:400px;
-    height:225px;
+.video_display iframe {
+    width:560px;
+    height:315px;
+}
+
+.edit_talk {
+    margin-bottom:40px;
 }

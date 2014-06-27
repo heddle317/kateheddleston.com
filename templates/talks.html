@@ -1,28 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 <div class='row'>
+    {% for talk in talks %}
     <div class='col-lg-4 col-md-4 col-sm-12'>
         <div class='talk_item thumbnail'>
-            <img src="http://images.kateheddleston.com/talk-images/railsconf_onboarding.png" />
+            <img src="{{talk.image_link}}" />
             <div class='info caption'>
-                <p><small class='subheader'>April 23, 2014 - RailsConf</small></p>
-                <h3>Technical Onboarding, Training, and Mentoring Extended</h3>
+                <p><small class='subheader'>{{talk.date}} - {{talk.location}}</small></p>
+                <h3>{{ talk.title }}</h3>
             </div>
             <!--
-            <iframe src="//www.youtube.com/embed/Lpg4jRSH7EE" frameborder="0" allowfullscreen></iframe>
-            <small class='subheader'>
-                This talk was originally given as a <a href="https://www.youtube.com/watch?v=qxE1_MgHXI4" target="_blank">joint talk</a> at PyCon US 2014 in Montreal with Nicole Zuckerman.
-            </small>
-            </br>
+            {{ talk.video_link }}
             <p class='lead custom-gray'>
-                This is a talk about how to make junior engineers into independent and productive members of your engineering team faster and cheaper through effective onboarding.
+                {{talk.description}}
             </p>
-            <a target="_blank" href='http://www.railsconf.com/program#prop_218'>Talk Description</a>
+            <a target="_blank" href="{{talk.description_link}}">Talk Description</a>
             </br>
-            <a target="_blank" href='https://speakerdeck.com/kheddleston/technical-onboarding-training-and-mentoring-by-kate-heddleston'>Slides</a>
+            <a target="_blank" href='{{talk.slides_link}}'>Slides</a>
             -->
         </div>
     </div>
+    {% endfor %}
     <div class='col-lg-4 col-md-4 col-sm-12'>
         <div class='talk_item thumbnail'>
             <img src="http://images.kateheddleston.com/talk-images/pycon_chef.png" />
@@ -59,8 +57,6 @@
             -->
         </div>
     </div>
-</div>
-<div class='row'>
     <div class='col-lg-4 col-md-4 col-sm-12'>
         <div class='talk_item thumbnail'>
             <img src="http://images.kateheddleston.com/talk-images/djangocon_management.png" />

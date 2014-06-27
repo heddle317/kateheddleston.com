@@ -5,6 +5,11 @@ def get(model, **kwargs):
     return app_db.session.query(model).filter_by(**kwargs).first()
 
 
+def get_list(model, **kwargs):
+    items = app_db.session.query(model).filter_by(**kwargs)
+    return items.all()
+
+
 def save(obj, refresh=True):
     obj = app_db.session.merge(obj)
     app_db.session.commit()
