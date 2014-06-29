@@ -93,3 +93,7 @@ iframe {
     margin-right:auto;
     display:block;
 }
+
+.flashes li {
+    display:block;
+}

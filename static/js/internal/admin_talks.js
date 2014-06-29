@@ -8,24 +8,6 @@ function TalksCtrl($scope, $http, $sce) {
     });
 
     $scope.createTalk = function() {
-        if (!$scope.title) {
-            return;
-        }
-        if (!$scope.videoLink) {
-            return;
-        }
-        if (!$scope.imageLink) {
-            return;
-        }
-        if (!$scope.location) {
-            return;
-        }
-        if (!$scope.date) {
-            return;
-        }
-        if (!$scope.description) {
-            return;
-        }
         var data = {'title': $scope.title,
                     'description': $scope.description,
                     'slides_link': $scope.slidesLink,

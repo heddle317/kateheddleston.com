@@ -6,6 +6,7 @@ from app.db import get
 from app.db import get_list
 from app.db import save
 from app.db import update
+from app.utils.exceptions import TalkException
 
 from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import UUID
@@ -13,9 +14,17 @@ from sqlalchemy.dialects.postgresql import UUID
 from uuid import uuid4
 
 
+REQUIRED_FIELDS = ['title',
+                   'description',
+                   'video_link',
+                   'image_link',
+                   'location',
+                   'date']
+
+
 class Talk(db.Model):
     __tablename__ = 'talks'
-    uuid = db.Column(UUID, primary_key=True)
+    uuid = db.Column(UUID, primary_key=True, nullable=False)
     title = db.Column(db.String(500), nullable=False)
     description = db.Column(db.String(), nullable=False)
     slides_link = db.Column(db.String(500), nullable=True)
@@ -48,15 +57,18 @@ class Talk(db.Model):
 
     @staticmethod
     def create_talk(**kwargs):
+        for field in REQUIRED_FIELDS:
+            if not kwargs.get(field):
+                raise TalkException('%s required' % field)
         talk = Talk(uuid=str(uuid4()),
-                    title=kwargs.pop('title', ''),
-                    description=kwargs.pop('description', ''),
-                    slides_link=kwargs.pop('slides_link'),
-                    video_link=kwargs.pop('video_link', ''),
-                    description_link=kwargs.pop('description_link'),
-                    location=kwargs.pop('location'),
-                    date=kwargs.pop('date'),
-                    image_link=kwargs.pop('image_link', ''))
+                    title=kwargs.get('title', ''),
+                    description=kwargs.get('description', ''),
+                    slides_link=kwargs.get('slides_link'),
+                    video_link=kwargs.get('video_link', ''),
+                    description_link=kwargs.get('description_link'),
+                    location=kwargs.get('location'),
+                    date=kwargs.get('date'),
+                    image_link=kwargs.get('image_link', ''))
         save(talk)
         return talk.to_dict()
 

@@ -3,9 +3,11 @@ import json
 
 from app import app
 from app.db.talks import Talk
+from app.utils.exceptions import TalkException
 
 # from flask import g
 # from flask import redirect
+from flask import flash
 from flask import request
 from flask_login import login_required
 
@@ -18,7 +20,11 @@ def create_talk():
     if date:
         date = datetime.datetime.strptime(date, '%B %d, %Y')
         data['date'] = date
-    talk = Talk.create_talk(**data)
+    try:
+        talk = Talk.create_talk(**data)
+    except TalkException as e:
+        flash(e.message, 'danger')
+        return json.dumps({'message': e.message}), 400, {'Content-Type': 'application/json'}
     return json.dumps(talk), 200, {'Content-Type': 'application/json'}
 
 
