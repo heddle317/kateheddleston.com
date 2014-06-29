@@ -1,21 +1,14 @@
-function TalksCtrl($scope, $http) {
+function TalksCtrl($scope, $http, $sce) {
     $scope.todos = [
         {text:'learn angular', done:true},
         {text:'build an angular app', done:false}];
     $scope.talks = [];
     $http.get('/admin/talks').success(function(data) {
-        console.log(data);
         $scope.talks = data;
     });
 
     $scope.createTalk = function() {
         if (!$scope.title) {
-            return;
-        }
-        if (!$scope.description) {
-            return;
-        }
-        if (!$scope.slidesLink) {
             return;
         }
         if (!$scope.videoLink) {
@@ -30,7 +23,7 @@ function TalksCtrl($scope, $http) {
         if (!$scope.date) {
             return;
         }
-        if (!$scope.descriptionLink) {
+        if (!$scope.description) {
             return;
         }
         var data = {'title': $scope.title,
@@ -53,5 +46,8 @@ function TalksCtrl($scope, $http) {
             $scope.descriptionLink = '';
             $scope.location = '';
         });
+    };
+    $scope.trustHTML = function(html) {
+        return $sce.trustAsHtml(html);
     };
 }

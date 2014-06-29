@@ -38,6 +38,5 @@ def talks():
 @app.route('/talks/<uuid>', methods=['GET'])
 @use_template_globals
 def talk(uuid):
-    g.nav_view = 'talks'
     talk = Talk.get_talk(uuid)
     return render_template('talk.html', talk=talk)

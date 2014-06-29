@@ -29,8 +29,12 @@ base_js = Bundle('js/external/jquery-1.11.1.min.js',
                  'js/external/bootstrap.min.js',
                  'js/external/angular.min.js',
                  'js/external/angular-resource.min.js',
+                 'js/external/sanitize.js',
                  'js/internal/angular_app_module.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
+
+admin_js = Bundle('js/internal/admin_talks.js',
+                  filters='jsmin', output='gen/admin.%(version)s.js')
 
 base_css = Bundle('css/external/bootstrap.min.css',
                   'css/external/bootstrap-theme.min.css',
@@ -39,6 +43,7 @@ base_css = Bundle('css/external/bootstrap.min.css',
                   filters='cssmin', output='gen/auth.%(version)s.css')
 
 assets.register('base_js', base_js)
+assets.register('admin_js', admin_js)
 assets.register('base_css', base_css)
 
 

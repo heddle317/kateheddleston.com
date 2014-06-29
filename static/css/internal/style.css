@@ -22,8 +22,9 @@
     color:#660033;
 }
 
-.navbar a:active {
+#kateheddleston-wrap .navbar .active a {
     color:#660033;
+    text-decoration:underline;
 }
 
 .navbar-block {
@@ -77,11 +78,18 @@
     margin-bottom:0;
 }
 
-.video_display iframe {
+iframe {
     width:560px;
     height:315px;
 }
 
 .edit_talk {
     margin-bottom:40px;
+}
+
+.center {
+    float:none;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
 }

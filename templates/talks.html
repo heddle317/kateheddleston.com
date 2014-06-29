@@ -3,109 +3,17 @@
 <div class='row'>
     {% for talk in talks %}
     <div class='col-lg-4 col-md-4 col-sm-12'>
-        <div class='talk_item thumbnail'>
-            <img src="{{talk.image_link}}" />
-            <div class='info caption'>
-                <p><small class='subheader'>{{talk.date}} - {{talk.location}}</small></p>
-                <h3>{{ talk.title }}</h3>
+        <a href="/talks/{{talk.uuid}}">
+            <div class='talk_item thumbnail'>
+                <img src="{{talk.image_link}}" />
+                <div class='info caption'>
+                    <p><small class='subheader'>{{talk.date}} - {{talk.location}}</small></p>
+                    <h3>{{ talk.title }}</h3>
+                </div>
             </div>
-            <!--
-            {{ talk.video_link }}
-            <p class='lead custom-gray'>
-                {{talk.description}}
-            </p>
-            <a target="_blank" href="{{talk.description_link}}">Talk Description</a>
-            </br>
-            <a target="_blank" href='{{talk.slides_link}}'>Slides</a>
-            -->
-        </div>
+        </a>
     </div>
     {% endfor %}
-    <div class='col-lg-4 col-md-4 col-sm-12'>
-        <div class='talk_item thumbnail'>
-            <img src="http://images.kateheddleston.com/talk-images/pycon_chef.png" />
-            <div class='info caption'>
-                <p><small class='subheader'>March 16, 2013 - PyCon</small></p>
-                <h3>Chef: Automating your web infrastructure.</h3>
-            </div>
-            <!--
-            <iframe src="//www.youtube.com/embed/iRtb6q6RGHI" frameborder="0" allowfullscreen></iframe>
-            <p class='lead custom-gray'>
-            This talk focuses on using Chef to create web application projects, specifically a python project with a Django framework. Chef is a configuration tool for managing infrastructure by allowing users to automatically and reproducibly configure installations on servers. This talk will cover what is Chef, why automated server configuration is important, and how Chef can be used personally.
-            </p>
-            <a target="_blank" href='https://us.pycon.org/2013/schedule/presentation/87/'>Talk Description</a>
-            </br>
-            <a target="_blank" href='https://speakerdeck.com/pyconslides/chef-why-you-should-automate-your-web-infrastructure-by-kate-heddleston'>Slides</a>
-            -->
-        </div>
-    </div>
-    <div class='col-lg-4 col-md-4 col-sm-12'>
-        <div class='talk_item thumbnail'>
-            <img src="http://images.kateheddleston.com/talk-images/pycon_full_stack.png" />
-            <div class='info caption'>
-                <p><small class='subheader'>April 11, 2014 - PyCon</small></p>
-                <h3>Building full-stack python web applications.</h3>
-            </div>
-            <!--
-            <iframe src="//www.youtube.com/embed/8uxQOzKi3_0" frameborder="0" allowfullscreen></iframe>
-            <p>
-                This is a 30 minute talk that focuses on the entire stack when developing a python web application. Spoiler alert: there might be a song.
-            </p>
-            <a target="_blank" href='https://us.pycon.org/2014/schedule/presentation/184/'>Talk Description</a>
-            </br>
-            <a target="_blank" href='https://speakerdeck.com/pycon2014/so-you-want-to-be-a-full-stack-developer-how-to-build-a-full-stack-python-web-application-by-kate-heddleston'>Slides</a>
-            -->
-        </div>
-    </div>
-    <div class='col-lg-4 col-md-4 col-sm-12'>
-        <div class='talk_item thumbnail'>
-            <img src="http://images.kateheddleston.com/talk-images/djangocon_management.png" />
-            <div class='info caption'>
-                <p><small class='subheader'>September 5, 2013 - DjangoCon</small></p>
-                <h3>3 Favorite Rules of Management</h3>
-            </div>
-            <!--
-            <iframe src="//www.youtube.com/embed/dpMnZoWKoS4?start=2184" frameborder="0" allowfullscreen></iframe>
-            <p class='lead custom-gray'>
-            At DjangoCon I decided to give a lightning talk on my three favorite rules for managing/coaching/mentoring people and one suggestion. I've developed them from years of being coached, mentored, and managed and from my past leadership roles.
-            </p>
-            -->
-        </div>
-    </div>
-    <div class='col-lg-4 col-md-4 col-sm-12'>
-        <div class='talk_item thumbnail'>
-            <img src="http://images.kateheddleston.com/talk-images/hackbright_mentorship.png" />
-            <div class='info caption'>
-                <p><small class='subheader'>May 17, 2013 - Hackbright Girl Geek Dinner</small></p>
-                <h3>Mentorship</h3>
-            </div>
-            <!--
-            <iframe src="https://www.facebook.com/video/embed?video_id=10102094211475223" frameborder="0"></iframe>
-            <p class='lead custom-gray'>
-            At the Hackbright Girl Geek Dinner I gave a short talk on mentorship, the different kinds of mentorship that are out there, and how to find and become a mentor yourself. This is a video about Hackbright Academy, but there are a few snippets of my talk in there.
-            </p>
-            <a target="_blank" href='https://docs.google.com/presentation/d/1RonGo2Il45083FleRR16HP1B9d6jGUkqVHBryjMEWZg/edit#slide=id.gc1313471_056'>Slides</a>
-            -->
-        </div>
-    </div>
-    <div class='col-lg-4 col-md-4 col-sm-12'>
-        <div class='talk_item thumbnail'>
-            <img src="http://images.kateheddleston.com/talk-images/pycon_onboarding.png" />
-            <div class='info caption'>
-                <p><small class='subheader'>April 13, 2014 - PyCon</small>
-                <h3>Technical Onboarding, Training, and Mentoring</h3>
-            </div>
-            <!--
-            <iframe src="//www.youtube.com/embed/qxE1_MgHXI4" frameborder="0" allowfullscreen></iframe>
-            <p class='lead custom-gray'>
-                This is a talk about how to make junior engineers into independent and productive members of your engineering team faster and cheaper through effective onboarding.
-            </p>
-            <a target="_blank" href='https://us.pycon.org/2014/schedule/presentation/223/'>Talk Description</a>
-            </br>
-            <a target="_blank" href='https://speakerdeck.com/kheddleston/technical-onboarding-training-and-mentoring-by-kate-heddleston'>Slides</a>
-            -->
-        </div>
-    </div>
 </div>
 
 {% endblock %}

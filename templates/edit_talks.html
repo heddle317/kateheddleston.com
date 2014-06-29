@@ -1,7 +1,4 @@
 {% extends "admin_base.html" %}
-{% block head %}
-<script src='{{g.app_base_link}}/static/js/internal/admin_talks.js'></script>
-{% endblock %}
 {% block content %}
     <div ng-controller='TalksCtrl'>
         <div class='row'>
@@ -44,20 +41,20 @@
         <div class='row edit_talk' ng-repeat='talk in talks'>
             <div class='col-md-4'>
                 <div class='talk_item thumbnail'>
-                    <img src="{{talk.image_link}}" />
+                    <img src="{[{talk.image_link}]}" />
                     <div class='info caption'>
-                        <p><small class='subheader'>{{talk.date}} - {{talk.location}}</small></p>
-                        <h3>{{ talk.title }}</h3>
+                        <p><small class='subheader'>{[{talk.date}]} - {[{talk.location}]}</small></p>
+                        <h3>{[{ talk.title }]}</h3>
                     </div>
                 </div>
             </div>
             <div class='col-md-8'>
                 <div class='video_display thumbnail'>
-                    {{talk.video_link|safe}}
-                    <p>{{talk.description|safe}}</p>
-                    <a target="_blank" href="{{talk.description_link}}">Talk Description</a>
+                    <span ng-bind-html='trustHTML(talk.video_link)'></span>
+                    <p>{[{talk.description}]}</p>
+                    <a target="_blank" href="{[{talk.description_link}]}">Talk Description</a>
                     </br>
-                    <a href='{{talk.slides_link}}'>Slides</a>
+                    <a href='{[{talk.slides_link}]}'>Slides</a>
                 </div>
             </div>
         </div>
