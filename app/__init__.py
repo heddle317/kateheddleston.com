@@ -33,7 +33,7 @@ base_js = Bundle('js/external/jquery-1.11.1.min.js',
                  'js/internal/angular_app_module.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
 
-admin_js = Bundle('js/internal/admin_talks.js',
+admin_js = Bundle('js/internal/admin.js',
                   filters='jsmin', output='gen/admin.%(version)s.js')
 
 base_css = Bundle('css/external/bootstrap.min.css',

@@ -32,4 +32,7 @@ function TalksCtrl($scope, $http, $sce) {
     $scope.trustHTML = function(html) {
         return $sce.trustAsHtml(html);
     };
-}
+};
+
+function BlogsCtrl($scope, $http, $sce) {
+};
