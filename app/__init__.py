@@ -25,20 +25,20 @@ login_manager.login_message = None
 login_manager.init_app(app)
 
 
-base_js = Bundle('js/external/jquery-1.11.1.min.js',
-                 'js/external/bootstrap.min.js',
-                 'js/external/angular.min.js',
-                 'js/external/angular-resource.min.js',
-                 'js/external/sanitize.js',
+base_js = Bundle('%s/js/external/jquery-1.11.1.min.js' % config.STATIC_BASE,
+                 '%s/js/external/bootstrap.min.js' % config.STATIC_BASE,
+                 '%s/js/external/angular.min.js' % config.STATIC_BASE,
+                 '%s/js/external/angular-resource.min.js' % config.STATIC_BASE,
+                 '%s/js/external/sanitize.js' % config.STATIC_BASE,
                  'js/internal/angular_app_module.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
 
 admin_js = Bundle('js/internal/admin.js',
                   filters='jsmin', output='gen/admin.%(version)s.js')
 
-base_css = Bundle('css/external/bootstrap.min.css',
-                  'css/external/bootstrap-theme.min.css',
-                  'css/external/font-awesome.min.css',
+base_css = Bundle('%s/css/external/bootstrap.min.css' % config.STATIC_BASE,
+                  '%s/css/external/bootstrap-theme.min.css' % config.STATIC_BASE,
+                  '%s/css/external/font-awesome.min.css' % config.STATIC_BASE,
                   'css/internal/style.css',
                   filters='cssmin', output='gen/auth.%(version)s.css')
 
