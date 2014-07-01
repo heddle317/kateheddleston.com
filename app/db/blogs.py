@@ -32,7 +32,7 @@ class BlogPost(db.Model):
                 'title': self.title,
                 'body': self.body,
                 'image_link': self.image_link,
-                'created_at': datetime.datetime.strftime(self.date, '%B %d, %Y')
+                'created_at': datetime.datetime.strftime(self.created_at, '%B %d, %Y')
                 }
 
     @staticmethod

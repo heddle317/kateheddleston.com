@@ -16,7 +16,7 @@ MODEL_HASH = os.environ.get('MODEL_HASH')
 if os.environ.get('ENVIRONMENT') == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://kate:@localhost/kateheddleston_db'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/kateheddleston_db'
 else:
     APP_BASE_LINK = ''
     DEBUG = False

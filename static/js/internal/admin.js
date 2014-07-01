@@ -1,7 +1,4 @@
 function TalksCtrl($scope, $http, $sce) {
-    $scope.todos = [
-        {text:'learn angular', done:true},
-        {text:'build an angular app', done:false}];
     $scope.talks = [];
     $http.get('/admin/talks').success(function(data) {
         $scope.talks = data;
@@ -17,7 +14,6 @@ function TalksCtrl($scope, $http, $sce) {
                     'date': $scope.date,
                     'image_link': $scope.imageLink};
         $http.post("/admin/talks", data).success(function(data) {
-            console.log(data);
             $scope.talks.push(data);
             $scope.title = '';
             $scope.description = '';
@@ -35,4 +31,23 @@ function TalksCtrl($scope, $http, $sce) {
 };
 
 function BlogsCtrl($scope, $http, $sce) {
+    $scope.blogs = [];
+    $http.get('/admin/blog_post').success(function(data) {
+        $scope.blogs = data;
+    });
+
+    $scope.createBlog = function() {
+        var data = {'title': $scope.title,
+                    'body': $scope.body,
+                    'image_link': $scope.imageLink};
+        $http.post("/admin/blog_post", data).success(function(data) {
+            $scope.blogs.push(data);
+            $scope.title = '';
+            $scope.body = '';
+            $scope.imageLink = '';
+        });
+    };
+    $scope.trustHTML = function(html) {
+        return $sce.trustAsHtml(html);
+    };
 };

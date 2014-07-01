@@ -1,7 +1,6 @@
 import json
 
 from app import app
-from app.db.blogs import BlogPost
 from app.db.talks import Talk
 from app.db.user import get_verified_user
 from app.utils.decorators.template_globals import use_template_globals
@@ -64,9 +63,6 @@ def get_talks():
 @login_required
 @use_template_globals
 def get_blogs():
-    if request.is_xhr:
-        blogs = BlogPost.get_blogs()
-        return json.dumps(blogs), 200, {'Content-Type': 'application/json'}
     g.current_user = current_user
     g.nav_view = 'blog'
     return render_template('edit_blogs.html')

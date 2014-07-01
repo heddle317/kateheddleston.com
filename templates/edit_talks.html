@@ -41,7 +41,7 @@
         <div class='row edit_talk' ng-repeat='talk in talks'>
             <div class='col-md-4'>
                 <div class='talk_item thumbnail'>
-                    <img src="{[{talk.image_link}]}" />
+                    <img ng-src="{[{talk.image_link}]}" />
                     <div class='info caption'>
                         <p><small class='subheader'>{[{talk.date}]} - {[{talk.location}]}</small></p>
                         <h3>{[{ talk.title }]}</h3>
