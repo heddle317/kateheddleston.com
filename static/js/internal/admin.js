@@ -32,8 +32,8 @@ function TalksCtrl($scope, $http, $sce) {
 
 function BlogsCtrl($scope, $http, $sce) {
     $scope.blogs = [];
-    $http.get('/admin/blog_post').success(function(data) {
-        $scope.blogs = data;
+    $http.get('/admin/blog_post').success(function(response) {
+        $scope.blogs = response;
     });
 
     $scope.createBlog = function() {
