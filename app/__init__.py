@@ -30,6 +30,8 @@ base_js = Bundle('%s/js/external/jquery-1.11.1.min.js' % config.STATIC_BASE,
                  '%s/js/external/angular.min.js' % config.STATIC_BASE,
                  '%s/js/external/angular-resource.min.js' % config.STATIC_BASE,
                  '%s/js/external/sanitize.js' % config.STATIC_BASE,
+                 '%s/js/external/masonry.pkgd.min.js' % config.STATIC_BASE,
+                 '%s/js/external/imagesloaded.pkgd.min.js' % config.STATIC_BASE,
                  'js/internal/angular_app_module.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
 
