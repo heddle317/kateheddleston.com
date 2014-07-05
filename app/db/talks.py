@@ -69,7 +69,7 @@ class Talk(db.Model):
                     location=kwargs.get('location'),
                     date=kwargs.get('date'),
                     image_link=kwargs.get('image_link', ''))
-        save(talk)
+        talk = save(talk)
         return talk.to_dict()
 
     @staticmethod

@@ -52,7 +52,7 @@ class BlogPost(db.Model):
                         title=kwargs.get('title', ''),
                         body=kwargs.get('body', ''),
                         image_link=kwargs.get('image_link', ''))
-        save(blog)
+        blog = save(blog)
         return blog.to_dict()
 
     @staticmethod

@@ -2,7 +2,7 @@
 {% block content %}
     <div ng-controller='BlogsCtrl'>
         <div class='row'>
-            <form class='col-md-6' ng-submit='createBlog()'>
+            <form class='col-md-6 center' ng-submit='createBlog()'>
                 <div class="form-group">
                     <label>Title</label>
                     <input type="text" class="form-control" name="title" ng-model='title'>
@@ -19,17 +19,27 @@
             </form>
         </div>
 
-        <div class='row edit_blog' ng-repeat='blog in blogs'>
-            <div class='col-md-4'>
-                <div class='blog_item thumbnail'>
-                    <img ng-src="{[{blog.image_link}]}" />
-                    <div class='info caption'>
-                        <h3 ng-bind='blog.title'></h3>
+        <div class='row edit_panel' ng-repeat='blog in blogs'>
+            <div class='panel panel-default'>
+                <div class="panel-heading">
+                    <h3 class="panel-title" ng-bind='blog.title'></h3>
+                </div>
+                <div class='panel-body'>
+                    <div class='col-md-4'>
+                        <div class='blog_item'>
+                            <img ng-src="{[{blog.image_link}]}" />
+                            <div class='info caption'>
+                                <h3 ng-bind='blog.title'></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-8'>
+                        <p>{[{trustHTML(blog.body)}]}</p>
                     </div>
                 </div>
-            </div>
-            <div class='col-md-8'>
-                <p>{[{trustHTML(blog.body)}]}</p>
+                <div class='panel-footer text-right'>
+                    <button class='btn btn-default'>Edit</button>
+                </div>
             </div>
         </div>
     </div>

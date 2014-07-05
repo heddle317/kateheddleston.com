@@ -9,7 +9,6 @@ from flask import g
 from flask import redirect
 from flask import render_template
 from flask import request
-from flask_login import current_user
 from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
@@ -54,7 +53,6 @@ def get_talks():
     if request.is_xhr:
         talks = Talk.get_talks()
         return json.dumps(talks), 200, {'Content-Type': 'application/json'}
-    g.current_user = current_user
     g.nav_view = 'talks'
     return render_template('edit_talks.html')
 
@@ -63,6 +61,5 @@ def get_talks():
 @login_required
 @use_template_globals
 def get_blogs():
-    g.current_user = current_user
     g.nav_view = 'blog'
     return render_template('edit_blogs.html')

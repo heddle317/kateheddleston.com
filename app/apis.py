@@ -55,10 +55,6 @@ def get_blog_posts():
 @login_required
 def create_blog_post():
     data = json.loads(request.data)
-    date = data.get('date')
-    if date:
-        date = datetime.datetime.strptime(date, '%B %d, %Y')
-        data['date'] = date
     try:
         blog = BlogPost.create_blog(**data)
     except BlogException as e:

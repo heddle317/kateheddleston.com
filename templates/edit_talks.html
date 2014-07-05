@@ -2,7 +2,7 @@
 {% block content %}
     <div ng-controller='TalksCtrl'>
         <div class='row'>
-            <form class='col-md-6' ng-submit='createTalk()'>
+            <form class='col-md-6 center' ng-submit='createTalk()'>
                 <div class="form-group">
                     <label>Title</label>
                     <input type="text" class="form-control" name="title" ng-model='title'>
@@ -38,23 +38,33 @@
                 <button type="submit" class="btn btn-default">Create Talk</button>
             </form>
         </div>
-        <div class='row edit_talk' ng-repeat='talk in talks'>
-            <div class='col-md-4'>
-                <div class='talk_item thumbnail'>
-                    <img ng-src="{[{talk.image_link}]}" />
-                    <div class='info caption'>
-                        <p><small class='subheader'>{[{talk.date}]} - {[{talk.location}]}</small></p>
-                        <h3>{[{ talk.title }]}</h3>
+        <div class='row edit_panel' ng-repeat='talk in talks'>
+            <div class='panel panel-default'>
+                <div class="panel-heading">
+                    <h3 class="panel-title" ng-bind='{[{talk.title}]}'></h3>
+                </div>
+                <div class='panel-body'>
+                    <div class='col-md-4'>
+                        <div class='talk_item thumbnail'>
+                            <img ng-src="{[{talk.image_link}]}" />
+                            <div class='info caption'>
+                                <p><small class='subheader'>{[{talk.date}]} - {[{talk.location}]}</small></p>
+                                <h3>{[{ talk.title }]}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-md-8'>
+                        <div class='video_display thumbnail'>
+                            <span ng-bind-html='trustHTML(talk.video_link)'></span>
+                            <p>{[{talk.description}]}</p>
+                            <a target="_blank" href="{[{talk.description_link}]}">Talk Description</a>
+                            </br>
+                            <a href='{[{talk.slides_link}]}'>Slides</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class='col-md-8'>
-                <div class='video_display thumbnail'>
-                    <span ng-bind-html='trustHTML(talk.video_link)'></span>
-                    <p>{[{talk.description}]}</p>
-                    <a target="_blank" href="{[{talk.description_link}]}">Talk Description</a>
-                    </br>
-                    <a href='{[{talk.slides_link}]}'>Slides</a>
+                <div class='panel-footer'>
+                    <button class='btn btn-default'>Edit</button>
                 </div>
             </div>
         </div>
