@@ -47,5 +47,5 @@ def blog():
 @app.route('/blog/<uuid>', methods=['GET'])
 @use_template_globals
 def blog_post(uuid):
-    blog_post = Talk.get_blog(uuid)
+    blog_post = BlogPost.get_blog(uuid)
     return render_template('blog_post.html', blog_post=blog_post)

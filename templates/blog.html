@@ -1,17 +1,9 @@
 {% extends "base.html" %}
+{% import "blog_item.html" as blog_item with context %}
 {% block content %}
     <div id='container' class="js-masonry">
         {% for blog in blog_posts %}
-        <div class='item w2'>
-            <a href="/blog_posts/{{blog.uuid}}">
-                <div class='blog_item'>
-                    <img ng-src="{{blog.image_link}}" />
-                    <div class='info caption'>
-                        <h3>{{blog.title}}</h3>
-                    </div>
-                </div>
-            </a>
-        </div>
+            {{ blog_item.show(blog.uuid, blog.image_link, blog.title, blog.created_at) }}
         {% endfor %}
     </div>
 {% endblock %}
@@ -22,7 +14,7 @@
         // initialize Masonry after all images have loaded  
         $container.imagesLoaded( function() {
             $container.masonry({
-                columnWidth: 240,
+                columnWidth: 320,
                 itemSelector: ".item",
                 gutter: 30,
                 isFitWidth: true

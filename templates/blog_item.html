@@ -1,0 +1,21 @@
+{% macro show(uuid, image, title, published) %}
+    <div class='item w2'>
+        <a href="/blog/{{uuid}}">
+            <div class='blog_item'>
+                <img ng-src="{{image}}" />
+                <div class='info caption'>
+                    <h3>{{title}}</h3>
+                </div>
+                <div class='footer'>
+                    <div class='row'>
+                        <div class='col-md-6 date'>
+                            {{published}}
+                        </div>
+                        <div class='col-md-6'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endmacro %}

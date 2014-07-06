@@ -1,4 +1,5 @@
 {% extends "admin_base.html" %}
+{% import "blog_item.html" as blog_item with context %}
 {% block content %}
     <div ng-controller='BlogsCtrl'>
         <div class='row'>
@@ -26,12 +27,7 @@
                 </div>
                 <div class='panel-body'>
                     <div class='col-md-4'>
-                        <div class='blog_item'>
-                            <img ng-src="{[{blog.image_link}]}" />
-                            <div class='info caption'>
-                                <h3 ng-bind='blog.title'></h3>
-                            </div>
-                        </div>
+                        {{ blog_item.show("{[{blog.uuid}]}", "{[{blog.image_link}]}", "{[{blog.title}]}", "{[{blog.created_at}]}") }}
                     </div>
                     <div class='col-md-8'>
                         <p>{[{trustHTML(blog.body)}]}</p>
