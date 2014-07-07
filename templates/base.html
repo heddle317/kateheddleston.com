@@ -5,11 +5,12 @@
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />    
         <link rel="shortcut icon" href="/static/images/winery_bowl_small.jpg">
 
-        <!-- Google fonts -->
-        <link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
         {% assets "base_css" %}
             <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
         {% endassets %}
+        <!-- Google fonts -->
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
         <script type="text/javascript">
             var csrftoken = '{{ csrf_token() }}';
@@ -17,7 +18,7 @@
         {% block head%}{% endblock %}
     </head>
     <body id="kateheddleston-wrap" {% if g.nav_view == 'home' %}class='background-image'{% endif %}>
-        <nav class="navbar container-fluid navbar-static-top" role="navigation">
+        <nav class="navbar container-fluid navbar-fixed-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-target">
                     <span class="sr-only">Toggle navigation</span>
@@ -27,13 +28,9 @@
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="nav-target">
-                <div class='navbar-block navbar-left'>
-                    <ul class='nav navbar-nav navbar-block navbar-left'>
-                        <li><a href="{{g.app_base_link}}"><img src='/static/images/winery_bowl_small.jpg' width='110'/></a></li>
-                    </ul>
-                </div>
                 <div class='navbar-block text navbar-left'>
                     <ul class="nav navbar-nav">
+                        <li><a href="{{g.app_base_link}}"><img src='/static/images/winery_bowl_small.jpg' width='30'/></a></li>
                         <li class="{% if g.nav_view == 'about' %}active{% endif %}"><a href="{{g.app_base_link}}/about">About</a></li>
                         <li class="{% if g.nav_view == 'talks' %}active{% endif %}"><a href="{{g.app_base_link}}/talks">Talks</a></li>
                         <li class="{% if g.nav_view == 'blog' %}active{% endif %}"><a href="{{g.app_base_link}}/blog">Blog</a></li>
@@ -49,7 +46,7 @@
                 </div>
             </div><!-- /.navbar-collapse -->
         </nav>
-        <div class='container-fluid'>
+        <div class='container-fluid main-content'>
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     <div class='flashes'>

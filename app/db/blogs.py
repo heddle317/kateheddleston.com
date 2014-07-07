@@ -1,11 +1,11 @@
-import datetime
-
 from app.db import app_db as db
 from app.db import delete
 from app.db import get
 from app.db import get_list
 from app.db import save
 from app.db import update
+from app.utils.datetime_tools import format_date
+from app.utils.datetime_tools import relative_time
 from app.utils.exceptions import BlogException
 
 from sqlalchemy import func
@@ -32,7 +32,8 @@ class BlogPost(db.Model):
                 'title': self.title,
                 'body': self.body,
                 'image_link': self.image_link,
-                'created_at': datetime.datetime.strftime(self.created_at, '%B %d, %Y')
+                'created_ago': relative_time(self.created_at),
+                'created_at': format_date(self.created_at, format='%B %d, %Y')
                 }
 
     @staticmethod

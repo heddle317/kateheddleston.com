@@ -27,7 +27,7 @@
                 </div>
                 <div class='panel-body'>
                     <div class='col-md-4'>
-                        {{ blog_item.show("{[{blog.uuid}]}", "{[{blog.image_link}]}", "{[{blog.title}]}", "{[{blog.created_at}]}") }}
+                        {{ blog_item.show("{[{blog.uuid}]}", "{[{blog.image_link}]}", "{[{blog.title}]}", "{[{blog.created_ago}]}") }}
                     </div>
                     <div class='col-md-8'>
                         <p>{[{trustHTML(blog.body)}]}</p>
