@@ -159,6 +159,30 @@ iframe {
     line-height:30px;
 }
 
+#kateheddleston-wrap .blog_page {
+    margin-top:30px;
+    margin:30px auto 0;
+    width:80%;
+}
+
+#kateheddleston-wrap .blog_page .date {
+    padding:10px 0;
+    border-bottom:1px solid #e6e6e6;
+    border-top:3px solid #e6e6e6;
+}
+
+#kateheddleston-wrap .blog_page .header {
+    margin-bottom:15px;
+}
+
+#kateheddleston-wrap .blog_page img {
+    width:100%;
+}
+
+#kateheddleston-wrap .blog_page .body {
+    margin-top:30px;
+}
+
 .w1 {
     width:160px;
 }

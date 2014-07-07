@@ -1,3 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
+    <div class='blog_page'>
+        <div class='header'>
+            <h2>{{blog_post.title}}</h2>
+            <div class='date'>
+                <i class='fa fa-clock-o'></i>
+                <span>{{blog_post.created_ago}}</span>
+            </div>
+        </div>
+        <div class='image'>
+            <img ng-src="{{blog_post.image_link}}" />
+        </div>
+        <div class='body'>
+            <p>
+            {{blog_post.body}}
+            </p>
+        </div>
+    </div>
 {% endblock %}

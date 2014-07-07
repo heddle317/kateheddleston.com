@@ -40,7 +40,6 @@ admin_js = Bundle('js/internal/admin.js',
 
 base_css = Bundle('%s/css/external/bootstrap.min.css' % config.STATIC_BASE,
                   '%s/css/external/bootstrap-theme.min.css' % config.STATIC_BASE,
-                  '%s/css/external/font-awesome.min.css' % config.STATIC_BASE,
                   'css/internal/style.css',
                   filters='cssmin', output='gen/auth.%(version)s.css')
 
