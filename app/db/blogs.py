@@ -1,3 +1,5 @@
+import datetime
+
 from app.db import app_db as db
 from app.db import delete
 from app.db import get
@@ -8,7 +10,6 @@ from app.utils.datetime_tools import format_date
 from app.utils.datetime_tools import relative_time
 from app.utils.exceptions import BlogException
 
-from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import UUID
 
 from uuid import uuid4
@@ -25,7 +26,7 @@ class BlogPost(db.Model):
     title = db.Column(db.String(500), nullable=False)
     body = db.Column(db.String(), nullable=False)
     image_link = db.Column(db.String(500), nullable=True)
-    created_at = db.Column(db.DateTime(), unique=False, default=func.now())
+    created_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow())
 
     def to_dict(self):
         return {'uuid': self.uuid,
@@ -58,8 +59,8 @@ class BlogPost(db.Model):
 
     @staticmethod
     def update_blog(uuid, **kwargs):
-        blog = get(BlogPost, uuid)
-        update(blog, **kwargs)
+        blog = get(BlogPost, uuid=uuid)
+        update(blog, kwargs)
         return blog.to_dict()
 
     @staticmethod

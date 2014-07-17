@@ -8,7 +8,6 @@ from app.db import save
 from app.db import update
 from app.utils.exceptions import TalkException
 
-from sqlalchemy import func
 from sqlalchemy.dialects.postgresql import UUID
 
 from uuid import uuid4
@@ -33,7 +32,7 @@ class Talk(db.Model):
     description_link = db.Column(db.String(500), nullable=True)
     location = db.Column(db.String(200), nullable=True)
     date = db.Column(db.DateTime(), unique=False)
-    created_at = db.Column(db.DateTime(), unique=False, default=func.now())
+    created_at = db.Column(db.DateTime(), default=datetime.datetime.utcnow())
 
     def to_dict(self):
         return {'uuid': self.uuid,
