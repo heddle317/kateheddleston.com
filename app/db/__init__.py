@@ -6,7 +6,11 @@ def get(model, **kwargs):
 
 
 def get_list(model, **kwargs):
+    sort_by = kwargs.get('sort_by', 'created_at')
     items = app_db.session.query(model).filter_by(**kwargs)
+    if hasattr(model, sort_by):
+        order_by = getattr(model, sort_by)
+        items = items.order_by(order_by.desc().nullslast())
     return items.all()
 
 
