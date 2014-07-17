@@ -9,11 +9,12 @@
 #kateheddleston-wrap {
   background-color:#eaeaea;
   font-family: 'Raleway', sans-serif;
+  height:100%;
 }
 
 #kateheddleston-wrap .navbar-custom {
     /*box-shadow:0 0 2px rgba(0,0,0,.075);*/
-    background-color:rgba(255, 255, 255, .6);
+    background-color:rgba(255, 255, 255, .9);
     position:fixed;
     top:0;
     left:2%;
@@ -38,8 +39,8 @@
     text-decoration:none;
     color:#666666;
     /*color:#353435;*/
-    line-height:30px;
-    font-size:20px;
+    line-height:24px;
+    font-size:18px;
 }
 
 #kateheddleston-wrap .navbar-custom a:hover {
@@ -86,12 +87,14 @@
     margin-bottom:30px;
 }
 
-.main-content {
+#kateheddleston-wrap .main-content {
+  color:#353435;
+  padding:0;
   margin-left:240px;
+  height:100%;
 }
 
 .background-image {
-    height:100%;
     background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
     background-repeat:no-repeat;
     background-size:100%;
@@ -157,6 +160,10 @@ iframe {
     margin:30px 20px 0;
 }
 
+#kateheddleston-wrap .blog_item_link {
+  cursor:pointer;
+}
+
 #kateheddleston-wrap .blog_item_link:hover {
     text-decoration:none;
 }
@@ -203,15 +210,20 @@ iframe {
 }
 
 #kateheddleston-wrap .blog_page {
-    margin-top:30px;
-    margin:30px auto 0;
-    width:80%;
+    width:45%;
+    float:right;
+    background-color:rgba(255, 255, 255, .9);
+    padding:40px 20px 20px;
+    height:100%;
+    top:0;
+    right:0;
+    position:fixed;
+    overflow:scroll;
 }
 
 #kateheddleston-wrap .blog_page .date {
     padding:10px 0;
-    border-bottom:1px solid #e6e6e6;
-    border-top:3px solid #e6e6e6;
+    border-top:1px solid #353435;
 }
 
 #kateheddleston-wrap .blog_page .header {

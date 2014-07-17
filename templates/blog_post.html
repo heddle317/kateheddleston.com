@@ -8,13 +8,17 @@
                 <span>{{blog_post.created_ago}}</span>
             </div>
         </div>
-        <div class='image'>
-            <img ng-src="{{blog_post.image_link}}" />
-        </div>
         <div class='body'>
             <p>
             {{blog_post.body}}
             </p>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        $('#kateheddleston-wrap').css('background-image', 'url("'+'{{blog_post.image_link}}'+'")');
+        $('#kateheddleston-wrap').css('background-size', '100%');
+        $('#kateheddleston-wrap').css('background-repeat', 'no-repeat');
+    </script>
 {% endblock %}
