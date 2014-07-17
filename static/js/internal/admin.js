@@ -74,6 +74,10 @@ function BlogCtrl($scope, $http, $window) {
       $scope.editing = false;
     };
     $scope.delete = function() {
+      var confirm = $window.confirm("Are you sure you want to delete this blog post?");
+      if (!confirm) {
+        return;
+      }
       $http.delete("/admin/blog_post/" + $scope.uuid).success(function(data) {
         var index;
         for (var i = 0; i < $scope.blogs.length; i++) {
