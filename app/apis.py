@@ -33,7 +33,8 @@ def create_talk():
 @app.route('/admin/talks/<uuid>', methods=['PUT'])
 @login_required
 def edit_talk(uuid):
-    talk = Talk.update_talk(uuid, **request.form)
+    data = json.loads(request.data)
+    talk = Talk.update_talk(uuid, **data)
     return json.dumps(talk), 200, {'Content-Type': 'application/json'}
 
 
@@ -66,7 +67,8 @@ def create_blog_post():
 @app.route('/admin/blog_post/<uuid>', methods=['PUT'])
 @login_required
 def edit_blog_post(uuid):
-    blog = BlogPost.update_blog(uuid, **request.form)
+    data = json.loads(request.data)
+    blog = BlogPost.update_blog(uuid, **data)
     return json.dumps(blog), 200, {'Content-Type': 'application/json'}
 
 
