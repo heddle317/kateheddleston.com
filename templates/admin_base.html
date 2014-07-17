@@ -17,7 +17,7 @@
         {% block head%}{% endblock %}
     </head>
     <body id="kateheddleston-wrap">
-        {% if g.current_user %}
+        {% if g.current_user.is_authenticated() %}
         <nav class="navbar container-fluid navbar-static-top navbar-default" role="navigation">
             <div class='container-fluid'>
                 <div class="navbar-header">

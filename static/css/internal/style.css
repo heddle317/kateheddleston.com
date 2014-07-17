@@ -6,35 +6,80 @@
     width:30px;
 }
 
-#kateheddleston-wrap .navbar {
-    background-color:#ffffff;
-    box-shadow:0 0 2px rgba(0,0,0,.075);
+#kateheddleston-wrap {
+  background-color:#eaeaea;
+  font-family: 'Raleway', sans-serif;
 }
 
-#kateheddleston-wrap .navbar a {
+#kateheddleston-wrap .navbar-custom {
+    /*box-shadow:0 0 2px rgba(0,0,0,.075);*/
+    background-color:rgba(255, 255, 255, .6);
+    position:fixed;
+    top:0;
+    left:2%;
+    height:100%;
+    width:225px;
+}
+
+#kateheddleston-wrap .navbar-custom .navbar-text {
+  position:absolute;
+  top:25%;
+}
+
+#kateheddleston-wrap .navbar-custom li {
+    display:block;
+}
+
+#kateheddleston-wrap .navbar-custom a {
     letter-spacing:2px;
     text-align:center;
     text-transform:uppercase;
-    font:16px/26px Georgia, "Times New Roman", Times, serif;
+    /*font:16px/26px Georgia, "Times New Roman", Times, serif;*/
     text-decoration:none;
-    color:#353435;
+    color:#666666;
+    /*color:#353435;*/
     line-height:30px;
     font-size:20px;
 }
 
-#kateheddleston-wrap .navbar a:hover {
+#kateheddleston-wrap .navbar-custom a:hover {
     background:none;
     color:#660033;
 }
 
-#kateheddleston-wrap .navbar .active a {
+#kateheddleston-wrap .navbar-custom .active a {
     color:#660033;
     text-decoration:underline;
 }
 
-.navbar-block {
-    text-align:center;
-    display:inline-block;
+#kateheddleston-wrap .brand {
+  text-align:justify;
+  width:135px;
+  color:#666666;
+  text-transform:uppercase;
+}
+
+#kateheddleston-wrap .brand p {
+  margin:0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#kateheddleston-wrap .brand a {
+  font-size:14px;
+  line-height:14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#kateheddleston-wrap .brand-top {
+  position:absolute;
+  top:5%;
+  left:45px;
+}
+
+#kateheddleston-wrap .brand-bottom {
+  position:absolute;
+  bottom:5%;
+  left:45px;
 }
 
 #about_page .main-image {
@@ -42,8 +87,7 @@
 }
 
 .main-content {
-    margin-top:60px;
-    background-color:#f8f8f8;
+  margin-left:240px;
 }
 
 .background-image {
@@ -121,20 +165,19 @@ iframe {
     width:320px;
     overflow:hidden;
     padding:0;
-    box-shadow:1px 2px 3px rgba(0,0,0,.075);
     /*border:1px solid #ddd;*/
-    border-radius:11px;
     transition:all .2s ease-in-out;
+    border-radius:5px;
+    background-color:#f8f8f8;
     line-height:1.42857143;
     display:block;
-    background-color:#fff;
     text-decoration:none;
     color:#777;
     margin-bottom:30px;
 }
 
 #kateheddleston-wrap .blog_item:hover {
-    box-shadow:0 2px 4px 3px rgba(0,0,0,.075);
+    box-shadow:1px 2px 3px rgba(0,0,0,.075);
 }
 
 #kateheddleston-wrap .blog_item img {
