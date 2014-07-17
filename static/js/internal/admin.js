@@ -37,17 +37,48 @@ function BlogsCtrl($scope, $http, $sce) {
     });
 
     $scope.createBlog = function() {
-        var data = {'title': $scope.title,
-                    'body': $scope.body,
-                    'image_link': $scope.imageLink};
+        var data = {'title': $scope.newTitle,
+                    'body': $scope.newBody,
+                    'image_link': $scope.newImageLink};
         $http.post("/admin/blog_post", data).success(function(data) {
             $scope.blogs.push(data);
-            $scope.title = '';
-            $scope.body = '';
-            $scope.imageLink = '';
+            $scope.newTitle = '';
+            $scope.newBody = '';
+            $scope.newImageLink = '';
         });
     };
     $scope.trustHTML = function(html) {
         return $sce.trustAsHtml(html);
+    };
+};
+
+function BlogCtrl($scope, $http, $window) {
+    $scope.init = function(blog) {
+      $scope.uuid = blog.uuid;
+      $scope.title = blog.title;
+      $scope.body = blog.body;
+      $scope.image_link = blog.image_link;
+    };
+    $scope.editing = false;
+    $scope.editPost = function() {
+      $scope.editing = true;
+    };
+    $scope.goToBlog = function() {
+        if ($scope.editing) {
+          return;
+        } else {
+          $window.location = "/blog/" + $scope.uuid;
+        }
+    };
+    $scope.cancel = function() {
+      $scope.editing = false;
+    };
+    $scope.updatePost = function() {
+      var data = {'title': $scope.title,
+                  'body': $scope.body,
+                  'image_link': $scope.image_link};
+      $http.put("/admin/blog_post/" + $scope.uuid, data).success(function(data) {
+        $scope.editing = false;
+      });
     };
 };

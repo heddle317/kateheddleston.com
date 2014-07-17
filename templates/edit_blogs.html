@@ -6,35 +6,59 @@
             <form class='col-md-6 center' ng-submit='createBlog()'>
                 <div class="form-group">
                     <label>Title</label>
-                    <input type="text" class="form-control" name="title" ng-model='title'>
+                    <input type="text" class="form-control" name="title" ng-model='newTitle'>
                 </div>
                 <div class="form-group">
                     <label>Body</label>
-                    <textarea rows=4 class='form-control' name='body' ng-model='body'></textarea>
+                    <textarea rows=4 class='form-control' name='body' ng-model='newBody'></textarea>
                 </div>
                 <div class="form-group">
                     <label>Image Link</label>
-                    <input type="text" class="form-control" name="image" ng-model='imageLink'>
+                    <input type="text" class="form-control" name="image" ng-model='newImageLink'>
                 </div>
                 <button type="submit" class="btn btn-default">Create Blog</button>
             </form>
         </div>
 
-        <div class='row edit_panel' ng-repeat='blog in blogs'>
+        <div class='row edit_panel' ng-repeat='blog in blogs' ng-controller='BlogCtrl' ng-init='init(blog)'>
             <div class='panel panel-default'>
                 <div class="panel-heading">
-                    <h3 class="panel-title" ng-bind='blog.title'></h3>
+                    <h3 class="panel-title" ng-bind='title'></h3>
                 </div>
                 <div class='panel-body'>
                     <div class='col-md-4'>
-                        {{ blog_item.show("{[{blog.uuid}]}", "{[{blog.image_link}]}", "{[{blog.title}]}", "{[{blog.created_ago}]}") }}
+                        <div class='item'>
+                            <a class='blog_item_link' ng-click="goToBlog()">
+                                <div class='blog_item'>
+                                  <img ng-src="{[{image_link}]}" />
+                                  <input type="text" class="form-control" name="image" ng-show='editing' ng-model='image_link'>
+                                    <div class='info caption'>
+                                        <h4 ng-show='!editing' ng-bind='title'></h4>
+                                        <input type='text' class='form-control' name='title' ng-model='title' ng-show='editing'/>
+                                    </div>
+                                    <div class='footer'>
+                                        <div class='row'>
+                                            <div class='col-md-6 date'>
+                                                <i class='fa fa-clock-o'></i>
+                                                <span ng-bind='blog.created_ago'></span>
+                                            </div>
+                                            <div class='col-md-6'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                     <div class='col-md-8'>
-                        <p>{[{trustHTML(blog.body)}]}</p>
+                        <p ng-show='!editing' ng-bind='trustHTML(body)'></p>
+                        <textarea rows=6 class='form-control' name='body' ng-show='editing' ng-model='body'></textarea>
                     </div>
                 </div>
                 <div class='panel-footer text-right'>
-                    <button class='btn btn-default'>Edit</button>
+                    <button class='btn btn-default' ng-show='!editing' ng-click='editPost()'>Edit</button>
+                    <button class='btn btn-default' ng-show='editing' ng-click='updatePost()'>Save</button>
+                    <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
                 </div>
             </div>
         </div>
