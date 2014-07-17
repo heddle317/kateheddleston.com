@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
     <div class='blog_page'>
+        <div class='links'>
+          <div class='prev-link'>
+            {% if blog_post.prev_uuid %}
+              <a href="/blog/{{blog_post.prev_uuid}}">&larr;Prev Post</a>
+            {% endif %}
+          </div>
+          <div class='next-link'>
+            {% if blog_post.next_uuid %}
+              <a href="/blog/{{blog_post.next_uuid}}">Next Post&rarr;</a>
+            {% endif %}
+          </div>
+        </div>
         <div class='header'>
             <h2>{{blog_post.title}}</h2>
             <div class='date'>

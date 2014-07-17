@@ -213,7 +213,7 @@ iframe {
     width:45%;
     float:right;
     background-color:rgba(255, 255, 255, .9);
-    padding:40px 20px 20px;
+    padding:20px;
     height:100%;
     top:0;
     right:0;
@@ -228,6 +228,7 @@ iframe {
 
 #kateheddleston-wrap .blog_page .header {
     margin-bottom:15px;
+    margin-top:20px;
 }
 
 #kateheddleston-wrap .blog_page img {
@@ -236,6 +237,19 @@ iframe {
 
 #kateheddleston-wrap .blog_page .body {
     margin-top:30px;
+}
+
+#kateheddleston-wrap .links a {
+    color:#660033;
+}
+
+#kateheddleston-wrap .links .prev-link {
+  display:inline-block;
+}
+
+#kateheddleston-wrap .links .next-link {
+  display:inline-block;
+  float:right;
 }
 
 .w1 {

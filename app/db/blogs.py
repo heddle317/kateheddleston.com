@@ -29,13 +29,24 @@ class BlogPost(db.Model):
     created_at = db.Column(db.DateTime(), unique=False, default=datetime.datetime.utcnow())
 
     def to_dict(self):
-        return {'uuid': self.uuid,
+        data = {'uuid': self.uuid,
                 'title': self.title,
                 'body': self.body,
                 'image_link': self.image_link,
                 'created_ago': relative_time(self.created_at),
                 'created_at': format_date(self.created_at, format='%B %d, %Y')
                 }
+        data.update(self.get_next_prev_posts())
+        return data
+
+    def get_next_prev_posts(self):
+        blogs = get_list(BlogPost)
+        index = blogs.index(self)
+        prev_uuid = blogs[index - 1].uuid if index > 0 else None
+        next_uuid = blogs[index + 1].uuid if index < len(blogs) - 1 else None
+
+        return {'next_uuid': next_uuid,
+                'prev_uuid': prev_uuid}
 
     @staticmethod
     def get_blogs():

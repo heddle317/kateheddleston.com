@@ -7,10 +7,16 @@ def get(model, **kwargs):
 
 def get_list(model, **kwargs):
     sort_by = kwargs.get('sort_by', 'created_at')
+    limit = kwargs.get('limit')
+    desc = kwargs.get('desc', True)
     items = app_db.session.query(model).filter_by(**kwargs)
     if hasattr(model, sort_by):
         order_by = getattr(model, sort_by)
-        items = items.order_by(order_by.desc().nullslast())
+        if desc:
+            items = items.order_by(order_by.desc().nullslast())
+        else:
+            items = items.order_by(order_by.asc().nullslast())
+    items = items.limit(limit)
     return items.all()
 
 
