@@ -57,8 +57,9 @@
                 </div>
                 <div class='panel-footer text-right'>
                     <button class='btn btn-default' ng-show='!editing' ng-click='editPost()'>Edit</button>
-                    <button class='btn btn-default' ng-show='editing' ng-click='updatePost()'>Save</button>
+                    <button class='btn btn-success' ng-show='editing' ng-click='updatePost()'>Save</button>
                     <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
+                    <button class='btn btn-danger' ng-click='delete()'>Delete</button>
                 </div>
             </div>
         </div>

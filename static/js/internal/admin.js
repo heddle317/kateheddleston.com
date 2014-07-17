@@ -73,6 +73,17 @@ function BlogCtrl($scope, $http, $window) {
     $scope.cancel = function() {
       $scope.editing = false;
     };
+    $scope.delete = function() {
+      $http.delete("/admin/blog_post/" + $scope.uuid).success(function(data) {
+        var index;
+        for (var i = 0; i < $scope.blogs.length; i++) {
+            if ($scope.blogs[i].uuid == $scope.uuid) {
+                index = i;
+            }
+        }
+        $scope.blogs.splice(index, 1);
+      });
+    };
     $scope.updatePost = function() {
       var data = {'title': $scope.title,
                   'body': $scope.body,
