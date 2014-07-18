@@ -26,7 +26,7 @@ class BlogPost(db.Model):
     title = db.Column(db.String(500), nullable=False)
     body = db.Column(db.String(), nullable=False)
     image_link = db.Column(db.String(500), nullable=True)
-    created_at = db.Column(db.DateTime(), unique=False, default=datetime.datetime.utcnow())
+    created_at = db.Column(db.DateTime(), unique=False)
 
     def to_dict(self):
         data = {'uuid': self.uuid,
@@ -64,7 +64,8 @@ class BlogPost(db.Model):
         blog = BlogPost(uuid=str(uuid4()),
                         title=kwargs.get('title', ''),
                         body=kwargs.get('body', ''),
-                        image_link=kwargs.get('image_link', ''))
+                        image_link=kwargs.get('image_link', ''),
+                        created_at=datetime.datetime.utcnow())
         blog = save(blog)
         return blog.to_dict()
 

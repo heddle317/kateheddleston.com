@@ -32,7 +32,7 @@ class Talk(db.Model):
     description_link = db.Column(db.String(500), nullable=True)
     location = db.Column(db.String(200), nullable=True)
     date = db.Column(db.DateTime(), unique=False)
-    created_at = db.Column(db.DateTime(), unique=False, default=datetime.datetime.utcnow())
+    created_at = db.Column(db.DateTime(), unique=False)
 
     def to_dict(self):
         return {'uuid': self.uuid,
@@ -67,7 +67,8 @@ class Talk(db.Model):
                     description_link=kwargs.get('description_link'),
                     location=kwargs.get('location'),
                     date=kwargs.get('date'),
-                    image_link=kwargs.get('image_link', ''))
+                    image_link=kwargs.get('image_link', ''),
+                    created_at=datetime.datetime.utcnow())
         talk = save(talk)
         return talk.to_dict()
 
