@@ -2,6 +2,10 @@
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
+#kateheddleston-wrap ul.icons li {
+  display:inline-block;
+}
+
 .icons img {
     width:30px;
 }
@@ -24,7 +28,7 @@
 
 #kateheddleston-wrap .navbar-custom .navbar-text {
   position:absolute;
-  top:25%;
+  top:35%;
 }
 
 #kateheddleston-wrap .navbar-custom li {
@@ -54,8 +58,6 @@
 }
 
 #kateheddleston-wrap .brand {
-  text-align:justify;
-  width:135px;
   color:#666666;
   text-transform:uppercase;
 }
@@ -73,14 +75,33 @@
 
 #kateheddleston-wrap .brand-top {
   position:absolute;
+  text-align:center;
   top:5%;
-  left:45px;
+  width:100%;
+}
+
+#kateheddleston-wrap .brand-top .logo {
+  width:60px;
+}
+
+#kateheddleston-wrap .brand-top .logo img {
+  width:60px;
+}
+
+#kateheddleston-wrap .brand-top .name {
+  margin-bottom:10px;
 }
 
 #kateheddleston-wrap .brand-bottom {
+  text-align:center;
   position:absolute;
   bottom:5%;
-  left:45px;
+  width:100%
+}
+
+#kateheddleston-wrap .brand-bottom ul.icons {
+  margin:0;
+  padding:0;
 }
 
 #about_page .main-image {
