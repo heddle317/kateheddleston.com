@@ -42,12 +42,18 @@ function TalkCtrl($scope, $http) {
         $scope.descriptionLink = talk.description_link;
         $scope.location = talk.location;
         $scope.date = talk.date;
+        $scope.dead = talk.dead;
+        console.log($scope.dead);
     };
     $scope.cancel = function() {
         $scope.editing = false;
     };
     $scope.editTalk = function() {
         $scope.editing = true;
+    };
+    $scope.undeleteTalk = function() {
+        $scope.dead = false;
+        $scope.updateTalk();
     };
     $scope.updateTalk = function() {
         var data = {'title': $scope.title,
@@ -57,7 +63,8 @@ function TalkCtrl($scope, $http) {
                     'description_link': $scope.descriptionLink,
                     'location': $scope.location,
                     'date': $scope.date,
-                    'image_link': $scope.imageLink};
+                    'image_link': $scope.imageLink,
+                    'dead': $scope.dead};
         $http.put("/admin/talks/" + $scope.uuid, data).success(function(data) {
             $scope.editing = false;
         });
@@ -75,20 +82,14 @@ function TalkCtrl($scope, $http) {
         return;
       }
       $http.delete("/admin/talks/" + $scope.uuid).success(function(data) {
-        var index;
-        for (var i = 0; i < $scope.talks.length; i++) {
-            if ($scope.talks[i].uuid == $scope.uuid) {
-                index = i;
-            }
-        }
-        $scope.talks.splice(index, 1);
+          $scope.dead = true;
       });
     };
 };
 
 function BlogsCtrl($scope, $http) {
     $scope.blogs = [];
-    $http.get('/admin/blog_post').success(function(response) {
+    $http.get('/admin/blog').success(function(response) {
         $scope.blogs = response;
     });
 
@@ -111,6 +112,7 @@ function BlogCtrl($scope, $http, $window, $sce) {
       $scope.title = blog.title;
       $scope.body = blog.body;
       $scope.image_link = blog.image_link;
+      $scope.dead = blog.dead;
     };
     $scope.editing = false;
     $scope.editPost = function() {
@@ -132,19 +134,19 @@ function BlogCtrl($scope, $http, $window, $sce) {
         return;
       }
       $http.delete("/admin/blog_post/" + $scope.uuid).success(function(data) {
-        var index;
-        for (var i = 0; i < $scope.blogs.length; i++) {
-            if ($scope.blogs[i].uuid == $scope.uuid) {
-                index = i;
-            }
-        }
-        $scope.blogs.splice(index, 1);
+        $scope.dead = true;
       });
+    };
+    $scope.undeleteBlog = function() {
+        $scope.dead = false;
+        $scope.updatePost();
     };
     $scope.updatePost = function() {
       var data = {'title': $scope.title,
                   'body': $scope.body,
-                  'image_link': $scope.image_link};
+                  'image_link': $scope.image_link,
+                  'dead': $scope.dead};
+      console.log(data);
       $http.put("/admin/blog_post/" + $scope.uuid, data).success(function(data) {
         $scope.editing = false;
       });

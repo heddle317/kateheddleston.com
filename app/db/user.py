@@ -18,6 +18,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(60), unique=False)
     email_verification_token = db.Column(db.String(50), unique=False)
     created_at = db.Column(db.DateTime(), unique=False, default=func.now())
+    dead = db.Column(db.Boolean(), default=False, nullable=False)
 
     def is_authenticated(self):
         return True

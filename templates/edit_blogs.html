@@ -21,7 +21,7 @@
         </div>
 
         <div class='row edit_panel' ng-repeat='blog in blogs' ng-controller='BlogCtrl' ng-init='init(blog)'>
-            <div class='panel panel-default'>
+            <div class='panel' ng-class='dead ? "panel-danger" : "panel-default"'>
                 <div class="panel-heading">
                     <h3 class="panel-title" ng-bind='title'></h3>
                 </div>
@@ -59,7 +59,8 @@
                     <button class='btn btn-default' ng-show='!editing' ng-click='editPost()'>Edit</button>
                     <button class='btn btn-success' ng-show='editing' ng-click='updatePost()'>Save</button>
                     <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
-                    <button class='btn btn-danger' ng-click='delete()'>Delete</button>
+                    <button class='btn btn-danger' ng-show='!dead' ng-click='delete()'>Delete</button>
+                    <button class='btn btn-danger' ng-show='dead' ng-click='undeleteBlog()'>Undelete</button>
                 </div>
             </div>
         </div>

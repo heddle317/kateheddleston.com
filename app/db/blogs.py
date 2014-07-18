@@ -27,6 +27,7 @@ class BlogPost(db.Model):
     body = db.Column(db.String(), nullable=False)
     image_link = db.Column(db.String(500), nullable=True)
     created_at = db.Column(db.DateTime(), unique=False)
+    dead = db.Column(db.Boolean(), default=False, nullable=False)
 
     def to_dict(self):
         data = {'uuid': self.uuid,
@@ -34,23 +35,29 @@ class BlogPost(db.Model):
                 'body': self.body,
                 'image_link': self.image_link,
                 'created_ago': relative_time(self.created_at),
-                'created_at': format_date(self.created_at, format='%B %d, %Y')
+                'created_at': format_date(self.created_at, format='%B %d, %Y'),
+                'dead': self.dead
                 }
         data.update(self.get_next_prev_posts())
         return data
 
     def get_next_prev_posts(self):
         blogs = get_list(BlogPost)
-        index = blogs.index(self)
-        prev_uuid = blogs[index - 1].uuid if index > 0 else None
-        next_uuid = blogs[index + 1].uuid if index < len(blogs) - 1 else None
+        try:
+            index = blogs.index(self)
+        except:
+            prev_uuid = None
+            next_uuid = None
+        else:
+            prev_uuid = blogs[index - 1].uuid if index > 0 else None
+            next_uuid = blogs[index + 1].uuid if index < len(blogs) - 1 else None
 
         return {'next_uuid': next_uuid,
                 'prev_uuid': prev_uuid}
 
     @staticmethod
-    def get_blogs():
-        return [blog.to_dict() for blog in get_list(BlogPost)]
+    def get_blogs(dead=False):
+        return [blog.to_dict() for blog in get_list(BlogPost, dead=dead)]
 
     @staticmethod
     def get_blog(uuid):
@@ -72,7 +79,7 @@ class BlogPost(db.Model):
     @staticmethod
     def update_blog(uuid, **kwargs):
         blog = get(BlogPost, uuid=uuid)
-        update(blog, kwargs)
+        blog = update(blog, kwargs)
         return blog.to_dict()
 
     @staticmethod

@@ -6,10 +6,13 @@ def get(model, **kwargs):
 
 
 def get_list(model, **kwargs):
-    sort_by = kwargs.get('sort_by', 'created_at')
-    limit = kwargs.get('limit')
-    desc = kwargs.get('desc', True)
+    sort_by = kwargs.pop('sort_by', 'created_at')
+    limit = kwargs.pop('limit', None)
+    desc = kwargs.pop('desc', True)
+    dead = kwargs.pop('dead', False)
     items = app_db.session.query(model).filter_by(**kwargs)
+    if not dead:
+        items = items.filter_by(dead=dead)
     if hasattr(model, sort_by):
         order_by = getattr(model, sort_by)
         if desc:
@@ -30,16 +33,20 @@ def save(obj, refresh=True):
     return obj
 
 
-def delete(obj):
-    app_db.session.delete(obj)
-    app_db.session.commit()
+def delete(obj, hard_delete=False):
+    if hard_delete:
+        app_db.session.delete(obj)
+        app_db.session.commit()
+        return
+    update(obj, {'dead': True})
+    save(obj)
 
 
 def update(obj, data, allow_none=False):
     changed = False
 
     for field, val in data.items():
-        if val or allow_none:
+        if val is not None or allow_none:
             if hasattr(obj, field):
                 setattr(obj, field, val)
                 changed = True

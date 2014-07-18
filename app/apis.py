@@ -45,13 +45,6 @@ def delete_talk(uuid):
     return json.dumps({'message': 'Your talk was successfully deleted.'}), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/blog_post', methods=['GET'])
-@login_required
-def get_blog_posts():
-    blogs = BlogPost.get_blogs()
-    return json.dumps(blogs), 200, {'Content-Type': 'application/json'}
-
-
 @app.route('/admin/blog_post', methods=['POST'])
 @login_required
 def create_blog_post():

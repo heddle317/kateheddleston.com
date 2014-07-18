@@ -33,6 +33,7 @@ class Talk(db.Model):
     location = db.Column(db.String(200), nullable=True)
     date = db.Column(db.DateTime(), unique=False)
     created_at = db.Column(db.DateTime(), unique=False)
+    dead = db.Column(db.Boolean(), default=False, nullable=False)
 
     def to_dict(self):
         return {'uuid': self.uuid,
@@ -43,12 +44,13 @@ class Talk(db.Model):
                 'description_link': self.description_link,
                 'location': self.location,
                 'date': datetime.datetime.strftime(self.date, '%B %d, %Y'),
-                'image_link': self.image_link
+                'image_link': self.image_link,
+                'dead': self.dead
                 }
 
     @staticmethod
-    def get_talks():
-        return [talk.to_dict() for talk in get_list(Talk)]
+    def get_talks(dead=False):
+        return [talk.to_dict() for talk in get_list(Talk, dead=dead)]
 
     @staticmethod
     def get_talk(uuid):
@@ -75,7 +77,7 @@ class Talk(db.Model):
     @staticmethod
     def update_talk(uuid, **kwargs):
         talk = get(Talk, uuid=uuid)
-        update(talk, kwargs)
+        talk = update(talk, kwargs)
         return talk.to_dict()
 
     @staticmethod
