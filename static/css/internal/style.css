@@ -173,7 +173,7 @@ iframe {
     overflow:hidden;
     padding:0;
     /*border:1px solid #ddd;*/
-    transition:all .2s ease-in-out;
+    /*transition:all .2s ease-in-out;i*/
     border-radius:5px;
     background-color:#f8f8f8;
     line-height:1.42857143;

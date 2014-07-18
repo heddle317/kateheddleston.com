@@ -11,13 +11,15 @@
     <script type='text/javascript'>
         // or with jQuery
         var $container = $('#container');
-        // initialize Masonry after all images have loaded  
-        $container.imagesLoaded( function() {
+        $container.hide();
+        $container.imagesLoaded().progress( function( imgLoad, image ) {
+            $container.show();
             $container.masonry({
                 columnWidth: 200,
                 itemSelector: ".item",
                 gutter: 10,
-                isFitWidth: true
+                isFitWidth: true,
+                transitionDuration: 0
             });
         });
     </script>
