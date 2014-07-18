@@ -5,6 +5,51 @@ function TalksCtrl($scope, $http, $sce) {
     });
 
     $scope.createTalk = function() {
+        var data = {'title': $scope.newTitle,
+                    'description': $scope.newDescription,
+                    'slides_link': $scope.newSlidesLink,
+                    'video_link': $scope.newVideoLink,
+                    'description_link': $scope.newDescriptionLink,
+                    'location': $scope.newLocation,
+                    'date': $scope.newDate,
+                    'image_link': $scope.newImageLink};
+        $http.post("/admin/talks", data).success(function(data) {
+            $scope.talks.push(data);
+            $scope.newTitle = '';
+            $scope.newDescription = '';
+            $scope.newSlidesLink = '';
+            $scope.newVideoLink = '';
+            $scope.newImageLink = '';
+            $scope.newDate = '';
+            $scope.newDescriptionLink = '';
+            $scope.newLocation = '';
+        });
+    };
+    $scope.trustHTML = function(html) {
+        return $sce.trustAsHtml(html);
+    };
+};
+
+function TalkCtrl($scope, $http) {
+    $scope.editing = false;
+    $scope.init = function(talk) {
+        $scope.uuid = talk.uuid;
+        $scope.title = talk.title;
+        $scope.imageLink = talk.image_link;
+        $scope.slidesLink = talk.slides_link;
+        $scope.videoLink = talk.video_link;
+        $scope.description = talk.description;
+        $scope.descriptionLink = talk.description_link;
+        $scope.location = talk.location;
+        $scope.date = talk.date;
+    };
+    $scope.cancel = function() {
+        $scope.editing = false;
+    };
+    $scope.editTalk = function() {
+        $scope.editing = true;
+    };
+    $scope.updateTalk = function() {
         var data = {'title': $scope.title,
                     'description': $scope.description,
                     'slides_link': $scope.slidesLink,
@@ -13,20 +58,31 @@ function TalksCtrl($scope, $http, $sce) {
                     'location': $scope.location,
                     'date': $scope.date,
                     'image_link': $scope.imageLink};
-        $http.post("/admin/talks", data).success(function(data) {
-            $scope.talks.push(data);
-            $scope.title = '';
-            $scope.description = '';
-            $scope.slidesLink = '';
-            $scope.videoLink = '';
-            $scope.imageLink = '';
-            $scope.date = '';
-            $scope.descriptionLink = '';
-            $scope.location = '';
+        $http.put("/admin/talks/" + $scope.uuid, data).success(function(data) {
+            $scope.editing = false;
         });
     };
-    $scope.trustHTML = function(html) {
-        return $sce.trustAsHtml(html);
+    $scope.goToBlog = function() {
+        if ($scope.editing) {
+          return;
+        } else {
+          $window.location = "/talk/" + $scope.uuid;
+        }
+    };
+    $scope.deleteTalk = function() {
+      var confirm = $window.confirm("Are you sure you want to delete this talk?");
+      if (!confirm) {
+        return;
+      }
+      $http.delete("/admin/talks/" + $scope.uuid).success(function(data) {
+        var index;
+        for (var i = 0; i < $scope.talks.length; i++) {
+            if ($scope.talks[i].uuid == $scope.uuid) {
+                index = i;
+            }
+        }
+        $scope.talks.splice(index, 1);
+      });
     };
 };
 

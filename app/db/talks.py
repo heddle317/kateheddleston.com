@@ -74,8 +74,8 @@ class Talk(db.Model):
 
     @staticmethod
     def update_talk(uuid, **kwargs):
-        talk = get(Talk, uuid)
-        update(talk, **kwargs)
+        talk = get(Talk, uuid=uuid)
+        update(talk, kwargs)
         return talk.to_dict()
 
     @staticmethod
