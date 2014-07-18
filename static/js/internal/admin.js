@@ -30,7 +30,7 @@ function TalksCtrl($scope, $http, $sce) {
     };
 };
 
-function BlogsCtrl($scope, $http, $sce) {
+function BlogsCtrl($scope, $http) {
     $scope.blogs = [];
     $http.get('/admin/blog_post').success(function(response) {
         $scope.blogs = response;
@@ -47,12 +47,9 @@ function BlogsCtrl($scope, $http, $sce) {
             $scope.newImageLink = '';
         });
     };
-    $scope.trustHTML = function(html) {
-        return $sce.trustAsHtml(html);
-    };
 };
 
-function BlogCtrl($scope, $http, $window) {
+function BlogCtrl($scope, $http, $window, $sce) {
     $scope.init = function(blog) {
       $scope.uuid = blog.uuid;
       $scope.title = blog.title;

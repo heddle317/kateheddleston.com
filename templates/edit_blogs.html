@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class='col-md-8'>
-                        <p ng-show='!editing' ng-bind='trustHTML(body)'></p>
+                        <p ng-show='!editing' ng-bind-html='body'></p>
                         <textarea rows=6 class='form-control' name='body' ng-show='editing' ng-model='body'></textarea>
                     </div>
                 </div>

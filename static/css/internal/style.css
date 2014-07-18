@@ -90,7 +90,7 @@
 #kateheddleston-wrap .main-content {
   color:#353435;
   padding:0;
-  margin-left:240px;
+  margin-left:255px;
   height:100%;
 }
 
@@ -169,7 +169,7 @@ iframe {
 }
 
 #kateheddleston-wrap .blog_item {
-    width:320px;
+    width:400px;
     overflow:hidden;
     padding:0;
     /*border:1px solid #ddd;*/
@@ -253,15 +253,15 @@ iframe {
 }
 
 .w1 {
-    width:160px;
+    width:200px;
 }
 
 .w2 {
-    width:320;
+    width:400px;
 }
 
 .w3 {
-    width:480px;
+    width:600px;
 }
 
 #container {
