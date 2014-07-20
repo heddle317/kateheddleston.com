@@ -52,7 +52,7 @@ class Talk(db.Model):
         return data
 
     def get_next_prev_talk(self):
-        talks = get_list(Talk)
+        talks = get_list(Talk, sort_by='date')
         try:
             index = talks.index(self)
         except:
@@ -67,7 +67,7 @@ class Talk(db.Model):
 
     @staticmethod
     def get_talks(published=True):
-        return [talk.to_dict() for talk in get_list(Talk, published=published)]
+        return [talk.to_dict() for talk in get_list(Talk, published=published, sort_by='date')]
 
     @staticmethod
     def get_talk(uuid):

@@ -29,7 +29,7 @@ def talks():
     return render_template('talks.html', talks=talks)
 
 
-@app.route('/talks/<uuid>', methods=['GET'])
+@app.route('/talk/<uuid>', methods=['GET'])
 @use_template_globals
 def talk(uuid):
     talk = Talk.get_talk(uuid)

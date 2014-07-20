@@ -1,24 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
-<div class='row'>
-    <div class='col-md-6 center'>
-        <h2>{{talk.title}}</h2>
-        <div class='row'>
-            <div class='col-md-4'>
-                <p><small class='subheader'>{{talk.date}} - {{talk.location}}</small></p>
-            </div>
-            <div class='col-md-3'>
-                <a target="_blank" href="{{talk.description_link}}">Talk Description</a>
-            </div>
-            <div class='col-md-1'>
-                <a target="_blank" href='{{talk.slides_link}}'>Slides</a>
+    <div class='talk_page'>
+        <div class='links'>
+          <div class='prev-link'>
+            {% if talk.prev_uuid %}
+              <a href="/talk/{{talk.prev_uuid}}">&larr;Prev Talk</a>
+            {% endif %}
+          </div>
+          <div class='next-link'>
+            {% if talk.next_uuid %}
+              <a href="/talk/{{talk.next_uuid}}">Next Talk&rarr;</a>
+            {% endif %}
+          </div>
+        </div>
+        <div class='talk_video flex-video widescreen'>
+          {{ talk.video_link|safe }}
+        </div>
+        <div class='header'>
+            <h2>{{talk.title}}</h2>
+            <div class='icons'>
+              <i class='fa fa-clock-o'>{{talk.date}}</i>
+              <i class='fa fa-map-marker'>{{talk.location}}</i>
+              <a target="_blank" href="{{talk.description_link}}"><i class='fa fa-external-link'>Talk Description</i></a>
+              <a target="_blank" href='{{talk.slides_link}}'><i class='fa fa-external-link'>Slides</i></a>
             </div>
         </div>
-        {{ talk.video_link|safe }}
-        <p class='lead custom-gray'>
-            {{talk.description}}
-        </p>
+        <div class='body'>
+            <p>
+            {{talk.description|safe}}
+            </p>
+        </div>
     </div>
-</div>
-
 {% endblock %}

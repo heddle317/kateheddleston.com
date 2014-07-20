@@ -11,7 +11,6 @@ def get_list(model, **kwargs):
     desc = kwargs.pop('desc', True)
     published = kwargs.pop('published', True)
     items = app_db.session.query(model).filter_by(**kwargs)
-    print published
     if published:
         items = items.filter_by(published=published)
     if hasattr(model, sort_by):

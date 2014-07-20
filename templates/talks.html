@@ -1,19 +1,26 @@
 {% extends "base.html" %}
+{% import "talk_item.html" as talk_item with context %}
 {% block content %}
-<div class='row'>
-    {% for talk in talks %}
-    <div class='col-lg-4 col-md-4 col-sm-12'>
-        <a href="/talks/{{talk.uuid}}">
-            <div class='talk_item thumbnail'>
-                <img src="{{talk.image_link}}" />
-                <div class='info caption'>
-                    <p><small class='subheader'>{{talk.date}} - {{talk.location}}</small></p>
-                    <h3>{{ talk.title }}</h3>
-                </div>
-            </div>
-        </a>
+    <div id='container' class="js-masonry">
+        {% for talk in talks %}
+            {{ talk_item.show(talk.uuid, talk.image_link, talk.title, talk.date) }}
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-
+{% endblock %}
+{% block script %}
+    <script type='text/javascript'>
+        // or with jQuery
+        var $container = $('#container');
+        $container.hide();
+        $container.imagesLoaded().progress( function( imgLoad, image ) {
+            $container.show();
+            $container.masonry({
+                columnWidth: 180,
+                itemSelector: ".item",
+                gutter: 10,
+                isFitWidth: true,
+                transitionDuration: 0
+            });
+        });
+    </script>
 {% endblock %}
