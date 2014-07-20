@@ -34,9 +34,10 @@ class Talk(db.Model):
     date = db.Column(db.DateTime(), unique=False)
     created_at = db.Column(db.DateTime(), unique=False)
     dead = db.Column(db.Boolean(), default=False, nullable=False)
+    published = db.Column(db.Boolean(), default=False, nullable=False)
 
     def to_dict(self):
-        return {'uuid': self.uuid,
+        data = {'uuid': self.uuid,
                 'title': self.title,
                 'description': self.description,
                 'slides_link': self.slides_link,
@@ -45,12 +46,28 @@ class Talk(db.Model):
                 'location': self.location,
                 'date': datetime.datetime.strftime(self.date, '%B %d, %Y'),
                 'image_link': self.image_link,
-                'dead': self.dead
+                'published': self.published
                 }
+        data.update(self.get_next_prev_talk())
+        return data
+
+    def get_next_prev_talk(self):
+        talks = get_list(Talk)
+        try:
+            index = talks.index(self)
+        except:
+            prev_uuid = None
+            next_uuid = None
+        else:
+            prev_uuid = talks[index - 1].uuid if index > 0 else None
+            next_uuid = talks[index + 1].uuid if index < len(talks) - 1 else None
+
+        return {'next_uuid': next_uuid,
+                'prev_uuid': prev_uuid}
 
     @staticmethod
-    def get_talks(dead=False):
-        return [talk.to_dict() for talk in get_list(Talk, dead=dead)]
+    def get_talks(published=True):
+        return [talk.to_dict() for talk in get_list(Talk, published=published)]
 
     @staticmethod
     def get_talk(uuid):

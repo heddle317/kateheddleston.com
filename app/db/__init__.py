@@ -9,10 +9,11 @@ def get_list(model, **kwargs):
     sort_by = kwargs.pop('sort_by', 'created_at')
     limit = kwargs.pop('limit', None)
     desc = kwargs.pop('desc', True)
-    dead = kwargs.pop('dead', False)
+    published = kwargs.pop('published', True)
     items = app_db.session.query(model).filter_by(**kwargs)
-    if not dead:
-        items = items.filter_by(dead=dead)
+    print published
+    if published:
+        items = items.filter_by(published=published)
     if hasattr(model, sort_by):
         order_by = getattr(model, sort_by)
         if desc:
@@ -33,13 +34,14 @@ def save(obj, refresh=True):
     return obj
 
 
-def delete(obj, hard_delete=False):
-    if hard_delete:
-        app_db.session.delete(obj)
-        app_db.session.commit()
-        return
-    update(obj, {'dead': True})
+def publish(obj):
+    update(obj, {'publish`': True})
     save(obj)
+
+
+def delete(obj, hard_delete=False):
+    app_db.session.delete(obj)
+    app_db.session.commit()
 
 
 def update(obj, data, allow_none=False):

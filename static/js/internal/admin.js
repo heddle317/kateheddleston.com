@@ -42,8 +42,7 @@ function TalkCtrl($scope, $http) {
         $scope.descriptionLink = talk.description_link;
         $scope.location = talk.location;
         $scope.date = talk.date;
-        $scope.dead = talk.dead;
-        console.log($scope.dead);
+        $scope.published = talk.published;
     };
     $scope.cancel = function() {
         $scope.editing = false;
@@ -51,8 +50,12 @@ function TalkCtrl($scope, $http) {
     $scope.editTalk = function() {
         $scope.editing = true;
     };
-    $scope.undeleteTalk = function() {
-        $scope.dead = false;
+    $scope.unpublishTalk = function() {
+        $scope.published = false;
+        $scope.updateTalk();
+    };
+    $scope.publishTalk = function() {
+        $scope.published = true;
         $scope.updateTalk();
     };
     $scope.updateTalk = function() {
@@ -64,7 +67,7 @@ function TalkCtrl($scope, $http) {
                     'location': $scope.location,
                     'date': $scope.date,
                     'image_link': $scope.imageLink,
-                    'dead': $scope.dead};
+                    'published': $scope.published};
         $http.put("/admin/talks/" + $scope.uuid, data).success(function(data) {
             $scope.editing = false;
         });
@@ -82,7 +85,6 @@ function TalkCtrl($scope, $http) {
         return;
       }
       $http.delete("/admin/talks/" + $scope.uuid).success(function(data) {
-          $scope.dead = true;
       });
     };
 };
@@ -112,7 +114,7 @@ function BlogCtrl($scope, $http, $window, $sce) {
       $scope.title = blog.title;
       $scope.body = blog.body;
       $scope.image_link = blog.image_link;
-      $scope.dead = blog.dead;
+      $scope.published = blog.published;
     };
     $scope.editing = false;
     $scope.editPost = function() {
@@ -128,25 +130,27 @@ function BlogCtrl($scope, $http, $window, $sce) {
     $scope.cancel = function() {
       $scope.editing = false;
     };
-    $scope.delete = function() {
+    $scope.deleteBlog = function() {
       var confirm = $window.confirm("Are you sure you want to delete this blog post?");
       if (!confirm) {
         return;
       }
       $http.delete("/admin/blog_post/" + $scope.uuid).success(function(data) {
-        $scope.dead = true;
       });
     };
-    $scope.undeleteBlog = function() {
-        $scope.dead = false;
+    $scope.unpublishBlog = function() {
+        $scope.published = false;
+        $scope.updatePost();
+    };
+    $scope.publishBlog = function() {
+        $scope.published = true;
         $scope.updatePost();
     };
     $scope.updatePost = function() {
       var data = {'title': $scope.title,
                   'body': $scope.body,
                   'image_link': $scope.image_link,
-                  'dead': $scope.dead};
-      console.log(data);
+                  'published': $scope.published};
       $http.put("/admin/blog_post/" + $scope.uuid, data).success(function(data) {
         $scope.editing = false;
       });

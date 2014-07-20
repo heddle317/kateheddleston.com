@@ -52,7 +52,7 @@ def logout():
 @use_template_globals
 def get_talks():
     if request.is_xhr:
-        talks = Talk.get_talks(dead=True)
+        talks = Talk.get_talks(published=False)
         return json.dumps(talks), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'talks'
     return render_template('edit_talks.html')
@@ -63,7 +63,7 @@ def get_talks():
 @use_template_globals
 def get_blogs():
     if request.is_xhr:
-        blogs = BlogPost.get_blogs(dead=True)
+        blogs = BlogPost.get_blogs(published=False)
         return json.dumps(blogs), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'blog'
     return render_template('edit_blogs.html')

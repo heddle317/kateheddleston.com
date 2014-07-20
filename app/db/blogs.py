@@ -28,6 +28,7 @@ class BlogPost(db.Model):
     image_link = db.Column(db.String(500), nullable=True)
     created_at = db.Column(db.DateTime(), unique=False)
     dead = db.Column(db.Boolean(), default=False, nullable=False)
+    published = db.Column(db.Boolean(), default=False, nullable=False)
 
     def to_dict(self):
         data = {'uuid': self.uuid,
@@ -36,7 +37,7 @@ class BlogPost(db.Model):
                 'image_link': self.image_link,
                 'created_ago': relative_time(self.created_at),
                 'created_at': format_date(self.created_at, format='%B %d, %Y'),
-                'dead': self.dead
+                'published': self.published
                 }
         data.update(self.get_next_prev_posts())
         return data
@@ -56,8 +57,8 @@ class BlogPost(db.Model):
                 'prev_uuid': prev_uuid}
 
     @staticmethod
-    def get_blogs(dead=False):
-        return [blog.to_dict() for blog in get_list(BlogPost, dead=dead)]
+    def get_blogs(published=True):
+        return [blog.to_dict() for blog in get_list(BlogPost, published=published)]
 
     @staticmethod
     def get_blog(uuid):
