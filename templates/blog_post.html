@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class='blog_page'>
+<div class='item-container'>
+    <div class='item_page w60'>
         <div class='links'>
           <div class='prev-link'>
             {% if blog_post.prev_uuid %}
@@ -15,9 +16,8 @@
         </div>
         <div class='header'>
             <h2>{{blog_post.title}}</h2>
-            <div class='date'>
-                <i class='fa fa-clock-o'></i>
-                <span>{{blog_post.created_ago}}</span>
+            <div class='icons'>
+                <i class='fa fa-clock-o'>{{blog_post.created_ago}}</i>
             </div>
         </div>
         <div class='body'>
@@ -26,6 +26,7 @@
             </p>
         </div>
     </div>
+</div>
 {% endblock %}
 {% block script %}
     <script type="text/javascript">

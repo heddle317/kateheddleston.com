@@ -14,6 +14,8 @@
   background-color:#eaeaea;
   font-family: 'Raleway', sans-serif;
   height:100%;
+  width:100%;
+  min-width:750px;
 }
 
 #kateheddleston-wrap .navbar-custom {
@@ -109,6 +111,7 @@
 }
 
 #kateheddleston-wrap .main-content {
+  min-width:450px;
   color:#353435;
   padding:0;
   margin-left:255px;
@@ -118,7 +121,7 @@
 .background-image {
     background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
     background-repeat:no-repeat;
-    background-size:100%;
+    background-size:cover;
 }
 
 #content {
@@ -229,74 +232,45 @@ iframe {
     line-height:30px;
 }
 
-#kateheddleston-wrap .blog_page {
-    width:50%;
+#kateheddleston-wrap .item-container {
+    position:absolute;
+    min-width:500px;
+    top:0;
+    left:255px;
+    height:100%;
+}
+
+#kateheddleston-wrap .item_page {
+    min-width:450px;
     float:right;
     background-color:rgba(255, 255, 255, .9);
     padding:20px;
     height:100%;
     top:0;
     right:0;
-    position:fixed;
     overflow:scroll;
 }
 
-#kateheddleston-wrap .blog_page .date {
-    padding:10px 0;
-    border-top:1px solid #353435;
-}
-
-#kateheddleston-wrap .blog_page .header {
+#kateheddleston-wrap .item_page .header {
     margin-bottom:15px;
     margin-top:20px;
 }
 
-#kateheddleston-wrap .blog_page img {
-    width:100%;
-}
-
-#kateheddleston-wrap .blog_page .body {
-    margin-top:30px;
-}
-
-#kateheddleston-wrap .talk_page {
-    width:60%;
-    float:right;
-    background-color:rgba(255, 255, 255, .9);
-    padding:20px;
-    height:100%;
-    top:0;
-    right:0;
-    position:fixed;
-    overflow:scroll;
-}
-
-#kateheddleston-wrap .talk_page .icons {
+#kateheddleston-wrap .item_page .icons {
     border-top:1px solid #353435;
     margin:10px 0 20px;
+    padding:10px 0;
 }
 
-#kateheddleston-wrap .talk_page .icons i {
+#kateheddleston-wrap .item_page .icons i {
     margin-right:15px;
 }
 
-#kateheddleston-wrap .talk_page .icons i:before {
+#kateheddleston-wrap .item_page .icons i:before {
     padding-right:5px;
 }
 
-#kateheddleston-wrap .talk_page .icons a {
-}
-
-#kateheddleston-wrap .talk_page .header {
-    margin-bottom:15px;
-    margin-top:20px;
-}
-
-#kateheddleston-wrap .talk_page img {
-    width:100%;
-}
-
-#kateheddleston-wrap .talk_page .talk_video {
+#kateheddleston-wrap .item_page .talk_video {
     margin-top:20px;
 }
 
@@ -307,6 +281,7 @@ iframe {
     height: 0;
     margin-bottom: 16px;
     overflow: hidden;
+    margin-top:25px;
 }
 
 .flex-video.widescreen { padding-bottom: 57.25%; }
@@ -336,6 +311,14 @@ iframe {
 #kateheddleston-wrap .links .next-link {
   display:inline-block;
   float:right;
+}
+
+.w60 {
+  width:60%;
+}
+
+.w70 {
+  width:70%;
 }
 
 .w1 {
