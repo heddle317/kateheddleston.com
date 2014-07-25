@@ -14,7 +14,7 @@ function TalksCtrl($scope, $http, $sce) {
                     'date': $scope.newDate,
                     'image_link': $scope.newImageLink};
         $http.post("/admin/talks", data).success(function(data) {
-            $scope.talks.push(data);
+            $scope.talks.unshift(data);
             $scope.newTitle = '';
             $scope.newDescription = '';
             $scope.newSlidesLink = '';
@@ -85,6 +85,11 @@ function TalkCtrl($scope, $http) {
         return;
       }
       $http.delete("/admin/talks/" + $scope.uuid).success(function(data) {
+        for(var i=0; i < $scope.talks.length; i++) {
+          if($scope.talks[i].uuid === $scope.uuid) {
+            $scope.talks.splice(i, 1);
+          }
+        }
       });
     };
 };
@@ -100,7 +105,7 @@ function BlogsCtrl($scope, $http) {
                     'body': $scope.newBody,
                     'image_link': $scope.newImageLink};
         $http.post("/admin/blog_post", data).success(function(data) {
-            $scope.blogs.push(data);
+            $scope.blogs.unshift(data);
             $scope.newTitle = '';
             $scope.newBody = '';
             $scope.newImageLink = '';
@@ -136,6 +141,11 @@ function BlogCtrl($scope, $http, $window, $sce) {
         return;
       }
       $http.delete("/admin/blog_post/" + $scope.uuid).success(function(data) {
+        for(var i=0; i < $scope.blogs.length; i++) {
+          if($scope.blogs[i].uuid === $scope.uuid) {
+            $scope.blogs.splice(i, 1);
+          }
+        }
       });
     };
     $scope.unpublishBlog = function() {
@@ -152,6 +162,87 @@ function BlogCtrl($scope, $http, $window, $sce) {
                   'image_link': $scope.image_link,
                   'published': $scope.published};
       $http.put("/admin/blog_post/" + $scope.uuid, data).success(function(data) {
+        $scope.editing = false;
+      });
+    };
+};
+
+function GalleriesCtrl($scope, $http) {
+    $scope.galleries = [];
+    $scope.newName = '';
+    $scope.newItems = [];
+    $http.get('/admin/galleries').success(function(response) {
+        $scope.galleries = response;
+    });
+    $scope.addNew = function() {
+      var position = $scope.newItems.length + 1;
+      var item = {'title': '', 'body': '', 'image_link': '', 'position': position};
+      $scope.newItems.push(item);
+    };
+
+    $scope.createGallery = function() {
+        var data = {'name': $scope.newName,
+                    'items': $scope.newItems};
+        $http.post("/admin/galleries", data).success(function(data) {
+            $scope.galleries.unshift(data);
+            $scope.newName = '';
+            $scope.newItems = [];
+        });
+    };
+};
+
+function GalleryCtrl($scope, $http, $window, $sce) {
+    $scope.init = function(gallery) {
+      $scope.uuid = gallery.uuid;
+      $scope.name = gallery.name;
+      $scope.items = gallery.items;
+      $scope.published = gallery.published;
+    };
+    $scope.editing = false;
+    $scope.editGallery = function() {
+      $scope.editing = true;
+    };
+    $scope.addNew = function() {
+      var position = $scope.newItems.length + 1;
+      var item = {'title': '', 'body': '', 'image_link': '', 'position': position};
+      $scope.items.push(item);
+    };
+    $scope.goToGallery = function() {
+        if ($scope.editing) {
+          return;
+        } else {
+          $window.location = "/blog/" + $scope.uuid;
+        }
+    };
+    $scope.cancel = function() {
+      $scope.editing = false;
+    };
+    $scope.deleteGallery = function() {
+      var confirm = $window.confirm("Are you sure you want to delete this gallery?");
+      if (!confirm) {
+        return;
+      }
+      $http.delete("/admin/gallery/" + $scope.uuid).success(function(data) {
+        for(var i=0; i < $scope.galleries.length; i++) {
+          if($scope.galleries[i].uuid === $scope.uuid) {
+            $scope.galleries.splice(i, 1);
+          }
+        }
+      });
+    };
+    $scope.unpublishGallery = function() {
+        $scope.published = false;
+        $scope.updateGallery();
+    };
+    $scope.publishGallery = function() {
+        $scope.published = true;
+        $scope.updateGallery();
+    };
+    $scope.updateGallery = function() {
+      var data = {'name': $scope.name,
+                  'items': $scope.items,
+                  'published': $scope.published};
+      $http.put("/admin/gallery/" + $scope.uuid, data).success(function(data) {
         $scope.editing = false;
       });
     };

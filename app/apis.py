@@ -3,6 +3,7 @@ import json
 
 from app import app
 from app.db.blogs import BlogPost
+from app.db.galleries import Gallery
 from app.db.talks import Talk
 from app.utils.exceptions import BlogException
 from app.utils.exceptions import TalkException
@@ -70,3 +71,30 @@ def edit_blog_post(uuid):
 def delete_blog(uuid):
     BlogPost.delete_blog(uuid)
     return json.dumps({'message': 'Your blog was successfully deleted.'}), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/galleries', methods=['POST'])
+@login_required
+def create_gallery():
+    data = json.loads(request.data)
+    try:
+        gallery = Gallery.create_gallery(**data)
+    except ValueError as e:
+        flash(e.message, 'danger')
+        return json.dumps({'message': e.message}), 400, {'Content-Type': 'application/json'}
+    return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/gallery/<uuid>', methods=['PUT'])
+@login_required
+def edit_gallery(uuid):
+    data = json.loads(request.data)
+    gallery = Gallery.update_gallery(uuid, **data)
+    return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/gallery/<uuid>', methods=['DELETE'])
+@login_required
+def delete_gallery(uuid):
+    Gallery.delete_gallery(uuid)
+    return json.dumps({'message': 'Your gallery was successfully deleted.'}), 200, {'Content-Type': 'application/json'}

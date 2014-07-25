@@ -2,6 +2,7 @@ import json
 
 from app import app
 from app.db.blogs import BlogPost
+from app.db.galleries import Gallery
 from app.db.talks import Talk
 from app.db.user import get_verified_user
 from app.utils.decorators.template_globals import use_template_globals
@@ -67,3 +68,14 @@ def get_blogs():
         return json.dumps(blogs), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'blog'
     return render_template('edit_blogs.html')
+
+
+@app.route('/admin/galleries', methods=['GET'])
+@login_required
+@use_template_globals
+def get_galleries():
+    if request.is_xhr:
+        galleries = Gallery.get_galleries(published=False)
+        return json.dumps(galleries), 200, {'Content-Type': 'application/json'}
+    g.nav_view = 'galleries'
+    return render_template('edit_galleries.html')
