@@ -35,6 +35,9 @@ base_js = Bundle('%s/js/external/jquery-1.11.1.min.js' % config.STATIC_BASE,
                  'js/internal/angular_app_module.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
 
+about_js = Bundle('js/internal/about.js',
+                  filters='jsmin', output='gen/about.%(version)s.js')
+
 admin_js = Bundle('js/internal/admin.js',
                   filters='jsmin', output='gen/admin.%(version)s.js')
 
@@ -45,6 +48,7 @@ base_css = Bundle('%s/css/external/bootstrap.min.css' % config.STATIC_BASE,
 
 assets.register('base_js', base_js)
 assets.register('admin_js', admin_js)
+assets.register('about_js', about_js)
 assets.register('base_css', base_css)
 
 

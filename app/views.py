@@ -1,5 +1,8 @@
+import json
+
 from app import app
 from app.db.blogs import BlogPost
+from app.db.galleries import Gallery
 from app.db.talks import Talk
 from app.utils.decorators.template_globals import use_template_globals
 
@@ -18,7 +21,8 @@ def index():
 @use_template_globals
 def about():
     g.nav_view = 'about'
-    return render_template('about.html')
+    gallery = Gallery.get_gallery(uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
+    return render_template('about.html', gallery=json.dumps(gallery))
 
 
 @app.route('/talks')

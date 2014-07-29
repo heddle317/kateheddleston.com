@@ -16,14 +16,21 @@
   height:100%;
   width:100%;
   min-width:750px;
+  background-repeat:no-repeat;
+  background-size:cover;
 }
+
+#kateheddleston-wrap.background-image {
+    background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
+}
+
 
 #kateheddleston-wrap .navbar-custom {
     /*box-shadow:0 0 2px rgba(0,0,0,.075);*/
     background-color:rgba(255, 255, 255, .9);
     position:fixed;
     top:0;
-    left:2%;
+    left:30px;
     height:100%;
     width:225px;
 }
@@ -110,18 +117,86 @@
     margin-bottom:30px;
 }
 
+#about_page .gallery-container {
+  position:fixed;
+  height:100%;
+  top:0;
+  left:255px;
+}
+
+#about_page .next-item,
+#about_page .prev-item {
+  position:fixed;
+  top:30%;
+  width:50px;
+  height:200px;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:40px;
+  cursor:pointer;
+}
+
+#about_page .next-item {
+  right:45px;
+  background-image:url("http://images.kateheddleston.com/images/right-arrow.png");
+}
+
+#about_page .prev-item {
+  left:300px;
+  background-image:url("http://images.kateheddleston.com/images/left-arrow.png");
+}
+
+#about_page .text-display {
+  width:50%;
+  margin:2% auto 0;
+  background-color:rgba(255, 255, 255, .9);
+  padding:20px;
+  max-height:75%;
+  overflow:scroll;
+}
+
+#about_page .gallery-footer {
+  color:#fff;
+  width:100%;
+  left:255px;
+  bottom:20px;
+  position:fixed;
+  margin-left:-123px;
+  font-size:24px;
+  line-height:30px;
+  text-align:center;
+}
+
+#about_page .gallery-footer ul {
+  margin:0;
+  padding:0;
+}
+
+#about_page .gallery-footer li {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background-repeat:no-repeat;
+  background-size:10px 10px;
+  background-position:center;
+  margin-right:5px;
+  border-radius:10px;
+  border:1px solid #fff;
+  cursor:pointer;
+}
+
+#about_page .gallery-footer li.filled-circle{
+  width:12px;
+  height:12px;
+  background-color:#fff;
+}
+
 #kateheddleston-wrap .main-content {
   min-width:450px;
   color:#353435;
   padding:0;
   margin-left:255px;
   height:100%;
-}
-
-.background-image {
-    background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
-    background-repeat:no-repeat;
-    background-size:cover;
 }
 
 #content {
@@ -134,6 +209,10 @@
 
 .maroon-dark {
     color:#582939;
+}
+
+.gallery_item img {
+  width:100%;
 }
 
 .talk_item {
@@ -254,10 +333,10 @@ iframe {
 #kateheddleston-wrap .item_page .header {
     margin-bottom:15px;
     margin-top:20px;
+    border-bottom:1px solid #353435;
 }
 
 #kateheddleston-wrap .item_page .icons {
-    border-top:1px solid #353435;
     margin:10px 0 20px;
     padding:10px 0;
 }

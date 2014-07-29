@@ -34,21 +34,21 @@
                     <h3 class="panel-title" ng-bind='name'></h3>
                 </div>
                 <div class='panel-body'>
-                    <div class='item row' ng-repeat='item in gallery.items'>
-                        <div class='gallery_item col-md-6'>
-                          <div class='info caption'>
-                            <h4 ng-show='!editing' ng-bind='item.title'></h4>
-                            <input type='text' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
-                          </div>
+                    <div class='item row gallery_item' ng-repeat='item in gallery.items'>
+                        <div class='col-md-6'>
                           <img ng-src="{[{item.image_link}]}" />
                           <input type="text" class="form-control" name="image" ng-show='editing' ng-model='item.image_link'>
                         </div>
                         <div class='col-md-6'>
+                            <div class='info caption'>
+                              <h4 ng-show='!editing' ng-bind='item.title'></h4>
+                              <input type='text' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
+                            </div>
                             <p ng-show='!editing' ng-bind-html='item.body'></p>
                             <textarea rows=6 class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
                         </div>
-                        <button ng-click='addNewItem()' class='btn btn-success'>Add Item</button>
                     </div>
+                    <button ng-click='addNewItem()' class='btn btn-success'>Add Item</button>
                 </div>
                 <div class='panel-footer text-right'>
                     <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
