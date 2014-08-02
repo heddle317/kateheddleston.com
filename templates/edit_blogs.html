@@ -2,22 +2,37 @@
 {% import "blog_item.html" as blog_item with context %}
 {% block content %}
     <div ng-controller='BlogsCtrl'>
-        <div class='row'>
-            <form class='col-md-6 center' ng-submit='createBlog()'>
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" class="form-control" name="title" ng-model='newTitle'>
+      <div id='create_blog' class='modal fade'>
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form class='col-md-6 center' ng-submit='createBlog()'>
+                <div class='modal-header'>
+                  Create Blog
                 </div>
-                <div class="form-group">
-                    <label>Body</label>
-                    <textarea rows=4 class='form-control' name='body' ng-model='newBody'></textarea>
+                <div class='modal-body'>
+                  <div class="form-group">
+                      <label>Title</label>
+                      <input type="text" class="form-control" name="title" ng-model='newTitle'>
+                  </div>
+                  <div class="form-group">
+                      <label>Body</label>
+                      <textarea rows=4 class='form-control' name='body' ng-model='newBody'></textarea>
+                  </div>
+                  <div class="form-group">
+                      <label>Image Link</label>
+                      <input type="text" class="form-control" name="image" ng-model='newImageLink'>
+                  </div>
                 </div>
-                <div class="form-group">
-                    <label>Image Link</label>
-                    <input type="text" class="form-control" name="image" ng-model='newImageLink'>
+                <div class='modal-footer'>
+                  <button class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Create Blog</button>
                 </div>
-                <button type="submit" class="btn btn-default">Create Blog</button>
-            </form>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button data-target='#create_blog' data-toggle='modal' type='submit' class='btn btn-success'>Create Blog</button>
         </div>
 
         <div class='row edit_panel' ng-repeat='blog in blogs' ng-controller='BlogCtrl' ng-init='init(blog)'>
@@ -66,4 +81,11 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+  <script type='text/javascript'>
+    $(document).ready(function() {
+      $('#create_blog').modal();
+    });
+  </script>
 {% endblock %}

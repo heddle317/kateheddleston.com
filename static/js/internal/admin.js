@@ -23,6 +23,7 @@ function TalksCtrl($scope, $http, $sce) {
             $scope.newDate = '';
             $scope.newDescriptionLink = '';
             $scope.newLocation = '';
+            $('#create_talk').modal('hide');
         });
     };
     $scope.trustHTML = function(html) {
@@ -109,6 +110,7 @@ function BlogsCtrl($scope, $http) {
             $scope.newTitle = '';
             $scope.newBody = '';
             $scope.newImageLink = '';
+            $('#create_blog').modal('hide');
         });
     };
 };
@@ -187,6 +189,7 @@ function GalleriesCtrl($scope, $http) {
             $scope.galleries.unshift(data);
             $scope.newName = '';
             $scope.newItems = [];
+            $('#create_gallery').modal('hide');
         });
     };
 };

@@ -1,42 +1,57 @@
 {% extends "admin_base.html" %}
 {% block content %}
     <div ng-controller='TalksCtrl'>
-        <div class='row'>
-            <form class='col-md-6 center' ng-submit='createTalk()'>
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" class="form-control" ng-model='newTitle'>
+      <div id='create_talk' class='modal fade'>
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form class='col-md-6 center' ng-submit='createTalk()'>
+                <div class='modal-header'>
+                  Create Talk
                 </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <textarea rows=4 class='form-control' name='description' ng-model='newDescription'></textarea>
+                <div class='modal-body'>
+                  <div class="form-group">
+                      <label>Title</label>
+                      <input type="text" class="form-control" ng-model='newTitle'>
+                  </div>
+                  <div class="form-group">
+                      <label>Description</label>
+                      <textarea rows=4 class='form-control' name='description' ng-model='newDescription'></textarea>
+                  </div>
+                  <div class="form-group">
+                      <label>Description Link</label>
+                      <input type="text" class="form-control" ng-model='newDescriptionLink'>
+                  </div>
+                  <div class="form-group">
+                      <label>Slides Link</label>
+                      <input type="text" class="form-control" ng-model='newSlidesLink'>
+                  </div>
+                  <div class="form-group">
+                      <label>Video Link</label>
+                      <input type="text" class="form-control" ng-model='newVideoLink'>
+                  </div>
+                  <div class="form-group">
+                      <label>Image Link</label>
+                      <input type="text" class="form-control" ng-model='newImageLink'>
+                  </div>
+                  <div class="form-group">
+                      <label>Location</label>
+                      <input type="text" class="form-control" ng-model='newLocation'>
+                  </div>
+                  <div class="form-group">
+                      <label>Date</label>
+                      <input type="text" class="form-control" ng-model='newDate'>
+                  </div>
                 </div>
-                <div class="form-group">
-                    <label>Description Link</label>
-                    <input type="text" class="form-control" ng-model='newDescriptionLink'>
+                <div class='modal-footer'>
+                  <button class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-success">Create Talk</button>
                 </div>
-                <div class="form-group">
-                    <label>Slides Link</label>
-                    <input type="text" class="form-control" ng-model='newSlidesLink'>
-                </div>
-                <div class="form-group">
-                    <label>Video Link</label>
-                    <input type="text" class="form-control" ng-model='newVideoLink'>
-                </div>
-                <div class="form-group">
-                    <label>Image Link</label>
-                    <input type="text" class="form-control" ng-model='newImageLink'>
-                </div>
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" class="form-control" ng-model='newLocation'>
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="text" class="form-control" ng-model='newDate'>
-                </div>
-                <button type="submit" class="btn btn-default">Create Talk</button>
-            </form>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button data-target='#create_talk' data-toggle='modal' type='submit' class='btn btn-success'>Create Talk</button>
         </div>
         <div class='row edit_panel' ng-repeat='talk in talks' ng-controller='TalkCtrl' ng-init='init(talk)'>
             <div class='panel' ng-class='published ? "panel-success" : "panel-default"'>
@@ -80,4 +95,11 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block script %}
+  <script type='text/javascript'>
+    $(document).ready(function() {
+      $('#create_talk').modal();
+    });
+  </script>
 {% endblock %}
