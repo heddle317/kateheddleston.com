@@ -43,14 +43,13 @@ def delete(obj, hard_delete=False):
     app_db.session.commit()
 
 
-def update(obj, data, allow_none=False):
+def update(obj, data):
     changed = False
 
     for field, val in data.items():
-        if val is not None or allow_none:
-            if hasattr(obj, field):
-                setattr(obj, field, val)
-                changed = True
+        if hasattr(obj, field):
+            setattr(obj, field, val)
+            changed = True
 
     if changed:
         return save(obj)

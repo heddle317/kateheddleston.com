@@ -6,6 +6,7 @@ function AboutCtrl($scope, $http, $log) {
     $scope.name = gallery.name;
     $scope.items = gallery.items;
     $scope.showItem();
+    $('body').css('background-color', "#999999");
   };
   $scope.displayPosition = function() {
     return $scope.position + 1;
