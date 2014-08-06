@@ -2,8 +2,8 @@
 {% import "blog_item.html" as blog_item with context %}
 {% block content %}
     <div id='container' class="js-masonry">
-        {% for blog in blog_posts %}
-            {{ blog_item.show(blog.uuid, blog.image_link, blog.title, blog.created_ago) }}
+        {% for post in posts %}
+            {{ blog_item.show(post.uuid, post.cover_image, post.name, post.created_ago) }}
         {% endfor %}
     </div>
 {% endblock %}

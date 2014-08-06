@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<div class='gallery-item' id='about_page' ng-controller='AboutCtrl' ng-init='init({{gallery|safe}})'>
+<div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{post|safe}})'>
   <div class='gallery-container'>
-    <div class='next-item' ng-click='nextItem()'>
+    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
     </div>
     <div class='text-display' ng-if='body'>
       <div class='body'>
@@ -12,12 +12,12 @@
     <div class='gallery-footer'>
       <p ng-bind='title'>
       </p>
-      <ul>
+      <ul ng-show='items.length > 1'>
         <li ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
         </li>
       </ul>
     </div>
-    <div class='prev-item' ng-click='prevItem()'>
+    <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
     </div>
   </div>
 </div>

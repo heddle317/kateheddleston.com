@@ -1,7 +1,6 @@
 import json
 
 from app import app
-from app.db.blogs import BlogPost
 from app.db.galleries import Gallery
 from app.db.talks import Talk
 from app.utils.decorators.template_globals import use_template_globals
@@ -44,12 +43,12 @@ def talk(uuid):
 @use_template_globals
 def blog():
     g.nav_view = 'blog'
-    blog_posts = BlogPost.get_blogs()
-    return render_template('blog.html', blog_posts=blog_posts)
+    posts = Gallery.get_galleries()
+    return render_template('blog.html', posts=posts)
 
 
 @app.route('/blog/<uuid>', methods=['GET'])
 @use_template_globals
 def blog_post(uuid):
-    blog_post = BlogPost.get_blog(uuid)
-    return render_template('blog_post.html', blog_post=blog_post)
+    post = Gallery.get_gallery(uuid)
+    return render_template('post.html', post=json.dumps(post))

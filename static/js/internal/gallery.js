@@ -1,4 +1,4 @@
-function AboutCtrl($scope, $http, $log) {
+function GalleryCtrl($scope, $http, $log) {
   $scope.position = 0;
   $scope.items = [];
   $scope.init = function(gallery) {
