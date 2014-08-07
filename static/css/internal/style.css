@@ -118,10 +118,18 @@
 }
 
 #about_page .gallery-container {
-  position:fixed;
-  height:100%;
-  top:0;
-  left:255px;
+}
+
+#about_page .gallery-header {
+  padding:10px;
+  line-height:25px;
+  margin:0 auto;
+  width:60%;
+  background-color:rgba(255,255,255,.9);
+}
+
+#about_page .gallery-header .title {
+  font-size:25px;
 }
 
 #about_page .next-item,
@@ -148,7 +156,7 @@
 
 #about_page .text-display {
   width:50%;
-  margin:2% auto 0;
+  margin:8% auto 0;
   background-color:rgba(255, 255, 255, .9);
   padding:20px;
   max-height:75%;
@@ -321,19 +329,17 @@ iframe {
 
 #kateheddleston-wrap .item_page {
     min-width:450px;
-    float:right;
-    background-color:rgba(255, 255, 255, .9);
-    padding:20px;
-    height:100%;
-    top:0;
-    right:0;
+}
+
+#kateheddleston-wrap .item_page .blog-content {
+    max-height:50%;
     overflow:scroll;
 }
 
 #kateheddleston-wrap .item_page .header {
     margin-bottom:15px;
     margin-top:20px;
-    border-bottom:1px solid #353435;
+    text-align:center;
 }
 
 #kateheddleston-wrap .item_page .icons {
@@ -379,15 +385,22 @@ iframe {
     .flex-video { padding-top: 0; }
 }
 
-#kateheddleston-wrap .links a {
+#kateheddleston-wrap .gallery-header a {
     color:#660033;
 }
 
-#kateheddleston-wrap .links .prev-link {
-  display:inline-block;
+#kateheddleston-wrap .prev-link,
+#kateheddleston-wrap .next-link {
+  width:80px;
+  height:25px;
 }
 
-#kateheddleston-wrap .links .next-link {
+#kateheddleston-wrap .prev-link {
+  display:inline-block;
+  float:left;
+}
+
+#kateheddleston-wrap .next-link {
   display:inline-block;
   float:right;
 }

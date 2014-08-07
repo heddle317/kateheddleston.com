@@ -6,6 +6,9 @@ function GalleryCtrl($scope, $http, $log) {
     $scope.name = gallery.name;
     $scope.items = gallery.items;
     $scope.showItem();
+    $scope.next_uuid = gallery.next_uuid;
+    $scope.prev_uuid = gallery.prev_uuid;
+    $scope.created_ago = gallery.created_ago;
     $('body').css('background-color', "#999999");
   };
   $scope.displayPosition = function() {

@@ -1,17 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{post|safe}})'>
-  <div class='gallery-container'>
-    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
-    </div>
-    <div class='text-display' ng-if='body'>
-      <div class='body'>
-        <p ng-bind-html='body'></p>
+<div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
+  <div class='gallery-container item_page'>
+    <div class='gallery-header'>
+      <div class='text-center'>
+        <div class='links'>
+          <div class='prev-link'>
+            <a ng-show='prev_uuid != null' href="/blog/{{post.prev_uuid}}">&larr;Prev Post</a>
+          </div>
+          <div class='next-link'>
+            <a ng-show='next_uuid != null' href="/blog/{{post.next_uuid}}">Next Post&rarr;</a>
+          </div>
+        </div>
+        <div class='title' ng-bind='name'>
+        </div>
+        <div class='icons'>
+            <i class='fa fa-clock-o' ng-bind='created_ago'></i>
+        </div>
+      </div>
+      <div class='blog-content' ng-if='title || body'>
+        <div class='header' ng-if='title'>
+            <h3 ng-bind='title'></h3>
+        </div>
+        <div class='body' ng-if='body'>
+          <p ng-bind-html='body'></p>
+        </div>
       </div>
     </div>
+    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
+    </div>
     <div class='gallery-footer'>
-      <p ng-bind='title'>
-      </p>
       <ul ng-show='items.length > 1'>
         <li ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
         </li>

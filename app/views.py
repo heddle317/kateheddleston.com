@@ -51,4 +51,4 @@ def blog():
 @use_template_globals
 def blog_post(uuid):
     post = Gallery.get_gallery(uuid)
-    return render_template('post.html', post=json.dumps(post))
+    return render_template('post.html', post=post, post_json=json.dumps(post))
