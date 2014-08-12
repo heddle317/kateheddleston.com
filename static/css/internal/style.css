@@ -24,6 +24,9 @@
     background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
 }
 
+#kateheddleston-wrap a {
+  color:rgba(9, 161, 178, 1);
+}
 
 #kateheddleston-wrap .navbar-custom {
     /*box-shadow:0 0 2px rgba(0,0,0,.075);*/
@@ -313,12 +316,8 @@ iframe {
     line-height:1.42857143;
     display:block;
     text-decoration:none;
-    color:#777;
+    color:#353435;
     margin-bottom:30px;
-}
-
-#kateheddleston-wrap .blog_item:hover {
-    box-shadow:1px 2px 3px rgba(0,0,0,.075);
 }
 
 #kateheddleston-wrap .blog_item img {
@@ -334,6 +333,7 @@ iframe {
     margin:0;
     padding:10px;
     border-top:1px solid #f8f8f8;
+    color:#999999;
 }
 
 #kateheddleston-wrap .blog_item .date {
