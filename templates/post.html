@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
-  <div class='gallery-container item_page'>
+  <div class='gallery-container'>
     <div class='gallery-header'>
       <div class='text-center'>
         <div class='links'>
           <div class='prev-link'>
-            <a ng-show='prev_uuid != null' href="/blog/{{post.prev_uuid}}">&larr;Prev Post</a>
+            {% if post.prev_uuid %}
+              <a ng-show='prev_uuid != null' href="/blog/{{post.prev_uuid}}">&larr;Prev Post</a>
+            {% endif %}
           </div>
           <div class='next-link'>
-            <a ng-show='next_uuid != null' href="/blog/{{post.next_uuid}}">Next Post&rarr;</a>
+            {% if post.next_uuid %}
+              <a ng-show='next_uuid != null' href="/blog/{{post.next_uuid}}">Next Post&rarr;</a>
+            {% endif %}
           </div>
         </div>
         <div class='title' ng-bind='name'>

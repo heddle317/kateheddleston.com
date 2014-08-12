@@ -11,8 +11,7 @@
 }
 
 #kateheddleston-wrap {
-  background-color:#eaeaea;
-  background-image:url('/static/images/empty_room.jpg');
+  background-color:#f9f9f9;
   font-family: 'Raleway', sans-serif;
   height:100%;
   width:100%;
@@ -22,7 +21,7 @@
 }
 
 #kateheddleston-wrap.background-image {
-    background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
+  background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
 }
 
 #kateheddleston-wrap a {
@@ -446,7 +445,6 @@ iframe {
   height:40px;
   font-size:14px;
   line-height:30px;
-  padding:4px;
 }
 
 #kateheddleston-wrap .prev-link a,
@@ -455,16 +453,12 @@ iframe {
   height:40px;
   width:90px;
   display:inline-block;
+  padding:4px;
 }
 
 #kateheddleston-wrap .prev-link a:hover,
 #kateheddleston-wrap .next-link a:hover {
   text-decoration:none;
-  color:#fff;
-}
-
-#kateheddleston-wrap .prev-link:hover,
-#kateheddleston-wrap .next-link:hover {
   background-color:rgba(205, 16, 118, 1);
   color:#fff;
   cursor:pointer;
