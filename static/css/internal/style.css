@@ -12,6 +12,7 @@
 
 #kateheddleston-wrap {
   background-color:#eaeaea;
+  background-image:url('/static/images/empty_room.jpg');
   font-family: 'Raleway', sans-serif;
   height:100%;
   width:100%;
@@ -353,6 +354,8 @@ iframe {
 
 #kateheddleston-wrap .item_page {
     min-width:450px;
+    background-color:rgba(255, 255, 255, .9);
+    float:right;
 }
 
 #kateheddleston-wrap .item_page .blog-content {
@@ -361,26 +364,43 @@ iframe {
 }
 
 #kateheddleston-wrap .item_page .header {
-    margin-bottom:15px;
-    margin-top:20px;
-    text-align:center;
+  margin:20px 20px 15px;
+}
+
+#kateheddleston-wrap .item_page .body {
+  margin:0 20px 20px;
 }
 
 #kateheddleston-wrap .item_page .icons {
-    margin:10px 0 20px;
-    padding:10px 0;
+  border-top:1px solid #eaeaea;
+}
+
+#kateheddleston-wrap .item_page .icons .border-right {
+  border-right:1px solid #eaeaea;
 }
 
 #kateheddleston-wrap .item_page .icons i {
-    margin-right:15px;
+  margin-right:15px;
+}
+
+#kateheddleston-wrap .item_page .icons .icon:after {
+  margin:0;
+}
+
+#kateheddleston-wrap .item_page .icons .icon {
+  text-align:center;
+  width:25%;
+  padding:5px;
+  display:inline-block;
+  padding:10px 5px;
 }
 
 #kateheddleston-wrap .item_page .icons i:before {
-    padding-right:5px;
+  padding-right:5px;
 }
 
 #kateheddleston-wrap .item_page .talk_video {
-    margin-top:20px;
+  margin:0 20px;
 }
 
 .flex-video {
@@ -413,10 +433,41 @@ iframe {
     color:#660033;
 }
 
+#kateheddleston-wrap .links {
+  width:100%;
+  height:40px;
+  margin-bottom:10px;
+  border-bottom:1px solid #eaeaea;
+}
+
 #kateheddleston-wrap .prev-link,
 #kateheddleston-wrap .next-link {
-  width:80px;
-  height:25px;
+  width:90px;
+  height:40px;
+  font-size:14px;
+  line-height:30px;
+  padding:4px;
+}
+
+#kateheddleston-wrap .prev-link a,
+#kateheddleston-wrap .next-link a {
+  color:#666666;
+  height:40px;
+  width:90px;
+  display:inline-block;
+}
+
+#kateheddleston-wrap .prev-link a:hover,
+#kateheddleston-wrap .next-link a:hover {
+  text-decoration:none;
+  color:#fff;
+}
+
+#kateheddleston-wrap .prev-link:hover,
+#kateheddleston-wrap .next-link:hover {
+  background-color:rgba(205, 16, 118, 1);
+  color:#fff;
+  cursor:pointer;
 }
 
 #kateheddleston-wrap .prev-link {
@@ -427,6 +478,7 @@ iframe {
 #kateheddleston-wrap .next-link {
   display:inline-block;
   float:right;
+  text-align:right;
 }
 
 .w60 {
@@ -452,4 +504,7 @@ iframe {
 #container {
     margin:0 auto;
     margin-top:30px;
+}
+
+#kateheddleston-wrap .talk_page {
 }

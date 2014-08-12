@@ -19,17 +19,22 @@
         </div>
         <div class='header'>
             <h2>{{talk.title}}</h2>
-            <div class='icons'>
-              <i class='fa fa-clock-o'>{{talk.date}}</i>
-              <i class='fa fa-map-marker'>{{talk.location}}</i>
-              <a target="_blank" href="{{talk.description_link}}"><i class='fa fa-external-link'>Talk Description</i></a>
-              <a target="_blank" href='{{talk.slides_link}}'><i class='fa fa-external-link'>Slides</i></a>
-            </div>
         </div>
         <div class='body'>
             <p>
             {{talk.description|safe}}
             </p>
+        </div>
+        <div class='icons'>
+          <div class='icon border-right'>
+            <i class='fa fa-clock-o'>{{talk.date}}</i>
+          </div><div class='icon border-right'>
+            <i class='fa fa-map-marker'>{{talk.location}}</i>
+          </div><div class='icon border-right'>
+            <a target="_blank" href="{{talk.description_link}}"><i class='fa fa-external-link'>Talk Description</i></a>
+          </div><div class='icon'>
+            <a target="_blank" href='{{talk.slides_link}}'><i class='fa fa-external-link'>Slides</i></a>
+          </div>
         </div>
     </div>
 </div>
