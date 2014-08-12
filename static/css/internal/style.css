@@ -11,7 +11,7 @@
 }
 
 #kateheddleston-wrap {
-  background-color:#f9f9f9;
+  background-color:rgba(240, 240, 240, 1);
   font-family: 'Raleway', sans-serif;
   height:100%;
   width:100%;
@@ -30,6 +30,8 @@
 
 #kateheddleston-wrap .navbar-custom {
     /*box-shadow:0 0 2px rgba(0,0,0,.075);*/
+    border-right:1px solid #eaeaea;
+    border-left:1px solid #eaeaea;
     background-color:rgba(255, 255, 255, .9);
     position:fixed;
     top:0;
@@ -312,12 +314,13 @@ iframe {
     /*border:1px solid #ddd;*/
     /*transition:all .2s ease-in-out;i*/
     border-radius:5px;
-    background-color:#f8f8f8;
     line-height:1.42857143;
     display:block;
     text-decoration:none;
     color:#353435;
     margin-bottom:30px;
+    border:1px solid #eaeaea;
+    background-color:rgba(255, 255, 255, .9);
 }
 
 #kateheddleston-wrap .blog_item img {
