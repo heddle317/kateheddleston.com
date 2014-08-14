@@ -1,41 +1,25 @@
 {% extends "base.html" %}
+{% import "top_navbar.html" as navbar with context %}
 {% block content %}
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
-  <div class='gallery-container'>
-    <div class='gallery-header'>
-      <div class='text-center'>
-        <div class='links'>
-          <div class='prev-link'>
-            {% if post.prev_uuid %}
-              <a ng-show='prev_uuid != null' href="/blog/{{post.prev_uuid}}">&larr;Prev Post</a>
-            {% endif %}
-          </div><div class='title' ng-bind='name'>
-          </div><div class='next-link'>
-            {% if post.next_uuid %}
-              <a ng-show='next_uuid != null' href="/blog/{{post.next_uuid}}">Next Post&rarr;</a>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-      <div class='blog-content' ng-if='title || body'>
-        <div class='header' ng-if='title'>
-            <div ng-bind='title'></div>
-        </div>
-        <div class='body' ng-if='body'>
-          <p ng-bind-html='body'></p>
-        </div>
-      </div>
+  {{ navbar.show(post.name, post.prev_uuid, post.next_uuid, 'blog') }}
+  <div class='gallery-content' ng-if='title || body'>
+    <div class='header' ng-if='title'>
+        <div ng-bind='title'></div>
     </div>
-    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
+    <div class='body' ng-if='body'>
+      <p ng-bind-html='body'></p>
     </div>
-    <div class='gallery-footer'>
-      <ul ng-show='items.length > 1'>
-        <li ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
-        </li>
-      </ul>
-    </div>
-    <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
-    </div>
+  </div>
+  <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
+  </div>
+  <div class='gallery-footer'>
+    <ul ng-show='items.length > 1'>
+      <li ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
+      </li>
+    </ul>
+  </div>
+  <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
   </div>
 </div>
 {% endblock %}

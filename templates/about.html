@@ -2,14 +2,12 @@
 {% block content %}
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{gallery|safe}})'>
   <div class='gallery-container'>
-    <div class='gallery-header' ng-if='body || title'>
-      <div class='blog-content'>
-        <div class='header' ng-if='title'>
-            <h3 ng-bind='title'></h3>
-        </div>
-        <div class='body' ng-if='body'>
-          <p ng-bind-html='body'></p>
-        </div>
+    <div class='gallery-content' ng-if='body || title'>
+      <div class='header' ng-if='title'>
+          <h3 ng-bind='title'></h3>
+      </div>
+      <div class='body' ng-if='body'>
+        <p ng-bind-html='body'></p>
       </div>
     </div>
     <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>

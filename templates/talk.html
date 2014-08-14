@@ -1,41 +1,28 @@
 {% extends "base.html" %}
+{% import "top_navbar.html" as navbar with context %}
 {% block content %}
-<div class='item-container'>
-    <div class='item_page w70'>
-        <div class='links'>
-          <div class='prev-link'>
-            {% if talk.prev_uuid %}
-              <a href="/talk/{{talk.prev_uuid}}">&larr;Prev Talk</a>
-            {% endif %}
-          </div>
-          <div class='next-link'>
-            {% if talk.next_uuid %}
-              <a href="/talk/{{talk.next_uuid}}">Next Talk&rarr;</a>
-            {% endif %}
-          </div>
-        </div>
-        <div class='talk_video flex-video widescreen'>
-          {{ talk.video_link|safe }}
-        </div>
-        <div class='header'>
-            <h2>{{talk.title}}</h2>
-        </div>
-        <div class='body'>
-            <p>
-            {{talk.description|safe}}
-            </p>
-        </div>
-        <div class='icons'>
-          <div class='icon border-right'>
-            <i class='fa fa-clock-o'>{{talk.date}}</i>
-          </div><div class='icon border-right'>
-            <i class='fa fa-map-marker'>{{talk.location}}</i>
-          </div><div class='icon border-right'>
-            <a target="_blank" href="{{talk.description_link}}"><i class='fa fa-external-link'>Talk Description</i></a>
-          </div><div class='icon'>
-            <a target="_blank" href='{{talk.slides_link}}'><i class='fa fa-external-link'>Slides</i></a>
-          </div>
-        </div>
+<div class=''>
+  {{ navbar.show(talk.title, talk.prev_uuid, talk.next_uuid, 'talk') }}
+  <div class='talk-item'>
+    <div class='talk_video flex-video widescreen'>
+      {{ talk.video_link|safe }}
     </div>
+    <div class='body'>
+        <p>
+        {{talk.description|safe}}
+        </p>
+    </div>
+    <div class='footer icons'>
+      <div class='icon border-right'>
+        <i class='fa fa-clock-o'>{{talk.date}}</i>
+      </div><div class='icon border-right'>
+        <i class='fa fa-map-marker'>{{talk.location}}</i>
+      </div><div class='icon border-right'>
+        <a target="_blank" href="{{talk.description_link}}"><i class='fa fa-external-link'>Talk Description</i></a>
+      </div><div class='icon'>
+        <a target="_blank" href='{{talk.slides_link}}'><i class='fa fa-external-link'>Slides</i></a>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
