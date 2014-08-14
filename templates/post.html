@@ -9,22 +9,17 @@
             {% if post.prev_uuid %}
               <a ng-show='prev_uuid != null' href="/blog/{{post.prev_uuid}}">&larr;Prev Post</a>
             {% endif %}
-          </div>
-          <div class='next-link'>
+          </div><div class='title' ng-bind='name'>
+          </div><div class='next-link'>
             {% if post.next_uuid %}
               <a ng-show='next_uuid != null' href="/blog/{{post.next_uuid}}">Next Post&rarr;</a>
             {% endif %}
           </div>
         </div>
-        <div class='title' ng-bind='name'>
-        </div>
-        <div class='icons'>
-            <i class='fa fa-clock-o' ng-bind='created_ago'></i>
-        </div>
       </div>
       <div class='blog-content' ng-if='title || body'>
         <div class='header' ng-if='title'>
-            <h3 ng-bind='title'></h3>
+            <div ng-bind='title'></div>
         </div>
         <div class='body' ng-if='body'>
           <p ng-bind-html='body'></p>
