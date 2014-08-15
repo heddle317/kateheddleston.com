@@ -1,11 +1,11 @@
 {% macro show(text, fa_name, is_link, href, last, width) %}
 <div class='icon {% if not last %}border-right{% endif %}'>
-    {% if is_link %}
-    <a target="_blank" href="{{href}}">
-    {% endif %}
-        <i class='fa {{fa_name}}'>{{text}}</i>
-    {% if is_link %}
-    </a>
-    {% endif %}
-  </div>
+  {% if is_link %}
+  <a target="_blank" href="{{href}}">
+  {% endif %}
+      <i class='fa {{fa_name}}'>{{text}}</i>
+  {% if is_link %}
+  </a>
+  {% endif %}
+</div>
 {% endmacro %}

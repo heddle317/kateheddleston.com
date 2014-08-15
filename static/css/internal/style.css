@@ -205,7 +205,7 @@
   left:255px;
   bottom:20px;
   position:fixed;
-  margin-left:-123px;
+  margin-left:-128px;
   font-size:24px;
   line-height:30px;
   text-align:center;
@@ -298,11 +298,6 @@ iframe {
     margin:0 auto;
 }
 
-.footer {
-    background-color:#f8f8f8;
-    margin-top:40px;
-}
-
 .edit_panel {
     margin:30px 20px 0;
 }
@@ -364,8 +359,8 @@ iframe {
 #kateheddleston-wrap .talk-item {
     min-width:450px;
     width:80%;
-    margin:0 auto;
-    padding-top:40px;
+    margin:40px auto;
+    padding:20px 0;
 }
 
 #kateheddleston-wrap .talk-item .header {
@@ -407,8 +402,17 @@ iframe {
 }
 
 #kateheddleston-wrap .footer.icons {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  margin-left:-128px;
+  padding:0 128px;
+}
+
+#kateheddleston-wrap .footer.icons .icon-inner {
   border-top:1px solid #eaeaea;
   background-color:rgba(255, 255, 255, .9);
+  height:40px;
 }
 
 #kateheddleston-wrap .footer.icons .border-right {
@@ -420,6 +424,7 @@ iframe {
   text-align:center;
   font-size:14px;
   line-height:40px;
+  height:40px;
 }
 
 #kateheddleston-wrap .footer.icons .icon:after {
@@ -445,6 +450,9 @@ iframe {
 #kateheddleston-wrap .footer.icons i {
   margin-right:15px;
   font-style:normal;
+  font-size:14px;
+  height:100%;
+  line-height:40px;
 }
 
 #kateheddleston-wrap .footer.icons i:before {
@@ -454,6 +462,14 @@ iframe {
 #kateheddleston-wrap .links {
   width:100%;
   height:40px;
+  position:fixed;
+  top:0;
+  z-index:1000;
+  margin-left:-128px;
+  padding:0 128px;
+}
+
+#kateheddleston-wrap .links .link-inner {
   border-bottom:1px solid #eaeaea;
   background-color:rgba(255, 255, 255, .9);
 }

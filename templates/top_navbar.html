@@ -1,5 +1,6 @@
 {% macro show(title, prev_uuid, next_uuid, text) %}
     <div class='text-center links'>
+      <div class='link-inner'>
         <div class='prev-link'>
           {% if prev_uuid %}
             <a href="/{{text}}/{{ prev_uuid }}">&larr;Prev {{text}}</a>
@@ -10,5 +11,6 @@
             <a href="/{{text}}/{{next_uuid}}">Next {{text}}&rarr;</a>
           {% endif %}
         </div>
+      </div>
     </div>
 {% endmacro %}

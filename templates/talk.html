@@ -8,17 +8,14 @@
     <div class='talk_video flex-video widescreen'>
       {{ talk.video_link|safe }}
     </div>
-    <div class='body'>
-        <p>
-        {{talk.description|safe}}
-        </p>
-    </div>
   </div>
   <div class='footer icons'>
+    <div class='icon-inner'>
     {{ icon.show(talk.date, 'fa-clock-o', False, '', False) }}
     {{ icon.show(talk.location, 'fa-map-marker', False, '', False) }}
     {{ icon.show('Description', 'fa-external-link', True, talk.description_link,  False) }}
     {{ icon.show('Slides', 'fa-external-link', True, talk.slides_link, True) }}
+    </div>
   </div>
 </div>
 {% endblock %}
