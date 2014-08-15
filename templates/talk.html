@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% import "top_navbar.html" as navbar with context %}
+{% import "bottom_icon.html" as icon with context %}
 {% block content %}
-<div class=''>
+<div class='talk-page'>
   {{ navbar.show(talk.title, talk.prev_uuid, talk.next_uuid, 'talk') }}
   <div class='talk-item'>
     <div class='talk_video flex-video widescreen'>
@@ -12,17 +13,12 @@
         {{talk.description|safe}}
         </p>
     </div>
-    <div class='footer icons'>
-      <div class='icon border-right'>
-        <i class='fa fa-clock-o'>{{talk.date}}</i>
-      </div><div class='icon border-right'>
-        <i class='fa fa-map-marker'>{{talk.location}}</i>
-      </div><div class='icon border-right'>
-        <a target="_blank" href="{{talk.description_link}}"><i class='fa fa-external-link'>Talk Description</i></a>
-      </div><div class='icon'>
-        <a target="_blank" href='{{talk.slides_link}}'><i class='fa fa-external-link'>Slides</i></a>
-      </div>
-    </div>
+  </div>
+  <div class='footer icons'>
+    {{ icon.show(talk.date, 'fa-clock-o', False, '', False) }}
+    {{ icon.show(talk.location, 'fa-map-marker', False, '', False) }}
+    {{ icon.show('Description', 'fa-external-link', True, talk.description_link,  False) }}
+    {{ icon.show('Slides', 'fa-external-link', True, talk.slides_link, True) }}
   </div>
 </div>
 {% endblock %}

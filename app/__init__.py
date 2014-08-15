@@ -25,13 +25,13 @@ login_manager.login_message = None
 login_manager.init_app(app)
 
 
-base_js = Bundle('%s/js/external/jquery-1.11.1.min.js' % config.STATIC_BASE,
-                 '%s/js/external/bootstrap.min.js' % config.STATIC_BASE,
-                 '%s/js/external/angular.min.js' % config.STATIC_BASE,
-                 '%s/js/external/angular-resource.min.js' % config.STATIC_BASE,
-                 '%s/js/external/sanitize.js' % config.STATIC_BASE,
-                 '%s/js/external/masonry.pkgd.min.js' % config.STATIC_BASE,
-                 '%s/js/external/imagesloaded.pkgd.min.js' % config.STATIC_BASE,
+base_js = Bundle('js/external/jquery-1.11.1.min.js',
+                 'js/external/bootstrap.min.js',
+                 'js/external/angular.min.js',
+                 'js/external/angular-resource.min.js',
+                 'js/external/sanitize.js',
+                 'js/external/masonry.pkgd.min.js',
+                 'js/external/imagesloaded.pkgd.min.js',
                  'js/internal/angular_app_module.js',
                  'js/internal/gallery.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
@@ -39,8 +39,8 @@ base_js = Bundle('%s/js/external/jquery-1.11.1.min.js' % config.STATIC_BASE,
 admin_js = Bundle('js/internal/admin.js',
                   filters='jsmin', output='gen/admin.%(version)s.js')
 
-base_css = Bundle('%s/css/external/bootstrap.min.css' % config.STATIC_BASE,
-                  '%s/css/external/bootstrap-theme.min.css' % config.STATIC_BASE,
+base_css = Bundle('css/external/bootstrap.min.css',
+                  'css/external/bootstrap-theme.min.css',
                   'css/internal/style.css',
                   filters='cssmin', output='gen/auth.%(version)s.css')
 

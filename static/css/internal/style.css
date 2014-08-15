@@ -363,10 +363,9 @@ iframe {
 
 #kateheddleston-wrap .talk-item {
     min-width:450px;
-    background-color:rgba(255, 255, 255, .9);
-    width:60%;
+    width:80%;
     margin:0 auto;
-    padding-top:20px;
+    padding-top:40px;
 }
 
 #kateheddleston-wrap .talk-item .header {
@@ -374,7 +373,7 @@ iframe {
 }
 
 #kateheddleston-wrap .talk-item .body {
-  margin:0 20px 20px;
+  padding:30px 60px 0;
 }
 
 #kateheddleston-wrap .talk-item .talk_video {
@@ -409,26 +408,43 @@ iframe {
 
 #kateheddleston-wrap .footer.icons {
   border-top:1px solid #eaeaea;
+  background-color:rgba(255, 255, 255, .9);
 }
 
 #kateheddleston-wrap .footer.icons .border-right {
   border-right:1px solid #eaeaea;
 }
 
-#kateheddleston-wrap .footer.icons i {
-  margin-right:15px;
+#kateheddleston-wrap .footer.icons .icon {
+  display:inline-block;
+  text-align:center;
+  font-size:14px;
+  line-height:40px;
 }
 
 #kateheddleston-wrap .footer.icons .icon:after {
   margin:0;
 }
 
-#kateheddleston-wrap .footer.icons .icon {
-  text-align:center;
-  width:25%;
-  padding:5px;
-  display:inline-block;
-  padding:10px 5px;
+#kateheddleston-wrap .talk-page .footer.icons .icon {
+  width:24.5%;
+}
+
+#kateheddleston-wrap .footer.icons a {
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+#kateheddleston-wrap .footer.icons a:hover {
+  color:#fff;
+  text-decoration:none;
+  background-color:rgba(9, 161, 178, 1);
+}
+
+#kateheddleston-wrap .footer.icons i {
+  margin-right:15px;
+  font-style:normal;
 }
 
 #kateheddleston-wrap .footer.icons i:before {
