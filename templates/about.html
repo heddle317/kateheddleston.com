@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "bottom_icon.html" as icon with context %}
 {% block content %}
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{gallery|safe}})'>
   <div class='gallery-container'>
@@ -12,11 +13,16 @@
     </div>
     <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
     </div>
-    <div class='gallery-footer'>
-      <ul ng-show='items.length > 1'>
-        <li ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
-        </li>
-      </ul>
+    <div class='footer icons'>
+      <div class='icon-inner clear'>
+        {{ icon.show('', '', False, '', False) }}
+        <div class='icon' ng-show='items.length > 1'>
+          <div class='circles'>
+            <div ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
     </div>

@@ -199,39 +199,39 @@
   overflow:scroll;
 }
 
-#about_page .gallery-footer {
-  color:#fff;
-  width:100%;
-  left:255px;
-  bottom:20px;
-  position:fixed;
-  margin-left:-128px;
-  font-size:24px;
-  line-height:30px;
-  text-align:center;
+#kateheddleston-wrap .gallery-item .footer.icons .icon-inner.clear {
+  background:transparent;
+  border-top:0px;
 }
 
-#about_page .gallery-footer ul {
+#kateheddleston-wrap .gallery-item .footer.icons .icon {
+  width:33%;
+}
+
+#kateheddleston-wrap .gallery-item .footer.icons .circles {
   margin:0;
   padding:0;
+  display:block;
+  height:40px;
+  width:100%;
 }
 
-#about_page .gallery-footer li {
+#kateheddleston-wrap .gallery-item .footer.icons .circles div {
   display:inline-block;
   width:10px;
   height:10px;
   background-repeat:no-repeat;
   background-size:10px 10px;
   background-position:center;
-  margin-right:5px;
+  margin:15px 5px 15px 0;
   border-radius:10px;
   border:1px solid #fff;
   cursor:pointer;
 }
 
-#about_page .gallery-footer li.filled-circle{
-  width:12px;
-  height:12px;
+#kateheddleston-wrap .gallery-item .footer.icons .circles .filled-circle {
+  width:10px;
+  height:10px;
   background-color:#fff;
 }
 
