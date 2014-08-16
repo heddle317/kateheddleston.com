@@ -42,11 +42,15 @@ admin_js = Bundle('js/internal/admin.js',
 base_css = Bundle('css/external/bootstrap.min.css',
                   'css/external/bootstrap-theme.min.css',
                   'css/internal/style.css',
-                  filters='cssmin', output='gen/auth.%(version)s.css')
+                  filters='cssmin', output='gen/base.%(version)s.css')
+
+admin_css = Bundle('css/internal/admin.css',
+                   filters='cssmin', output='gen/admin.%(version)s.css')
 
 assets.register('base_js', base_js)
 assets.register('admin_js', admin_js)
 assets.register('base_css', base_css)
+assets.register('admin_css', admin_css)
 
 
 @app.before_request

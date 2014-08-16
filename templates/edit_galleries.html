@@ -4,28 +4,21 @@
         <div id='create_gallery' class='modal fade'>
           <div class="modal-dialog">
             <div class="modal-content">
-              <form class='col-md-6 center'>
-                <div class='modal-header'>
-                  Create Gallery
-                </div>
+              <form class='col-md-12 center'>
                 <div class='modal-body'>
                   <div class="form-group">
-                      <label>Name</label>
-                      <input type="text" class="form-control" name="name" ng-model='newName'>
+                      <input type="text" class="form-control" name="name" ng-model='newName' placeholder='Gallery Name'>
                   </div>
                   <div class='gallery-items'>
                     <div class='new-items' ng-repeat='item in newItems'>
                       <div class="form-group">
-                          <label>Title</label>
-                          <input type='text' class='form-control' name='title' ng-model='item.title'>
+                          <input type='text' class='form-control' name='title' ng-model='item.title' placeholder='Item title'>
                       </div>
                       <div class="form-group">
-                          <label>Body</label>
-                          <textarea rows=4 class='form-control' name='body' ng-model='item.body'></textarea>
+                          <textarea rows=4 class='form-control' name='body' ng-model='item.body' placeholder='Text Body'></textarea>
                       </div>
                       <div class="form-group">
-                          <label>Image Link</label>
-                          <input type="text" class="form-control" name="image" ng-model='item.image_link'>
+                          <input type="text" class="form-control" name="image" ng-model='item.image_link' placeholder='Image Link'>
                       </div>
                     </div>
                     <button ng-click='addNew()' class='btn btn-primary'>Add Item</button>
@@ -49,21 +42,28 @@
                     <h3 class="panel-title" ng-bind='name'></h3>
                 </div>
                 <div class='panel-body'>
-                    <div class='item row gallery_item' ng-repeat='item in gallery.items'>
+                    <div class='item gallery_item' ng-repeat='item in gallery.items'>
+                      <div class='row'>
                         <div class='col-md-6'>
                           <img ng-src="{[{item.image_link}]}" />
-                          <input type="text" class="form-control" name="image" ng-show='editing' ng-model='item.image_link'>
+                          <input type="text" placeholder='Image Link' class="form-control" name="image" ng-show='editing' ng-model='item.image_link'>
                         </div>
                         <div class='col-md-6'>
                             <div class='info caption'>
+                              <h4 ng-bind='item.position'></h4>
                               <h4 ng-show='!editing' ng-bind='item.title'></h4>
-                              <input type='text' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
+                              <input type='text' placeholder='Title' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
                             </div>
                             <p ng-show='!editing' ng-bind-html='item.body'></p>
-                            <textarea rows=6 class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
+                            <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
                         </div>
+                      </div>
+                      <div class='row'>
+                        <div class='col-md-12'>
+                            <button ng-click='addNewItem(item.position + 1)' class='btn btn-success pull-right'>Add Item</button>
+                        </div>
+                      </div>
                     </div>
-                    <button ng-click='addNewItem()' class='btn btn-success'>Add Item</button>
                 </div>
                 <div class='panel-footer text-right'>
                     <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>

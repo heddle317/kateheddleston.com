@@ -205,10 +205,13 @@ function GalleryCtrl($scope, $http, $window, $sce) {
     $scope.editGallery = function() {
       $scope.editing = true;
     };
-    $scope.addNew = function() {
-      var position = $scope.newItems.length + 1;
+    $scope.addNewItem = function(position) {
       var item = {'title': '', 'body': '', 'image_link': '', 'position': position};
-      $scope.items.push(item);
+      $scope.items.splice(position - 1, 0, item);
+      for (var i = position; i < $scope.items.length; i++) {
+        $scope.items[i].position++;
+      }
+      $scope.editing = true;
     };
     $scope.goToGallery = function() {
         if ($scope.editing) {

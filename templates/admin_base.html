@@ -10,6 +10,9 @@
         {% assets "base_css" %}
             <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
         {% endassets %}
+        {% assets "admin_css" %}
+            <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+        {% endassets %}
 
         <script type="text/javascript">
             var csrftoken = '{{ csrf_token() }}';
