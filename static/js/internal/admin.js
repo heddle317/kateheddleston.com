@@ -214,11 +214,11 @@ function GalleryCtrl($scope, $http, $window, $sce) {
       $scope.editing = true;
     };
     $scope.removeItem = function(position) {
-      console.log(position);
-      $scope.items.splice(position, 1);
-      for (var i = position; i < $scope.items.length; i++) {
+      $scope.items.splice(position - 1, 1);
+      for (var i = position - 1; i < $scope.items.length; i++) {
         $scope.items[i].position--;
       }
+      $scope.updateGallery();
     };
     $scope.goToGallery = function() {
         if ($scope.editing) {

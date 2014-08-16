@@ -79,9 +79,16 @@ class Gallery(db.Model):
     def update_gallery(uuid, **kwargs):
         gallery = get(Gallery, uuid=uuid)
         gallery = update(gallery, kwargs)
+        current_items = [item.get('uuid') for item in kwargs.get('items', [])]
+        delete_items = [item.uuid for item in get_list(GalleryItem, gallery_uuid=gallery.uuid) if item.uuid not in current_items]
+        for uuid in delete_items:
+            GalleryItem.delete(uuid)
         for item in kwargs.get('items', []):
-            print item
-            GalleryItem.update(uuid=item.pop('uuid'), **item)
+            if item.get('uuid'):
+                GalleryItem.update(uuid=item.pop('uuid'), **item)
+            else:
+                item['gallery_uuid'] = gallery.uuid
+                GalleryItem.add_item(**item)
         return gallery.to_dict()
 
     @staticmethod
