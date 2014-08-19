@@ -1,5 +1,8 @@
 from app import config
 
+import bugsnag
+from bugsnag.flask import handle_exceptions
+
 from flask import Flask
 from flask import g
 from flask_assets import Bundle
@@ -10,10 +13,18 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CsrfProtect
 
 
+# Configure Bugsnag
+bugsnag.configure(
+    api_key=config.BUGSNAG_KEY,
+    project_root=config.PROJECT_PATH,
+)
+
+
 app = Flask(__name__,
             template_folder=config.TEMPLATE_FOLDER,
             static_folder=config.STATIC_FOLDER)
 app.config.from_object(config)
+handle_exceptions(app)
 
 CsrfProtect(app)
 app_db = SQLAlchemy(app)

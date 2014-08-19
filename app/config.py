@@ -14,6 +14,7 @@ DATABASE_SERVICE = "kateheddleston-db"
 MODEL_HASH = os.environ.get('MODEL_HASH')
 IMAGES_BASE = 'http://images.kateheddleston.com'
 STATIC_BASE = 'http://static.kateheddleston.com'
+BUGSNAG_KEY = os.environ.get('BUGSNAG_KEY')
 
 if os.environ.get('ENVIRONMENT') == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
