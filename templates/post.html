@@ -2,30 +2,31 @@
 {% import "top_navbar.html" as navbar with context %}
 {% import "bottom_icon.html" as icon with context %}
 {% block content %}
-<div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
-  {{ navbar.show(post.name, post.prev_uuid, post.next_uuid, 'blog') }}
-  <div class='gallery-content' ng-if='title || body'>
-    <div class='header' ng-if='title'>
-        <div ng-bind='title'></div>
-    </div>
-    <div class='body' ng-if='body'>
-      <p ng-bind-html='body'></p>
-    </div>
-  </div>
-  <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
-  </div>
-  <div class='footer icons'>
-    <div class='icon-inner clear'>
-      {{ icon.show('', '', False, '', False) }}
-      <div class='icon' ng-show='items.length > 1'>
-        <div class='circles'>
-          <div ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
+<div class='gallery-item' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
+  <div class='gallery-container'>
+    {{ navbar.show(post.name, post.prev_uuid, post.next_uuid, 'blog') }}
+    <div class='header pagination' ng-show='items.length > 1'>
+      <div class='pagination-inner'>
+        <div class='' ng-show='items.length > 1'>
+          <div class='circles'>
+            <div ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
+    <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
+    </div>
+    <div class='gallery-content' ng-if='body || title'>
+      <div class='title' ng-if='title'>
+        <h3 ng-bind='title'></h3>
+      </div>
+      <div class='body' ng-if='body'>
+        <p ng-bind-html='body'></p>
+      </div>
+    </div>
+    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
+    </div>
   </div>
 </div>
 {% endblock %}

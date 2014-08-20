@@ -3,20 +3,10 @@
 {% block content %}
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{gallery|safe}})'>
   <div class='gallery-container'>
-    <div class='gallery-content' ng-if='body || title'>
-      <div class='header' ng-if='title'>
+    <div class='header pagination'>
+      <div class='pagination-inner'>
+        <div class='' ng-show='items.length > 1'>
           <h3 ng-bind='title'></h3>
-      </div>
-      <div class='body' ng-if='body'>
-        <p ng-bind-html='body'></p>
-      </div>
-    </div>
-    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
-    </div>
-    <div class='footer icons'>
-      <div class='icon-inner clear'>
-        {{ icon.show('', '', False, '', False) }}
-        <div class='icon' ng-show='items.length > 1'>
           <div class='circles'>
             <div ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
             </div>
@@ -25,6 +15,13 @@
       </div>
     </div>
     <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
+    </div>
+    <div class='gallery-content' ng-if='body'>
+      <div class='body' ng-if='body'>
+        <p ng-bind-html='body'></p>
+      </div>
+    </div>
+    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
     </div>
   </div>
 </div>

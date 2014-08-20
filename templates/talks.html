@@ -3,7 +3,7 @@
 {% block content %}
     <div id='container' class="js-masonry">
         {% for talk in talks %}
-            {{ talk_item.show(talk.uuid, talk.image_link, talk.title, talk.date) }}
+            {{ talk_item.show(talk.uuid, talk.image_link, talk.title, talk.date, loop.index) }}
         {% endfor %}
     </div>
 {% endblock %}

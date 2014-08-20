@@ -74,6 +74,7 @@
                     <div class='col-md-8'>
                         <div class='video_display thumbnail'>
                             <span ng-bind-html='trustHTML(talk.video_link)'></span>
+                            <input type='text' class='form-control' ng-show='editing' ng-model='videoLink' />
                             <p ng-show='!editing' ng-bind='description'></p>
                             <textarea rows=4 class='form-control' ng-show='editing' ng-model='description'></textarea>
                             <a target="_blank" ng-show='!editing' ng-href="{[{descriptionLink}]}">Talk Description</a>
