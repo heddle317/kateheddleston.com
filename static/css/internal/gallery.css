@@ -1,0 +1,65 @@
+/* Gallery style elements CSS
+-------------------------------------------------- */
+
+#kateheddleston-wrap .main-image {
+    margin-bottom:30px;
+}
+
+#kateheddleston-wrap .gallery-content {
+  line-height:25px;
+  margin:15% auto 0;
+  width:60%;
+  background-color:rgba(255,255,255,.9);
+  color:#666;
+  max-height:50%;
+  overflow:scroll;
+  padding:10px;
+}
+
+#kateheddleston-wrap .gallery-content .title {
+  font-size:25px;
+  line-height:40px;
+  display:inline-block;
+}
+
+#kateheddleston-wrap .gallery-content .header {
+  font-size:20px;
+  line-height:25px;
+  margin-bottom:10px;
+}
+
+#kateheddleston-wrap .next-item,
+#kateheddleston-wrap .prev-item {
+  cursor:pointer;
+  position:fixed;
+  width:100px;
+  height:100%;
+  top:0;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:40px;
+}
+
+#kateheddleston-wrap .next-item {
+  right:0;
+  background-image:url("http://images.kateheddleston.com/images/right-arrow.png");
+}
+
+#kateheddleston-wrap .prev-item {
+  left:0;
+  background-image:url("http://images.kateheddleston.com/images/left-arrow.png");
+}
+
+#kateheddleston-wrap .text-display {
+  width:50%;
+  margin:8% auto 0;
+  background-color:rgba(255,255,255,.9);
+  padding:20px;
+  max-height:75%;
+  overflow:scroll;
+}
+
+.gallery_item img {
+  width:100%;
+}
+

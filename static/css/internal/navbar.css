@@ -1,0 +1,109 @@
+/* Navbar style elements CSS
+-------------------------------------------------- */
+
+#kateheddleston-wrap .navbar-custom {
+    /*box-shadow:0 0 2px rgba(0,0,0,.075);*/
+    width:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:1000;
+}
+
+#kateheddleston-wrap .navbar-custom .white-background {
+    background-color:rgba(255, 255, 255, .5);
+}
+
+#kateheddleston-wrap .navbar-custom .navbar-text {
+  padding:0;
+  text-align:center;
+  margin-left:60px;
+}
+
+#kateheddleston-wrap .navbar-custom .navbar-text ul {
+  margin:0;
+  padding:0;
+}
+
+#kateheddleston-wrap .navbar-custom li {
+    display:inline-block;
+    margin-right:20px;
+}
+
+#kateheddleston-wrap .navbar-custom a {
+    letter-spacing:2px;
+    text-align:center;
+    text-transform:uppercase;
+    /*font:16px/26px Georgia, "Times New Roman", Times, serif;*/
+    text-decoration:none;
+    color:#666666;
+    /*color:#353435;*/
+    line-height:50px;
+    font-size:18px;
+}
+
+#kateheddleston-wrap .navbar-custom a:hover {
+  background:none;
+  color:rgba(205, 16, 118, 1);
+}
+
+#kateheddleston-wrap .navbar-custom .active a {
+  color:rgba(205, 16, 118, 1);
+}
+
+#kateheddleston-wrap .brand {
+  color:#666666;
+  text-transform:uppercase;
+}
+
+#kateheddleston-wrap .brand p {
+  margin:0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#kateheddleston-wrap .brand a {
+  font-size:10px;
+  line-height:10px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#kateheddleston-wrap .brand-top {
+  text-align:center;
+  margin-top:20px;
+  margin-left:20px;
+}
+
+#kateheddleston-wrap .brand-top .logo {
+  width:70px;
+  height:50px;
+  position:static;
+  margin:0 auto;
+}
+
+#kateheddleston-wrap .brand-top .logo img {
+  width:70px;
+}
+
+#kateheddleston-wrap .brand-top .name {
+  margin-bottom:10px;
+}
+
+#kateheddleston-wrap .brand-bottom {
+  text-align:center;
+  margin:30px 0 0 0;
+}
+
+#kateheddleston-wrap .brand-bottom ul.icons {
+  margin:0;
+  padding:0;
+}
+
+#kateheddleston-wrap ul.icons li {
+  display:inline-block;
+  line-height:50px;
+}
+
+.icons img {
+    width:30px;
+}
+

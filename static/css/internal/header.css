@@ -1,0 +1,107 @@
+/* Header style elements CSS
+-------------------------------------------------- */
+
+#kateheddleston-wrap .header.pagination {
+  top:40px;
+  margin-top:0;
+  margin-bottom:0;
+  display:block;
+  width:100%;
+}
+
+#kateheddleston-wrap .header.pagination .pagination-inner {
+  color:#666;
+  height:20px;
+  text-align:center;
+  background:transparent;
+}
+
+#kateheddleston-wrap .header.pagination .circles {
+  margin:0;
+  padding:0;
+  display:block;
+  width:100%;
+}
+
+#kateheddleston-wrap .header.pagination .circles div {
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background-repeat:no-repeat;
+  background-size:10px 10px;
+  background-position:center;
+  margin:10px 5px 5px 0;
+  border-radius:10px;
+  border:1px solid #fff;
+  cursor:pointer;
+}
+
+#kateheddleston-wrap .header.pagination .circles .filled-circle {
+  width:10px;
+  height:10px;
+  background-color:#fff;
+}
+
+#kateheddleston-wrap .header.pagination .section {
+  display:inline-block;
+  font-size:14px;
+  text-align:center;
+  line-height:40px;
+}
+
+#kateheddleston-wrap .header.pagination .section h3 {
+  margin:10px 0 0;
+}
+
+#kateheddleston-wrap .prev-link,
+#kateheddleston-wrap .next-link {
+  width:90px;
+  height:40px;
+  font-size:14px;
+  line-height:30px;
+  display:inline-block;
+}
+
+#kateheddleston-wrap .prev-link {
+  float:left;
+}
+
+#kateheddleston-wrap .next-link {
+  float:right;
+}
+
+#kateheddleston-wrap .prev-link a,
+#kateheddleston-wrap .next-link a {
+  height:40px;
+  width:90px;
+  display:inline-block;
+  padding:4px;
+  color:#666;
+}
+
+#kateheddleston-wrap .prev-link a:hover,
+#kateheddleston-wrap .next-link a:hover {
+  text-decoration:none;
+  background-color:rgba(205, 16, 118, 1);
+  color:#fff;
+  cursor:pointer;
+}
+
+#kateheddleston-wrap .links {
+  width:100%;
+  height:40px;
+  z-index:1000;
+}
+
+#kateheddleston-wrap .links .link-inner {
+  background-color:rgba(255,255,255,.9);
+  color:#666;
+  border-bottom:1px solid #eaeaea;
+}
+
+#kateheddleston-wrap .links .title {
+  line-height:40px;
+  font-size:25px;
+  display:inline-block;
+}
+

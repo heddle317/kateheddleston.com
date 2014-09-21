@@ -52,8 +52,26 @@ admin_js = Bundle('js/internal/admin.js',
 
 base_css = Bundle('css/external/bootstrap.min.css',
                   'css/external/bootstrap-theme.min.css',
-                  'css/internal/style.css',
+                  'css/internal/base.css',
+                  'css/internal/navbar.css',
                   filters='cssmin', output='gen/base.%(version)s.css')
+
+post_css = Bundle('css/internal/header.css',
+                  'css/internal/gallery.css',
+                  filters='cssmin', output='gen/post.%(version)s.css')
+
+about_css = Bundle('css/internal/header.css',
+                   'css/internal/about.css',
+                   'css/internal/gallery.css',
+                   filters='cssmin', output='gen/post.%(version)s.css')
+
+talk_css = Bundle('css/internal/talk.css',
+                  'css/internal/footer.css',
+                  'css/internal/header.css',
+                  filters='cssmin', output='gen/talk.%(version)s.css')
+
+tiles_css = Bundle('css/internal/tiles.css',
+                   filters='cssmin', output='gen/tiles.%(version)s.css')
 
 admin_css = Bundle('css/internal/admin.css',
                    filters='cssmin', output='gen/admin.%(version)s.css')
@@ -61,6 +79,10 @@ admin_css = Bundle('css/internal/admin.css',
 assets.register('base_js', base_js)
 assets.register('admin_js', admin_js)
 assets.register('base_css', base_css)
+assets.register('post_css', post_css)
+assets.register('about_css', about_css)
+assets.register('talk_css', talk_css)
+assets.register('tiles_css', tiles_css)
 assets.register('admin_css', admin_css)
 
 

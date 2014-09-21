@@ -5,3 +5,9 @@
   border-top:1px solid #eaeaea;
   padding-top:10px;
 }
+
+.center {
+    display:table;
+    margin:0 auto;
+}
+

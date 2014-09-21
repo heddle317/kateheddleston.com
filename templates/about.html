@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% import "bottom_icon.html" as icon with context %}
+{% block head %}
+  {% assets "about_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
+{% endblock %}
 {% block content %}
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{gallery|safe}})'>
   <div class='gallery-container'>

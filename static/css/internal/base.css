@@ -1,0 +1,68 @@
+/* Base style elements CSS
+-------------------------------------------------- */
+
+#kateheddleston-wrap {
+  font-family: 'Raleway', sans-serif;
+  height:100%;
+  width:100%;
+  min-width:750px;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+#kateheddleston-wrap.background-image {
+  background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
+}
+
+#kateheddleston-wrap a {
+  color:rgba(9, 161, 178, 1);
+}
+
+.deep-pink {
+  color:rgba(205, 16, 118, 1);
+}
+
+.deep-teal {
+  color:rgba(9, 161, 178, 1);
+}
+
+.deep-yellow {
+  color:rgba(255, 227, 25, 1);
+}
+
+.maroon-light {
+    color:#660033;
+}
+
+.maroon-dark {
+    color:#582939;
+}
+
+#kateheddleston-wrap .background-white {
+  background-color:rgba(255,255,255,.9);
+}
+
+#kateheddleston-wrap .main-content {
+  min-width:450px;
+  color:#353435;
+  padding:0;
+  height:100%;
+  margin:80px 0 0 0;
+}
+
+#content {
+    margin-top:60px;
+}
+
+.flashes li {
+    display:block;
+}
+
+.edit_panel {
+    margin:30px 20px 0;
+}
+
+#container {
+    margin:0 auto;
+    margin-top:30px;
+}

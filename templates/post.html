@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% import "top_navbar.html" as navbar with context %}
 {% import "bottom_icon.html" as icon with context %}
+{% block head %}
+  {% assets "post_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
+{% endblock %}
 {% block content %}
 <div class='gallery-item' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
   <div class='gallery-container'>

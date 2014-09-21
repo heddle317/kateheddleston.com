@@ -19,23 +19,23 @@
     </head>
     <body id="kateheddleston-wrap" {% if g.nav_view == 'home' %}class='background-image'{% endif %}>
         <nav class="" role="navigation">
-            <div class="navbar-custom" id="nav-target">
-                <div class='brand brand-top'>
-                  <p class='name'>Kate Heddleston</p>
+        <div class="navbar-custom {%if g.nav_view!='home'%}white-background{%endif%}" id="nav-target">
+                <div class='brand brand-top pull-left'>
                   <div class='logo'>
                     <a href="{{g.app_base_link}}/">
                       <img src="/static/images/binary_logo.png">
                     </a>
                   </div>
+                  <!--<p class='name'>Kate Heddleston</p>-->
                 </div>
-                <div class='navbar-text'>
+                <div class='navbar-text pull-left'>
                   <ul class="">
                       <li class="{% if g.nav_view == 'about' %}active{% endif %}"><a href="{{g.app_base_link}}/about">About</a></li>
                       <li class="{% if g.nav_view == 'talks' %}active{% endif %}"><a href="{{g.app_base_link}}/talks">Talks</a></li>
                       <li class="{% if g.nav_view == 'blog' %}active{% endif %}"><a href="{{g.app_base_link}}/blog">Blog</a></li>
                   </ul>
                 </div>
-                <div class='brand brand-bottom'>
+                <div class='brand brand-bottom pull-right'>
                   <ul class='icons'>
                       <li><a href='https://www.facebook.com/kate.heddleston' target="_blank"><img src='/static/images/facebook_icon.png'/></a></li>
                       <li><a href='https://twitter.com/heddle317' target="_blank"><img src='/static/images/twitter_icon.png'/></a></li>

@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% import "talk_item.html" as talk_item with context %}
+{% block head %}
+  {% assets "tiles_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
+{% endblock %}
 {% block content %}
     <div id='container' class="js-masonry">
         {% for talk in talks %}
