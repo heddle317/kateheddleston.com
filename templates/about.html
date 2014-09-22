@@ -12,7 +12,7 @@
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{gallery|safe}})'>
   <div id='fullpage' class='gallery-content'>
     <div ng-repeat='item in items'>
-      <div class='section title' ng-if='item.title'>
+      <div class='section title' ng-if='item.title' data-anchor='item{[{item.position}]}'>
         <h4 ng-bind='item.title'>
         </h4>
       </div>
@@ -24,6 +24,16 @@
         </p>
       </div>
     </div>
+  </div>
+  <div id='left-nav'>
+		<ul>
+			<li ng-repeat='item in items'>
+        <a href='#' class='nav-item' ng-class='isSelected(item.position) ? "selected": ""' ng-click='movePage(item.position)' ng-if='item.title'>
+          <span class='dot'></span>
+          <span class='title' ng-bind='item.title'></span>
+        </a>
+      </li>
+    </ul>
   </div>
 </div>
 {% endblock %}

@@ -1,11 +1,10 @@
 function GalleryCtrl($scope, $http, $log) {
-  $scope.position = 0;
+  $scope.position = 1;
   $scope.items = [];
   $scope.init = function(gallery) {
     gallery = angular.fromJson(gallery);
     $scope.name = gallery.name;
     $scope.items = gallery.items;
-    $scope.showItem();
     $scope.next_uuid = gallery.next_uuid;
     $scope.prev_uuid = gallery.prev_uuid;
     $scope.created_ago = gallery.created_ago;
@@ -13,25 +12,27 @@ function GalleryCtrl($scope, $http, $log) {
   $scope.displayPosition = function() {
     return $scope.position + 1;
   };
-  $scope.updatePosition = function(position) {
-    $scope.position = position - 1;
-    $scope.showItem();
-  };
-  $scope.showItem = function() {
-    var item = $scope.items[$scope.position];
+  $scope.movePage = function(position) {
+    $scope.position = position;
+    var pos_str = 'item' + position;
+    $.fn.fullpage.moveTo(pos_str);
   };
   $scope.nextItem = function() {
-    $scope.position +=1;
+    $scope.position += 1;
     if ($scope.position === $scope.items.length) {
       $scope.position = 0;
     }
-    $scope.showItem();
   };
   $scope.prevItem = function() {
     $scope.position -= 1;
     if ($scope.position < 0) {
       $scope.position = $scope.items.length - 1;
     }
-    $scope.showItem();
+  };
+  $scope.isSelected = function(position) {
+    if ($scope.position === position) {
+      return true;
+    }
+    return false;
   };
 };

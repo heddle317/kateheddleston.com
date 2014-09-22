@@ -1,0 +1,85 @@
+/* Gallery style elements CSS
+-------------------------------------------------- */
+
+#left-nav {
+  position:fixed;
+  top:40%;
+  bottom:auto;
+  left:0;
+  height:100%;
+  display:block;
+  z-index: 1;
+}
+
+#left-nav ul {
+  padding:0;
+  margin:0 0 0 15px;
+}
+
+#left-nav li {
+  display:block;
+  text-align:left;
+  margin-bottom:5px;
+}
+
+#left-nav .nav-item {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+#left-nav .nav-item:hover {
+  cursor:pointer;
+  text-decoration:none;
+}
+
+#left-nav .nav-item:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#left-nav .nav-item span {
+  float:left;
+  display:inline-block;
+  position:relative;
+  vertical-align:baseline;
+}
+
+#left-nav .nav-item .title {
+  color:#666;
+  padding:.4em .5em;
+  font-size: 14px;
+  opacity: 0;
+  -webkit-transition: -webkit-transform 0.2s, opacity 0.2s;
+  -moz-transition: -moz-transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
+  -webkit-transform-origin: 100% 50%;
+  -moz-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  -o-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+}
+
+#left-nav .nav-item:hover .title {
+  opacity:1;
+}
+
+#left-nav .nav-item .dot {
+  top:12px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background-color:rgba(66, 66, 66, .5);
+  -webkit-transition: -webkit-transform 0.2s, background-color 0.5s;
+  -moz-transition: -moz-transform 0.2s, background-color 0.5s;
+  transition: transform 0.2s, background-color 0.5s;
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+#left-nav .nav-item.selected .dot {
+  background-color:rgba(205, 16, 118, 1);
+}

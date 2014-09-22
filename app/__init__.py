@@ -63,6 +63,7 @@ post_js = Bundle('js/external/vendors/jquery.easings.min.js',
 
 post_css = Bundle('css/internal/header.css',
                   'css/internal/gallery.css',
+                  'css/internal/gallery_nav.css',
                   'css/external/jquery.fullPage.css',
                   filters='cssmin', output='gen/post.%(version)s.css')
 
