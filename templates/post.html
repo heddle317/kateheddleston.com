@@ -8,29 +8,20 @@
 {% endblock %}
 {% block content %}
 <div class='gallery-item' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
-  <div class='gallery-container'>
-    {{ navbar.show(post.name, post.prev_uuid, post.next_uuid, 'blog') }}
-    <div class='header pagination' ng-show='items.length > 1'>
-      <div class='pagination-inner'>
-        <div class='' ng-show='items.length > 1'>
-          <div class='circles'>
-            <div ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
-    </div>
-    <div class='gallery-content' ng-if='body || title'>
-      <div class='title' ng-if='title'>
-        <h3 ng-bind='title'></h3>
-      </div>
-      <div class='body' ng-if='body'>
-        <p ng-bind-html='body'></p>
-      </div>
-    </div>
-    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
+  {{ navbar.show(post.name, post.prev_uuid, post.next_uuid, 'blog') }}
+  <div class='gallery-content'>
+    <div ng-repeat='item in items'>
+      <section class='title' ng-if='item.title'>
+        <h4 ng-bind='item.title'>
+        </h4>
+      </section>
+      <section ng-if='item.image_link'>
+        <img ng-src="{[{item.image_link}]}" />
+      </section>
+      <section class='body' ng-if='item.body'>
+        <p ng-bind-html='item.body'>
+        </p>
+      </section>
     </div>
   </div>
 </div>

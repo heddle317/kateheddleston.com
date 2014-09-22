@@ -19,9 +19,6 @@ function GalleryCtrl($scope, $http, $log) {
   };
   $scope.showItem = function() {
     var item = $scope.items[$scope.position];
-    $scope.title = item.title;
-    $scope.body = item.body;
-    $('body').css('background-image', "url('" + item.image_link + "')");
   };
   $scope.nextItem = function() {
     $scope.position +=1;

@@ -1,6 +1,7 @@
 *.swp
 *.swo
 *.pyc
+*.swn
 keys.sh
 static/.webassets-cache/
 static/gen
