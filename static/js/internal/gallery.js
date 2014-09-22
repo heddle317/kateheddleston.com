@@ -36,3 +36,29 @@ function GalleryCtrl($scope, $http, $log) {
     return false;
   };
 };
+$(document).ready(function() {
+  $('#fullpage').fullpage({
+    easing: '',
+    autoScrolling: false,
+  });
+  $(window).on('scroll', function() {
+    var items = $('div[data-anchor]');
+    var item;
+    for (var i = 0; i < items.length; i++) {
+      item = $(items[i]);
+      updatePosition(item, i + 1);
+    }
+  });
+  function updatePosition(section, position) {
+    var nextPosition = position + 1;
+    var nextSection = $('#fullpage div.section[data-anchor="item' + nextPosition + '"]');
+    var pageBottom = $(window).height() + $(window).scrollTop();
+    var dot = $('.nav-item.item' + position);
+    // if it's been scrolled past and we're not to the next section, return true
+    if(section.offset().top < pageBottom && (nextSection.length === 0 || nextSection.offset().top > pageBottom)) {
+      dot.addClass('selected');
+    } else {
+      dot.removeClass('selected');
+    }
+  };
+});

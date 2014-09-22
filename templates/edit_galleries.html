@@ -45,7 +45,7 @@
                     <div class='item gallery_item' ng-repeat='item in gallery.items'>
                       <div class='row'>
                         <div class='col-md-6'>
-                          <img ng-src="{[{item.image_link}]}" />
+                          <img style='width:100%' ng-src="{[{item.image_link}]}" />
                           <input type="text" placeholder='Image Link' class="form-control" name="image" ng-show='editing' ng-model='item.image_link'>
                         </div>
                         <div class='col-md-6'>

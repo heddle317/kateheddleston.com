@@ -27,8 +27,8 @@
   </div>
   <div id='left-nav'>
 		<ul>
-			<li ng-repeat='item in items'>
-        <a href='#' class='nav-item' ng-class='isSelected(item.position) ? "selected": ""' ng-click='movePage(item.position)' ng-if='item.title'>
+			<li class='nav-section' ng-repeat='item in items'>
+        <a href='#' class='nav-item item{[{item.position}]}' ng-click='movePage(item.position)' ng-if='item.title'>
           <span class='dot'></span>
           <span class='title' ng-bind='item.title'></span>
         </a>
@@ -41,12 +41,4 @@
   {% assets "post_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}
-  <script type='text/javascript'>
-    $(document).ready(function() {
-      $('#fullpage').fullpage({
-        easing: '',
-        autoScrolling: false
-      });
-    });
-  </script>
 {% endblock %}
