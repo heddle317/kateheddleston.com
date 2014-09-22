@@ -4,6 +4,7 @@
 #kateheddleston-wrap .talk-item {
     min-width:750px;
     width:80%;
+    max-width:900px;
     margin:40px auto;
     padding:20px 0;
 }

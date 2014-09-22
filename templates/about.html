@@ -1,33 +1,42 @@
 {% extends "base.html" %}
 {% import "bottom_icon.html" as icon with context %}
 {% block head %}
+  {% assets "post_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
   {% assets "about_css" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
   {% endassets %}
 {% endblock %}
 {% block content %}
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{gallery|safe}})'>
-  <div class='gallery-container'>
-    <div class='header pagination'>
-      <div class='pagination-inner'>
-        <div class='' ng-show='items.length > 1'>
-          <h3 ng-bind='title'></h3>
-          <div class='circles'>
-            <div ng-repeat='item in items' ng-click='updatePosition(item.position)' ng-class='displayPosition() === item.position ? "filled-circle" : "hollow-circle"'>
-            </div>
-          </div>
-        </div>
+  <div id='fullpage' class='gallery-content'>
+    <div ng-repeat='item in items'>
+      <div class='section title' ng-if='item.title'>
+        <h4 ng-bind='item.title'>
+        </h4>
       </div>
-    </div>
-    <div class='prev-item' ng-click='prevItem()' ng-show='items.length > 1'>
-    </div>
-    <div class='gallery-content' ng-if='body'>
-      <div class='body' ng-if='body'>
-        <p ng-bind-html='body'></p>
+      <div class='section' ng-if='item.image_link'>
+        <img ng-src="{[{item.image_link}]}" />
       </div>
-    </div>
-    <div class='next-item' ng-click='nextItem()' ng-show='items.length > 1'>
+      <div class='section body' ng-if='item.body'>
+        <p ng-bind-html='item.body'>
+        </p>
+      </div>
     </div>
   </div>
 </div>
+{% endblock %}
+{% block script %}
+  {% assets "post_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+  <script type='text/javascript'>
+    $(document).ready(function() {
+      $('#fullpage').fullpage({
+        easing: '',
+        autoScrolling: false
+      });
+    });
+  </script>
 {% endblock %}

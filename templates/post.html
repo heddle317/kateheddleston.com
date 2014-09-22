@@ -9,20 +9,33 @@
 {% block content %}
 <div class='gallery-item' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
   {{ navbar.show(post.name, post.prev_uuid, post.next_uuid, 'blog') }}
-  <div class='gallery-content'>
+  <div id='fullpage' class='gallery-content'>
     <div ng-repeat='item in items'>
-      <section class='title' ng-if='item.title'>
+      <div class='section title' ng-if='item.title'>
         <h4 ng-bind='item.title'>
         </h4>
-      </section>
-      <section ng-if='item.image_link'>
+      </div>
+      <div class='section' ng-if='item.image_link'>
         <img ng-src="{[{item.image_link}]}" />
-      </section>
-      <section class='body' ng-if='item.body'>
+      </div>
+      <div class='section body' ng-if='item.body'>
         <p ng-bind-html='item.body'>
         </p>
-      </section>
+      </div>
     </div>
   </div>
 </div>
+{% endblock %}
+{% block script %}
+  {% assets "post_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+  <script type='text/javascript'>
+    $(document).ready(function() {
+      $('#fullpage').fullpage({
+        easing: '',
+        autoScrolling: false
+      });
+    });
+  </script>
 {% endblock %}

@@ -8,8 +8,8 @@
 #kateheddleston-wrap .gallery-content {
   line-height:25px;
   font-size:18px;
-  margin:40px auto 0;
-  color:#666;
+  margin:0 auto;
+  color:rgb(66, 66, 66);
   overflow:scroll;
   padding:10px 0;
 }
@@ -18,15 +18,15 @@
   text-align:center;
 }
 
-#kateheddleston-wrap .gallery-content section {
+#kateheddleston-wrap .gallery-content .section {
 }
 
-#kateheddleston-wrap .gallery-content section.title,
-#kateheddleston-wrap .gallery-content section.body {
+#kateheddleston-wrap .gallery-content .section.title,
+#kateheddleston-wrap .gallery-content .section.body {
   padding:20px 150px;
 }
 
-#kateheddleston-wrap .gallery-content section img {
+#kateheddleston-wrap .gallery-content .section img {
   width:100%;
 }
 

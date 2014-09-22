@@ -56,13 +56,17 @@ base_css = Bundle('css/external/bootstrap.min.css',
                   'css/internal/navbar.css',
                   filters='cssmin', output='gen/base.%(version)s.css')
 
+post_js = Bundle('js/external/vendors/jquery.easings.min.js',
+                 'js/external/vendors/jquery.slimscroll.min.js',
+                 'js/external/jquery.fullPage.min.js',
+                 filters='jsmin', output='gen/post.%(version)s.js')
+
 post_css = Bundle('css/internal/header.css',
                   'css/internal/gallery.css',
+                  'css/external/jquery.fullPage.css',
                   filters='cssmin', output='gen/post.%(version)s.css')
 
-about_css = Bundle('css/internal/header.css',
-                   'css/internal/about.css',
-                   'css/internal/gallery.css',
+about_css = Bundle('css/internal/about.css',
                    filters='cssmin', output='gen/post.%(version)s.css')
 
 talk_css = Bundle('css/internal/talk.css',
@@ -78,6 +82,7 @@ admin_css = Bundle('css/internal/admin.css',
 
 assets.register('base_js', base_js)
 assets.register('admin_js', admin_js)
+assets.register('post_js', post_js)
 assets.register('base_css', base_css)
 assets.register('post_css', post_css)
 assets.register('about_css', about_css)
