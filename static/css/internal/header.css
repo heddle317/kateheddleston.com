@@ -89,12 +89,16 @@
 
 #kateheddleston-wrap .links {
   width:100%;
+  min-width:750px;
   height:40px;
   z-index:1000;
+  position:fixed;
+  top:65px;
+  left:0;
+  background-color:rgba(255,255,255,.8);
 }
 
 #kateheddleston-wrap .links .link-inner {
-  background-color:rgba(255,255,255,.9);
   color:#666;
   border-bottom:1px solid #eaeaea;
 }

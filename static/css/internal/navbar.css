@@ -4,20 +4,22 @@
 #kateheddleston-wrap .navbar-custom {
     /*box-shadow:0 0 2px rgba(0,0,0,.075);*/
     width:100%;
+    min-width:750px;
     position:fixed;
     top:0;
     left:0;
     z-index:1000;
 }
 
-#kateheddleston-wrap .navbar-custom .white-background {
-    background-color:rgba(255, 255, 255, .5);
+#kateheddleston-wrap .navbar-custom.white-background {
+    background-color:rgba(255, 255, 255, .8);
 }
 
 #kateheddleston-wrap .navbar-custom .navbar-text {
   padding:0;
   text-align:center;
-  margin-left:60px;
+  margin-left:50px;
+  margin-bottom:0;
 }
 
 #kateheddleston-wrap .navbar-custom .navbar-text ul {
@@ -27,7 +29,7 @@
 
 #kateheddleston-wrap .navbar-custom li {
     display:inline-block;
-    margin-right:20px;
+    margin-right:15px;
 }
 
 #kateheddleston-wrap .navbar-custom a {
@@ -38,7 +40,7 @@
     text-decoration:none;
     color:#666666;
     /*color:#353435;*/
-    line-height:50px;
+    line-height:45px;
     font-size:18px;
 }
 
@@ -69,8 +71,8 @@
 
 #kateheddleston-wrap .brand-top {
   text-align:center;
-  margin-top:20px;
-  margin-left:20px;
+  margin-top:15px;
+  margin-left:15px;
 }
 
 #kateheddleston-wrap .brand-top .logo {
@@ -90,7 +92,7 @@
 
 #kateheddleston-wrap .brand-bottom {
   text-align:center;
-  margin:30px 0 0 0;
+  margin:20px 0 0 0;
 }
 
 #kateheddleston-wrap .brand-bottom ul.icons {
