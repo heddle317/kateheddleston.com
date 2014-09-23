@@ -2,17 +2,14 @@
 -------------------------------------------------- */
 
 #kateheddleston-wrap .footer.icons {
-  position:fixed;
   bottom:0;
   left:0;
   width:100%;
-  min-width:750px;
 }
 
 #kateheddleston-wrap .footer.icons .icon-inner {
   border-top:1px solid #eaeaea;
   background-color:rgba(255,255,255,.9);
-  height:40px;
 }
 
 #kateheddleston-wrap .footer.icons .border-right {
@@ -20,7 +17,6 @@
 }
 
 #kateheddleston-wrap .footer.icons .icon {
-  display:inline-block;
   text-align:center;
   font-size:14px;
   line-height:40px;
@@ -54,8 +50,3 @@
 #kateheddleston-wrap .footer.icons i:before {
   padding-right:5px;
 }
-
-#kateheddleston-wrap .talk-page .footer.icons .icon {
-  width:24.5%;
-}
-

@@ -5,12 +5,18 @@
   font-family: 'Raleway', sans-serif;
   height:100%;
   width:100%;
-  min-width:750px;
   background-repeat:no-repeat;
   background-size:cover;
 }
 
-#kateheddleston-wrap.background-image {
+#kateheddleston-wrap .background-image {
+  width:100%;
+  height:100%;
+  position:fixed;
+  left:0;
+  top:80px;
+  background-size:100%;
+  background-repeat:no-repeat;
   background-image:url("http://images.kateheddleston.com/personal/self-portrait.png");
 }
 
@@ -43,11 +49,10 @@
 }
 
 #kateheddleston-wrap .main-content {
-  min-width:750px;
   color:#353435;
   padding:0;
   height:100%;
-  margin:65px 0 0 0;
+  margin:80px 0 0 0;
 }
 
 #content {

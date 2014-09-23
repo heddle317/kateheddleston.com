@@ -25,16 +25,7 @@
       </div>
     </div>
   </div>
-  <div id='left-nav'>
-		<ul>
-			<li class='nav-section' ng-repeat='item in items'>
-        <a href='#' class='nav-item item{[{item.position}]}' ng-click='movePage(item.position)' ng-if='item.title'>
-          <span class='dot'></span>
-          <span class='title' ng-bind='item.title'></span>
-        </a>
-      </li>
-    </ul>
-  </div>
+  {% include "left_nav.html" %}
 </div>
 {% endblock %}
 {% block script %}

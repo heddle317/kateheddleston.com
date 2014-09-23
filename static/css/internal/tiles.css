@@ -25,6 +25,18 @@
     width:720px;
 }
 
+@media all and (max-width: 580px) {
+  #kateheddleston-wrap .w3 {
+    width:100%;
+  }
+}
+
+@media all and (max-width: 450px) {
+  #kateheddleston-wrap .w2 {
+    width:100%;
+  }
+}
+
 #kateheddleston-wrap .blog_item_link {
   cursor:pointer;
 }

@@ -2,6 +2,7 @@
 *.swo
 *.pyc
 *.swn
+*.swm
 keys.sh
 static/.webassets-cache/
 static/gen

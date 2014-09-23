@@ -61,8 +61,10 @@ post_js = Bundle('js/external/vendors/jquery.easings.min.js',
                  'js/external/jquery.fullPage.min.js',
                  filters='jsmin', output='gen/post.%(version)s.js')
 
-post_css = Bundle('css/internal/header.css',
-                  'css/internal/gallery.css',
+header_css = Bundle('css/internal/header.css',
+                    filters='cssmin', output='gen/header.%(version)s.css')
+
+post_css = Bundle('css/internal/gallery.css',
                   'css/internal/gallery_nav.css',
                   'css/external/jquery.fullPage.css',
                   filters='cssmin', output='gen/post.%(version)s.css')
@@ -87,6 +89,7 @@ assets.register('post_js', post_js)
 assets.register('base_css', base_css)
 assets.register('post_css', post_css)
 assets.register('about_css', about_css)
+assets.register('header_css', header_css)
 assets.register('talk_css', talk_css)
 assets.register('tiles_css', tiles_css)
 assets.register('admin_css', admin_css)
