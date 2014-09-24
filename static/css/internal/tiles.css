@@ -10,28 +10,38 @@
 }
 
 .w1 {
-    width:180px;
+    width:100px;
 }
 
 .w2 {
-    width:360px;
+    width:200px;
 }
 
 .w3 {
-    width:540px;
+    width:300px;
 }
 
 .w4 {
-    width:720px;
+    width:400px;
 }
 
-@media all and (max-width: 580px) {
+.w5 {
+    width:500px;
+}
+
+@media all and (max-width: 410px) {
+  #kateheddleston-wrap .w4 {
+    width:100%;
+  }
+}
+
+@media all and (max-width: 310px) {
   #kateheddleston-wrap .w3 {
     width:100%;
   }
 }
 
-@media all and (max-width: 450px) {
+@media all and (max-width: 210px) {
   #kateheddleston-wrap .w2 {
     width:100%;
   }
