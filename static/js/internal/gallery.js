@@ -50,13 +50,15 @@ $(document).ready(function() {
   $(window).on('scroll', function() {
     var items = $('div[data-anchor]');
     var item;
+    var position;
     for (var i = 0; i < items.length; i++) {
       item = $(items[i]);
-      updatePosition(item, i + 1);
+      position = item.attr('position');
+      updatePosition(item, position);
     }
   });
   function updatePosition(section, position) {
-    var nextPosition = position + 1;
+    var nextPosition = parseInt(position, 10) + 1;
     var nextSection = $('#fullpage div.section[data-anchor="item' + nextPosition + '"]');
     var pageBottom = $(window).height() + $(window).scrollTop();
     var dot = $('.nav-item.item' + position);
