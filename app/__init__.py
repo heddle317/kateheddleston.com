@@ -58,7 +58,7 @@ base_css = Bundle('css/external/bootstrap.min.css',
 
 post_js = Bundle('js/external/vendors/jquery.easings.min.js',
                  'js/external/vendors/jquery.slimscroll.min.js',
-                 'js/external/jquery.fullPage.min.js',
+                 'js/external/jquery.fullPage.js',
                  filters='jsmin', output='gen/post.%(version)s.js')
 
 header_css = Bundle('css/internal/header.css',

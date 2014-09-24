@@ -13,7 +13,7 @@
 <div class='gallery-item' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
   {{ navbar.show(post.name, post.prev_uuid, post.next_uuid, 'blog') }}
   <div id='fullpage' class='gallery-content'>
-    <div ng-repeat='item in items'>
+    <span ng-repeat='item in items'>
       <div class='section title' ng-if='item.title' data-anchor='item{[{item.position}]}'>
         <h4 ng-bind='item.title'>
         </h4>
@@ -25,7 +25,7 @@
         <p ng-bind-html='item.body'>
         </p>
       </div>
-    </div>
+    </span>
   </div>
   {% include "left_nav.html" %}
 </div>
