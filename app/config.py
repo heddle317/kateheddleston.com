@@ -13,6 +13,9 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(ROOT_PATH, 'db_repository')
 DATABASE_SERVICE = "kateheddleston-db"
 MODEL_HASH = os.environ.get('MODEL_HASH')
 BUGSNAG_KEY = os.environ.get('BUGSNAG_KEY')
+PERSONAL_EMAIL = os.environ.get('PERSONAL_EMAIL')
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+POSTMARKAPP_API_KEY = os.environ.get('POSTMARKAPP_API_KEY')
 
 if os.environ.get('ENVIRONMENT') == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)

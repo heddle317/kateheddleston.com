@@ -100,5 +100,6 @@ def before_request():
     g.user = current_user
 
 from app import views  # NOQA
-from app import admin_views  # NOQA
 from app import apis  # NOQA
+from app.admin import views  # NOQA
+from app.admin import apis  # NOQA

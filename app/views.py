@@ -54,3 +54,9 @@ def blog_post(uuid):
     g.nav_view = 'blog'
     post = Gallery.get_gallery(uuid)
     return render_template('post.html', post=post, post_json=json.dumps(post))
+
+
+@app.route('/contact', methods=['GET'])
+def contact():
+    g.nav_view = 'contact'
+    return render_template('contact.html')
