@@ -44,7 +44,6 @@ base_js = Bundle('js/external/jquery-1.11.1.min.js',
                  'js/external/masonry.pkgd.min.js',
                  'js/external/imagesloaded.pkgd.min.js',
                  'js/internal/angular_app_module.js',
-                 'js/internal/gallery.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
 
 admin_js = Bundle('js/internal/admin.js',
@@ -59,6 +58,7 @@ base_css = Bundle('css/external/bootstrap.min.css',
 post_js = Bundle('js/external/vendors/jquery.easings.min.js',
                  'js/external/vendors/jquery.slimscroll.min.js',
                  'js/external/jquery.fullPage.js',
+                 'js/internal/gallery.js',
                  filters='jsmin', output='gen/post.%(version)s.js')
 
 header_css = Bundle('css/internal/header.css',
