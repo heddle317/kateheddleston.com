@@ -72,20 +72,24 @@
 }
 
 #kateheddleston-wrap .blog_item .info {
-    padding:10px;
+    padding:10px 10px 0;
+}
+
+#kateheddleston-wrap .blog_item .info h4 {
+  margin:0;
 }
 
 #kateheddleston-wrap .blog_item .info-icons {
     background-color:transparent;
     margin:0;
-    padding:10px;
+    padding:5px 10px 5px;
     border-top:1px solid #f8f8f8;
     color:#999999;
 }
 
 #kateheddleston-wrap .blog_item .date {
     text-transform:uppercase;
-    font-size:11px;
+    font-size:10px;
     font-weight:700;
     line-height:30px;
 }
