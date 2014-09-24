@@ -5,6 +5,12 @@ function GalleryCtrl($scope, $http, $log) {
     gallery = angular.fromJson(gallery);
     $scope.name = gallery.name;
     $scope.items = gallery.items;
+    $scope.titles = [];
+    for (var i = 0; i < $scope.items.length; i++) {
+      if ($scope.items[i].title) {
+        $scope.titles.push($scope.items[i].title);
+      }
+    }
     $scope.next_uuid = gallery.next_uuid;
     $scope.prev_uuid = gallery.prev_uuid;
     $scope.created_ago = gallery.created_ago;

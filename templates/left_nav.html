@@ -1,5 +1,5 @@
   <div id='left-nav'>
-		<ul>
+    <ul ng-if='titles.length > 1'>
 			<li class='nav-section' ng-repeat='item in items'>
         <a href='#' class='nav-item item{[{item.position}]}' ng-click='movePage(item.position)' ng-if='item.title'>
           <span class='dot'></span>
