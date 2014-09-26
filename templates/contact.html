@@ -1,29 +1,95 @@
 {% extends "base.html" %}
 {% block head %}
+  {% assets "post_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
   {% assets "contact_css" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
   {% endassets %}
 {% endblock %}
 {% block content %}
-  <div class='contact-page' ng-controller='ContactCtrl'>
-    <div class='alert' role='alert'>
-      <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <span class='message'></span>
-    </div>
-    <p>
-    </p>
-    <form role='form' ng-submit='sendEmail()'>
-      <div>
-        <input class='form-control' type='email' ng-model='fromEmail' placeholder='Your Email Address' />
-        <input class='form-control' type='text' ng-model='subject' placeholder='Subject' />
-        <textarea class='form-control' ng-model='body' placeholder='Message'></textarea>
-        <button class='btn btn-default pull-right'>Send Message</button>
+  <div class='gallery-item contact-page' ng-controller='GalleryCtrl'>
+    <div id='fullpage' class='gallery-content'>
+      <div class='section title' data-anchor='item1' position='1'>
+        <h4>
+          Contacting Me
+        </h4>
       </div>
-    </form>
+      <div class='section body'>
+        <p>All manner of thoughtful questions or opinions are welcome, unless they are mean. Then don't contact me at all. 
+
+        You can contact me either through email or other social media channels. Depending on the length of your message and my workload my response length may vary. I usually respond pretty quickly through twitter and to short messages.</p>
+      </div>
+      <div class='section title' data-anchor='item2' position='2'>
+        <h4>
+          Recruiters
+        </h4>
+      </div>
+      <div class='section body'>
+        <p>I will likely not respond to your email, but you can try anyway.</a>
+      </div>
+      <div class='section title' data-anchor='item3' position='3'>
+        <h4>
+          Email Me
+        </h4>
+      </div>
+      <div class='section body' ng-controller='ContactCtrl'>
+        <div class='alert' role='alert'>
+          <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <span class='message'></span>
+        </div>
+        <form role='form' ng-submit='sendEmail()'>
+          <div>
+            <input class='form-control' type='email' ng-model='fromEmail' placeholder='Your Email Address' />
+            <input class='form-control' type='text' ng-model='subject' placeholder='Subject' />
+            <textarea class='form-control' ng-model='body' placeholder='Message'></textarea>
+            <button class='btn btn-default pull-right'>Send Message</button>
+          </div>
+        </form>
+      </div>
+      <div class='section title' data-anchor='item4' position='4'>
+        <h4>Use of Content</h4>
+      </div>
+      <div class='section body'>
+        <p>All images and content on this site are original creations of Kate Heddleston and owned by Kate Heddleston LLC. They may not be used or redistributed without my consent. If you would like to use any images or content for personal, non-commercial use you may do so with attribution to the original content and an email notifying me of its use.</p>
+      </div>
+    </div>
+    {% include "left_nav.html" %}
+    <div id='left-nav'>
+      <ul>
+        <li class='nav-section'>
+          <a href='#' class='nav-item item1' ng-click='movePage(1)'>
+            <span class='dot'></span>
+            <span class='title'>Contacting Me</span>
+          </a>
+        </li>
+        <li class='nav-section'>
+          <a href='#' class='nav-item item2' ng-click='movePage(2)'>
+            <span class='dot'></span>
+            <span class='title'>Recruiters</span>
+          </a>
+        </li>
+        <li class='nav-section'>
+          <a href='#' class='nav-item item3' ng-click='movePage(3)'>
+            <span class='dot'></span>
+            <span class='title'>Email Me</span>
+          </a>
+        </li>
+        <li class='nav-section'>
+          <a href='#' class='nav-item item4' ng-click='movePage(4)'>
+            <span class='dot'></span>
+            <span class='title'>Use of Content</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 {% endblock %}
 {% block script %}
   {% assets "contact_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+  {% assets "post_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}
 {% endblock %}
