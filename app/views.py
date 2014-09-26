@@ -35,7 +35,6 @@ def talks():
 @app.route('/talk/<uuid>', methods=['GET'])
 @use_template_globals
 def talk(uuid):
-    g.nav_view = 'talks'
     talk = Talk.get_talk(uuid)
     return render_template('talk.html', talk=talk)
 
@@ -51,7 +50,6 @@ def blog():
 @app.route('/blog/<uuid>', methods=['GET'])
 @use_template_globals
 def blog_post(uuid):
-    g.nav_view = 'blog'
     post = Gallery.get_gallery(uuid)
     return render_template('post.html', post=post, post_json=json.dumps(post))
 

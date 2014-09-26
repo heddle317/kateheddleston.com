@@ -3,7 +3,6 @@ import json
 from app import app
 from app.utils.email import send_email
 
-from flask import flash
 from flask import request
 
 
@@ -13,6 +12,7 @@ def email_message():
     email = data.get('email')
     subject = data.get('subject')
     body = data.get('body')
+    if not email or not body:
+        return json.dumps({'message': 'An email and body are required.'}), 500, {'Content-Type': 'application/json'}
     send_email(email, subject, body)
-    flash('An email was successfully sent to Kate Heddleston.', 'success')
     return json.dumps(data), 200, {'Content-Type': 'application/json'}

@@ -55,6 +55,12 @@ base_css = Bundle('css/external/bootstrap.min.css',
                   'css/internal/navbar.css',
                   filters='cssmin', output='gen/base.%(version)s.css')
 
+contact_css = Bundle('css/internal/contact.css',
+                     filters='cssmin', output='gen/contact.%(version)s.css')
+
+contact_js = Bundle('js/internal/contact.js',
+                    filters='jsmin', output='gen/contact.%(version)s.js')
+
 post_js = Bundle('js/external/vendors/jquery.easings.min.js',
                  'js/external/vendors/jquery.slimscroll.min.js',
                  'js/external/jquery.fullPage.js',
@@ -83,16 +89,18 @@ tiles_css = Bundle('css/internal/tiles.css',
 admin_css = Bundle('css/internal/admin.css',
                    filters='cssmin', output='gen/admin.%(version)s.css')
 
-assets.register('base_js', base_js)
-assets.register('admin_js', admin_js)
-assets.register('post_js', post_js)
-assets.register('base_css', base_css)
-assets.register('post_css', post_css)
 assets.register('about_css', about_css)
+assets.register('admin_js', admin_js)
+assets.register('admin_css', admin_css)
+assets.register('base_js', base_js)
+assets.register('base_css', base_css)
+assets.register('contact_js', contact_js)
+assets.register('contact_css', contact_css)
 assets.register('header_css', header_css)
+assets.register('post_js', post_js)
+assets.register('post_css', post_css)
 assets.register('talk_css', talk_css)
 assets.register('tiles_css', tiles_css)
-assets.register('admin_css', admin_css)
 
 
 @app.before_request

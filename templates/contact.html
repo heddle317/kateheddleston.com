@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block head %}
+  {% assets "contact_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
+{% endblock %}
+{% block content %}
+  <div class='contact-page' ng-controller='ContactCtrl'>
+    <div class='alert' role='alert'>
+      <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <span class='message'></span>
+    </div>
+    <p>
+    </p>
+    <form role='form' ng-submit='sendEmail()'>
+      <div>
+        <input class='form-control' type='email' ng-model='fromEmail' placeholder='Your Email Address' />
+        <input class='form-control' type='text' ng-model='subject' placeholder='Subject' />
+        <textarea class='form-control' ng-model='body' placeholder='Message'></textarea>
+        <button class='btn btn-default pull-right'>Send Message</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+{% block script %}
+  {% assets "contact_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
+{% endblock %}

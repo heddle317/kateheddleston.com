@@ -1,0 +1,15 @@
+/* Talk style elements CSS
+-------------------------------------------------- */
+
+#kateheddleston-wrap .contact-page {
+  margin:0 auto;
+  width:80%;
+}
+
+#kateheddleston-wrap .contact-page .form-control {
+  margin-bottom:20px;
+}
+
+#kateheddleston-wrap .contact-page .alert {
+  display:none;
+}
