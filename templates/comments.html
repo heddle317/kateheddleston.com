@@ -1,4 +1,4 @@
-<div id='comments'>
+<div id='comments' ng-controller='CommentCtrl'>
   <div class='row text-center'>
     <div class='col-md-6 col-sm-12'>
       <h2>Comments</h2>
@@ -7,7 +7,9 @@
       <div class='comment-box'>
         <a href="https://twitter.com/share" class="twitter-share-button" data-text=" " data-size="large" data-count="none">Tweet</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        <div class='text'> a comment.</div>
+        <div class='text'> a comment.
+          <a href="" id='comment-tooltip' data-trigger='hover' data-toggle="popover" data-placement='top' title="Why do I use Twitter for comments?" data-content="{[{tooltipContent}]}"><i class='fa fa-question-circle deep-pink'></i></a>
+        </div>
       </div>
     </div>
   </div>

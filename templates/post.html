@@ -2,6 +2,9 @@
 {% import "top_navbar.html" as navbar with context %}
 {% import "bottom_icon.html" as icon with context %}
 {% block head %}
+  {% assets "comment_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
   {% assets "post_css" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
   {% endassets %}
@@ -32,6 +35,9 @@
 {% include "comments.html" %}
 {% endblock %}
 {% block script %}
+  {% assets "comment_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
   {% assets "post_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}

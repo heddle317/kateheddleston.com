@@ -14,7 +14,7 @@
 }
 
 #comments .comment-box iframe {
-  margin-top:3px;
+  margin-top:2px;
   display:inline-block;
   vertical-align:top;
 }
@@ -24,4 +24,15 @@
   line-height:33px;
   display:inline-block;
   vertical-align:top;
+}
+
+#comments .comment-box .text i {
+  cursor:pointer;
+  margin-left:8px;
+  font-size:20px;
+}
+
+#comments .popover {
+  font-size:14px;
+  line-height:20px;
 }

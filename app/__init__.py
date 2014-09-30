@@ -36,15 +36,11 @@ login_manager.login_message = None
 login_manager.init_app(app)
 
 
-base_js = Bundle('js/external/jquery-1.11.1.min.js',
-                 'js/external/bootstrap.min.js',
-                 'js/external/angular.min.js',
-                 'js/external/angular-resource.min.js',
-                 'js/external/sanitize.js',
-                 'js/external/masonry.pkgd.min.js',
-                 'js/external/imagesloaded.pkgd.min.js',
-                 'js/internal/angular_app_module.js',
-                 filters='jsmin', output='gen/base.%(version)s.js')
+about_css = Bundle('css/internal/about.css',
+                   filters='cssmin', output='gen/post.%(version)s.css')
+
+admin_css = Bundle('css/internal/admin.css',
+                   filters='cssmin', output='gen/admin.%(version)s.css')
 
 admin_js = Bundle('js/internal/admin.js',
                   filters='jsmin', output='gen/admin.%(version)s.js')
@@ -55,29 +51,41 @@ base_css = Bundle('css/external/bootstrap.min.css',
                   'css/internal/navbar.css',
                   filters='cssmin', output='gen/base.%(version)s.css')
 
+base_js = Bundle('js/external/jquery-1.11.1.min.js',
+                 'js/external/bootstrap.min.js',
+                 'js/external/angular.min.js',
+                 'js/external/angular-resource.min.js',
+                 'js/external/sanitize.js',
+                 'js/external/masonry.pkgd.min.js',
+                 'js/external/imagesloaded.pkgd.min.js',
+                 'js/internal/angular_app_module.js',
+                 filters='jsmin', output='gen/base.%(version)s.js')
+
+comment_css = Bundle('css/internal/comments.css',
+                     filters='cssmin', output='gen/comment.%(version)s.css')
+
+comment_js = Bundle('js/internal/comments.js',
+                    filters='jsmin', output='gen/comment.%(version)s.js')
+
 contact_css = Bundle('css/internal/contact.css',
                      filters='cssmin', output='gen/contact.%(version)s.css')
 
 contact_js = Bundle('js/internal/contact.js',
                     filters='jsmin', output='gen/contact.%(version)s.js')
 
-post_js = Bundle('js/external/vendors/jquery.easings.min.js',
-                 'js/external/vendors/jquery.slimscroll.min.js',
-                 'js/external/jquery.fullPage.js',
-                 'js/internal/gallery.js',
-                 filters='jsmin', output='gen/post.%(version)s.js')
-
 header_css = Bundle('css/internal/header.css',
                     filters='cssmin', output='gen/header.%(version)s.css')
 
 post_css = Bundle('css/internal/gallery.css',
                   'css/internal/gallery_nav.css',
-                  'css/internal/comments.css',
                   'css/external/jquery.fullPage.css',
                   filters='cssmin', output='gen/post.%(version)s.css')
 
-about_css = Bundle('css/internal/about.css',
-                   filters='cssmin', output='gen/post.%(version)s.css')
+post_js = Bundle('js/external/vendors/jquery.easings.min.js',
+                 'js/external/vendors/jquery.slimscroll.min.js',
+                 'js/external/jquery.fullPage.js',
+                 'js/internal/gallery.js',
+                 filters='jsmin', output='gen/post.%(version)s.js')
 
 talk_css = Bundle('css/internal/talk.css',
                   'css/internal/footer.css',
@@ -87,14 +95,13 @@ talk_css = Bundle('css/internal/talk.css',
 tiles_css = Bundle('css/internal/tiles.css',
                    filters='cssmin', output='gen/tiles.%(version)s.css')
 
-admin_css = Bundle('css/internal/admin.css',
-                   filters='cssmin', output='gen/admin.%(version)s.css')
-
 assets.register('about_css', about_css)
 assets.register('admin_js', admin_js)
 assets.register('admin_css', admin_css)
 assets.register('base_js', base_js)
 assets.register('base_css', base_css)
+assets.register('comment_js', comment_js)
+assets.register('comment_css', comment_css)
 assets.register('contact_js', contact_js)
 assets.register('contact_css', contact_css)
 assets.register('header_css', header_css)
