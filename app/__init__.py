@@ -72,6 +72,7 @@ header_css = Bundle('css/internal/header.css',
 
 post_css = Bundle('css/internal/gallery.css',
                   'css/internal/gallery_nav.css',
+                  'css/internal/comments.css',
                   'css/external/jquery.fullPage.css',
                   filters='cssmin', output='gen/post.%(version)s.css')
 

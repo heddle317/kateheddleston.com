@@ -1,0 +1,27 @@
+
+#comments {
+  margin:40px 0 20px;
+  border-top:1px solid #eaeaea;
+}
+
+#comments h2 {
+  color:#666666;
+}
+
+#comments .comment-box {
+  margin:20px 0 10px;
+  line-height:1.1;
+}
+
+#comments .comment-box iframe {
+  margin-top:3px;
+  display:inline-block;
+  vertical-align:top;
+}
+
+#comments .comment-box .text {
+  font-size:20px;
+  line-height:33px;
+  display:inline-block;
+  vertical-align:top;
+}
