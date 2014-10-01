@@ -1,7 +1,7 @@
-<div id='comments' ng-controller='CommentCtrl'>
-  <div class='row text-center'>
+<div id='comments' class='container-fluid' ng-controller='CommentCtrl'>
+  <div class='row text-center twitter-header'>
     <div class='col-md-6 col-sm-12'>
-      <h2>Comments</h2>
+      <h2><span ng-bind='numComments'></span> Comments</h2>
     </div>
     <div class='col-md-6 col-sm-12'>
       <div class='comment-box'>
@@ -13,4 +13,19 @@
       </div>
     </div>
   </div>
+  <ul class='tweets row'>
+    <li class='tweet col-lg-4 col-md-6 col-sm-6 col-xs-12' ng-repeat='comment in comments'>
+      <div class='top'>
+        <img ng-src='{[{comment.user.profile_image_url_https}]}' />
+        <div class='name'>
+          <span class='author' ng-bind="comment.author.name"></span>
+          <br>
+          <a class='screen-name' target="_blank" href="https://www.twitter.com/{[{comment.author.screen_name}]}">@<span ng-bind='comment.author.screen_name'></span></a>
+        </div>
+      </div>
+      <div class='text'>
+        <span ng-bind-html='comment.text'></span>
+      </div>
+    </li>
+  </ul>
 </div>

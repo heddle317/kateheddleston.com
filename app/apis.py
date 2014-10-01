@@ -1,6 +1,8 @@
 import json
 
 from app import app
+from app import config
+from app.twitter import get_tweet_comments
 from app.utils.email import send_email
 
 from flask import request
@@ -15,4 +17,13 @@ def email_message():
     if not email or not body:
         return json.dumps({'message': 'An email and body are required.'}), 500, {'Content-Type': 'application/json'}
     send_email(email, subject, body)
+    return json.dumps(data), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/blog/<uuid>/comments', methods=['GET'])
+def blog_comments(uuid):
+    # post = Gallery.get_gallery(uuid)
+    url = '{}/blog/{}'.format(config.APP_BASE_LINK, uuid)
+    tweets = get_tweet_comments(url)
+    data = {'comments': tweets, 'num_comments': len(tweets)}
     return json.dumps(data), 200, {'Content-Type': 'application/json'}

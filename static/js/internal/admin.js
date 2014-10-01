@@ -172,6 +172,7 @@ function BlogCtrl($scope, $http, $window, $sce) {
 function GalleriesCtrl($scope, $http) {
     $scope.galleries = [];
     $scope.newName = '';
+    $scope.newAuthor = '';
     $scope.newItems = [];
     $http.get('/admin/galleries').success(function(response) {
         $scope.galleries = response;
@@ -184,10 +185,12 @@ function GalleriesCtrl($scope, $http) {
 
     $scope.createGallery = function() {
         var data = {'name': $scope.newName,
+                    'author': $scope.newAuthor,
                     'items': $scope.newItems};
         $http.post("/admin/galleries", data).success(function(data) {
             $scope.galleries.unshift(data);
             $scope.newName = '';
+            $scope.newAuthor = '';
             $scope.newItems = [];
             $('#create_gallery').modal('hide');
         });
@@ -198,6 +201,7 @@ function GalleryCtrl($scope, $http, $window, $sce) {
     $scope.init = function(gallery) {
       $scope.uuid = gallery.uuid;
       $scope.name = gallery.name;
+      $scope.author = gallery.author;
       $scope.items = gallery.items;
       $scope.published = gallery.published;
     };
@@ -253,6 +257,7 @@ function GalleryCtrl($scope, $http, $window, $sce) {
     };
     $scope.updateGallery = function() {
       var data = {'name': $scope.name,
+                  'author': $scope.author,
                   'items': $scope.items,
                   'published': $scope.published};
       $http.put("/admin/gallery/" + $scope.uuid, data).success(function(data) {

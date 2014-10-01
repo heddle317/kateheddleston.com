@@ -16,6 +16,10 @@ BUGSNAG_KEY = os.environ.get('BUGSNAG_KEY')
 PERSONAL_EMAIL = os.environ.get('PERSONAL_EMAIL')
 SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
 POSTMARKAPP_API_KEY = os.environ.get('POSTMARKAPP_API_KEY')
+TWITTER_KEY = os.environ.get('TWITTER_KEY')
+TWITTER_SECRET = os.environ.get('TWITTER_SECRET')
+CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
+CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
 
 if os.environ.get('ENVIRONMENT') == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
@@ -24,7 +28,7 @@ if os.environ.get('ENVIRONMENT') == 'dev':
     STATIC_BASE = 'http://localhost:%s/static' % PORT
     IMAGES_BASE = 'http://localhost:%s/static/images' % PORT
 else:
-    APP_BASE_LINK = ''
+    APP_BASE_LINK = 'http://secret-harbor-6310.herokuapp.com/'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     STATIC_BASE = 'http://static.kateheddleston.com'

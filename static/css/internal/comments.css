@@ -1,7 +1,11 @@
 
 #comments {
-  margin:40px 0 20px;
+  margin:40px 0;
   border-top:1px solid #eaeaea;
+}
+
+#comments .twitter-header {
+  margin-top:20px;
 }
 
 #comments h2 {
@@ -35,4 +39,43 @@
 #comments .popover {
   font-size:14px;
   line-height:20px;
+}
+
+#comments .tweets {
+  margin:30px 0 0;
+  padding:0;
+  font-size:14px;
+}
+
+#comments .tweets .tweet {
+  display:inline-block;
+  margin:0;
+  padding:20px 40px 40px;
+}
+
+#comments .tweets .tweet .top {
+  height:52px;
+}
+
+#comments .tweets .tweet .top img {
+  float:left;
+  margin-top:2px;
+}
+
+#comments .tweets .tweet .name {
+  display:inline-block;
+  margin-left:10px;
+  margin-top:6px;
+}
+
+#comments .tweets .tweet .name .author {
+  float:left;
+}
+
+#comments .tweets .tweet .name .screen-name {
+  float:left;
+}
+
+#comments .tweets .tweet .text {
+  margin-top:10px;
 }
