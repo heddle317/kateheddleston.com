@@ -26,6 +26,10 @@
   padding:20px 10%;
 }
 
+#kateheddleston-wrap .gallery-content .section.name h5 {
+  color:#666;
+}
+
 #kateheddleston-wrap .gallery-content .section img {
   width:100%;
 }

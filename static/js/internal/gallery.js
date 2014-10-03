@@ -4,6 +4,7 @@ function GalleryCtrl($scope, $http, $log) {
   $scope.init = function(gallery) {
     gallery = angular.fromJson(gallery);
     $scope.name = gallery.name;
+    $scope.author = gallery.author;
     $scope.items = gallery.items;
     $scope.titles = [];
     for (var i = 0; i < $scope.items.length; i++) {

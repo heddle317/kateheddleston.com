@@ -16,6 +16,10 @@
 <div class='gallery-item' ng-controller='GalleryCtrl' ng-init='init({{post_json|safe}})'>
   {{ navbar.show(post.prev_uuid, post.next_uuid, 'blog') }}
   <div id='fullpage' class='gallery-content'>
+    <div class='section name text-center'>
+      <h1 class='deep-pink' ng-bind='name'></h1>
+      <h5 ng-bind='author'></h5>
+    </div>
     <span ng-repeat='item in items'>
       <div class='section title' ng-if='item.title' data-anchor='item{[{item.position}]}' position='{[{item.position}]}'>
         <h4 ng-bind='item.title'>
