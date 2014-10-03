@@ -8,7 +8,7 @@
 {% endblock %}
 {% block content %}
 <div class='talk-page'>
-  {{ navbar.show(talk.title, talk.prev_uuid, talk.next_uuid, 'talk') }}
+  {{ navbar.show(talk.prev_uuid, talk.next_uuid, 'talk') }}
   <div class='talk-item'>
     <div class='talk_video flex-video widescreen'>
       {{ talk.video_link|safe }}

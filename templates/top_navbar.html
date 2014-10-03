@@ -1,32 +1,14 @@
-{% macro show(title, prev_uuid, next_uuid, text) %}
-    <div class='header large'>
+{% macro show(prev_uuid, next_uuid, text) %}
+    <div class='header'>
       <div class='links text-center'>
         <div class='prev-link'>
           {% if prev_uuid %}
-            <a href="/{{text}}/{{ prev_uuid }}">&larr;Prev {{text}}</a>
-          {% endif %}
-        </div><div class='title'>{{title}}
-        </div><div class='next-link'>
-          {% if next_uuid %}
-            <a href="/{{text}}/{{next_uuid}}">Next {{text}}&rarr;</a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-    <div class='header small'>
-      <div class='links'>
-        <div class='prev-link'>
-          {% if prev_uuid %}
-            <a href="/{{text}}/{{ prev_uuid }}">&larr;Prev {{text}}</a>
+            <a href="/{{text}}/{{ prev_uuid }}">&larr;Prev</a>
           {% endif %}
         </div><div class='next-link'>
           {% if next_uuid %}
-            <a href="/{{text}}/{{next_uuid}}">Next {{text}}&rarr;</a>
+            <a href="/{{text}}/{{next_uuid}}">Next&rarr;</a>
           {% endif %}
-        </div>
-      </div>
-      <div class='text-center'>
-        <div class='title'>{{title}}
         </div>
       </div>
     </div>
