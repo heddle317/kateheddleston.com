@@ -57,6 +57,7 @@ rsa==3.1.2
 six==1.7.2
 sqlalchemy-migrate==0.9.1
 termcolor==1.1.0
+tweepy==2.3.0
 uuid==1.30
 webassets==0.9
 wsgi-intercept==0.6.4
