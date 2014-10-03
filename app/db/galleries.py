@@ -20,20 +20,17 @@ class Gallery(db.Model):
     name = db.Column(db.String(500), nullable=False)
     published = db.Column(db.Boolean(), default=False, nullable=False)
     author = db.Column(db.String(256), nullable=True)
+    cover_photo = db.Column(db.String(500), nullable=True)
     dead = db.Column(db.Boolean(), default=False, nullable=False)
     created_at = db.Column(db.DateTime(), unique=False)
 
     def to_dict(self):
         items = [item.to_dict() for item in get_list(GalleryItem, gallery_uuid=self.uuid)]
         items.sort(key=lambda x: x['position'])
-        cover_image = None
-        for item in items:
-            if item.get('image_link'):
-                cover_image = item.get('image_link')
         data = {'uuid': self.uuid,
                 'name': self.name,
                 'author': self.author,
-                'cover_image': cover_image,
+                'cover_photo': self.cover_photo,
                 'created_ago': relative_time(self.created_at),
                 'created_at': format_date(self.created_at, format='%B %d, %Y'),
                 'published': self.published,
@@ -71,6 +68,7 @@ class Gallery(db.Model):
         gallery = Gallery(uuid=str(uuid4()),
                           name=kwargs.get('name'),
                           author=kwargs.get('author'),
+                          cover_photo=kwargs.get('cover_photo'),
                           created_at=datetime.datetime.utcnow())
         gallery = save(gallery)
         for item in kwargs.get('items', []):

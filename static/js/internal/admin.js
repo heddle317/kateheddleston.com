@@ -173,6 +173,7 @@ function GalleriesCtrl($scope, $http) {
     $scope.galleries = [];
     $scope.newName = '';
     $scope.newAuthor = '';
+    $scope.newCoverPhoto = '';
     $scope.newItems = [];
     $http.get('/admin/galleries').success(function(response) {
         $scope.galleries = response;
@@ -186,6 +187,7 @@ function GalleriesCtrl($scope, $http) {
     $scope.createGallery = function() {
         var data = {'name': $scope.newName,
                     'author': $scope.newAuthor,
+                    'cover_photo': $scope.newCoverPhoto,
                     'items': $scope.newItems};
         $http.post("/admin/galleries", data).success(function(data) {
             $scope.galleries.unshift(data);
@@ -202,6 +204,7 @@ function GalleryCtrl($scope, $http, $window, $sce) {
       $scope.uuid = gallery.uuid;
       $scope.name = gallery.name;
       $scope.author = gallery.author;
+      $scope.coverPhoto = gallery.cover_photo;
       $scope.items = gallery.items;
       $scope.published = gallery.published;
     };
@@ -258,6 +261,7 @@ function GalleryCtrl($scope, $http, $window, $sce) {
     $scope.updateGallery = function() {
       var data = {'name': $scope.name,
                   'author': $scope.author,
+                  'cover_photo': $scope.coverPhoto,
                   'items': $scope.items,
                   'published': $scope.published};
       $http.put("/admin/gallery/" + $scope.uuid, data).success(function(data) {
