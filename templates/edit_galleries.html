@@ -8,6 +8,7 @@
                 <div class='modal-body'>
                   <div class="form-group">
                       <input type="text" class="form-control" name="name" ng-model='newName' placeholder='Gallery Name'>
+                      <input type="text" class="form-control" name="name" ng-model='newAuthor' placeholder='Gallery Author'>
                   </div>
                   <div class='gallery-items'>
                     <div class='new-items' ng-repeat='item in newItems'>
@@ -39,7 +40,10 @@
         <div class='row edit_panel' ng-repeat='gallery in galleries' ng-controller='GalleryCtrl' ng-init='init(gallery)'>
             <div class='panel' ng-class='published ? "panel-success" : "panel-default"'>
                 <div class="panel-heading">
-                    <h3 class="panel-title" ng-bind='name'></h3>
+                    <h3 class="panel-title" ng-bind='name' ng-show='!editing'></h3>
+                    <input type='text' placeholder='Name' class='form-control' name='name' ng-model='name' ng-show='editing'/>
+                    <h5 class='panel-title' ng-bind='author' ng-show='!editing'></h3>
+                    <input type='text' placeholder='Author' class='form-control' name='author' ng-model='author' ng-show='editing'/>
                 </div>
                 <div class='panel-body'>
                     <div class='item gallery_item' ng-repeat='item in gallery.items'>
