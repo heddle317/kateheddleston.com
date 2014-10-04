@@ -79,3 +79,12 @@
 #comments .tweets .tweet .text {
   margin-top:10px;
 }
+
+#comments .tweets .tweet .created-at {
+  margin-top:10px;
+  color:rgba(150, 150, 150, 1);
+}
+
+#comments .tweets .tweet .external-link {
+  margin-top:10px;
+}

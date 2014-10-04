@@ -26,6 +26,12 @@
       <div class='text'>
         <span ng-bind-html='comment.text'></span>
       </div>
+      <div class='created-at pull-left'>
+        <span ng-bind='comment.created_at'></span>
+      </div>
+      <div class='external-link pull-right'>
+        <a href="{[{comment.link}]}" target="_blank"><i class='fa fa-external-link'></i></a>
+      </div>
     </li>
   </ul>
 </div>
