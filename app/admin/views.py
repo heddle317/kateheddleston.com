@@ -1,7 +1,6 @@
 import json
 
 from app import app
-from app.db.blogs import BlogPost
 from app.db.galleries import Gallery
 from app.db.talks import Talk
 from app.db.user import get_verified_user
@@ -57,17 +56,6 @@ def get_talks():
         return json.dumps(talks), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'talks'
     return render_template('edit_talks.html')
-
-
-@app.route('/admin/blog', methods=['GET'])
-@login_required
-@use_template_globals
-def get_blogs():
-    if request.is_xhr:
-        blogs = BlogPost.get_blogs(published=False)
-        return json.dumps(blogs), 200, {'Content-Type': 'application/json'}
-    g.nav_view = 'blog'
-    return render_template('edit_blogs.html')
 
 
 @app.route('/admin/galleries', methods=['GET'])
