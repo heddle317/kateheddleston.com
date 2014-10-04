@@ -4,6 +4,8 @@ from app.db import app_db as db
 from app.db import delete
 from app.db import get
 from app.db import get_list
+from app.db import next_uuid
+from app.db import prev_uuid
 from app.db import save
 from app.db import update
 from app.utils.datetime_tools import format_date
@@ -34,24 +36,11 @@ class Gallery(db.Model):
                 'created_ago': relative_time(self.created_at),
                 'created_at': format_date(self.created_at, format='%B %d, %Y'),
                 'published': self.published,
-                'items': items
+                'items': items,
+                'next_uuid': next_uuid(Gallery, self, sort_by='created_at', published=True),
+                'prev_uuid': prev_uuid(Gallery, self, sort_by='created_at', published=True),
                 }
-        data.update(self.get_next_prev_posts())
         return data
-
-    def get_next_prev_posts(self):
-        gallery_items = get_list(Gallery, published=True)
-        try:
-            index = gallery_items.index(self)
-        except:
-            prev_uuid = None
-            next_uuid = None
-        else:
-            prev_uuid = gallery_items[index - 1].uuid if index > 0 else None
-            next_uuid = gallery_items[index + 1].uuid if index < len(gallery_items) - 1 else None
-
-        return {'next_uuid': next_uuid,
-                'prev_uuid': prev_uuid}
 
     @staticmethod
     def get_galleries(published=True):

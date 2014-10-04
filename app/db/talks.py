@@ -4,6 +4,8 @@ from app.db import app_db as db
 from app.db import delete
 from app.db import get
 from app.db import get_list
+from app.db import next_uuid
+from app.db import prev_uuid
 from app.db import save
 from app.db import update
 from app.utils.exceptions import TalkException
@@ -46,24 +48,11 @@ class Talk(db.Model):
                 'location': self.location,
                 'date': datetime.datetime.strftime(self.date, '%B %d, %Y'),
                 'image_link': self.image_link,
-                'published': self.published
+                'published': self.published,
+                'next_uuid': next_uuid(Talk, self, sort_by='date', published=True),
+                'prev_uuid': prev_uuid(Talk, self, sort_by='date', published=True),
                 }
-        data.update(self.get_next_prev_talk())
         return data
-
-    def get_next_prev_talk(self):
-        talks = get_list(Talk, sort_by='date')
-        try:
-            index = talks.index(self)
-        except:
-            prev_uuid = None
-            next_uuid = None
-        else:
-            prev_uuid = talks[index - 1].uuid if index > 0 else None
-            next_uuid = talks[index + 1].uuid if index < len(talks) - 1 else None
-
-        return {'next_uuid': next_uuid,
-                'prev_uuid': prev_uuid}
 
     @staticmethod
     def get_talks(published=True):

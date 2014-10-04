@@ -57,6 +57,30 @@ def update(obj, data):
     return obj
 
 
+def next_uuid(model, current_item, sort_by='created_at', published=True):
+    items = get_list(model, published=published, sort_by=sort_by, desc=False)
+    try:
+        index = [index for index, item in enumerate(items) if item.uuid == current_item.uuid][0]
+    except:
+        next_uuid = None
+    else:
+        next_uuid = items[index + 1].uuid if index < len(items) - 1 else None
+
+    return next_uuid
+
+
+def prev_uuid(model, current_item, sort_by='created_at', published=True):
+    items = get_list(model, published=published, sort_by=sort_by, desc=False)
+    try:
+        index = [index for index, item in enumerate(items) if item.uuid == current_item.uuid][0]
+    except:
+        prev_uuid = None
+    else:
+        prev_uuid = items[index - 1].uuid if index > 0 else None
+
+    return prev_uuid
+
+
 def create(model, **kwargs):
     m = model()
     for k, v in kwargs.items():
