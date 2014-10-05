@@ -1,7 +1,7 @@
 kateheddleston.com
 ==================
 
-My personal website. It's a janky little thing :) I spent entirely too much time building this. This project uses python, flask, sqlalchemy, and narcissism.
+My personal website. It's a janky little thing :) I spent entirely too much time building this. This website is built with python, flask, sqlalchemy, and narcissism.
 
 
 Plugins/Services/Tools used
