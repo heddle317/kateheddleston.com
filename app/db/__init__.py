@@ -1,4 +1,8 @@
+import datetime
+
 from app import app_db
+
+from uuid import uuid4
 
 
 def get(model, **kwargs):
@@ -83,6 +87,10 @@ def prev_uuid(model, current_item, sort_by='created_at', published=True):
 
 def create(model, **kwargs):
     m = model()
+    if hasattr(m, 'uuid'):
+        m.uuid = str(uuid4())
+    if hasattr(m, 'created_at'):
+        m.created_at = datetime.datetime.utcnow()
     for k, v in kwargs.items():
         if hasattr(m, k):
             setattr(m, k, v)

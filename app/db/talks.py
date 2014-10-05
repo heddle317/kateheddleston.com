@@ -1,18 +1,16 @@
 import datetime
 
 from app.db import app_db as db
+from app.db import create
 from app.db import delete
 from app.db import get
 from app.db import get_list
 from app.db import next_uuid
 from app.db import prev_uuid
-from app.db import save
 from app.db import update
 from app.utils.exceptions import TalkException
 
 from sqlalchemy.dialects.postgresql import UUID
-
-from uuid import uuid4
 
 
 REQUIRED_FIELDS = ['title',
@@ -67,17 +65,7 @@ class Talk(db.Model):
         for field in REQUIRED_FIELDS:
             if not kwargs.get(field):
                 raise TalkException('%s required' % field)
-        talk = Talk(uuid=str(uuid4()),
-                    title=kwargs.get('title', ''),
-                    description=kwargs.get('description', ''),
-                    slides_link=kwargs.get('slides_link'),
-                    video_link=kwargs.get('video_link', ''),
-                    description_link=kwargs.get('description_link'),
-                    location=kwargs.get('location'),
-                    date=kwargs.get('date'),
-                    image_link=kwargs.get('image_link', ''),
-                    created_at=datetime.datetime.utcnow())
-        talk = save(talk)
+        talk = create(Talk, **kwargs)
         return talk.to_dict()
 
     @staticmethod

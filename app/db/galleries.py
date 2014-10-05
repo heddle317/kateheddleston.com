@@ -1,19 +1,15 @@
-import datetime
-
 from app.db import app_db as db
+from app.db import create
 from app.db import delete
 from app.db import get
 from app.db import get_list
 from app.db import next_uuid
 from app.db import prev_uuid
-from app.db import save
 from app.db import update
 from app.utils.datetime_tools import format_date
 from app.utils.datetime_tools import relative_time
 
 from sqlalchemy.dialects.postgresql import UUID
-
-from uuid import uuid4
 
 
 class Gallery(db.Model):
@@ -54,12 +50,7 @@ class Gallery(db.Model):
     def create_gallery(**kwargs):
         if not kwargs.get('name'):
             raise ValueError('name required')
-        gallery = Gallery(uuid=str(uuid4()),
-                          name=kwargs.get('name'),
-                          author=kwargs.get('author'),
-                          cover_photo=kwargs.get('cover_photo'),
-                          created_at=datetime.datetime.utcnow())
-        gallery = save(gallery)
+        gallery = create(Gallery, **kwargs)
         for item in kwargs.get('items', []):
             item['gallery_uuid'] = gallery.uuid
             GalleryItem.add_item(**item)
@@ -120,16 +111,5 @@ class GalleryItem(db.Model):
             raise ValueError('gallery_uuid required')
         if not kwargs.get('position'):
             raise ValueError('position required')
-        item = GalleryItem(uuid=str(uuid4()),
-                           gallery_uuid=kwargs.get('gallery_uuid'),
-                           title=kwargs.get('title'),
-                           body=kwargs.get('body'),
-                           image_link=kwargs.get('image_link'),
-                           position=kwargs.get('position'))
-        item = save(item)
+        item = create(GalleryItem, **kwargs)
         return item.to_dict()
-
-    @staticmethod
-    def delete(uuid):
-        item = get(GalleryItem, uuid=uuid)
-        delete(item)
