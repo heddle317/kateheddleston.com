@@ -28,7 +28,7 @@ if os.environ.get('ENVIRONMENT') == 'dev':
     STATIC_BASE = 'http://localhost:%s/static' % PORT
     IMAGES_BASE = 'http://localhost:%s/static/images' % PORT
 else:
-    APP_BASE_LINK = 'http://secret-harbor-6310.herokuapp.com/'
+    APP_BASE_LINK = 'http://secret-harbor-6310.herokuapp.com'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     STATIC_BASE = 'http://static.kateheddleston.com'
