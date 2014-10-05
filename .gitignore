@@ -8,3 +8,4 @@ static/.webassets-cache/
 static/gen
 *.psd
 .DS_Store
+cffi/
