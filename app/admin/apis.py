@@ -4,7 +4,6 @@ import json
 from app import app
 from app.db.galleries import Gallery
 from app.db.talks import Talk
-from app.utils.exceptions import TalkException
 
 # from flask import g
 # from flask import redirect
@@ -23,7 +22,7 @@ def create_talk():
         data['date'] = date
     try:
         talk = Talk.create_talk(**data)
-    except TalkException as e:
+    except ValueError as e:
         flash(e.message, 'danger')
         return json.dumps({'message': e.message}), 400, {'Content-Type': 'application/json'}
     return json.dumps(talk), 200, {'Content-Type': 'application/json'}

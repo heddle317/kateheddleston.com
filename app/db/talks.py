@@ -8,7 +8,6 @@ from app.db import get_list
 from app.db import next_uuid
 from app.db import prev_uuid
 from app.db import update
-from app.utils.exceptions import TalkException
 
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -64,7 +63,7 @@ class Talk(db.Model):
     def create_talk(**kwargs):
         for field in REQUIRED_FIELDS:
             if not kwargs.get(field):
-                raise TalkException('%s required' % field)
+                raise ValueError('%s required' % field)
         talk = create(Talk, **kwargs)
         return talk.to_dict()
 
