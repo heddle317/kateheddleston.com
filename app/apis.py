@@ -15,7 +15,8 @@ def email_message():
     subject = data.get('subject')
     body = data.get('body')
     if not email or not body:
-        return json.dumps({'message': 'An email and body are required.'}), 500, {'Content-Type': 'application/json'}
+        return_data = {'message': 'An email and body are required.'}
+        return json.dumps(return_data), 500, {'Content-Type': 'application/json'}
     send_email(email, subject, body)
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
 
@@ -27,3 +28,8 @@ def blog_comments(uuid):
     tweets = get_tweet_comments(url)
     data = {'comments': tweets, 'num_comments': len(tweets)}
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/ping', methods=["GET"])
+def ping():
+    return '', 200
