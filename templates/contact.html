@@ -16,9 +16,11 @@
         </h4>
       </div>
       <div class='section body'>
-        <p>All manner of thoughtful questions or opinions are welcome, unless they are mean. Then don't contact me at all. 
-
-        You can contact me either through email or other social media channels. Depending on the length of your message and my workload my response length may vary. I usually respond pretty quickly through twitter and to short messages.</p>
+        <p>
+            All manner of thoughtful questions or opinions are welcome, unless they are mean. Then don't contact me at all. 
+            <br><br>
+            You can contact me either through email or social media. I respond much faster to Twitter and short messages, but I try to respond to most of the emails I get (except from recruiters).
+        </p>
       </div>
       <div class='section title' data-anchor='item2' position='2'>
         <h4>
@@ -29,11 +31,14 @@
         <p>I will likely not respond to your email, but you can try anyway.</a>
       </div>
       <div class='section title' data-anchor='item3' position='3'>
-        <h4>
+        <h4>Tweet at me</h4>
+        <a href="https://twitter.com/intent/tweet?screen_name=heddle317" class="twitter-mention-button" data-size="large" data-related="heddle317">Tweet to @heddle317</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      </div>
+      <div class='section title' data-anchor='item4' position='4' ng-controller='ContactCtrl'>
+        <h4 class='text-center' style='margin-bottom:50px;'>
           Email Me
         </h4>
-      </div>
-      <div class='section body' ng-controller='ContactCtrl'>
         <div class='alert' role='alert'>
           <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <span class='message'></span>
@@ -46,11 +51,6 @@
             <button class='btn btn-default pull-right'>Send Message</button>
           </div>
         </form>
-      </div>
-      <div class='section title' data-anchor='item4' position='4'>
-        <h4>Tweet at me</h4>
-        <a href="https://twitter.com/intent/tweet?screen_name=heddle317" class="twitter-mention-button" data-size="large" data-related="heddle317">Tweet to @heddle317</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
       <div class='section title' data-anchor='item5' position='5'>
         <h4>Use of Content</h4>
@@ -77,13 +77,13 @@
         <li class='nav-section'>
           <a href='#' class='nav-item item3' ng-click='movePage(3)'>
             <span class='dot'></span>
-            <span class='title'>Email Me</span>
+            <span class='title'>Tweet at Me</span>
           </a>
         </li>
         <li class='nav-section'>
           <a href='#' class='nav-item item4' ng-click='movePage(4)'>
             <span class='dot'></span>
-            <span class='title'>Tweet at Me</span>
+            <span class='title'>Email Me</span>
           </a>
         </li>
         <li class='nav-section'>
