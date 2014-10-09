@@ -113,3 +113,8 @@ class GalleryItem(db.Model):
             raise ValueError('position required')
         item = create(GalleryItem, **kwargs)
         return item.to_dict()
+
+    @staticmethod
+    def delete(uuid):
+        talk = get(GalleryItem, uuid=uuid)
+        delete(talk)
