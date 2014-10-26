@@ -4,7 +4,7 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 ROOT_PATH = BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
 
 # REDIS_URL='redis://localhost:6379'
-PORT = 8000
+PORT = 8080
 STATIC_FOLDER = os.path.join(ROOT_PATH, 'static')
 TEMPLATE_FOLDER = os.path.join(ROOT_PATH, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
