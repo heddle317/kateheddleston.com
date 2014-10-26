@@ -44,7 +44,8 @@ class Gallery(db.Model):
 
     @staticmethod
     def get_galleries(published=True):
-        return [gallery.to_dict() for gallery in get_list(Gallery, published=published)]
+        item_list = get_list(Gallery, published=published, sort_by='published_at')
+        return [gallery.to_dict() for gallery in item_list]
 
     @staticmethod
     def get_gallery(uuid):

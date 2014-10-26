@@ -11,8 +11,10 @@
     margin:0 auto;
 }
 
-#kateheddleston-wrap .gallery_item {
-  border-top:1px solid #eaeaea;
-  padding-top:10px;
-  margin-top:20px;
+#kateheddleston-wrap .blog_item.success {
+  border:3px solid #5cb85c;
+}
+
+#kateheddleston-wrap .blog_item.default {
+  border:3px solid #eaeaea;
 }
