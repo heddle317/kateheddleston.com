@@ -133,6 +133,7 @@ function GalleryCtrl($scope, $http, $window, $sce, $log) {
       $scope.coverPhoto = gallery.cover_photo;
       $scope.items = gallery.items;
       $scope.published = gallery.published;
+      $scope.published_ago = gallery.published_ago;
     };
     $scope.editing = false;
     $scope.editGallery = function() {

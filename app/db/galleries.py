@@ -1,3 +1,5 @@
+import datetime
+
 from app.db import app_db as db
 from app.db import create
 from app.db import delete
@@ -21,6 +23,7 @@ class Gallery(db.Model):
     cover_photo = db.Column(db.String(500), nullable=True)
     dead = db.Column(db.Boolean(), default=False, nullable=False)
     created_at = db.Column(db.DateTime(), unique=False)
+    published_at = db.Column(db.DateTime(), unique=False)
 
     def to_dict(self):
         items = [item.to_dict() for item in get_list(GalleryItem, gallery_uuid=self.uuid)]
@@ -31,6 +34,7 @@ class Gallery(db.Model):
                 'cover_photo': self.cover_photo,
                 'created_ago': relative_time(self.created_at),
                 'created_at': format_date(self.created_at, format='%B %d, %Y'),
+                'published_ago': relative_time(self.published_at) if self.published_at else '',
                 'published': self.published,
                 'items': items,
                 'next_uuid': next_uuid(Gallery, self, sort_by='created_at', published=True),
@@ -59,11 +63,17 @@ class Gallery(db.Model):
     @staticmethod
     def update_gallery(uuid, **kwargs):
         gallery = get(Gallery, uuid=uuid)
+        if not gallery.published and kwargs.get('published', False):
+            kwargs['published_at'] = datetime.datetime.utcnow()
         gallery = update(gallery, kwargs)
+
         current_items = [item.get('uuid') for item in kwargs.get('items', [])]
-        delete_items = [item.uuid for item in get_list(GalleryItem, gallery_uuid=gallery.uuid) if item.uuid not in current_items]
+        item_list = get_list(GalleryItem, gallery_uuid=gallery.uuid)
+
+        delete_items = [item.uuid for item in item_list if item.uuid not in current_items]
         for uuid in delete_items:
             GalleryItem.delete(uuid)
+
         for item in kwargs.get('items', []):
             if item.get('uuid'):
                 GalleryItem.update(uuid=item.pop('uuid'), **item)

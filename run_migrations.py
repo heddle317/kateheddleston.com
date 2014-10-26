@@ -32,8 +32,9 @@ class Migrate(object):
 
             try:
                 self._execute(patch_sql)
+                print "%s: Executed patch - %s" % (idx, patch)
             except:
-                print "%s: Unable to execute patch - %s" % (idx, patch)
+                pass
 
         return True
 
