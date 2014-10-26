@@ -1,6 +1,6 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-    <div class='row edit_panel' ng-controller='GalleryCtrl' ng-init='init({{gallery}})'>
+    <div class='row edit_panel' ng-controller='GalleryCtrl' ng-init='init({{gallery_json}})'>
         <div class='panel' ng-class='published ? "panel-success" : "panel-default"'>
             <div class="panel-heading">
               <div class='row'>
@@ -11,6 +11,7 @@
                   <input type='text' placeholder='Author' class='form-control' name='author' ng-model='author' ng-show='editing'/>
                 </div>
                 <div class='text-right col-md-6'>
+                  <a class='btn btn-default' href="/admin/gallery/{{gallery.uuid}}/preview">Preview</a>
                   <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
                   <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
                   <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>

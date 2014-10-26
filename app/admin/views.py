@@ -67,4 +67,13 @@ def get_galleries():
 def edit_gallery(uuid):
     gallery = Gallery.get_gallery(uuid)
     g.nav_view = 'galleries'
-    return render_template('admin/edit_gallery.html', gallery=json.dumps(gallery))
+    return render_template('admin/edit_gallery.html', gallery=gallery, gallery_json=json.dumps(gallery))
+
+
+@app.route('/admin/gallery/<uuid>/preview', methods=['GET'])
+@login_required
+@use_template_globals
+def preview_gallery(uuid):
+    gallery = Gallery.get_gallery(uuid)
+    g.nav_view = 'galleries'
+    return render_template('admin/preview.html', post=gallery, post_json=json.dumps(gallery))
