@@ -40,7 +40,8 @@ def edit_talk(uuid):
 @login_required
 def delete_talk(uuid):
     Talk.delete_talk(uuid)
-    return json.dumps({'message': 'Your talk was successfully deleted.'}), 200, {'Content-Type': 'application/json'}
+    return_data = {'message': 'Your talk was successfully deleted.'}
+    return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/galleries', methods=['POST'])
@@ -57,7 +58,7 @@ def create_gallery():
 
 @app.route('/admin/gallery/<uuid>', methods=['PUT'])
 @login_required
-def edit_gallery(uuid):
+def update_gallery(uuid):
     data = json.loads(request.data)
     gallery = Gallery.update_gallery(uuid, **data)
     return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
@@ -67,4 +68,5 @@ def edit_gallery(uuid):
 @login_required
 def delete_gallery(uuid):
     Gallery.delete_gallery(uuid)
-    return json.dumps({'message': 'Your gallery was successfully deleted.'}), 200, {'Content-Type': 'application/json'}
+    return_data = {'message': 'Your gallery was successfully deleted.'}
+    return json.dumps(return_data), 200, {'Content-Type': 'application/json'}

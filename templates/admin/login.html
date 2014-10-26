@@ -1,4 +1,4 @@
-{% extends "admin_base.html" %}
+{% extends "admin/admin_base.html" %}
 {% block content %}
     <form class='form-inline' action='login' method="POST">
         <input name=_csrf_token type=hidden value="{{ csrf_token() }}">

@@ -1,4 +1,4 @@
-{% extends "admin_base.html" %}
+{% extends "admin/admin_base.html" %}
 {% block content %}
     <div ng-controller='GalleriesCtrl'>
         <div id='create_gallery' class='modal fade'>
@@ -52,38 +52,10 @@
                         <img style='width:100%' ng-src="{[{coverPhoto}]}" />
                         <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
                       </div>
-                      <div class='col-md-6'>
-                        <h2>Cover Photo</h2>
-                      </div>
-                    </div>
-                    <div class='item gallery_item' ng-repeat='item in gallery.items'>
-                      <div class='row'>
-                        <div class='col-md-6'>
-                          <img style='width:100%' ng-src="{[{item.image_link}]}" />
-                          <input type="text" placeholder='Image Link' class="form-control" name="image" ng-show='editing' ng-model='item.image_link'>
-                        </div>
-                        <div class='col-md-6'>
-                            <div class='info caption'>
-                              <h4 ng-bind='item.position'></h4>
-                              <h4 ng-show='!editing' ng-bind='item.title'></h4>
-                              <input type='text' placeholder='Title' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
-                            </div>
-                            <p ng-show='!editing' ng-bind-html='item.body'></p>
-                            <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
-                        </div>
-                      </div>
-                      <div class='row'>
-                        <div class='col-md-12'>
-                            <button ng-click='addNewItem(item.position + 1)' class='btn btn-success pull-right'>Add Item After</button>
-                            <button ng-click='removeItem(item.position)' class='btn btn-danger pull-right'>Remove This Item</button>
-                        </div>
-                      </div>
                     </div>
                 </div>
                 <div class='panel-footer text-right'>
-                    <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
-                    <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
-                    <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
+                    <a class='btn btn-default' href="/admin/gallery/{[{gallery.uuid}]}">Edit</a>
                     <button class='btn btn-default' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
                     <button class='btn btn-default' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
                     <button class='btn btn-danger' ng-click='deleteGallery()'>Delete</button>

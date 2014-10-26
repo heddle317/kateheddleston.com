@@ -199,7 +199,7 @@ function GalleriesCtrl($scope, $http) {
     };
 };
 
-function GalleryCtrl($scope, $http, $window, $sce) {
+function GalleryCtrl($scope, $http, $window, $sce, $log) {
     $scope.init = function(gallery) {
       $scope.uuid = gallery.uuid;
       $scope.name = gallery.name;

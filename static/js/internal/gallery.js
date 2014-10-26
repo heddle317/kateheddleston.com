@@ -43,6 +43,7 @@ function GalleryCtrl($scope, $http, $log) {
     return false;
   };
 };
+
 $(document).ready(function() {
   $('#fullpage').fullpage({
     easing: '',

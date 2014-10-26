@@ -15,18 +15,10 @@ from flask_login import login_user
 from flask_login import logout_user
 
 
-@app.route('/admin')
-@login_required
-@use_template_globals
-def admin():
-    g.nav_view = 'admin'
-    return render_template('admin.html')
-
-
 @app.route('/login', methods=['GET'])
 @use_template_globals
 def login_template():
-    return render_template('login.html')
+    return render_template('admin/login.html')
 
 
 @app.route('/login', methods=["POST"])
@@ -55,7 +47,7 @@ def get_talks():
         talks = Talk.get_talks(published=False)
         return json.dumps(talks), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'talks'
-    return render_template('edit_talks.html')
+    return render_template('admin/talks.html')
 
 
 @app.route('/admin/galleries', methods=['GET'])
@@ -66,4 +58,13 @@ def get_galleries():
         galleries = Gallery.get_galleries(published=False)
         return json.dumps(galleries), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'galleries'
-    return render_template('edit_galleries.html')
+    return render_template('admin/galleries.html')
+
+
+@app.route('/admin/gallery/<uuid>', methods=['GET'])
+@login_required
+@use_template_globals
+def edit_gallery(uuid):
+    gallery = Gallery.get_gallery(uuid)
+    g.nav_view = 'galleries'
+    return render_template('admin/edit_gallery.html', gallery=json.dumps(gallery))
