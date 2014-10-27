@@ -75,3 +75,10 @@
   width:100%;
 }
 
+#kateheddleston-wrap .gallery-item .section.name .down_arrow {
+  position:absolute;
+  right:20px;
+  bottom:150px;
+  width:90px;
+  height:90px;
+}
