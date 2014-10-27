@@ -18,3 +18,9 @@
 #kateheddleston-wrap .blog_item.default {
   border:3px solid #eaeaea;
 }
+
+#kateheddleston-wrap .gallery_item {
+  border-top:1px solid #eaeaea;
+  margin-top:20px;
+  padding-top:10px;
+}
