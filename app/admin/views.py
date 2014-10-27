@@ -1,6 +1,10 @@
+import base64
+import hashlib
+import hmac
 import json
 
 from app import app
+from app import config
 from app.db.galleries import Gallery
 from app.db.talks import Talk
 from app.db.user import get_verified_user
@@ -13,6 +17,15 @@ from flask import request
 from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
+
+
+policy_document = {"expiration": "2020-01-01T00:00:00Z",
+                   "conditions": [{"bucket": "images.kateheddleston.com"},
+                                  ["starts-with", "$key", ""],
+                                  {"acl": "public-read"},
+                                  ["starts-with", "$Content-Type", ""],
+                                  ["starts-with", "$filename", ""],
+                                  ["content-length-range", 0, 524288000]]}
 
 
 @app.route('/login', methods=['GET'])
@@ -67,7 +80,15 @@ def get_galleries():
 def edit_gallery(uuid):
     gallery = Gallery.get_gallery(uuid)
     g.nav_view = 'galleries'
-    return render_template('admin/edit_gallery.html', gallery=gallery, gallery_json=json.dumps(gallery))
+    policy = base64.b64encode(json.dumps(policy_document))
+    signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
+    access_key = config.AWS_ACCESS_KEY_ID
+    return render_template('admin/edit_gallery.html',
+                           gallery=gallery,
+                           gallery_json=json.dumps(gallery),
+                           policy=policy,
+                           signature=signature,
+                           accessKey=access_key)
 
 
 @app.route('/admin/gallery/<uuid>/preview', methods=['GET'])

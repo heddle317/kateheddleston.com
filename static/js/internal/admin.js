@@ -196,3 +196,56 @@ function GalleryCtrl($scope, $http, $window, $sce, $log) {
       });
     };
 };
+
+function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
+  $scope.file = [];
+  $scope.dataUrls = [];
+  $scope.item = null;
+  $scope.error = false;
+  $scope.alertMessage = '';
+  $scope.loading = false;
+  $scope.widthStyle = {"width": "0%"};
+  $scope.itemInit = function(item) {
+    $scope.item = item;
+  };
+  $scope.onFileSelect = function($files) {
+    $scope.files = $files;
+    for (var i = 0; i < $files.length; i++) {
+      var file = $files[i];
+      var timeStamp = new Date().getTime();
+      var fileName = timeStamp + "_" + file.name;
+      var key = "content-images/" + galleryUUID + "/" + fileName;
+      var data = {
+            key: key,
+            AWSAccessKeyId: accessKey, 
+            acl: 'public-read',
+            policy: policy,
+            signature: signature,
+            "Content-Type": file.type != '' ? file.type : 'application/octet-stream',
+            filename: key,
+      };
+      var url = 'https://s3.amazonaws.com/images.kateheddleston.com';
+      $upload.upload({
+        url: url,
+        method: 'POST',
+        data: data,
+        file: file,
+      }).progress(function(evt) {
+        $scope.percent = parseInt(100.0 * evt.loaded / evt.total);
+        $scope.widthStyle = {"width": $scope.percent + "%"};
+        $scope.loading = true;
+      }).success(function(data, status, headers, config) {
+        $scope.item.image_link = "http://images.kateheddleston.com/" + key;
+      }).error(function(data, status, headers, config) {
+          $scope.error = true;
+          $scope.alertMessage = "There was an error uploading your photo.";
+      }).then(function() {
+          $scope.loading = false;
+      });
+    }
+  };
+  $scope.toggleAlert = function(show) {
+      $scope.error = show;
+      $scope.alertMessage = '';
+  };
+};

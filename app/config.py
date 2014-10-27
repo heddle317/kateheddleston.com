@@ -21,6 +21,9 @@ TWITTER_SECRET = os.environ.get('TWITTER_SECRET')
 CONSUMER_KEY = os.environ.get('CONSUMER_KEY')
 CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
 
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+
 if os.environ.get('ENVIRONMENT') == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
     DEBUG = True
