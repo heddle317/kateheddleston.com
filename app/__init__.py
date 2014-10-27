@@ -51,7 +51,7 @@ admin_js = Bundle('js/external/jquery-1.11.1.min.js',
                   'js/external/sanitize.js',
                   'js/external/masonry.pkgd.min.js',
                   'js/external/imagesloaded.pkgd.min.js',
-                  'js/internal/angular_app_module.js',
+                  'js/internal/angular_app_module_admin.js',
                   'js/internal/admin.js',
                   filters='jsmin', output='gen/admin.%(version)s.js')
 

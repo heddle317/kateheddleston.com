@@ -1,4 +1,4 @@
-var angularApp = angular.module('angularApp', ['ngResource', 'ngSanitize']);
+var angularApp = angular.module('angularApp', ['ngResource', 'ngSanitize', 'angularFileUpload']);
 
 angularApp.config(function ($interpolateProvider, $httpProvider) {
     $interpolateProvider.startSymbol('{[{');
