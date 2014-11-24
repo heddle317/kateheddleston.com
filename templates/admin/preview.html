@@ -26,19 +26,7 @@
       <h1 class='deep-pink' ng-bind-html='name'></h1>
       <h5 ng-bind='author'></h5>
     </div>
-    <span ng-repeat='item in items'>
-      <div class='section title' ng-if='item.title' data-anchor='item{[{item.position}]}' position='{[{item.position}]}'>
-        <h4 ng-bind='item.title'>
-        </h4>
-      </div>
-      <div class='section' ng-if='item.image_link'>
-        <img ng-src="{[{item.image_link}]}" />
-      </div>
-      <div class='section body' ng-if='item.body'>
-        <p ng-bind-html='item.body'>
-        </p>
-      </div>
-    </span>
+    {% include "post_sections.html" %}
   </div>
   {% include "left_nav.html" %}
 </div>

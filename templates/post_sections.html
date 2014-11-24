@@ -1,0 +1,12 @@
+<div ng-repeat='item in items'>
+  <div class='title-section' ng-if='item.title' data-anchor='item{[{item.position}]}' position='{[{item.position}]}'>
+    <h3 ng-bind='item.title'></h3>
+  </div>
+  <div class='image-section' ng-if='item.image_link'>
+    <img ng-src="{[{item.image_link}]}" />
+  </div>
+  <div class='section body' ng-if='item.body'>
+    <p ng-bind-html='item.body'>
+    </p>
+  </div>
+</div>
