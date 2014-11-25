@@ -61,7 +61,7 @@ $(document).ready(function() {
   });
   function updatePosition(section, position) {
     var nextPosition = parseInt(position, 10) + 1;
-    var nextSection = $('#fullpage div.section[data-anchor="item' + nextPosition + '"]');
+    var nextSection = $('#fullpage div.post-section[data-anchor="item' + nextPosition + '"]');
     var pageBottom = $(window).height() + $(window).scrollTop();
     var dot = $('.nav-item.item' + position);
     // if it's been scrolled past and we're not to the next section, return true

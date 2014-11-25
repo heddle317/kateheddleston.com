@@ -19,15 +19,18 @@
   min-height:200px;
 }
 
-#kateheddleston-wrap .gallery-content .section.body {
-  padding:20px 10%;
+#kateheddleston-wrap .gallery-content .post-section {
+  width:100%;
+  min-height:200px;
+}
+
+#kateheddleston-wrap .gallery-content .body-section {
+  padding:60px 10% 200px;
 }
 
 #kateheddleston-wrap .gallery-content .title-section {
-  height:50%;
-  min-height:100px;
   width:100%;
-  padding:100px 10%;
+  padding:100px 10% 60px;
   text-align:center;
 }
 
@@ -45,7 +48,7 @@
   margin:0 auto;
 }
 
-#kateheddleston-wrap .gallery-content .section div {
+#kateheddleston-wrap .gallery-content .section.name div {
   vertical-align:top;
 }
 
