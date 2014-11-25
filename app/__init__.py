@@ -88,13 +88,9 @@ header_css = Bundle('css/internal/header.css',
 
 post_css = Bundle('css/internal/gallery.css',
                   'css/internal/gallery_nav.css',
-                  'css/external/jquery.fullPage.css',
                   filters='cssmin', output='gen/post.%(version)s.css')
 
-post_js = Bundle('js/external/vendors/jquery.easings.min.js',
-                 'js/external/vendors/jquery.slimscroll.min.js',
-                 'js/external/jquery.fullPage.js',
-                 'js/internal/gallery.js',
+post_js = Bundle('js/internal/gallery.js',
                  filters='jsmin', output='gen/post.%(version)s.js')
 
 talk_css = Bundle('css/internal/talk.css',
