@@ -10,35 +10,30 @@
 {% block content %}
   <div class='gallery-item contact-page' ng-controller='GalleryCtrl'>
     <div id='fullpage' class='gallery-content'>
-      <div class='section title' data-anchor='item1' position='1'>
-        <h4>
-          Contacting Me
-        </h4>
+      <div class='post-section title-section' id='item1' position='1'>
+        <h2>Contacting Me</h2>
       </div>
-      <div class='section body'>
+      <div class='post-section body-section'>
         <p>
             All manner of thoughtful questions or opinions are welcome, unless they are mean. Then don't contact me at all. 
             <br><br>
             You can contact me either through email or social media. I respond much faster to Twitter and short messages, but I try to respond to most of the emails I get (except from recruiters).
         </p>
-      </div>
-      <div class='section title' data-anchor='item2' position='2'>
-        <h4>
-          Recruiters
-        </h4>
-      </div>
-      <div class='section body'>
+        <br>
+        <br>
+        <h3>Recruiters</h3>
+        <br>
         <p>I will likely not respond to your email, but you can try anyway.</a>
       </div>
-      <div class='section title' data-anchor='item3' position='3'>
-        <h4>Tweet at me</h4>
+      <div class='post-section title-section' id='item2' position='2'>
+        <h2>Tweet at me</h2>
         <a href="https://twitter.com/intent/tweet?screen_name=heddle317" class="twitter-mention-button" data-size="large" data-related="heddle317">Tweet to @heddle317</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
       </div>
-      <div class='section title' data-anchor='item4' position='4' ng-controller='ContactCtrl'>
-        <h4 class='text-center' style='margin-bottom:50px;'>
+      <div class='post-section title-section' id='item3' position='3' ng-controller='ContactCtrl'>
+        <h2 class='text-center' style='margin-bottom:50px;'>
           Email Me
-        </h4>
+        </h2>
         <div class='alert' role='alert'>
           <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <span class='message'></span>
@@ -52,10 +47,10 @@
           </div>
         </form>
       </div>
-      <div class='section title' data-anchor='item5' position='5'>
-        <h4>Use of Content</h4>
+      <div class='post-section title-section' id='item4' position='4'>
+        <h2>Use of Content</h2>
       </div>
-      <div class='section body'>
+      <div class='post-section body-section'>
         <p>All images and content on this site are original creations of Kate Heddleston and owned by Kate Heddleston LLC. They may not be used or redistributed without my consent. If you would like to use any images or content for personal, non-commercial use you may do so with attribution to the original content and an email notifying me of its use.</p>
       </div>
     </div>
@@ -71,23 +66,17 @@
         <li class='nav-section'>
           <a href='#' class='nav-item item2' ng-click='movePage(2)'>
             <span class='dot'></span>
-            <span class='title'>Recruiters</span>
+            <span class='title'>Tweet at Me</span>
           </a>
         </li>
         <li class='nav-section'>
           <a href='#' class='nav-item item3' ng-click='movePage(3)'>
             <span class='dot'></span>
-            <span class='title'>Tweet at Me</span>
-          </a>
-        </li>
-        <li class='nav-section'>
-          <a href='#' class='nav-item item4' ng-click='movePage(4)'>
-            <span class='dot'></span>
             <span class='title'>Email Me</span>
           </a>
         </li>
         <li class='nav-section'>
-          <a href='#' class='nav-item item5' ng-click='movePage(5)'>
+          <a href='#' class='nav-item item4' ng-click='movePage(4)'>
             <span class='dot'></span>
             <span class='title'>Use of Content</span>
           </a>
