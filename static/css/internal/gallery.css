@@ -102,9 +102,9 @@
 }
 
 #kateheddleston-wrap .gallery-item .section.name .down_arrow {
-  position:absolute;
+  position:fixed;
   right:20px;
-  bottom:150px;
+  bottom:50px;
   width:90px;
   height:90px;
 }

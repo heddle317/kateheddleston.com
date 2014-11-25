@@ -42,6 +42,9 @@ function GalleryCtrl($scope, $http, $log) {
     }
     return false;
   };
+  $scope.browserHeight = function() {
+    return {"height": $(window).height() + "px"};
+  };
 };
 
 $(document).ready(function() {
