@@ -31,8 +31,8 @@ if os.environ.get('ENVIRONMENT') == 'dev':
     STATIC_BASE = 'http://localhost:%s/static' % PORT
     IMAGES_BASE = 'http://localhost:%s/static/images' % PORT
 else:
-    APP_BASE_LINK = 'http://www.kateheddleston.com'
+    APP_BASE_LINK = 'https://www.kateheddleston.com'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-    STATIC_BASE = 'http://static.kateheddleston.com'
-    IMAGES_BASE = 'http://images.kateheddleston.com'
+    STATIC_BASE = 'https://static.kateheddleston.com'
+    IMAGES_BASE = 'https://images.kateheddleston.com'
