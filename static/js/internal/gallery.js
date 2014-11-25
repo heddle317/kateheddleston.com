@@ -21,8 +21,8 @@ function GalleryCtrl($scope, $http, $log) {
   };
   $scope.movePage = function(position) {
     $scope.position = position;
-    var pos_str = 'item' + position;
-    $.fn.fullpage.moveTo(pos_str);
+    var sectionId = '#item' + position;
+    $("html, body").animate({ scrollTop: $(sectionId).offset().top }, 1000);
   };
   $scope.nextItem = function() {
     $scope.position += 1;
@@ -45,10 +45,6 @@ function GalleryCtrl($scope, $http, $log) {
 };
 
 $(document).ready(function() {
-  $('#fullpage').fullpage({
-    easing: '',
-    autoScrolling: false,
-  });
   $(window).on('scroll', function() {
     var items = $('div[data-anchor]');
     var item;

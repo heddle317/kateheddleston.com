@@ -10,7 +10,7 @@
 {% endblock %}
 {% block content %}
 <div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{gallery|safe}})'>
-  <div id='fullpage' class='gallery-content'>
+  <div class='gallery-content'>
     {% include "post_sections.html" %}
   </div>
   {% include "left_nav.html" %}
