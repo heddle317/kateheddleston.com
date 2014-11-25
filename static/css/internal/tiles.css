@@ -63,11 +63,19 @@
     text-decoration:none;
     color:#353435;
     margin-bottom:30px;
-    border:1px solid #eaeaea;
     background-color:rgba(255, 255, 255, .9);
 }
 
 #kateheddleston-wrap .blog_item img {
+    width:100%;
+}
+
+#kateheddleston-wrap .blog_item .blog_item_footer {
+    position:absolute;
+    bottom:30px;
+    left:0;
+    background-color:rgba(0,0,0,.7);
+    color:#eaeaea;
     width:100%;
 }
 
@@ -83,7 +91,6 @@
     background-color:transparent;
     margin:0;
     padding:5px 10px 5px;
-    color:#999999;
 }
 
 #kateheddleston-wrap .blog_item .date {
