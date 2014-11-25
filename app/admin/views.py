@@ -41,7 +41,7 @@ def login():
     user = get_verified_user(email, password)
     if user:
         login_user(user, remember=True)
-        return redirect('/admin/talks')
+        return redirect('/admin/galleries')
     return redirect('/login')
 
 
