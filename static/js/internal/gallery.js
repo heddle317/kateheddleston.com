@@ -3,6 +3,7 @@ function GalleryCtrl($scope, $http, $log) {
   $scope.items = [];
   $scope.init = function(gallery) {
     gallery = angular.fromJson(gallery);
+    $scope.uuid = gallery.uuid;
     $scope.name = gallery.name;
     $scope.author = gallery.author;
     $scope.items = gallery.items;

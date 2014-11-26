@@ -67,11 +67,12 @@ def get_talks():
 @login_required
 @use_template_globals
 def get_galleries():
+    galleries = Gallery.get_galleries(published=False)
     if request.is_xhr:
-        galleries = Gallery.get_galleries(published=False)
         return json.dumps(galleries), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'galleries'
-    return render_template('admin/galleries.html')
+    galleries = [json.dumps(gallery) for gallery in galleries]
+    return render_template('admin/galleries.html', galleries=galleries)
 
 
 @app.route('/admin/gallery/<uuid>', methods=['GET'])
