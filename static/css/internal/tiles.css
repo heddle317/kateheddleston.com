@@ -67,6 +67,7 @@
 }
 
 #kateheddleston-wrap .blog_item img {
+    min-height:200px;
     width:100%;
 }
 
@@ -100,3 +101,6 @@
     line-height:30px;
 }
 
+#kateheddleston-wrap .blog_item .row.buttons {
+    padding:0 10px 10px;
+}
