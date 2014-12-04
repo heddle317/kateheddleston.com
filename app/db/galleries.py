@@ -98,6 +98,7 @@ class GalleryItem(db.Model):
     title = db.Column(db.String(500), nullable=True)
     body = db.Column(db.String(), nullable=True)
     image_link = db.Column(db.String(500), nullable=True)
+    image_name = db.Column(db.String(500), nullable=True)
     position = db.Column(db.Integer(), nullable=False)
 
     def to_dict(self):
@@ -106,6 +107,7 @@ class GalleryItem(db.Model):
                 'title': self.title,
                 'body': self.body,
                 'image_link': self.image_link,
+                'image_name': self.image_name,
                 'position': self.position
                 }
         return data
