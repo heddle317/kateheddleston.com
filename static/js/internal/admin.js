@@ -225,7 +225,7 @@ function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
             filename: key,
       };
       $upload.upload({
-        url: images_base,
+        url: imagesBase,
         method: 'POST',
         data: data,
         file: file,
