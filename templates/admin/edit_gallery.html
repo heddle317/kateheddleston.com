@@ -34,7 +34,7 @@
                 <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="GalleryItemCtrl" ng-init="itemInit(galleryItem)">
                     <div class='row'>
                         <div class='col-md-2'>
-                            <img style='width:100%' ng-src="{{g.images_base}}/galleries/{[{item.gallery_uuid}]}/{[{item.image_name}]}" />
+                            <img ng-if='item.image_name' style='width:100%' ng-src="{{g.images_base}}/galleries/{[{item.gallery_uuid}]}/{[{item.image_name}]}" />
                             <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='editing' ng-model='item.image_name'>
                             <div class='alert alert-warning' role='alert' ng-show='error'>
                                 <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
