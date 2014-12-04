@@ -106,7 +106,7 @@ function GalleriesCtrl($scope, $http) {
     });
     $scope.addNew = function() {
       var position = $scope.newItems.length + 1;
-      var item = {'title': '', 'body': '', 'image_link': '', 'position': position};
+      var item = {'title': '', 'body': '', 'image_name': '', 'position': position};
       $scope.newItems.push(item);
     };
 
@@ -140,7 +140,7 @@ function GalleryCtrl($scope, $http, $window, $sce, $log) {
       $scope.editing = true;
     };
     $scope.addNewItem = function(position) {
-      var item = {'title': '', 'body': '', 'image_link': '', 'position': position};
+      var item = {'title': '', 'body': '', 'image_name': '', 'position': position};
       $scope.items.splice(position - 1, 0, item);
       for (var i = position; i < $scope.items.length; i++) {
         $scope.items[i].position++;
@@ -214,7 +214,7 @@ function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
       var file = $files[i];
       var timeStamp = new Date().getTime();
       var fileName = timeStamp + "_" + file.name;
-      var key = "content-images/" + galleryUUID + "/" + fileName;
+      var key = "galleries/" + galleryUUID + "/" + fileName;
       var data = {
             key: key,
             AWSAccessKeyId: accessKey, 
@@ -224,9 +224,8 @@ function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
             "Content-Type": file.type != '' ? file.type : 'application/octet-stream',
             filename: key,
       };
-      var url = 'https://s3.amazonaws.com/images.kateheddleston.com';
       $upload.upload({
-        url: url,
+        url: images_base,
         method: 'POST',
         data: data,
         file: file,
@@ -235,7 +234,7 @@ function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
         $scope.widthStyle = {"width": $scope.percent + "%"};
         $scope.loading = true;
       }).success(function(data, status, headers, config) {
-        $scope.item.image_link = "http://images.kateheddleston.com/" + key;
+        $scope.item.image_name = fileName;
       }).error(function(data, status, headers, config) {
           $scope.error = true;
           $scope.alertMessage = "There was an error uploading your photo.";

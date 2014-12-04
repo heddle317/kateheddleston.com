@@ -16,6 +16,8 @@
 
         <script type="text/javascript">
             var csrftoken = '{{ csrf_token() }}';
+            var imagesBase = '{{g.images_base }}';
+            var staticBase = '{{g.static_base }}';
         </script>
         {% block head%}{% endblock %}
     </head>

@@ -23,16 +23,14 @@ CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+STATIC_BASE = 'https://s3.amazonaws.com/static.kateheddleston.com'
+IMAGES_BASE = 'https://s3.amazonaws.com/images.kateheddleston.com'
 
 if os.environ.get('ENVIRONMENT') == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/kateheddleston_db'
-    STATIC_BASE = 'http://localhost:%s/static' % PORT
-    IMAGES_BASE = 'http://localhost:%s/static/images' % PORT
 else:
     APP_BASE_LINK = 'https://www.kateheddleston.com'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-    STATIC_BASE = 'https://static.kateheddleston.com'
-    IMAGES_BASE = 'https://images.kateheddleston.com'
