@@ -23,6 +23,8 @@ CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_IMAGE_BUCKET_KEY = 'images.kateheddleston.com'
+
 STATIC_BASE = 'https://s3.amazonaws.com/static.kateheddleston.com'
 IMAGES_BASE = 'https://s3.amazonaws.com/images.kateheddleston.com'
 
