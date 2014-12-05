@@ -1,5 +1,6 @@
 import datetime
 
+from app import config
 from app.db import app_db as db
 from app.db import create
 from app.db import delete
@@ -108,6 +109,7 @@ class GalleryItem(db.Model):
                 'body': self.body,
                 'image_link': self.image_link,
                 'image_name': self.image_name,
+                'base_url': '{}/galleries/{}'.format(config.IMAGES_BASE, self.gallery_uuid),
                 'position': self.position
                 }
         return data
