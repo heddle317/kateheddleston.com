@@ -3,7 +3,7 @@
     <h3 ng-bind='item.title'></h3>
   </div>
   <div class='image-section post-section' ng-if='item.image_name'>
-      <img ng-src="{{g.images_base}}/galleries/{[{item.gallery_uuid}]}/{[{item.image_name}]}" />
+      <img ng-src="{[{item.base_url}]}/{[{item.image_name}]}_large" />
   </div>
   <div class='body-section post-section' ng-if='item.body'>
     <p ng-bind-html='item.body'>

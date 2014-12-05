@@ -32,6 +32,7 @@ def s3_change_image_resolutions(gallery_uuid, filename):
     change_image_resolution(gallery_uuid, filename, img_original, content_type, .25, key)
     change_image_resolution(gallery_uuid, filename, img_original, content_type, .50, key)
     change_image_resolution(gallery_uuid, filename, img_original, content_type, .75, key)
+    change_image_resolution(gallery_uuid, filename, img_original, content_type, 1, key)
 
 
 def change_image_resolution(gallery_uuid, filename, img_original, content_type, size_percent, key):
@@ -64,15 +65,15 @@ def get_file_type(content_type):
 def new_filename(filename, size):
     name, ext = os.path.splitext(filename)
     width = size[0]
-    if width < 500:
+    if width <= 500:
         additional_name = 'thumbnail'
-    elif width < 1000:
+    elif width <= 1000:
         additional_name = 'small'
-    elif width < 2000:
+    elif width <= 2000:
         additional_name = 'medium'
-    elif width < 4000:
+    elif width <= 4000:
         additional_name = 'large'
-    elif width < 6000:
+    elif width <= 6000:
         additional_name = 'grande'
     else:
         additional_name = 'jumbo'

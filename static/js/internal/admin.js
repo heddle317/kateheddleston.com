@@ -214,6 +214,8 @@ function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
       var file = $files[i];
       var timeStamp = new Date().getTime();
       var fileName = timeStamp + "_" + file.name;
+      var fields = fileName.split('\.');
+      fileName = fields[0];
       var key = "galleries/" + galleryUUID + "/" + fileName;
       var data = {
             key: key,
