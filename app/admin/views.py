@@ -20,7 +20,7 @@ from flask_login import logout_user
 
 
 policy_document = {"expiration": "2020-01-01T00:00:00Z",
-                   "conditions": [{"bucket": "images.kateheddleston.com"},
+                   "conditions": [{"bucket": config.IMAGE_BUCKET},
                                   ["starts-with", "$key", ""],
                                   {"acl": "public-read"},
                                   ["starts-with", "$Content-Type", ""],

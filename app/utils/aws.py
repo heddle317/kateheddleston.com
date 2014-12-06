@@ -12,7 +12,7 @@ from PIL import Image
 
 def s3_change_image_resolutions(gallery_uuid, filename):
     conn = S3Connection(config.AWS_ACCESS_KEY_ID, config.AWS_SECRET_ACCESS_KEY)
-    bucket = conn.get_bucket(config.AWS_IMAGE_BUCKET_KEY)
+    bucket = conn.get_bucket(config.IMAGE_BUCKET)
     key = Key(bucket)
 
     url = "{}/galleries/{}/{}".format(config.IMAGES_BASE, gallery_uuid, filename)
