@@ -2,6 +2,7 @@ import sys
 
 from app.db.galleries import Gallery
 from app.utils.aws import s3_change_image_resolutions
+from app.utils.aws import get_width_height
 
 
 if __name__ == '__main__':
