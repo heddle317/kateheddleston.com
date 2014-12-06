@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% import "blog_item.html" as blog_item with context %}
 {% block head %}
+  <link href="/blog/feed.atom" rel="alternate" title="Recent Posts" type="application/atom+xml">
+
   {% assets "tiles_css" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
   {% endassets %}
