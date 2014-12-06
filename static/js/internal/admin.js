@@ -12,14 +12,14 @@ function TalksCtrl($scope, $http, $sce) {
                     'description_link': $scope.newDescriptionLink,
                     'location': $scope.newLocation,
                     'date': $scope.newDate,
-                    'image_link': $scope.newImageLink};
+                    'image_name': $scope.newImageName};
         $http.post("/admin/talks", data).success(function(data) {
             $scope.talks.unshift(data);
             $scope.newTitle = '';
             $scope.newDescription = '';
             $scope.newSlidesLink = '';
             $scope.newVideoLink = '';
-            $scope.newImageLink = '';
+            $scope.newImageName = '';
             $scope.newDate = '';
             $scope.newDescriptionLink = '';
             $scope.newLocation = '';
@@ -31,12 +31,12 @@ function TalksCtrl($scope, $http, $sce) {
     };
 };
 
-function TalkCtrl($scope, $http) {
+function TalkCtrl($scope, $http, $log) {
     $scope.editing = false;
     $scope.init = function(talk) {
         $scope.uuid = talk.uuid;
         $scope.title = talk.title;
-        $scope.imageLink = talk.image_link;
+        $scope.imageName = talk.image_name;
         $scope.slidesLink = talk.slides_link;
         $scope.videoLink = talk.video_link;
         $scope.description = talk.description;
@@ -67,7 +67,7 @@ function TalkCtrl($scope, $http) {
                     'description_link': $scope.descriptionLink,
                     'location': $scope.location,
                     'date': $scope.date,
-                    'image_link': $scope.imageLink,
+                    'image_name': $scope.imageName,
                     'published': $scope.published};
         $http.put("/admin/talks/" + $scope.uuid, data).success(function(data) {
             $scope.editing = false;

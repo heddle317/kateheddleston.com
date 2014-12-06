@@ -30,8 +30,8 @@
                       <input type="text" class="form-control" ng-model='newVideoLink'>
                   </div>
                   <div class="form-group">
-                      <label>Image Link</label>
-                      <input type="text" class="form-control" ng-model='newImageLink'>
+                      <label>Image Name</label>
+                      <input type="text" class="form-control" ng-model='newImageName'>
                   </div>
                   <div class="form-group">
                       <label>Location</label>
@@ -61,8 +61,8 @@
                 <div class='panel-body'>
                     <div class='col-md-4'>
                         <div class='talk_item thumbnail'>
-                            <img ng-src="{[{talk.image_link}]}" />
-                            <input type="text" class="form-control" ng-show='editing' ng-model='imageLink'>
+                            <img ng-src="{[{talk.base_url}]}/{[{talk.image_name}]}" />
+                            <input type="text" class="form-control" ng-show='editing' ng-model='imageName'>
                             <div class='info caption'>
                                 <p ng-show='!editing'><small class='subheader'><span ng-bind='date'></span> - <span ng-bind='location'></span></small></p>
                                 <p ng-show='editing'><small class='subheader'><input type="text" class="form-control" ng-model='date'> - <input type="text" class="form-control" ng-model='location'></span></small></p>

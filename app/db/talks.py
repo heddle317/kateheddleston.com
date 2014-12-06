@@ -1,5 +1,6 @@
 import datetime
 
+from app import config
 from app.db import app_db as db
 from app.db import create
 from app.db import delete
@@ -15,7 +16,7 @@ from sqlalchemy.dialects.postgresql import UUID
 REQUIRED_FIELDS = ['title',
                    'description',
                    'video_link',
-                   'image_link',
+                   'image_name',
                    'location',
                    'date']
 
@@ -27,7 +28,7 @@ class Talk(db.Model):
     description = db.Column(db.String(), nullable=False)
     slides_link = db.Column(db.String(500), nullable=True)
     video_link = db.Column(db.String(500), nullable=True)
-    image_link = db.Column(db.String(500), nullable=True)
+    image_name = db.Column(db.String(500), nullable=True)
     description_link = db.Column(db.String(500), nullable=True)
     location = db.Column(db.String(200), nullable=True)
     date = db.Column(db.DateTime(), unique=False)
@@ -41,10 +42,11 @@ class Talk(db.Model):
                 'description': self.description,
                 'slides_link': self.slides_link,
                 'video_link': self.video_link,
+                'image_name': self.image_name,
+                'base_url': '{}/talks/{}'.format(config.IMAGES_BASE, self.uuid),
                 'description_link': self.description_link,
                 'location': self.location,
                 'date': datetime.datetime.strftime(self.date, '%B %d, %Y'),
-                'image_link': self.image_link,
                 'published': self.published,
                 'next_uuid': next_uuid(Talk, self, sort_by='date', published=True),
                 'prev_uuid': prev_uuid(Talk, self, sort_by='date', published=True),

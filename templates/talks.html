@@ -8,7 +8,8 @@
 {% block content %}
     <div id='container' class="js-masonry">
         {% for talk in talks %}
-            {{ talk_item.show(talk.uuid, talk.image_link, talk.title, talk.date, loop.index) }}
+            {% set image_link = talk.base_url + "/" + talk.image_name %}
+            {{ talk_item.show(talk.uuid, image_link, talk.title, talk.date, loop.index) }}
         {% endfor %}
     </div>
 {% endblock %}
