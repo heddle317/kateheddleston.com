@@ -12,5 +12,6 @@ if __name__ == '__main__':
     else:
         gallery = Gallery.get_gallery(uuid=gallery_uuid)
         for item in gallery.get('items', []):
-            print item.get('image_name')
-            s3_change_image_resolutions(gallery_uuid, item.get('image_name'))
+            if item.get('image_name'):
+                print item.get('image_name')
+                s3_change_image_resolutions(gallery_uuid, item.get('image_name'))
