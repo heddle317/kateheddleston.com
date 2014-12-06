@@ -7,6 +7,9 @@ from app.utils.decorators.template_globals import use_template_globals
 
 from flask import g
 from flask import render_template
+from flask import request
+from urlparse import urljoin
+from werkzeug.contrib.atom import AtomFeed
 
 
 @app.route('/')
@@ -52,6 +55,26 @@ def blog():
 def blog_post(uuid):
     post = Gallery.get_gallery(uuid)
     return render_template('post.html', post=post, post_json=json.dumps(post))
+
+
+@app.route('/blog/feed.atom', methods=['GET'])
+@use_template_globals
+def blog_feed():
+    posts = Gallery.get_galleries()
+
+    feed = AtomFeed('Recent Posts',
+                    feed_url=request.url, url=request.url_root)
+
+    for post in posts:
+        text = post['items'][0]['body']
+
+        feed.add(post['name'], unicode(text),
+                 content_type='html',
+                 author=post['author'],
+                 url=urljoin(request.url_root, '/blog/' + post['uuid']),
+                 updated=post['published'],
+                 published=post['published'])
+    return feed.get_response()
 
 
 @app.route('/contact', methods=['GET'])
