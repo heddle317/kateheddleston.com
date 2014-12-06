@@ -23,10 +23,14 @@ CONSUMER_SECRET = os.environ.get('CONSUMER_SECRET')
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_IMAGE_BUCKET_KEY = 'images.kateheddleston.com'
 
-STATIC_BASE = 'https://s3.amazonaws.com/static.kateheddleston.com'
-IMAGES_BASE = 'https://s3.amazonaws.com/images.kateheddleston.com'
+IMAGE_BUCKET = os.environ.get('IMAGE_BUCKET')
+STATIC_BUCKET = os.environ.get('STATIC_BUCKET')
+
+S3_BASE = 'https://s3.amazonaws.com'
+IMAGES_BASE = '{}/{}'.format(S3_BASE, IMAGE_BUCKET)
+STATIC_BASE = '{}/{}'.format(S3_BASE, STATIC_BUCKET)
+
 
 if os.environ.get('ENVIRONMENT') == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
