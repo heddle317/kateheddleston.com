@@ -3,6 +3,7 @@ import json
 from app import app
 from app import config
 from app.twitter import get_tweet_comments
+from app.utils.aws import s3_change_image_resolutions
 from app.utils.email import send_email
 
 from flask import request
@@ -27,6 +28,13 @@ def blog_comments(uuid):
     url = '{}/blog/{}'.format(config.APP_BASE_LINK, uuid)
     tweets = get_tweet_comments(url)
     data = {'comments': tweets, 'num_comments': len(tweets)}
+    return json.dumps(data), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/blog/<gallery_uuid>/<image_name>/generate_sizes', methods=['GET'])
+def create_multiple_photos(gallery_uuid, image_name):
+    s3_change_image_resolutions(gallery_uuid, image_name)
+    data = {'message': 'success'}
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
 
 
