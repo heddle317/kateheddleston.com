@@ -24,7 +24,8 @@
             <div class='panel-body'>
                 <div class='row'>
                     <div class='col-md-2'>
-                        <img style='width:100%' ng-src="{[{coverPhoto}]}_small" />
+                        <img ng-if='coverPhoto' style='width:100%' ng-src="{[{coverPhoto}]}_small" />
+                        <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no_image.png" />
                         <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
                     </div>
                     <div class='col-md-10'>

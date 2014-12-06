@@ -48,7 +48,8 @@
     {% for gallery in galleries %}
         <div class='item w4' ng-controller='GalleryCtrl' ng-init='init({{gallery}})'>
             <div class='blog_item w4'>
-                <img ng-src="{[{coverPhoto}]}_medium" alt='No image'/>
+                <img ng-if='coverPhoto' ng-src="{[{coverPhoto}]}_medium" alt='No image'/>
+                <img ng-if='!coverPhoto' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>
                 <div class='blog_item_footer'>
                     <div class='info caption'>
                         <h4 ng-bind='name'></h4>
