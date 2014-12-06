@@ -16,16 +16,12 @@ def s3_change_image_resolutions(gallery_uuid, filename):
     key = Key(bucket)
 
     url = "{}/galleries/{}/{}".format(config.IMAGES_BASE, gallery_uuid, filename)
-    print url
     # Retrieve our source image from a URL
     fp = urllib.urlopen(url)
-    print fp
     content_type = fp.info().get('content-type')
-    print content_type
     # Load the URL data into an image
     img = cStringIO.StringIO(fp.read())
     img_original = Image.open(img)
-    print img_original
 
     change_image_resolution(gallery_uuid, filename, img_original, content_type, .05, key)
     change_image_resolution(gallery_uuid, filename, img_original, content_type, .10, key)
@@ -38,18 +34,14 @@ def s3_change_image_resolutions(gallery_uuid, filename):
 def change_image_resolution(gallery_uuid, filename, img_original, content_type, size_percent, key):
     # Resize the image
     size = (int(img_original.size[0] * size_percent), int(img_original.size[1] * size_percent))
-    print img_original.size
-    print size
     img_resized = img_original.resize(size, Image.NEAREST)
 
     # NOTE, we're saving the image into a cStringIO object to avoid writing to disk
     out_location = cStringIO.StringIO()
     file_type = get_file_type(content_type)
-    print file_type
     img_resized.save(out_location, file_type)
 
     key.key = 'galleries/{}/{}'.format(gallery_uuid, new_filename(filename, size))
-    print key.key
     key.set_contents_from_string(out_location.getvalue(),
                                  headers={'Content-Type': content_type},
                                  replace=False,
@@ -77,5 +69,4 @@ def new_filename(filename, size):
         additional_name = 'grande'
     else:
         additional_name = 'jumbo'
-    print name, additional_name
     return "{}_{}".format(name, additional_name)

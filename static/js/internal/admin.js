@@ -236,7 +236,9 @@ function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
         $scope.widthStyle = {"width": $scope.percent + "%"};
         $scope.loading = true;
       }).success(function(data, status, headers, config) {
-        $scope.item.image_name = fileName;
+        $http.get('/blog/' + galleryUUID + '/' + fileName + '/generate_sizes').success(function(data) {
+            $scope.item.image_name = fileName;
+        });
       }).error(function(data, status, headers, config) {
           $scope.error = true;
           $scope.alertMessage = "There was an error uploading your photo.";
