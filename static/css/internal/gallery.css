@@ -73,12 +73,12 @@
 
 #kateheddleston-wrap .next-item {
   right:0;
-  background-image:url("http://images.kateheddleston.com/images/right-arrow.png");
+  background-image:url("https://s3.amazonaws.com/images.kateheddleston.com/images/right-arrow.png");
 }
 
 #kateheddleston-wrap .prev-item {
   left:0;
-  background-image:url("http://images.kateheddleston.com/images/left-arrow.png");
+  background-image:url("https://s3.amazonaws.com/images.kateheddleston.com/images/left-arrow.png");
 }
 
 #kateheddleston-wrap .text-display {
