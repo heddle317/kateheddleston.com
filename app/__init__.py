@@ -1,6 +1,7 @@
+import bugsnag
+
 from app import config
 
-import bugsnag
 from bugsnag.flask import handle_exceptions
 
 from flask import Flask

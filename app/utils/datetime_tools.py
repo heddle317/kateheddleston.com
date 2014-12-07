@@ -1,4 +1,5 @@
 import datetime
+import inflect
 
 
 def now_utc():
@@ -13,10 +14,22 @@ def relative_time(date):
     time_diff = now_utc() - date
     if time_diff.days < 1:
         if time_diff.seconds < 60 * 60:
-            return str(time_diff.seconds / 60) + " minutes ago"
-        return str(time_diff.seconds / (60 * 60)) + " hours ago"
+            diff = time_diff.seconds / 60
+            return "{} {} ago".format(diff, pluralize('minute', diff))
+        diff = time_diff.seconds / (60 * 60)
+        return "{} {} ago".format(diff, pluralize('hour', diff))
     elif time_diff.days < 31:
-        return str(time_diff.days) + " days ago"
+        diff = time_diff.days
+        return "{} {} ago".format(diff, pluralize('day', diff))
     elif time_diff.days < 365:
-        return str(time_diff.days / 31) + " months ago"
-    return str(time_diff.days / 365) + " years ago"
+        diff = time_diff.days / 31
+        return "{} {} ago".format(diff, pluralize('month', diff))
+    diff = time_diff.days / 365
+    return "{} {} ago".format(diff, pluralize('year', diff))
+
+
+def pluralize(word, num):
+    if num != 1:
+        p = inflect.engine()
+        return p.plural(word)
+    return word
