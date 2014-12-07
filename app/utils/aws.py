@@ -40,7 +40,7 @@ def change_image_resolution(gallery_uuid, filename, img_original, content_type, 
     file_type = get_file_type(content_type)
     img_resized.save(out_location, file_type)
 
-    key.key = 'galleries/{}/{}'.format(gallery_uuid, new_filename(filename, new_size))
+    key.key = 'galleries/{}/{}'.format(gallery_uuid, new_filename(filename, width))
     key.set_contents_from_string(out_location.getvalue(),
                                  headers={'Content-Type': content_type},
                                  replace=True,
@@ -61,9 +61,8 @@ def get_width_height(original_size, width):
     return (width, height)
 
 
-def new_filename(filename, size):
+def new_filename(filename, width):
     name, ext = os.path.splitext(filename)
-    width = size[0]
     if width <= 500:
         additional_name = 'thumbnail'
     elif width <= 1000:
