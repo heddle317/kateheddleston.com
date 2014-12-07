@@ -16,11 +16,12 @@ def use_template_globals(fn):
         g.static_base = config.STATIC_BASE
         g.images_base = config.IMAGES_BASE
         g.env = os.environ.get('ENVIRONMENT', 'dev')
+        set_mobile_settings()
         return fn(*args, **kwargs)
     return wrapped
 
 
-def is_mobile():
+def set_mobile_settings():
     g.browser = request.user_agent.browser
     g.version = request.user_agent.version and int(request.user_agent.version.split('.')[0])
     g.platform = request.user_agent.platform

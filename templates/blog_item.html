@@ -3,7 +3,11 @@
     <div class='item {{width_class}}'>
         <a class='blog_item_link' href="/blog/{{uuid}}">
             <div class='blog_item {{width_class}}'>
-                <img src="{{image}}_medium" />
+                {% if g.is_mobile %}
+                  <img src="{{image}}_small" />
+                {% else %}
+                  <img src="{{image}}_medium" />
+                {% endif %}
                 <div class='blog_item_footer'>
                     <div class='info caption'>
                         <h4>{{title}}</h4>
