@@ -3,7 +3,11 @@
     <h3 ng-bind='item.title'></h3>
   </div>
   <div class='image-section post-section' ng-if='item.image_name'>
-      <img ng-src="{[{item.base_url}]}/{[{item.image_name}]}_large" />
+      {% if g.is_mobile %}
+        <img ng-src="{[{item.base_url}]}/{[{item.image_name}]}_small" />
+      {% else %}
+        <img ng-src="{[{item.base_url}]}/{[{item.image_name}]}_large" />
+      {% endif %}
   </div>
   <div class='body-section post-section' ng-if='item.body'>
     <p ng-bind-html='item.body'>
