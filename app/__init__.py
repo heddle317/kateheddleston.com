@@ -6,11 +6,17 @@ from bugsnag.flask import handle_exceptions
 
 from flask import Flask
 from flask import g
+from flask import redirect
+from flask import request
+
 from flask_assets import Bundle
 from flask_assets import Environment
+
 from flask.ext.login import current_user
 from flask.ext.sqlalchemy import SQLAlchemy
+
 from flask_login import LoginManager
+
 from flask_wtf.csrf import CsrfProtect
 
 
@@ -121,6 +127,10 @@ assets.register('tiles_css', tiles_css)
 @app.before_request
 def before_request():
     g.user = current_user
+    if 'https://' not in request.url_root and config.ENV != 'dev':
+        pass
+        # return redirect(request.url.replace("http://", "https://"))
+
 
 from app import views  # NOQA
 from app import apis  # NOQA

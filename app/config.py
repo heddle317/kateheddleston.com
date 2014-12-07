@@ -1,5 +1,7 @@
 import os
 
+ENV = os.environ.get('ENVIRONMENT')
+
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 ROOT_PATH = BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
 
@@ -32,7 +34,7 @@ IMAGES_BASE = '{}/{}'.format(S3_BASE, IMAGE_BUCKET)
 STATIC_BASE = '{}/{}'.format(S3_BASE, STATIC_BUCKET)
 
 
-if os.environ.get('ENVIRONMENT') == 'dev':
+if ENV == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/kateheddleston_db'
