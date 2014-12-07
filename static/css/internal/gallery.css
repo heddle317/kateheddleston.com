@@ -105,6 +105,12 @@
 #kateheddleston-wrap .gallery-item .post-section.name .down_arrow {
   position:fixed;
   right:3%;
-  bottom:3%;
+  bottom:10%;
   width:10%;
+}
+
+@media all and (max-width: 767px) {
+  #kateheddleston-wrap .gallery-item .post-section.name .down_arrow {
+    bottom:3%;
+  }
 }
