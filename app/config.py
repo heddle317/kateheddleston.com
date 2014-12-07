@@ -33,6 +33,8 @@ S3_BASE = 'https://s3.amazonaws.com'
 IMAGES_BASE = '{}/{}'.format(S3_BASE, IMAGE_BUCKET)
 STATIC_BASE = '{}/{}'.format(S3_BASE, STATIC_BUCKET)
 
+LOGENTRIES_TOKEN = os.environ.get('LOGENTRIES_TOKEN')
+
 
 if ENV == 'dev':
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
