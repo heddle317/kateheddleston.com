@@ -1,5 +1,4 @@
 import bugsnag
-import logging
 
 from app import config
 
@@ -19,8 +18,6 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 from flask_wtf.csrf import CsrfProtect
-
-from logentries import LogentriesHandler
 
 
 # Configure Bugsnag
@@ -44,11 +41,6 @@ login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.login_message = None
 login_manager.init_app(app)
-
-log = logging.getLogger('logentries')
-log.setLevel(logging.INFO)
-log_handler = LogentriesHandler(config.LOGENTRIES_TOKEN)
-log.addHandler(log_handler)
 
 
 about_css = Bundle('css/internal/about.css',
@@ -135,7 +127,7 @@ assets.register('tiles_css', tiles_css)
 @app.before_request
 def before_request():
     g.user = current_user
-    log.info("Request URL: {}".format(request.url))
+    # log.info("Request URL: {}".format(request.url))
     if 'https://' not in request.url_root and config.ENV != 'dev':
         pass
         # return redirect(request.url.replace("http://", "https://"))
