@@ -104,8 +104,7 @@
 
 #kateheddleston-wrap .gallery-item .post-section.name .down_arrow {
   position:fixed;
-  right:30px;
-  bottom:30px;
-  width:150px;
-  height:150px;
+  right:3%;
+  bottom:3%;
+  width:10%;
 }
