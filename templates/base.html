@@ -3,7 +3,7 @@
 <html ng-app='angularApp' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />    
-        <link rel="shortcut icon" href="/static/images/winery_bowl_small.jpg">
+        <link rel="shortcut icon" href="{{g.images_base}}/images/winery_bowl_small.jpg">
         <title>Kate Heddleston</title>
 
         {% assets "base_css" %}
@@ -33,7 +33,7 @@
             <div class='brand brand-top pull-left'>
               <div class='logo'>
                 <a href="{{g.app_base_link}}/">
-                  <img src="/static/images/binary_logo.png">
+                  <img src="{{g.images_base}}/images/binary_logo.png">
                 </a>
               </div>
               <!--<p class='name'>Kate Heddleston</p>-->
@@ -50,10 +50,10 @@
             </div>
             <div class='brand brand-bottom pull-right'>
               <ul class='icons nav navbar-nav'>
-                  <li><a href='https://www.facebook.com/kate.heddleston' target="_blank"><img src='/static/images/facebook_icon.png'/></a></li>
-                  <li><a href='https://twitter.com/heddle317' target="_blank"><img src='/static/images/twitter_icon.png'/></a></li>
-                  <li><a href='https://www.linkedin.com/in/kateheddleston' target="_blank"><img src='/static/images/linkedin_icon.png'/></a></li>
-                  <li><a href='https://github.com/heddle317/kateheddleston.com' target="_blank"><img src='/static/images/github_icon.png'/></a></li>
+                  <li><a href='https://www.facebook.com/kate.heddleston' target="_blank"><img src='{{g.images_base}}/images/facebook_icon.png'/></a></li>
+                  <li><a href='https://twitter.com/heddle317' target="_blank"><img src='{{g.images_base}}/images/twitter_icon.png'/></a></li>
+                  <li><a href='https://www.linkedin.com/in/kateheddleston' target="_blank"><img src='{{g.images_base}}/images/linkedin_icon.png'/></a></li>
+                  <li><a href='https://github.com/heddle317/kateheddleston.com' target="_blank"><img src='{{g.images_base}}/images/github_icon.png'/></a></li>
               </ul>
             </div>
           </div><!-- /.navbar-collapse -->
