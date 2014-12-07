@@ -22,7 +22,15 @@
 #kateheddleston-wrap .gallery-content .body-section {
   padding-top:80px;
   padding-bottom:80px;
-  font-size:18px;
+  font-size:16px;
+  margin:0 10%;
+  width:auto;
+}
+
+@media all and (max-width: 767px) {
+  #kateheddleston-wrap .gallery-content .body-section {
+    margin:0;
+  }
 }
 
 #kateheddleston-wrap .gallery-content .title-section {
