@@ -6,7 +6,7 @@
   top:35%;
   bottom:auto;
   left:0;
-  height:100%;
+  height:auto;
   display:block;
   z-index: 1;
 }
