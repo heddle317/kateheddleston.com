@@ -8,14 +8,14 @@ function CommentCtrl($scope, $http, $window, $log) {
   $scope.numComments = null;
   $scope.comments = [];
   $scope.getComments = function() {
+    $http.get($window.location.pathname + '/comments/update').success(function(data) {
+    });
     $http.get($window.location.pathname + '/comments').success(function(data) {
       $scope.numComments = data.num_comments;
       $scope.comments = data.comments;
       var comment;
       for (var i = 0; i < $scope.comments.length; i++) {
         comment = $scope.comments[i];
-        comment.user = JSON.parse(comment.user);
-        comment.author = JSON.parse(comment.author);
         var j;
         var link;
         var url;
