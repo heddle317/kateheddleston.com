@@ -10,3 +10,4 @@ static/gen
 .DS_Store
 cffi/
 certs/
+logs/
