@@ -55,6 +55,7 @@ def blog_post(uuid):
 
 
 @app.route('/contact', methods=['GET'])
+@use_template_globals
 def contact():
     g.nav_view = 'contact'
     return render_template('contact.html')
