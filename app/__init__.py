@@ -140,13 +140,8 @@ assets.register('tiles_css', tiles_css)
 @app.before_request
 def before_request():
     g.user = current_user
-    app.logger.info("Request URL: {}".format(request.url))
-    app.logger.info("HTTP_X_FORWARDED_PROTO: {}".format(request.headers.get('HTTP_X_FORWARDED_PROTO')))
-    app.logger.info("X_FORWARDED_PROTO: {}".format(request.headers.get('X_FORWARDED_PROTO')))
-    app.logger.info("X-FORWARDED-PROTO: {}".format(request.headers.get('X-FORWARDED-PROTO')))
-    if 'https://' not in request.url_root and config.ENV != 'dev':
-        pass
-        # return redirect(request.url.replace("http://", "https://"))
+    if request.headers.get('X_FORWARDED_PROTO') == 'http' and config.ENV != 'dev':
+        return redirect(request.url.replace("http://", "https://"))
 
 
 from app import views  # NOQA
