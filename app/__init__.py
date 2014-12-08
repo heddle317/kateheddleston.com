@@ -1,4 +1,5 @@
 import bugsnag
+import logging
 
 from app import config
 
@@ -41,6 +42,18 @@ login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.login_message = None
 login_manager.init_app(app)
+
+if config.ENV == 'production':
+    stream_handler = logging.StreamHandler()
+    app.logger.addHandler(stream_handler)
+    app.logger.setLevel(logging.INFO)
+else:
+    from logging.handlers import RotatingFileHandler
+    file_handler = RotatingFileHandler('logs/kateheddleston.log', 'a', 1 * 1024 * 1024, 10)
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+    app.logger.addHandler(file_handler)
+    app.logger.setLevel(logging.INFO)
 
 
 about_css = Bundle('css/internal/about.css',
@@ -127,7 +140,7 @@ assets.register('tiles_css', tiles_css)
 @app.before_request
 def before_request():
     g.user = current_user
-    # log.info("Request URL: {}".format(request.url))
+    app.logger.info("Request URL: {}".format(request.url))
     if 'https://' not in request.url_root and config.ENV != 'dev':
         pass
         # return redirect(request.url.replace("http://", "https://"))
