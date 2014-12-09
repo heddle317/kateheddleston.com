@@ -25,10 +25,12 @@ function CommentCtrl($scope, $http, $window, $log) {
           comment.text = comment.text.replace(url.url, link);
         }
         var media;
-        for (j = 0; j < comment.entities.media.length; j++) {
-          media = comment.entities.media[j];
-          link = "<a href='" + media.expanded_url + "' target='_blank'>" + media.url + "</a>";
-          comment.text = comment.text.replace(media.url, link);
+        if (comment.entities.media) {
+          for (j = 0; j < comment.entities.media.length; j++) {
+            media = comment.entities.media[j];
+            link = "<a href='" + media.expanded_url + "' target='_blank'>" + media.url + "</a>";
+            comment.text = comment.text.replace(media.url, link);
+          }
         }
         var mention;
         for (j = 0; j < comment.entities.user_mentions.length; j++) {

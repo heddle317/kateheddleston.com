@@ -11,14 +11,30 @@ def get_tweet_comments(gallery_uuid):
 
 
 def update_tweet_comments(url, gallery_uuid):
-    auth = tweepy.OAuthHandler(config.CONSUMER_KEY, config.CONSUMER_SECRET)
+    auth = tweepy.OAuthHandler(config.TWITTER_CONSUMER_KEY, config.TWITTER_CONSUMER_SECRET)
     api = tweepy.API(auth)
     tweets = []
     for tweet in tweepy.Cursor(api.search, q=url, rpp=100).items():
-        # process status here
-        t = process_tweet(tweet)
-        Comment.add_or_update(tweet.id, gallery_uuid, t)
-        tweets.append(t)
+        tweets.append(tweet)
+        screen_name = tweet.author.screen_name
+        for mention in tweepy.Cursor(api.search, q=screen_name, rpp=50).items():
+            if mention.in_reply_to_status_id == tweet.id:
+                tweets.append(mention)
+
+    tweets = [process_tweet(tweet) for tweet in tweets]
+    for tweet in tweets:
+        Comment.add_or_update(tweet.get('id'), gallery_uuid, tweet)
+    return tweets
+
+
+def check_tweet(tweet, gallery_uuid, tweepy, api, tweets):
+    if tweet in tweets:
+        return tweets
+    tweets.append(tweet)
+    screen_name = tweet.author.screen_name
+    for mention in tweepy.Cursor(api.search, q=screen_name, rpp=50).items():
+        if mention.in_reply_to_status_id == tweet.id:
+            tweets = check_tweet(mention, gallery_uuid, tweepy, api, tweets)
     return tweets
 
 
@@ -35,4 +51,5 @@ def process_tweet(tweet):
     tweet_dict['link'] = link
     tweet_dict['text'] = tweet.text
     tweet_dict['id'] = tweet.id
+    tweet_dict['in_reply_to_status_id'] = tweet.in_reply_to_status_id
     return tweet_dict
