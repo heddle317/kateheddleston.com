@@ -48,7 +48,6 @@ class Comment(db.Model):
                          'twitter_id': twitter_id,
                          'body': body}
             item = create(Comment, **args_dict)
-
         return item.to_dict()
 
     @staticmethod
