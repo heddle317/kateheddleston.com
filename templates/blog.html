@@ -6,7 +6,7 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-    <div id='container' class="js-masonry">
+    <div id='container' class="js-masonry" style='display:none'>
         {% for post in posts %}
             {{ blog_item.show(post.uuid, post.cover_photo, post.name, post.published_ago, loop.index) }}
         {% endfor %}
@@ -16,7 +16,6 @@
     <script type='text/javascript'>
         // or with jQuery
         var $container = $('#container');
-        $container.hide();
         $container.imagesLoaded().progress( function( imgLoad, image ) {
             $container.show();
             $container.masonry({
