@@ -43,6 +43,7 @@ def process_tweet(tweet):
     Return dict of items we actually need from the tweet.
     '''
     tweet_dict = {}
+    tweet_dict['id'] = tweet.id
     tweet_dict['user'] = tweet.user._json
     tweet_dict['author'] = tweet.author._json
     tweet_dict['entities'] = tweet.entities
@@ -50,6 +51,5 @@ def process_tweet(tweet):
     link = "https://www.twitter.com/{}/status/{}".format(tweet.author._json.get('screen_name'), tweet_dict.get('id'))
     tweet_dict['link'] = link
     tweet_dict['text'] = tweet.text
-    tweet_dict['id'] = tweet.id
     tweet_dict['in_reply_to_status_id'] = tweet.in_reply_to_status_id
     return tweet_dict

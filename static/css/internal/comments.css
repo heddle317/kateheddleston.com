@@ -80,6 +80,18 @@
   margin-top:10px;
 }
 
+@media (min-width: 575px) {
+    #comments .tweets .tweet-height .text {
+        min-height:80px;
+    }
+}
+
+@media (min-width: 635px) {
+    #comments .tweets .tweet-height .text {
+        min-height:60px;
+    }
+}
+
 #comments .tweets .tweet .created-at {
   margin-top:10px;
   color:rgba(150, 150, 150, 1);
