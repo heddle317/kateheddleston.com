@@ -71,3 +71,9 @@
     margin:0 auto;
     margin-top:30px;
 }
+
+#loading img {
+    width:20%;
+    display:block;
+    margin:10% auto 0;
+}
