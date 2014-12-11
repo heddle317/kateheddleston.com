@@ -44,7 +44,7 @@
     </div>
 
 </div>
-<div id='container' class="js-masonry">
+<div id='container' class="js-masonry" style='display:none'>
     {% for gallery in galleries %}
         <div class='item w4' ng-controller='GalleryCtrl' ng-init='init({{gallery}})'>
             <div class='blog_item w4'>
@@ -82,7 +82,6 @@
     <script type='text/javascript'>
         // or with jQuery
         var $container = $('#container');
-        $container.hide();
         $container.imagesLoaded().progress( function( imgLoad, image ) {
             $container.show();
             $container.masonry({
