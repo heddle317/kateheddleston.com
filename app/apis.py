@@ -6,7 +6,7 @@ from app.db.subscriptions import Subscription
 from app.twitter import get_tweet_comments
 from app.twitter import update_tweet_comments
 from app.utils.aws import s3_change_image_resolutions
-from app.utils.email import send_email
+from app.utils.email import send_contact_email
 
 from flask import request
 
@@ -20,7 +20,7 @@ def email_message():
     if not email or not body:
         return_data = {'message': 'An email and body are required.'}
         return json.dumps(return_data), 500, {'Content-Type': 'application/json'}
-    send_email(email, subject, body)
+    send_contact_email(email, subject, body)
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
 
 

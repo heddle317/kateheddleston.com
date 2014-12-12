@@ -9,6 +9,7 @@ from app.db import get_list
 from app.db import next_uuid
 from app.db import prev_uuid
 from app.db import update
+from app.db.subscriptions import Subscription
 from app.utils.datetime_tools import format_date
 from app.utils.datetime_tools import relative_time
 
@@ -68,6 +69,8 @@ class Gallery(db.Model):
         gallery = get(Gallery, uuid=uuid)
         if not gallery.published and kwargs.get('published', False):
             kwargs['published_at'] = datetime.datetime.utcnow()
+            link = "{}/blog/{}".format(config.APP_BASE_LINK, uuid)
+            Subscription.send_subscription_emails(link, gallery.name)
         gallery = update(gallery, kwargs)
 
         current_items = [item.get('uuid') for item in kwargs.get('items', [])]
@@ -83,6 +86,7 @@ class Gallery(db.Model):
             else:
                 item['gallery_uuid'] = gallery.uuid
                 GalleryItem.add_item(**item)
+
         return gallery.to_dict()
 
     @staticmethod

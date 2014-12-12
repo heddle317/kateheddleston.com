@@ -3,6 +3,7 @@ from app.db import create
 from app.db import get
 from app.db import get_list
 from app.db import update
+from app.utils.email import send_subscription_email
 from app.utils.email import send_verification_email
 
 from sqlalchemy.dialects.postgresql import UUID
@@ -35,6 +36,12 @@ class Subscription(db.Model):
     @staticmethod
     def get_subscription(uuid):
         return get(Subscription, uuid=uuid).to_dict()
+
+    @staticmethod
+    def send_subscription_emails(post_link, post_name):
+        subscriptions = Subscription.get_list()
+        for subscription in subscriptions:
+            send_subscription_email(subscription, post_link, post_name)
 
     @staticmethod
     def create_subscription(**kwargs):
