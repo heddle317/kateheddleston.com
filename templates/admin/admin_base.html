@@ -25,27 +25,37 @@
     </head>
     <body id="kateheddleston-wrap">
         {% if g.current_user.is_authenticated() %}
-        <nav class="navbar container-fluid navbar-static-top navbar-default" role="navigation">
-            <div class='container-fluid'>
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-target">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse" id="nav-target">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li class="{% if g.nav_view == 'talks' %}active{% endif %}"><a href="{{g.app_base_link}}/admin/talks">Talks</a></li>
-                        <li class="{% if g.nav_view == 'galleries' %}active{% endif %}"><a href="{{g.app_base_link}}/admin/galleries">Galleries</a></li>
-                    </ul>
-                    <ul class='nav navbar-nav navbar-right'>
-                        <li><a href="{{g.app_base_link}}/logout">Logout</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
+        <div class="navbar-custom container-fluid {%if g.nav_view!='home'%}white-background{%endif%}" id="nav-target">
+          <div class='navbar-header'>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-nav-button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class='brand brand-top pull-left'>
+              <div class='logo'>
+                <a href="{{g.app_base_link}}/">
+                  <img src="{{g.images_base}}/images/binary_logo.png">
+                </a>
+              </div>
+              <!--<p class='name'>Kate Heddleston</p>-->
             </div>
-        </nav>
+          </div>
+          <div class="collapse navbar-collapse" id="mobile-nav-button">
+            <div class='navbar-text pull-left'>
+              <ul class="nav navbar-nav">
+                  <li class="{% if g.nav_view == 'talks' %}active{% endif %}"><a href="{{g.app_base_link}}/admin/talks">Talks</a></li>
+                  <li class="{% if g.nav_view == 'galleries' %}active{% endif %}"><a href="{{g.app_base_link}}/admin/galleries">Galleries</a></li>
+              </ul>
+            </div>
+            <div class='brand brand-bottom pull-right'>
+              <ul class='icons nav navbar-nav'>
+                  <li><a href="{{g.app_base_link}}/logout">Logout</a></li>
+              </ul>
+            </div>
+          </div><!-- /.navbar-collapse -->
+        </div>
         {% endif %}
         <div class='container-fluid main-content'>
             {% with messages = get_flashed_messages(with_categories=true) %}

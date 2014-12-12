@@ -39,10 +39,9 @@
         </div>
       </div>
     </div>
-    <div>
-      <button data-target='#create_gallery' data-toggle='modal' type='submit' class='btn btn-success'>Create Gallery</button>
+    <div class='page-btn'>
+      <button data-target='#create_gallery' data-toggle='modal' type='submit' class='btn btn-default'>Create Gallery</button>
     </div>
-
 </div>
 <div id='container' class="js-masonry" style='display:none'>
     <div id='loading'>
@@ -70,8 +69,8 @@
                     <div class='row buttons'>
                         <div class='col-md-12 text-right'>
                             <a class='btn btn-default' href="/admin/gallery/{[{uuid}]}">Edit</a>
-                            <button class='btn btn-default' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
-                            <button class='btn btn-default' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
+                            <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
+                            <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
                             <button class='btn btn-danger' ng-click='deleteGallery()'>Delete</button>
                         </div>
                     </div>

@@ -44,6 +44,10 @@
     color:#582939;
 }
 
+#kateheddleston-wrap .btn-default {
+  color:rgba(205, 16, 118, 1);
+}
+
 #kateheddleston-wrap .background-white {
   background-color:rgba(255,255,255,.9);
 }
@@ -76,4 +80,9 @@
     width:20%;
     display:block;
     margin:10% auto 0;
+}
+
+#kateheddleston-wrap .page-btn {
+    width:100%;
+    padding-left:15px;
 }
