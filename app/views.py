@@ -1,3 +1,4 @@
+import datetime
 import json
 
 from app import app
@@ -7,8 +8,6 @@ from app.utils.decorators.template_globals import use_template_globals
 
 from flask import g
 from flask import render_template
-from flask import request
-from urlparse import urljoin
 from werkzeug.contrib.atom import AtomFeed
 
 
@@ -62,18 +61,27 @@ def blog_post(uuid):
 def blog_feed():
     posts = Gallery.get_galleries()
 
+    feed_url = "{}/blog/feed.atom".format(g.app_base_link)
     feed = AtomFeed('Recent Posts',
-                    feed_url=request.url, url=request.url_root)
+                    feed_url=feed_url,
+                    url=g.app_base_link)
 
     for post in posts:
-        text = post['items'][0]['body']
+        post_html = []
+        for item in post.get('items'):
+            post_html.append(item.get('body'))
+        text = '</p><br><br><p>'.join(post_html)
+        text = '<p>' + text + '</p>'
 
-        feed.add(post['name'], unicode(text),
+        post_url = "{}/blog/{}".format(g.app_base_link, post.get('uuid'))
+        published_at = datetime.datetime.strptime(post['published_at_raw'], '%Y-%m-%dT%H:%M:%SZ')
+        feed.add(post.get('name'),
+                 unicode(text),
                  content_type='html',
-                 author=post['author'],
-                 url=urljoin(request.url_root, '/blog/' + post['uuid']),
-                 updated=post['published'],
-                 published=post['published'])
+                 author=post.get('author'),
+                 url=post_url,
+                 updated=published_at,
+                 published=published_at)
     return feed.get_response()
 
 
