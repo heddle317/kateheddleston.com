@@ -30,12 +30,12 @@
                 </div>
                 <button ng-click='addNew()' class='btn btn-primary'>Add Item</button>
               </div>
-              <div class='modal-footer'>
-                <button class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" ng-click='createGallery()' class="btn btn-success">Create Gallery</button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div class='modal-footer'>
+              <button class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" ng-click='createGallery()' class="btn btn-success">Create Gallery</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -81,6 +81,9 @@
 </div>
 {% endblock %}
 {% block script %}
+  {% assets "blog_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
     <script type='text/javascript'>
         // or with jQuery
         var $container = $('#container');

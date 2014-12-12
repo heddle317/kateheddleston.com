@@ -86,10 +86,13 @@ base_js = Bundle('js/external/jquery-1.11.1.min.js',
                  'js/external/angular.min.js',
                  'js/external/angular-resource.min.js',
                  'js/external/sanitize.js',
-                 'js/external/masonry.pkgd.min.js',
-                 'js/external/imagesloaded.pkgd.min.js',
                  'js/internal/angular_app_module.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
+
+blog_js = Bundle('js/internal/subscriptions.js',
+                 'js/external/masonry.pkgd.min.js',
+                 'js/external/imagesloaded.pkgd.min.js',
+                 filters='jsmin', output='gen/blog.%(version)s.js')
 
 comment_css = Bundle('css/internal/comments.css',
                      filters='cssmin', output='gen/comment.%(version)s.css')
@@ -126,6 +129,7 @@ assets.register('admin_js', admin_js)
 assets.register('admin_css', admin_css)
 assets.register('base_js', base_js)
 assets.register('base_css', base_css)
+assets.register('blog_js', blog_js)
 assets.register('comment_js', comment_js)
 assets.register('comment_css', comment_css)
 assets.register('contact_js', contact_js)

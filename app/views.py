@@ -3,6 +3,7 @@ import json
 
 from app import app
 from app.db.galleries import Gallery
+from app.db.subscriptions import Subscription
 from app.db.talks import Talk
 from app.utils.decorators.template_globals import use_template_globals
 
@@ -90,3 +91,10 @@ def blog_feed():
 def contact():
     g.nav_view = 'contact'
     return render_template('contact.html')
+
+
+@app.route('/verify_email/<verification_code>', methods=["GET"])
+@use_template_globals
+def verify_email(verification_code):
+    subscription = Subscription.verify_email(verification_code)
+    return render_template("email_verified.html", subscription=subscription)

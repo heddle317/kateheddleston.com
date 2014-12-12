@@ -1,0 +1,39 @@
+<div ng-controller='SubscriptionController'>
+    <div id='subscribe' class='modal fade'>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form ng-show='!success'>
+            <div class='modal-body' ng-show='!loading'>
+                <div class='alert alert-warning' role='alert' ng-show='error'>
+                    <span class='message' ng-bind='message'></span>
+                </div>
+              <div class="form-group">
+                  <input type="text" class="form-control" name="name" ng-model='name' placeholder='Name'>
+                  <input type="text" class="form-control" name="email" ng-model='email' placeholder='Email'>
+              </div>
+            </div>
+            <div class='loading modal-loader' ng-show='loading'>
+                <img src="{{g.images_base}}/images/loading.gif" />
+            </div>
+            <div class='modal-footer'>
+              <button class="btn btn-default" ng-click='close()'>Cancel</button>
+              <button ng-click='subscribe()' class="btn btn-success">Subscribe</button>
+            </div>
+          </form>
+          <div ng-show='success && !loading'>
+              <div class='modal-body'>
+                  <p>
+                    <span class='message' ng-bind-html='message'></span>
+                  </p>
+              </div>
+              <div class='modal-footer'>
+                <button class="btn btn-default" ng-click='close()'>Done</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='page-btn'>
+      <button data-target='#subscribe' data-toggle='modal' class='btn btn-default'>Subscribe</button>
+    </div>
+</div>

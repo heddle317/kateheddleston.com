@@ -76,13 +76,27 @@
     margin-top:30px;
 }
 
-#loading img {
+.loading img {
     width:20%;
     display:block;
     margin:10% auto 0;
 }
 
+.loading.modal-loader img {
+    margin:5% auto;
+}
+
 #kateheddleston-wrap .page-btn {
     width:100%;
     padding-left:15px;
+}
+
+#kateheddleston-wrap .form-control {
+    margin-top:10px;
+}
+
+#kateheddleston-wrap .verification_message {
+    width:50%;
+    margin:10% auto 0;
+    font-size:18px;
 }

@@ -2,6 +2,7 @@ import json
 
 from app import app
 from app import config
+from app.db.subscriptions import Subscription
 from app.twitter import get_tweet_comments
 from app.twitter import update_tweet_comments
 from app.utils.aws import s3_change_image_resolutions
@@ -44,6 +45,25 @@ def create_multiple_photos(gallery_uuid, image_name):
     s3_change_image_resolutions(gallery_uuid, image_name)
     data = {'message': 'success'}
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/subscriptions/subscribe', methods=['POST'])
+def subscribe():
+    data = json.loads(request.data)
+    Subscription.create_subscription(**data)
+    message = "You have successfully subscribed to KateHeddleston.com's blog with email address {}.<br><br>" \
+              "You will receive an email to verify your email address shortly. Be sure to check your spam folder if you " \
+              "don't see it after a few minutes. Thanks!".format(data.get('email'))
+    message = {"message": message}
+    return json.dumps(message), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/subscriptions/cancel/<email>', methods=['GET'])
+def cancel_subscription(email):
+    Subscription.cancel_subscription(email)
+    message = "You have successfully unsubscribed email address {} from KateHeddleston.com's blog.".format(email)
+    message = {"message": message}
+    return json.dumps(message), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/ping', methods=["GET"])

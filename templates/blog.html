@@ -8,7 +8,8 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-    <div id='loading'>
+    {% include "subscription.html" %}
+    <div class='loading main-loader'>
         <img src="{{g.images_base}}/images/loading.gif" />
     </div>
     <div id='container' class="js-masonry" style='display:none'>
@@ -18,11 +19,14 @@
     </div>
 {% endblock %}
 {% block script %}
+  {% assets "blog_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
     <script type='text/javascript'>
         // or with jQuery
         var $container = $('#container');
         $container.imagesLoaded().progress( function( imgLoad, image ) {
-            $('#loading').hide();
+            $('.loading.main-loader').hide();
             $container.show();
             $container.masonry({
                 columnWidth: 100,
