@@ -1,4 +1,4 @@
-function ContactCtrl($scope, $http, $log) {
+angularApp.controller('ContactController', ['$scope', '$http', '$log', function($scope, $http, $log) {
   $scope.fromEmail = '';
   $scope.subject = '';
   $scope.body = '';
@@ -28,4 +28,4 @@ function ContactCtrl($scope, $http, $log) {
       al.addClass(showClass).show();
     }
   };
-};
+}]);

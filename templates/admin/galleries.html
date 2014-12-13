@@ -5,7 +5,7 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-<div ng-controller='GalleriesCtrl'>
+<div ng-controller='AdminGalleriesController'>
     <div id='create_gallery' class='modal fade'>
       <div class="modal-dialog">
         <div class="modal-content">
@@ -48,7 +48,7 @@
         <img src="{{g.images_base}}/images/loading.gif" />
     </div>
     {% for gallery in galleries %}
-        <div class='item w4' ng-controller='GalleryCtrl' ng-init='init({{gallery}})'>
+        <div class='item w4' ng-controller='EditGalleryController' ng-init='init({{gallery}})'>
             <div class='blog_item w4'>
                 <img ng-if='coverPhoto' ng-src="{[{coverPhoto}]}_medium" alt='No image'/>
                 <img ng-if='!coverPhoto' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>

@@ -42,7 +42,7 @@ def change_image_resolution(gallery_uuid, filename, img_original, content_type, 
 
     key.key = 'galleries/{}/{}'.format(gallery_uuid, new_filename(filename, width))
     key.set_contents_from_string(out_location.getvalue(),
-                                 headers={'Content-Type': content_type},
+                                 headers={'Content-Type': content_type, 'x-amz-meta-Cache-Control': 'max-age=31536000'},
                                  replace=True,
                                  policy='public-read')
     out_location.close()

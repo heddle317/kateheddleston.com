@@ -62,18 +62,23 @@ about_css = Bundle('css/internal/about.css',
 admin_css = Bundle('css/internal/admin.css',
                    filters='cssmin', output='gen/admin.%(version)s.css')
 
-admin_js = Bundle('js/external/jquery-1.11.1.min.js',
-                  'js/external/bootstrap.min.js',
-                  'js/external/angular-file-upload-shim.min.js',
-                  'js/external/angular.min.js',
-                  'js/external/angular-file-upload.min.js',
-                  'js/external/angular-resource.min.js',
-                  'js/external/sanitize.js',
-                  'js/external/masonry.pkgd.min.js',
-                  'js/external/imagesloaded.pkgd.min.js',
-                  'js/internal/angular_app_module_admin.js',
-                  'js/internal/admin.js',
+admin_js = Bundle('js/internal/admin.js',
                   filters='jsmin', output='gen/admin.%(version)s.js')
+
+angular_admin_js = Bundle('js/external/angular-file-upload-shim.min.js',
+                          'js/external/angular.min.js',
+                          'js/external/angular-file-upload.min.js',
+                          'js/external/angular-resource.min.js',
+                          'js/external/sanitize.js',
+                          'js/internal/angular_app_module_admin.js',
+                          'js/internal/admin.js',
+                          filters='jsmin', output='gen/angular_admin.%(version)s.js')
+
+angular_base_js = Bundle('js/external/angular.min.js',
+                         'js/external/angular-resource.min.js',
+                         'js/external/sanitize.js',
+                         'js/internal/angular_app_module.js',
+                         filters='jsmin', output='gen/angular.%(version)s.js')
 
 base_css = Bundle('css/external/bootstrap.min.css',
                   'css/external/bootstrap-theme.min.css',
@@ -83,10 +88,6 @@ base_css = Bundle('css/external/bootstrap.min.css',
 
 base_js = Bundle('js/external/jquery-1.11.1.min.js',
                  'js/external/bootstrap.min.js',
-                 'js/external/angular.min.js',
-                 'js/external/angular-resource.min.js',
-                 'js/external/sanitize.js',
-                 'js/internal/angular_app_module.js',
                  filters='jsmin', output='gen/base.%(version)s.js')
 
 blog_js = Bundle('js/internal/subscriptions.js',
@@ -127,6 +128,8 @@ tiles_css = Bundle('css/internal/tiles.css',
 assets.register('about_css', about_css)
 assets.register('admin_js', admin_js)
 assets.register('admin_css', admin_css)
+assets.register('angular_admin_js', angular_admin_js)
+assets.register('angular_base_js', angular_base_js)
 assets.register('base_js', base_js)
 assets.register('base_css', base_css)
 assets.register('blog_js', blog_js)

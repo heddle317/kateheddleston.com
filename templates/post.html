@@ -13,7 +13,7 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-<div class='gallery-item' ng-controller='GalleryCtrl' ng-init='init({{post_json}})'>
+<div class='gallery-item' ng-controller='PostController' ng-init='init({{post_json}})'>
   {{ navbar.show(post.prev_uuid, post.next_uuid, 'blog') }}
   <div class='gallery-content'>
     <div class='post-section name text-center' ng-style='browserHeight()'>

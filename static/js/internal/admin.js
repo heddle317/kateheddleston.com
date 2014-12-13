@@ -1,4 +1,4 @@
-function TalksCtrl($scope, $http, $sce) {
+angularApp.controller('AdminTalksController', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.talks = [];
     $http.get('/admin/talks').success(function(data) {
         $scope.talks = data;
@@ -29,9 +29,9 @@ function TalksCtrl($scope, $http, $sce) {
     $scope.trustHTML = function(html) {
         return $sce.trustAsHtml(html);
     };
-};
+}]);
 
-function TalkCtrl($scope, $http, $log) {
+angularApp.controller('EditTalkController', ['$scope', '$http', '$log', function($scope, $http, $log) {
     $scope.editing = false;
     $scope.init = function(talk) {
         $scope.uuid = talk.uuid;
@@ -93,9 +93,9 @@ function TalkCtrl($scope, $http, $log) {
         }
       });
     };
-};
+}]);
 
-function GalleriesCtrl($scope, $http) {
+angularApp.controller('AdminGalleriesController', ['$scope', '$http', function($scope, $http) {
     $scope.galleries = [];
     $scope.newName = '';
     $scope.newAuthor = '';
@@ -123,9 +123,9 @@ function GalleriesCtrl($scope, $http) {
             $('#create_gallery').modal('hide');
         });
     };
-};
+}]);
 
-function GalleryCtrl($scope, $http, $window, $sce, $log) {
+angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$sce', '$log', function($scope, $http, $window, $sce, $log) {
     $scope.init = function(gallery) {
       $scope.uuid = gallery.uuid;
       $scope.name = gallery.name;
@@ -195,9 +195,9 @@ function GalleryCtrl($scope, $http, $window, $sce, $log) {
         $scope.editing = false;
       });
     };
-};
+}]);
 
-function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
+angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window', '$sce', '$upload', '$log', function($scope, $http, $window, $sce, $upload, $log) {
   $scope.file = [];
   $scope.dataUrls = [];
   $scope.item = null;
@@ -251,4 +251,4 @@ function GalleryItemCtrl($scope, $http, $window, $sce, $upload, $log) {
       $scope.error = show;
       $scope.alertMessage = '';
   };
-};
+}]);

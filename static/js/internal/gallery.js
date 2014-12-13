@@ -1,4 +1,4 @@
-function GalleryCtrl($scope, $http, $log) {
+angularApp.controller('PostController', ['$scope', '$http', '$log', function($scope, $http, $log) {
   $scope.position = 1;
   $scope.items = [];
   $scope.init = function(gallery) {
@@ -46,7 +46,7 @@ function GalleryCtrl($scope, $http, $log) {
   $scope.browserHeight = function() {
     return {"height": $(window).height() + "px"};
   };
-};
+}]);
 
 $(document).ready(function() {
   $(window).on('scroll', function() {

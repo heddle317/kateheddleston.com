@@ -1,6 +1,6 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-    <div class='row edit_panel' ng-controller='GalleryCtrl' ng-init='init({{gallery_json}})'>
+    <div class='row edit_panel' ng-controller='EditGalleryController' ng-init='init({{gallery_json}})'>
         <div class='panel' ng-class='published ? "panel-success" : "panel-default"'>
             <div class="panel-heading">
                 <div class='row'>
@@ -32,7 +32,7 @@
                         <h2>Cover Photo</h2>
                     </div>
                 </div>
-                <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="GalleryItemCtrl" ng-init="itemInit(galleryItem)">
+                <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="EditGalleryItemController" ng-init="itemInit(galleryItem)">
                     <div class='row'>
                         <div class='col-md-2'>
                             <img ng-if='item.image_name' style='width:100%' ng-src="{[{item.base_url}]}/{[{item.image_name}]}_small" />

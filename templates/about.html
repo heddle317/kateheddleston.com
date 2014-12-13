@@ -9,7 +9,7 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-<div class='gallery-item' id='about_page' ng-controller='GalleryCtrl' ng-init='init({{gallery|safe}})'>
+<div class='gallery-item' id='about_page' ng-controller='PostController' ng-init='init({{gallery|safe}})'>
   <div class='gallery-content'>
     {% include "post_sections.html" %}
   </div>
