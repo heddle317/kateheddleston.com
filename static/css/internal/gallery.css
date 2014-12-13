@@ -16,12 +16,10 @@
 
 #kateheddleston-wrap .gallery-content .post-section {
   width:100%;
-  padding:20px 6%;
+  padding:40px 6%;
 }
 
 #kateheddleston-wrap .gallery-content .body-section {
-  padding-top:80px;
-  padding-bottom:80px;
   font-size:16px;
   margin:0 10%;
   width:auto;
@@ -48,8 +46,6 @@
 }
 
 #kateheddleston-wrap .gallery-content .title-section {
-  padding-top:80px;
-  padding-bottom:80px;
   text-align:center;
 }
 

@@ -15,8 +15,8 @@
                         <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
                         <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
                         <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
-                        <button class='btn btn-default' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
-                        <button class='btn btn-default' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
+                        <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
+                        <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
                         <button class='btn btn-danger' ng-click='deleteGallery()'>Delete</button>
                     </div>
                 </div>
@@ -68,11 +68,12 @@
                 </div>
             </div>
             <div class='panel-footer text-right'>
+                <a class='btn btn-default' href="/admin/gallery/{{gallery.uuid}}/preview">Preview</a>
                 <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
                 <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
                 <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
-                <button class='btn btn-default' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
-                <button class='btn btn-default' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
+                <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
+                <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
                 <button class='btn btn-danger' ng-click='deleteGallery()'>Delete</button>
             </div>
         </div>
