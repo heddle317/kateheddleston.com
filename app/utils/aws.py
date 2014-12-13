@@ -29,6 +29,35 @@ def s3_change_image_resolutions(gallery_uuid, filename):
     change_image_resolution(gallery_uuid, filename, img_original, content_type, 4000, key)
     change_image_resolution(gallery_uuid, filename, img_original, content_type, 6000, key)
 
+    img.close()
+    fp.close()
+
+
+def update_image_headers(image_route, filename):
+    conn = S3Connection(config.AWS_ACCESS_KEY_ID, config.AWS_SECRET_ACCESS_KEY)
+    bucket = conn.get_bucket(config.IMAGE_BUCKET)
+    key = Key(bucket)
+
+    url = "{}/{}/{}".format(config.IMAGES_BASE, image_route, filename)
+    # Retrieve our source image from a URL
+    fp = urllib.urlopen(url)
+    content_type = fp.info().get('content-type')
+    # Load the URL data into an image
+    img = cStringIO.StringIO(fp.read())
+
+    # img.seek(0, os.SEEK_END)
+    # content_length = img.tell()
+    # img.seek(0)
+
+    key.key = '{}/{}'.format(image_route, filename)
+    key.set_contents_from_string(img.getvalue(),
+                                 headers={'Content-Type': content_type,
+                                          'x-amz-meta-Cache-Control': 'max-age=31536000',
+                                          'Cache-Control': 'max-age=31536000'},
+                                 replace=True,
+                                 policy='public-read')
+    img.close()
+
 
 def change_image_resolution(gallery_uuid, filename, img_original, content_type, width, key):
     # Resize the image
@@ -42,7 +71,9 @@ def change_image_resolution(gallery_uuid, filename, img_original, content_type, 
 
     key.key = 'galleries/{}/{}'.format(gallery_uuid, new_filename(filename, width))
     key.set_contents_from_string(out_location.getvalue(),
-                                 headers={'Content-Type': content_type, 'x-amz-meta-Cache-Control': 'max-age=31536000'},
+                                 headers={'Content-Type': content_type,
+                                          'x-amz-meta-Cache-Control': 'max-age=31536000',
+                                          'Cache-Control': 'max-age=31536000'},
                                  replace=True,
                                  policy='public-read')
     out_location.close()

@@ -13,6 +13,7 @@ from flask import request
 from flask_assets import Bundle
 from flask_assets import Environment
 
+from flask.ext.compress import Compress
 from flask.ext.login import current_user
 from flask.ext.sqlalchemy import SQLAlchemy
 
@@ -32,6 +33,7 @@ app = Flask(__name__,
             template_folder=config.TEMPLATE_FOLDER,
             static_folder=config.STATIC_FOLDER)
 app.config.from_object(config)
+Compress(app)
 handle_exceptions(app)
 
 CsrfProtect(app)
