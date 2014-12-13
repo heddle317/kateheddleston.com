@@ -40,8 +40,8 @@ class Gallery(db.Model):
                 'published_ago': relative_time(self.published_at) if self.published_at else '',
                 'published': self.published,
                 'items': items,
-                'next_uuid': next_uuid(Gallery, self, sort_by='created_at', published=True),
-                'prev_uuid': prev_uuid(Gallery, self, sort_by='created_at', published=True),
+                'next_uuid': next_uuid(Gallery, self, sort_by='published_at', published=True),
+                'prev_uuid': prev_uuid(Gallery, self, sort_by='published_at', published=True),
                 }
         return data
 
