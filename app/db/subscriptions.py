@@ -51,7 +51,7 @@ class Subscription(db.Model):
             raise ValueError('email required')
         subscription = get(Subscription, email=kwargs.get('email'))
         if subscription:
-            subscription = update(subscription, {'dead': False})
+            subscription = update(subscription, {'dead': False, 'name': kwargs.get('name')})
             if not subscription.verified:
                 send_verification_email(subscription)
         else:
@@ -67,7 +67,7 @@ class Subscription(db.Model):
         return subscription.to_dict()
 
     @staticmethod
-    def cancel_subscription(email):
-        subscription = get(Subscription, email=email)
-        subscription = update(subscription, {'dead': True})
+    def cancel_subscription(uuid):
+        subscription = get(Subscription, uuid=uuid)
+        subscription = update(subscription, {'dead': True, 'verified': False})
         return subscription.to_dict()

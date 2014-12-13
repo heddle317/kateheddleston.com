@@ -58,14 +58,6 @@ def subscribe():
     return json.dumps(message), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/subscriptions/cancel/<email>', methods=['GET'])
-def cancel_subscription(email):
-    Subscription.cancel_subscription(email)
-    message = "You have successfully unsubscribed email address {} from KateHeddleston.com's blog.".format(email)
-    message = {"message": message}
-    return json.dumps(message), 200, {'Content-Type': 'application/json'}
-
-
 @app.route('/ping', methods=["GET"])
 def ping():
     return '', 200

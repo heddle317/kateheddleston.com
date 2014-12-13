@@ -98,3 +98,10 @@ def contact():
 def verify_email(verification_code):
     subscription = Subscription.verify_email(verification_code)
     return render_template("email_verified.html", subscription=subscription)
+
+
+@app.route('/subscriptions/cancel/<uuid>', methods=['GET'])
+@use_template_globals
+def cancel_subscription(uuid):
+    subscription = Subscription.cancel_subscription(uuid)
+    return render_template("subscription_canceled.html", subscription=subscription)
