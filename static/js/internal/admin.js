@@ -166,7 +166,6 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         $scope.published = gallery.published;
         $scope.published_ago = gallery.published_ago;
     };
-    $log.log($window.location.pathname)
     $http.get($window.location.pathname).success(function(response) {
         $scope.initGallery(response);
         if (!$scope.gallery_uuid) {

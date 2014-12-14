@@ -75,12 +75,12 @@
             var imagesBase = '{{g.images_base }}';
             var staticBase = '{{g.static_base }}';
         </script>
-        <script type='text/javascript' src='{{g.static_base}}/js/external/jquery-1.11.1.min.js'></script>
-        <script type='text/javascript' src='{{g.static_base}}/js/external/bootstrap.min.js'></script>
-        <script type='text/javascript' src='{{g.static_base}}/js/external/angular.min.js'></script>
-        <script type='text/javascript' src='{{g.static_base}}/js/external/angular-resource.min.js'></script>
-        <script type='text/javascript' src='{{g.static_base}}/js/external/sanitize.js'></script>
-        <script type='text/javascript' src='{{g.app_base_link}}/static/js/internal/angular_app_module.js'></script>
+        {% assets "base_js" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+        {% assets "angular_base_js" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
 
         {% block script %}
         {% endblock %}
