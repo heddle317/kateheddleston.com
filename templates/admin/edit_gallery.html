@@ -1,6 +1,6 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-    <div class='row edit_panel' ng-controller='EditGalleryController' ng-init='init({{gallery_json}})'>
+    <div class='row edit_panel' ng-controller='EditGalleryController' ng-init='init({{gallery_json}})' ng-cloak class="ng-cloak">
         <div class='panel' ng-class='published ? "panel-success" : "panel-default"'>
             <div class="panel-heading">
                 <div class='row'>

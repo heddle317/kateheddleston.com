@@ -73,7 +73,6 @@ angular_admin_js = Bundle('js/external/angular-file-upload-shim.min.js',
                           'js/external/angular-resource.min.js',
                           'js/external/sanitize.js',
                           'js/internal/angular_app_module_admin.js',
-                          'js/internal/admin.js',
                           filters='jsmin', output='gen/angular_admin.%(version)s.js')
 
 angular_base_js = Bundle('js/external/angular.min.js',

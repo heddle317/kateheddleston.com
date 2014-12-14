@@ -35,7 +35,7 @@ S3_BASE = 'https://s3.amazonaws.com'
 IMAGE_BUCKET = os.environ.get('IMAGE_BUCKET')
 STATIC_BUCKET = os.environ.get('STATIC_BUCKET')
 IMAGES_BASE = '{}/{}'.format(S3_BASE, IMAGE_BUCKET)
-STATIC_BASE = '{}/{}'.format(S3_BASE, STATIC_BUCKET)
+STATIC_BASE = 'https://s3-us-west-2.amazonaws.com/{}'.format(STATIC_BUCKET)
 
 LOGENTRIES_TOKEN = os.environ.get('LOGENTRIES_TOKEN')
 
