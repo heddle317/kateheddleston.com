@@ -58,7 +58,7 @@ def create_gallery():
 
 @app.route('/admin/gallery/<uuid>', methods=['PUT'])
 @login_required
-def update_gallery(uuid):
+def update_gallery(uuid=None):
     data = json.loads(request.data)
     gallery = Gallery.update_gallery(uuid, **data)
     return json.dumps(gallery), 200, {'Content-Type': 'application/json'}

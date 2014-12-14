@@ -5,50 +5,15 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-<div ng-controller='AdminGalleriesController'>
-    <div id='create_gallery' class='modal fade'>
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form class=''>
-            <div class='modal-body'>
-              <div class="form-group">
-                  <input type="text" class="form-control" name="name" ng-model='newName' placeholder='Gallery Name'>
-                  <input type="text" class="form-control" name="name" ng-model='newAuthor' placeholder='Gallery Author'>
-                  <input type="text" class="form-control" name="cover_photo" ng-model='newCoverPhoto' placeholder='Gallery Cover Photo'>
-              </div>
-              <div class='gallery-items'>
-                <div class='new-items' ng-repeat='item in newItems'>
-                  <div class="form-group">
-                      <input type='text' class='form-control' name='title' ng-model='item.title' placeholder='Item title'>
-                  </div>
-                  <div class="form-group">
-                      <textarea rows=4 class='form-control' name='body' ng-model='item.body' placeholder='Text Body'></textarea>
-                  </div>
-                  <div class="form-group">
-                      <input type="text" class="form-control" name="image" ng-model='item.image_name' placeholder='Image Name'>
-                  </div>
-                </div>
-                <button ng-click='addNew()' class='btn btn-primary'>Add Item</button>
-              </div>
-            </div>
-            <div class='modal-footer'>
-              <button class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" ng-click='createGallery()' class="btn btn-success">Create Gallery</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+<div ng-controller='AdminGalleriesController' class='ng-cloak' ng-cloak>
     <div class='page-btn'>
-      <button data-target='#create_gallery' data-toggle='modal' type='submit' class='btn btn-default'>Create Gallery</button>
+        <a href="/admin/gallery" type='submit' class='btn btn-default'>Create Gallery</a>
     </div>
-</div>
-<div id='container' class="js-masonry" style='display:none'>
-    <div id='loading'>
+    <div class='loading main-loader'>
         <img src="{{g.images_base}}/images/loading.gif" />
     </div>
-    {% for gallery in galleries %}
-        <div class='item w4' ng-controller='EditGalleryController' ng-init='init({{gallery}})'>
+    <div id='container' class="js-masonry" style='display:none;'>
+        <div class='item w4' ng-repeat='gallery in galleries' ng-controller='MiniEditGalleryController' ng-init='initGallery(gallery)'>
             <div class='blog_item w4'>
                 <img ng-if='coverPhoto' ng-src="{[{coverPhoto}]}_medium" alt='No image'/>
                 <img ng-if='!coverPhoto' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>
@@ -71,32 +36,16 @@
                             <a class='btn btn-default' href="/admin/gallery/{[{uuid}]}">Edit</a>
                             <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
                             <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
-                            <button class='btn btn-danger' ng-click='deleteGallery()'>Delete</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    {% endfor %}
+    </div>
 </div>
 {% endblock %}
 {% block script %}
   {% assets "blog_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}
-    <script type='text/javascript'>
-        // or with jQuery
-        var $container = $('#container');
-        $container.imagesLoaded().progress( function( imgLoad, image ) {
-            $('#loading').hide();
-            $container.show();
-            $container.masonry({
-                columnWidth: 100,
-                itemSelector: ".item",
-                gutter: 10,
-                isFitWidth: true,
-                transitionDuration: 0
-            });
-        });
-    </script>
 {% endblock %}

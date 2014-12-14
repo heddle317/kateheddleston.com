@@ -1,6 +1,6 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-    <div class='row edit_panel' ng-controller='EditGalleryController' ng-init='init({{gallery_json}})' ng-cloak class="ng-cloak">
+    <div class='row edit_panel ng-cloak' ng-controller='EditGalleryController' ng-cloak>
         <div class='panel' ng-class='published ? "panel-success" : "panel-default"'>
             <div class="panel-heading">
                 <div class='row'>
@@ -11,7 +11,7 @@
                         <input type='text' placeholder='Author' class='form-control' name='author' ng-model='author' ng-show='editing'/>
                     </div>
                     <div class='text-right col-md-6'>
-                        <a class='btn btn-default' href="/admin/gallery/{{gallery.uuid}}/preview">Preview</a>
+                        <a class='btn btn-default' href="/admin/gallery/{[{gallery.uuid}]}/preview">Preview</a>
                         <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
                         <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
                         <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
@@ -32,7 +32,7 @@
                         <h2>Cover Photo</h2>
                     </div>
                 </div>
-                <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="EditGalleryItemController" ng-init="itemInit(galleryItem)">
+                <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="EditGalleryItemController" ng-init='item=galleryItem'>
                     <div class='row'>
                         <div class='col-md-2'>
                             <img ng-if='item.image_name' style='width:100%' ng-src="{[{item.base_url}]}/{[{item.image_name}]}_small" />
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class='btn btn-default' ng-show="editing" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
+                            <button class='btn btn-default' ng-show="editing && gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
                         </div>
                         <div class='col-md-10'>
                             <div class='info caption'>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class='panel-footer text-right'>
-                <a class='btn btn-default' href="/admin/gallery/{{gallery.uuid}}/preview">Preview</a>
+                <a class='btn btn-default' href="/admin/gallery/{[{gallery.uuid}]}/preview">Preview</a>
                 <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
                 <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
                 <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
@@ -84,6 +84,6 @@
       var policy = '{{policy}}';
       var signature = '{{signature}}';
       var accessKey = '{{accessKey}}';
-      var galleryUUID = '{{gallery.uuid}}';
+      var galleryUUID = '{{gallery_uuid}}';
   </script>
 {% endblock %}

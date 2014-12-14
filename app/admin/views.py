@@ -75,18 +75,31 @@ def get_galleries():
     return render_template('admin/galleries.html', galleries=galleries)
 
 
+@app.route('/admin/gallery/create', methods=['GET'])
+@login_required
+def get_admin_gallery(uuid=None):
+    gallery = Gallery.get_blank_gallery()
+    return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
+
+
+
+@app.route('/admin/gallery', methods=['GET'])
 @app.route('/admin/gallery/<uuid>', methods=['GET'])
 @login_required
 @use_template_globals
-def edit_gallery(uuid):
-    gallery = Gallery.get_gallery(uuid)
+def edit_gallery(uuid=None):
+    if request.is_xhr:
+        if uuid:
+            gallery = Gallery.get_gallery(uuid)
+        else:
+            gallery = Gallery.get_blank_gallery()
+        return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'galleries'
     policy = base64.b64encode(json.dumps(policy_document))
     signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
     access_key = config.AWS_ACCESS_KEY_ID
     return render_template('admin/edit_gallery.html',
-                           gallery=gallery,
-                           gallery_json=json.dumps(gallery),
+                           gallery_uuid=uuid,
                            policy=policy,
                            signature=signature,
                            accessKey=access_key)

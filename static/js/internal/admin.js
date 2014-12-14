@@ -95,47 +95,84 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', function
     };
 }]);
 
-angularApp.controller('AdminGalleriesController', ['$scope', '$http', function($scope, $http) {
+angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', function($scope, $http, $log) {
     $scope.galleries = [];
-    $scope.newName = '';
-    $scope.newAuthor = '';
-    $scope.newCoverPhoto = '';
-    $scope.newItems = [];
+    $scope.loading = true;
     $http.get('/admin/galleries').success(function(response) {
         $scope.galleries = response;
+        var $container = $('#container');
+        imagesLoaded($container, function() {
+            $('.loading.main-loader').hide();
+            $('#container').show();
+            var msnry = new Masonry('#container', {columnWidth: 100,
+                                                   itemSelector: ".item",
+                                                   gutter: 10,
+                                                   isFitWidth: true,
+                                                   transitionDuration: 0});
+        });
     });
-    $scope.addNew = function() {
-      var position = $scope.newItems.length + 1;
-      var item = {'title': '', 'body': '', 'image_name': '', 'position': position};
-      $scope.newItems.push(item);
-    };
+}]);
 
-    $scope.createGallery = function() {
-        var data = {'name': $scope.newName,
-                    'author': $scope.newAuthor,
-                    'cover_photo': $scope.newCoverPhoto,
-                    'items': $scope.newItems};
-        $http.post("/admin/galleries", data).success(function(data) {
-            $scope.galleries.unshift(data);
-            $scope.newName = '';
-            $scope.newAuthor = '';
-            $scope.newItems = [];
-            $('#create_gallery').modal('hide');
+angularApp.controller('MiniEditGalleryController', ['$scope', '$http', '$window', '$sce', '$log', function($scope, $http, $window, $sce, $log) {
+    $scope.initGallery = function(gallery) {
+        $scope.gallery = gallery;
+        $scope.uuid = gallery.uuid;
+        $scope.gallery_uuid = gallery.uuid;
+        $scope.name = gallery.name;
+        $scope.author = gallery.author;
+        $scope.coverPhoto = gallery.cover_photo;
+        $scope.items = gallery.items;
+        $scope.published = gallery.published;
+        $scope.published_ago = gallery.published_ago;
+    };
+    $scope.unpublishGallery = function() {
+        $scope.published = false;
+        $scope.updateGallery();
+    };
+    $scope.publishGallery = function() {
+        $scope.published = true;
+        $scope.updateGallery();
+    };
+    $scope.updateGallery = function() {
+        var data = {'name': $scope.name,
+                    'author': $scope.author,
+                    'cover_photo': $scope.coverPhoto,
+                    'items': $scope.items,
+                    'published': $scope.published};
+        $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(data) {
+            $scope.editing = false;
         });
     };
 }]);
 
 angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$sce', '$log', function($scope, $http, $window, $sce, $log) {
-    $scope.init = function(gallery) {
-      $scope.uuid = gallery.uuid;
-      $scope.name = gallery.name;
-      $scope.author = gallery.author;
-      $scope.coverPhoto = gallery.cover_photo;
-      $scope.items = gallery.items;
-      $scope.published = gallery.published;
-      $scope.published_ago = gallery.published_ago;
-    };
+    $scope.gallery_uuid = galleryUUID;
+    $scope.uuid = galleryUUID;
+    $scope.name = '';
+    $scope.author = '';
+    $scope.coverPhoto = '';
+    $scope.items = [];
+    $scope.published = false;
+    $scope.published_ago = '';
     $scope.editing = false;
+    $scope.initGallery = function(gallery) {
+        $scope.gallery = gallery;
+        $scope.uuid = gallery.uuid;
+        $scope.gallery_uuid = gallery.uuid;
+        $scope.name = gallery.name;
+        $scope.author = gallery.author;
+        $scope.coverPhoto = gallery.cover_photo;
+        $scope.items = gallery.items;
+        $scope.published = gallery.published;
+        $scope.published_ago = gallery.published_ago;
+    };
+    $log.log($window.location.pathname)
+    $http.get($window.location.pathname).success(function(response) {
+        $scope.initGallery(response);
+        if (!$scope.gallery_uuid) {
+            $scope.editing = true;
+        }
+    });
     $scope.editGallery = function() {
       $scope.editing = true;
     };
@@ -158,7 +195,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         if ($scope.editing) {
           return;
         } else {
-          $window.location = "/blog/" + $scope.uuid;
+          $window.location = "/blog/" + $scope.gallery_uuid;
         }
     };
     $scope.cancel = function() {
@@ -169,9 +206,9 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
       if (!confirm) {
         return;
       }
-      $http.delete("/admin/gallery/" + $scope.uuid).success(function(data) {
+      $http.delete("/admin/gallery/" + $scope.gallery_uuid).success(function(data) {
         for(var i=0; i < $scope.galleries.length; i++) {
-          if($scope.galleries[i].uuid === $scope.uuid) {
+          if($scope.galleries[i].uuid === $scope.gallery_uuid) {
             $scope.galleries.splice(i, 1);
           }
         }
@@ -186,14 +223,26 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         $scope.updateGallery();
     };
     $scope.updateGallery = function() {
-      var data = {'name': $scope.name,
-                  'author': $scope.author,
-                  'cover_photo': $scope.coverPhoto,
-                  'items': $scope.items,
-                  'published': $scope.published};
-      $http.put("/admin/gallery/" + $scope.uuid, data).success(function(data) {
-        $scope.editing = false;
-      });
+      if ($scope.gallery_uuid) {
+        var data = {'name': $scope.name,
+                    'author': $scope.author,
+                    'cover_photo': $scope.coverPhoto,
+                    'items': $scope.items,
+                    'published': $scope.published};
+        $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(data) {
+            $scope.editing = false;
+        });
+      } else {
+        var data = {'name': $scope.name,
+                    'author': $scope.author,
+                    'cover_photo': $scope.coverPhoto,
+                    'items': $scope.items};
+        $http.post("/admin/galleries", data).success(function(response) {
+            $scope.editing = false;
+            $scope.initGallery(response);
+            $window.location = "/admin/gallery/" + $scope.gallery_uuid;
+        });
+      }
     };
 }]);
 
@@ -205,9 +254,6 @@ angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window'
   $scope.alertMessage = '';
   $scope.loading = false;
   $scope.widthStyle = {"width": "0%"};
-  $scope.itemInit = function(item) {
-    $scope.item = item;
-  };
   $scope.onFileSelect = function($files) {
     $scope.files = $files;
     for (var i = 0; i < $files.length; i++) {
@@ -216,7 +262,7 @@ angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window'
       var fileName = timeStamp + "_" + file.name;
       var fields = fileName.split('\.');
       fileName = fields[0];
-      var key = "galleries/" + galleryUUID + "/" + fileName;
+      var key = "galleries/" + $scope.gallery_uuid + "/" + fileName;
       var data = {
             key: key,
             AWSAccessKeyId: accessKey, 
@@ -236,7 +282,7 @@ angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window'
         $scope.widthStyle = {"width": $scope.percent + "%"};
         $scope.loading = true;
       }).success(function(data, status, headers, config) {
-        $http.get('/blog/' + galleryUUID + '/' + fileName + '/generate_sizes').success(function(data) {
+        $http.get('/blog/' + $scope.gallery_uuid + '/' + fileName + '/generate_sizes').success(function(data) {
         });
         $scope.item.image_name = fileName;
       }).error(function(data, status, headers, config) {

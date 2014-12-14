@@ -46,6 +46,26 @@ class Gallery(db.Model):
         return data
 
     @staticmethod
+    def get_blank_gallery():
+        items = [{'gallery_uuid': None,
+                  'title': '',
+                  'body': '',
+                  'image_name': '',
+                  'position': 1}]
+        data = {'uuid': None,
+                'name': '',
+                'author': '',
+                'cover_photo': '',
+                'created_ago': '',
+                'created_at': '',
+                'published_at_raw': None,
+                'published_ago': '',
+                'published': False,
+                'items': items
+                }
+        return data
+
+    @staticmethod
     def get_galleries(published=True):
         item_list = get_list(Gallery, published=published, sort_by='published_at')
         return [gallery.to_dict() for gallery in item_list]
