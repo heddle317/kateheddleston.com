@@ -14,7 +14,7 @@
     </div>
     <div id='container' class="js-masonry" style='display:none'>
         {% for post in posts %}
-            {{ blog_item.show(post.uuid, post.cover_photo, post.name, post.published_ago, loop.index) }}
+            {{ blog_item.show(post.uuid, post.cover_photo_url, post.name, post.published_ago, loop.index) }}
         {% endfor %}
     </div>
 {% endblock %}

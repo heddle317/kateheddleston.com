@@ -3,6 +3,7 @@ angularApp.controller('PostController', ['$scope', '$http', '$log', function($sc
   $scope.items = [];
   $scope.init = function(gallery) {
     gallery = angular.fromJson(gallery);
+    $scope.gallery = gallery;
     $scope.uuid = gallery.uuid;
     $scope.name = gallery.name;
     $scope.author = gallery.author;

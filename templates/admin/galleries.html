@@ -15,7 +15,7 @@
     <div id='container' class="js-masonry" style='display:none;'>
         <div class='item w4' ng-repeat='gallery in galleries' ng-controller='MiniEditGalleryController' ng-init='initGallery(gallery)'>
             <div class='blog_item w4'>
-                <img ng-if='coverPhoto' ng-src="{[{coverPhoto}]}_medium" alt='No image'/>
+                <img ng-if='coverPhoto' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_medium" alt='No image'/>
                 <img ng-if='!coverPhoto' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>
                 <div class='blog_item_footer'>
                     <div class='info caption'>

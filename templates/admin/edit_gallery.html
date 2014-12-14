@@ -24,7 +24,7 @@
             <div class='panel-body'>
                 <div class='row'>
                     <div class='col-md-2'>
-                        <img ng-if='coverPhoto' style='width:100%' ng-src="{[{coverPhoto}]}_small" />
+                        <img ng-if='coverPhoto' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_small" />
                         <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no_image.png" />
                         <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
                     </div>
@@ -35,7 +35,7 @@
                 <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="EditGalleryItemController" ng-init='item=galleryItem'>
                     <div class='row'>
                         <div class='col-md-2'>
-                            <img ng-if='item.image_name' style='width:100%' ng-src="{[{item.base_url}]}/{[{item.image_name}]}_small" />
+                            <img ng-if='item.image_name' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_small" />
                             <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='editing' ng-model='item.image_name'>
                             <div class='alert alert-warning' role='alert' ng-show='error'>
                                 <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>

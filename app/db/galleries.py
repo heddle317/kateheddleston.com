@@ -30,10 +30,13 @@ class Gallery(db.Model):
     def to_dict(self):
         items = [item.to_dict() for item in get_list(GalleryItem, gallery_uuid=self.uuid)]
         items.sort(key=lambda x: x['position'])
+        base_url = '{}/galleries/{}'.format(config.IMAGES_BASE, self.uuid)
         data = {'uuid': self.uuid,
                 'name': self.name,
                 'author': self.author,
                 'cover_photo': self.cover_photo,
+                'cover_photo_url': '{}/{}'.format(base_url, self.cover_photo),
+                'base_url': base_url,
                 'created_ago': relative_time(self.created_at),
                 'created_at': format_date(self.created_at, format='%B %d, %Y'),
                 'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%SZ') if self.published_at else '',
@@ -134,7 +137,6 @@ class GalleryItem(db.Model):
                 'body': self.body,
                 'image_link': self.image_link,
                 'image_name': self.image_name,
-                'base_url': '{}/galleries/{}'.format(config.IMAGES_BASE, self.gallery_uuid),
                 'position': self.position
                 }
         return data
