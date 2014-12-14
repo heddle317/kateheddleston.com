@@ -253,6 +253,7 @@ angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window'
   $scope.alertMessage = '';
   $scope.loading = false;
   $scope.widthStyle = {"width": "0%"};
+  $scope.generatingSizes = false;
   $scope.onFileSelect = function($files) {
     $scope.files = $files;
     for (var i = 0; i < $files.length; i++) {
@@ -281,9 +282,11 @@ angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window'
         $scope.widthStyle = {"width": $scope.percent + "%"};
         $scope.loading = true;
       }).success(function(data, status, headers, config) {
+        $scope.generatingSizes = true;
         $http.get('/blog/' + $scope.gallery_uuid + '/' + fileName + '/generate_sizes').success(function(data) {
+            $scope.generatingSizes = false;
+            $scope.item.image_name = fileName;
         });
-        $scope.item.image_name = fileName;
       }).error(function(data, status, headers, config) {
           $scope.error = true;
           $scope.alertMessage = "There was an error uploading your photo.";

@@ -86,6 +86,11 @@
     margin:5% auto;
 }
 
+.loading.image-loader img {
+    width:80%;
+    margin:5% auto;
+}
+
 #kateheddleston-wrap .page-btn {
     width:100%;
     padding-left:15px;
@@ -99,4 +104,8 @@
     width:50%;
     margin:10% auto 0;
     font-size:18px;
+}
+
+.margin-top-10 {
+    margin-top:10px;
 }

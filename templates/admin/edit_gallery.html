@@ -34,20 +34,23 @@
                 </div>
                 <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="EditGalleryItemController" ng-init='item=galleryItem'>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-2 text-center'>
+                            <div class='loading image-loader' ng-show='generatingSizes'>
+                                <img src="{{g.images_base}}/images/loading.gif" />
+                            </div>
                             <img ng-if='item.image_name' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_small" />
                             <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='editing' ng-model='item.image_name'>
                             <div class='alert alert-warning' role='alert' ng-show='error'>
                                 <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                 <span class='message' ng-bind='alertMessage'></span>
                             </div>
-                            <div class='loading' ng-show='loading' style='width:40%; margin:0 auto;'>
+                            <div class='loading' ng-show='loading' style='margin:20px auto 0;width:60%'>
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="{[{percent}]}" aria-valuemin="0" aria-valuemax="100" ng-style="widthStyle">
                                     </div>
                                 </div>
                             </div>
-                            <button class='btn btn-default' ng-show="editing && gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
+                            <button class='btn btn-default margin-top-10' ng-show="editing && gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
                         </div>
                         <div class='col-md-10'>
                             <div class='info caption'>
