@@ -1,5 +1,4 @@
 import datetime
-import json
 
 from app import app
 from app.db.galleries import Gallery
@@ -23,8 +22,14 @@ def index():
 @use_template_globals
 def about():
     g.nav_view = 'about'
-    gallery = Gallery.get_gallery(uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
-    return render_template('about.html', gallery=json.dumps(gallery))
+    return render_template('post.html', gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
+
+
+@app.route('/contact', methods=['GET'])
+@use_template_globals
+def contact():
+    g.nav_view = 'contact'
+    return render_template('post.html', gallery_uuid='3d93674d-8331-4ac1-a318-26c7bb415fd9', contact=True)
 
 
 @app.route('/talks')
@@ -53,8 +58,7 @@ def blog():
 @app.route('/blog/<uuid>', methods=['GET'])
 @use_template_globals
 def blog_post(uuid):
-    post = Gallery.get_gallery(uuid)
-    return render_template('post.html', post=post, post_json=json.dumps(post))
+    return render_template('post.html', gallery_uuid=uuid, full_page=True)
 
 
 @app.route('/blog/feed.atom', methods=['GET'])
@@ -84,13 +88,6 @@ def blog_feed():
                  updated=published_at,
                  published=published_at)
     return feed.get_response()
-
-
-@app.route('/contact', methods=['GET'])
-@use_template_globals
-def contact():
-    g.nav_view = 'contact'
-    return render_template('contact.html')
 
 
 @app.route('/verify_email/<verification_code>', methods=["GET"])

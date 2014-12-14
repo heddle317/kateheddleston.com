@@ -2,6 +2,7 @@ import json
 
 from app import app
 from app import config
+from app.db.galleries import Gallery
 from app.db.subscriptions import Subscription
 from app.twitter import get_tweet_comments
 from app.twitter import update_tweet_comments
@@ -56,6 +57,12 @@ def subscribe():
               "don't see it after a few minutes. Thanks!".format(data.get('email'))
     message = {"message": message}
     return json.dumps(message), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/gallery/<uuid>', methods=['GET'])
+def get_gallery_ajax(uuid):
+    gallery = Gallery.get_gallery(uuid)
+    return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/ping', methods=["GET"])

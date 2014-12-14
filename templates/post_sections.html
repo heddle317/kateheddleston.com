@@ -1,5 +1,5 @@
-<div ng-repeat='item in items'>
-    <div id='item{[{item.position}]}' class='title-section post-section' ng-if='item.title' data-anchor='item{[{item.position}]}' position='{[{item.position}]}'>
+<div ng-repeat='item in gallery.items'>
+  <div id='item{[{item.position}]}' class='title-section post-section' ng-if='item.title' data-anchor='item{[{item.position}]}' position='{[{item.position}]}'>
     <h3 ng-bind='item.title'></h3>
   </div>
   <div class='image-section post-section' ng-if='item.image_name'>

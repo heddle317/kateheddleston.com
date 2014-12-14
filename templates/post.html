@@ -2,9 +2,17 @@
 {% import "top_navbar.html" as navbar with context %}
 {% import "bottom_icon.html" as icon with context %}
 {% block head %}
-  {% assets "comment_css" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-  {% endassets %}
+  {% if full_page %}
+    {% assets "comment_css" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+  {% endif %}
+  {% if contact %}
+    {% assets "contact_css" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+  {% endif %}
+
   {% assets "post_css" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
   {% endassets %}
@@ -13,28 +21,52 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-<div class='gallery-item' ng-controller='PostController' ng-init='init({{post_json}})'>
-  {{ navbar.show(post.prev_uuid, post.next_uuid, 'blog') }}
+<div class='gallery-item' ng-controller='PostController'>
+
+  {% if full_page %}
+    {{ navbar.show('{[{gallery.prev_uuid}]}', '{[{gallery.next_uuid}]}', 'blog') }}
+  {% endif %}
+
   <div class='gallery-content'>
-    <div class='post-section name text-center' ng-style='browserHeight()'>
-      <h1 class='deep-pink' ng-bind-html='name'></h1>
-      <h5 ng-bind='author'></h5>
-      <img class='down_arrow' src='{{g.images_base}}/images/arrow-down.png' />
-    </div>
+
+    {% if full_page %}
+        <!-- Header slide -->
+        <div class='post-section name text-center' ng-style='browserHeight()'>
+            <h1 class='deep-pink' ng-bind-html='gallery.name'></h1>
+            <h5 ng-bind='gallery.author'></h5>
+            <img class='down_arrow' src='{{g.images_base}}/images/arrow-down.png' />
+        </div>
+        <!-- end Header -->
+    {% endif %}
+
+    {% if contact %}
+        {% include "contact_custom.html" %}
+    {% endif %}
+
     {% include "post_sections.html" %}
   </div>
   {% include "left_nav.html" %}
 </div>
-{% include "comments.html" %}
+{% if full_page %}
+    {% include "comments.html" %}
+{% endif %}
 {% endblock %}
 {% block script %}
-  {% assets "comment_js" %}
-      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}
+  {% if full_page %}
+    {% assets "comment_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+  {% endif %}
+  {% if contact %}
+    {% assets "contact_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+  {% endif %}
   {% assets "post_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}
   <script>
+    var galleryUUID = '{{gallery_uuid}}';
     $(window).scroll(function() {
       var position = $('body').scrollTop();
       if(position <= 50) {
@@ -44,4 +76,5 @@
       }
     });
   </script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.        twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 {% endblock %}

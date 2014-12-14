@@ -9,7 +9,7 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-<div class='gallery-item' id='about_page' ng-controller='PostController' ng-init='init({{gallery|safe}})'>
+<div class='gallery-item' id='about_page' ng-controller='CustomPostController'>
   <div class='gallery-content'>
     {% include "post_sections.html" %}
   </div>
@@ -20,4 +20,7 @@
   {% assets "post_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}
+  <script type='text/javascript'>
+      var galleryUUID = '{{gallery_uuid}}';
+  </script>
 {% endblock %}

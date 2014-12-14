@@ -1,0 +1,25 @@
+<div class='contact-page'>
+    <div class='post-section title-section' >
+        <h2>Tweet at me</h2>
+        <a href="https://twitter.com/intent/tweet?screen_name=heddle317" class="twitter-mention-button" data-size="large" data-related="heddle317">Tweet to @heddle317</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+
+    <div class='post-section title-section' ng-controller='ContactController'>
+        <h2 class='text-center' style='margin-bottom:50px;'>
+            Email Me
+        </h2>
+        <div class='alert' role='alert'>
+            <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <span class='message'></span>
+        </div>
+        <form role='form' ng-submit='sendEmail()'>
+            <div>
+            <input class='form-control' type='email' ng-model='fromEmail' placeholder='Your Email Address' />
+            <input class='form-control' type='text' ng-model='subject' placeholder='Subject' />
+            <textarea class='form-control' ng-model='body' placeholder='Message'></textarea>
+            <button class='btn btn-default pull-right'>Send Message</button>
+            </div>
+        </form>
+    </div>
+</div>

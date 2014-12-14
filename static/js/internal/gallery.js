@@ -1,22 +1,17 @@
 angularApp.controller('PostController', ['$scope', '$http', '$log', function($scope, $http, $log) {
   $scope.position = 1;
-  $scope.items = [];
+  $http.get('/gallery/' + galleryUUID).success(function(response) {
+      $scope.init(response);
+  });
   $scope.init = function(gallery) {
     gallery = angular.fromJson(gallery);
     $scope.gallery = gallery;
-    $scope.uuid = gallery.uuid;
-    $scope.name = gallery.name;
-    $scope.author = gallery.author;
-    $scope.items = gallery.items;
     $scope.titles = [];
-    for (var i = 0; i < $scope.items.length; i++) {
-      if ($scope.items[i].title) {
-        $scope.titles.push($scope.items[i].title);
+    for (var i = 0; i < $scope.gallery.items.length; i++) {
+      if ($scope.gallery.items[i].title) {
+        $scope.titles.push($scope.gallery.items[i].title);
       }
     }
-    $scope.next_uuid = gallery.next_uuid;
-    $scope.prev_uuid = gallery.prev_uuid;
-    $scope.created_ago = gallery.created_ago;
   };
   $scope.displayPosition = function() {
     return $scope.position + 1;
