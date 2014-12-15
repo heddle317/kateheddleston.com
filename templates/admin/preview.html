@@ -13,19 +13,16 @@
   {% endassets %}
 {% endblock %}
 {% block content %}
-<div class='gallery-item' ng-controller='PostController' ng-init='init({{post_json}})'>
+<div class='gallery-item' ng-controller='PostController'>
   <div class='header'>
     <div class='links text-center'>
       <div class='prev-link'>
-        <a href="/admin/gallery/{{ post.uuid }}">&larr;Back</a>
+        <a href="/admin/gallery/{[{ gallery.uuid }]}">&larr;Back</a>
       </div>
     </div>
   </div>
   <div class='gallery-content'>
-    <div class='post-section name text-center' ng-style='browserHeight()'>
-      <h1 class='deep-pink' ng-bind-html='name'></h1>
-      <h5 ng-bind='author'></h5>
-    </div>
+    {% include "header_slide.html" %}
     {% include "post_sections.html" %}
   </div>
   {% include "left_nav.html" %}
@@ -35,4 +32,15 @@
   {% assets "post_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}
+  <script type='text/javascript'>
+    var galleryUUID = '{{gallery_uuid}}';
+    $(window).scroll(function() {
+      var position = $('body').scrollTop();
+      if(position <= 50) {
+        $('.down_arrow').show();
+      } else {
+        $('.down_arrow').hide();
+      }
+    });
+  </script>
 {% endblock %}

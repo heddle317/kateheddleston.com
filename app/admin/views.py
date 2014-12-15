@@ -109,6 +109,5 @@ def edit_gallery(uuid=None):
 @login_required
 @use_template_globals
 def preview_gallery(uuid):
-    gallery = Gallery.get_gallery(uuid)
     g.nav_view = 'galleries'
-    return render_template('admin/preview.html', post=gallery, post_json=json.dumps(gallery))
+    return render_template('admin/preview.html', gallery_uuid=uuid)
