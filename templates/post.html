@@ -24,7 +24,7 @@
 <div class='gallery-item' ng-controller='PostController'>
 
   {% if full_page %}
-    {{ navbar.show('{[{gallery.prev_uuid}]}', '{[{gallery.next_uuid}]}', 'blog') }}
+    {% include "post_navbar.html" %}
   {% endif %}
 
   <div class='gallery-content'>
