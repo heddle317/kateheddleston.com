@@ -10,12 +10,12 @@ from boto.s3.key import Key
 from PIL import Image
 
 
-def s3_change_image_resolutions(gallery_uuid, filename):
+def s3_change_image_resolutions(image_route, filename):
     conn = S3Connection(config.AWS_ACCESS_KEY_ID, config.AWS_SECRET_ACCESS_KEY)
     bucket = conn.get_bucket(config.IMAGE_BUCKET)
     key = Key(bucket)
 
-    url = "{}/galleries/{}/{}".format(config.IMAGES_BASE, gallery_uuid, filename)
+    url = "{}/{}/{}".format(config.IMAGES_BASE, image_route, filename)
     # Retrieve our source image from a URL
     fp = urllib.urlopen(url)
     content_type = fp.info().get('content-type')
@@ -23,11 +23,11 @@ def s3_change_image_resolutions(gallery_uuid, filename):
     img = cStringIO.StringIO(fp.read())
     img_original = Image.open(img)
 
-    change_image_resolution(gallery_uuid, filename, img_original, content_type, 500, key)
-    change_image_resolution(gallery_uuid, filename, img_original, content_type, 1000, key)
-    change_image_resolution(gallery_uuid, filename, img_original, content_type, 2000, key)
-    change_image_resolution(gallery_uuid, filename, img_original, content_type, 4000, key)
-    change_image_resolution(gallery_uuid, filename, img_original, content_type, 6000, key)
+    change_image_resolution(image_route, filename, img_original, content_type, 500, key)
+    change_image_resolution(image_route, filename, img_original, content_type, 1000, key)
+    change_image_resolution(image_route, filename, img_original, content_type, 2000, key)
+    change_image_resolution(image_route, filename, img_original, content_type, 4000, key)
+    change_image_resolution(image_route, filename, img_original, content_type, 6000, key)
 
     img.close()
     fp.close()
@@ -59,7 +59,7 @@ def update_image_headers(image_route, filename):
     img.close()
 
 
-def change_image_resolution(gallery_uuid, filename, img_original, content_type, width, key):
+def change_image_resolution(image_route, filename, img_original, content_type, width, key):
     # Resize the image
     new_size = get_width_height(img_original.size, width)
     img_resized = img_original.resize(new_size, Image.NEAREST)
@@ -69,7 +69,7 @@ def change_image_resolution(gallery_uuid, filename, img_original, content_type, 
     file_type = get_file_type(content_type)
     img_resized.save(out_location, file_type)
 
-    key.key = 'galleries/{}/{}'.format(gallery_uuid, new_filename(filename, width))
+    key.key = '{}/{}'.format(image_route, new_filename(filename, width))
     key.set_contents_from_string(out_location.getvalue(),
                                  headers={'Content-Type': content_type,
                                           'x-amz-meta-Cache-Control': 'max-age=31536000',

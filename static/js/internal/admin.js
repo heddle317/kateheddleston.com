@@ -1,39 +1,44 @@
 angularApp.controller('AdminTalksController', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.talks = [];
-    $http.get('/admin/talks').success(function(data) {
-        $scope.talks = data;
-    });
-
-    $scope.createTalk = function() {
-        var data = {'title': $scope.newTitle,
-                    'description': $scope.newDescription,
-                    'slides_link': $scope.newSlidesLink,
-                    'video_link': $scope.newVideoLink,
-                    'description_link': $scope.newDescriptionLink,
-                    'location': $scope.newLocation,
-                    'date': $scope.newDate,
-                    'image_name': $scope.newImageName};
-        $http.post("/admin/talks", data).success(function(data) {
-            $scope.talks.unshift(data);
-            $scope.newTitle = '';
-            $scope.newDescription = '';
-            $scope.newSlidesLink = '';
-            $scope.newVideoLink = '';
-            $scope.newImageName = '';
-            $scope.newDate = '';
-            $scope.newDescriptionLink = '';
-            $scope.newLocation = '';
-            $('#create_talk').modal('hide');
+    $scope.loading = true;
+    $http.get('/admin/talks').success(function(response) {
+        $scope.talks = response;
+        var $container = $('#container');
+        imagesLoaded($container, function() {
+            $('.loading.main-loader').hide();
+            $('#container').show();
+            var msnry = new Masonry('#container', {columnWidth: 100,
+                                                   itemSelector: ".item",
+                                                   gutter: 10,
+                                                   isFitWidth: true,
+                                                   transitionDuration: 0});
         });
-    };
+    });
     $scope.trustHTML = function(html) {
         return $sce.trustAsHtml(html);
     };
 }]);
 
-angularApp.controller('EditTalkController', ['$scope', '$http', '$log', function($scope, $http, $log) {
+angularApp.controller('MiniEditTalkController', ['$scope', '$http', '$window', '$sce', '$log', function($scope, $http, $window, $sce, $log) {
+    $scope.initTalk = function(talk) {
+        $scope.talk = talk;
+    };
+    $scope.unpublishTalk = function() {
+        $scope.published = false;
+        $scope.updateTalk();
+    };
+    $scope.publishTalk = function() {
+        $scope.published = true;
+        $scope.updateTalk();
+    };
+}]);
+
+angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window', '$sce', function($scope, $http, $log, $window, $sce) {
     $scope.editing = false;
-    $scope.init = function(talk) {
+    $scope.talk_uuid = talkUUID;
+    $scope.initTalk = function(talk) {
+        $scope.talk = talk;
+        $scope.talk_uuid = talk.uuid;
         $scope.uuid = talk.uuid;
         $scope.title = talk.title;
         $scope.imageName = talk.image_name;
@@ -45,6 +50,12 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', function
         $scope.date = talk.date;
         $scope.published = talk.published;
     };
+    $http.get($window.location.pathname).success(function(response) {
+        $scope.initTalk(response);
+        if (!$scope.talk_uuid) {
+            $scope.editing = true;
+        }
+    });
     $scope.cancel = function() {
         $scope.editing = false;
     };
@@ -66,18 +77,19 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', function
                     'video_link': $scope.videoLink,
                     'description_link': $scope.descriptionLink,
                     'location': $scope.location,
-                    'date': $scope.date,
-                    'image_name': $scope.imageName,
-                    'published': $scope.published};
-        $http.put("/admin/talks/" + $scope.uuid, data).success(function(data) {
-            $scope.editing = false;
-        });
-    };
-    $scope.goToBlog = function() {
-        if ($scope.editing) {
-          return;
+                    'date': $scope.datee,
+                    'image_name': $scope.imageName};
+        if ($scope.talk_uuid) {
+            data['published'] = $scope.published;
+            $http.put("/admin/talks/" + $scope.uuid, data).success(function(data) {
+                $scope.editing = false;
+            });
         } else {
-          $window.location = "/talk/" + $scope.uuid;
+            $http.post("/admin/talks", data).success(function(data) {
+                $scope.editing = false;
+                $scope.initTalk(data);
+                $window.location = "/admin/talk/" + $scope.talk_uuid;
+            });
         }
     };
     $scope.deleteTalk = function() {
@@ -86,12 +98,11 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', function
         return;
       }
       $http.delete("/admin/talks/" + $scope.uuid).success(function(data) {
-        for(var i=0; i < $scope.talks.length; i++) {
-          if($scope.talks[i].uuid === $scope.uuid) {
-            $scope.talks.splice(i, 1);
-          }
-        }
+          $window.location = "/admin/talks";
       });
+    };
+    $scope.trustHTML = function(html) {
+        return $sce.trustAsHtml(html);
     };
 }]);
 
@@ -132,16 +143,6 @@ angularApp.controller('MiniEditGalleryController', ['$scope', '$http', '$window'
     $scope.publishGallery = function() {
         $scope.published = true;
         $scope.updateGallery();
-    };
-    $scope.updateGallery = function() {
-        var data = {'name': $scope.name,
-                    'author': $scope.author,
-                    'cover_photo': $scope.coverPhoto,
-                    'items': $scope.items,
-                    'published': $scope.published};
-        $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(data) {
-            $scope.editing = false;
-        });
     };
 }]);
 
@@ -190,13 +191,6 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
       }
       $scope.updateGallery();
     };
-    $scope.goToGallery = function() {
-        if ($scope.editing) {
-          return;
-        } else {
-          $window.location = "/blog/" + $scope.gallery_uuid;
-        }
-    };
     $scope.cancel = function() {
       $scope.editing = false;
     };
@@ -206,11 +200,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         return;
       }
       $http.delete("/admin/gallery/" + $scope.gallery_uuid).success(function(data) {
-        for(var i=0; i < $scope.galleries.length; i++) {
-          if($scope.galleries[i].uuid === $scope.gallery_uuid) {
-            $scope.galleries.splice(i, 1);
-          }
-        }
+          $window.location = "/admin/galleries";
       });
     };
     $scope.unpublishGallery = function() {

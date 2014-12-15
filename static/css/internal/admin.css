@@ -24,3 +24,13 @@
   margin-top:20px;
   padding-top:10px;
 }
+
+img {
+    width:100%;
+}
+
+.flex-video iframe,
+.flex-video object,
+.flex-video embed {
+    left:50%;
+}

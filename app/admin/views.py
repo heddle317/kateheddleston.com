@@ -63,6 +63,28 @@ def get_talks():
     return render_template('admin/talks.html')
 
 
+@app.route('/admin/talk', methods=['GET'])
+@app.route('/admin/talk/<uuid>', methods=['GET'])
+@login_required
+@use_template_globals
+def edit_talk(uuid=None):
+    if request.is_xhr:
+        if uuid:
+            talk = Talk.get_talk(uuid)
+        else:
+            talk = Talk.get_blank_gallery()
+        return json.dumps(talk), 200, {'Content-Type': 'application/json'}
+    g.nav_view = 'talks'
+    policy = base64.b64encode(json.dumps(policy_document))
+    signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
+    access_key = config.AWS_ACCESS_KEY_ID
+    return render_template('admin/edit_talk.html',
+                           talk_uuid=uuid,
+                           policy=policy,
+                           signature=signature,
+                           accessKey=access_key)
+
+
 @app.route('/admin/galleries', methods=['GET'])
 @login_required
 @use_template_globals
@@ -71,8 +93,7 @@ def get_galleries():
     if request.is_xhr:
         return json.dumps(galleries), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'galleries'
-    galleries = [json.dumps(gallery) for gallery in galleries]
-    return render_template('admin/galleries.html', galleries=galleries)
+    return render_template('admin/galleries.html')
 
 
 @app.route('/admin/gallery/create', methods=['GET'])
@@ -80,7 +101,6 @@ def get_galleries():
 def get_admin_gallery(uuid=None):
     gallery = Gallery.get_blank_gallery()
     return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
-
 
 
 @app.route('/admin/gallery', methods=['GET'])

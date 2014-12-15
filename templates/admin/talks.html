@@ -1,99 +1,56 @@
 {% extends "admin/admin_base.html" %}
+{% block head %}
+  {% assets "tiles_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
+{% endblock %}
 {% block content %}
-    <div ng-controller='AdminTalksController'>
-      <div id='create_talk' class='modal fade'>
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <form class='' ng-submit='createTalk()'>
-                <div class='modal-header'>
-                  Create Talk
-                </div>
-                <div class='modal-body'>
-                  <div class="form-group">
-                      <label>Title</label>
-                      <input type="text" class="form-control" ng-model='newTitle'>
-                  </div>
-                  <div class="form-group">
-                      <label>Description</label>
-                      <textarea rows=4 class='form-control' name='description' ng-model='newDescription'></textarea>
-                  </div>
-                  <div class="form-group">
-                      <label>Description Link</label>
-                      <input type="text" class="form-control" ng-model='newDescriptionLink'>
-                  </div>
-                  <div class="form-group">
-                      <label>Slides Link</label>
-                      <input type="text" class="form-control" ng-model='newSlidesLink'>
-                  </div>
-                  <div class="form-group">
-                      <label>Video Link</label>
-                      <input type="text" class="form-control" ng-model='newVideoLink'>
-                  </div>
-                  <div class="form-group">
-                      <label>Image Name</label>
-                      <input type="text" class="form-control" ng-model='newImageName'>
-                  </div>
-                  <div class="form-group">
-                      <label>Location</label>
-                      <input type="text" class="form-control" ng-model='newLocation'>
-                  </div>
-                  <div class="form-group">
-                      <label>Date</label>
-                      <input type="text" class="form-control" ng-model='newDate'>
-                  </div>
-                </div>
-                <div class='modal-footer'>
-                  <button class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-success">Create Talk</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class='page-btn'>
-          <button data-target='#create_talk' data-toggle='modal' type='submit' class='btn btn-default'>Create Talk</button>
-        </div>
-        <div class='row edit_panel' ng-repeat='talk in talks' ng-controller='EditTalkController' ng-init='init(talk)'>
-            <div class='panel' ng-class='published ? "panel-success" : "panel-default"'>
-                <div class="panel-heading">
-                    <h3 class="panel-title" ng-bind='title'></h3>
-                </div>
-                <div class='panel-body'>
-                    <div class='col-md-4'>
-                        <div class='talk_item thumbnail'>
-                            <img ng-src="{[{talk.base_url}]}/{[{talk.image_name}]}" />
-                            <input type="text" class="form-control" ng-show='editing' ng-model='imageName'>
-                            <div class='info caption'>
-                                <p ng-show='!editing'><small class='subheader'><span ng-bind='date'></span> - <span ng-bind='location'></span></small></p>
-                                <p ng-show='editing'><small class='subheader'><input type="text" class="form-control" ng-model='date'> - <input type="text" class="form-control" ng-model='location'></span></small></p>
-                                <h3 ng-show='!editing' ng-bind='title'></h3>
-                                <input type="text" class="form-control" ng-show='editing' ng-model='title'>
+<div ng-controller='AdminTalksController' class='ng-cloak' ng-cloak>
+    <div class='page-btn'>
+        <a href="/admin/talk" type='submit' class='btn btn-default'>Create Talk</a>
+    </div>
+    <div class='loading main-loader'>
+        <img src="{{g.images_base}}/images/loading.gif" />
+    </div>
+    <div id='container' class="js-masonry" style='display:none;'>
+        <div class='item w4' ng-repeat='talkInfo in talks' ng-controller='MiniEditTalkController' ng-init='initTalk(talkInfo)'>
+            <div class='blog_item w4'>
+                <img ng-if='talk.image_name' ng-src="{[{talk.base_url}]}/{[{talk.image_name}]}_medium" alt='No image'/>
+                <img ng-if='!talk.image_name' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>
+                <div class='blog_item_footer'>
+                    <div class='info caption'>
+                        <h4 ng-bind='talk.name'></h4>
+                    </div>
+                    <div class='blog_item_footer'>
+                        <div class='info caption'>
+                            <h4 ng-bind='talk.title'></h4>
+                        </div>
+                        <div class='info-icons'>
+                            <div class='row'>
+                                <div class='col-md-6 date'>
+                                    <i class='fa fa-clock-o'></i>
+                                    <span ng-bind='talk.date'></span>
+                                </div>
+                                <div class='col-md-6'>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class='col-md-8'>
-                        <div class='video_display thumbnail'>
-                            <span ng-bind-html='trustHTML(talk.video_link)'></span>
-                            <input type='text' class='form-control' ng-show='editing' ng-model='videoLink' />
-                            <p ng-show='!editing' ng-bind='description'></p>
-                            <textarea rows=4 class='form-control' ng-show='editing' ng-model='description'></textarea>
-                            <a target="_blank" ng-show='!editing' ng-href="{[{descriptionLink}]}">Talk Description</a>
-                            <input type="text" class="form-control" ng-show='editing' ng-model='descriptionLink'>
-                            </br>
-                            <a ng-show='!editing' ng-href='{[{slidesLink}]}'>Slides</a>
-                            <input type="text" class="form-control" ng-show='editing' ng-model='slidesLink'>
+                    <div class='row buttons'>
+                        <div class='col-md-12 text-right'>
+                            <a class='btn btn-default' href="/admin/talk/{[{talk.uuid}]}">Edit</a>
+                            <button class='btn btn-warning' ng-show='!talk.published && !editing' ng-click='publishTalk()'>Publish</button>
+                            <button class='btn btn-success' ng-show='talk.published && !editing' ng-click='unpublishTalk()'>Unpublish</button>
                         </div>
                     </div>
-                </div>
-                <div class='panel-footer text-right'>
-                    <button class='btn btn-default' ng-show='!editing' ng-click='editTalk()'>Edit</button>
-                    <button class='btn btn-success' ng-show='editing' ng-click='updateTalk()'>Save</button>
-                    <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
-                    <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishTalk()'>Publish</button>
-                    <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishTalk()'>Unpublish</button>
-                    <button class='btn btn-danger' ng-click='deleteTalk()'>Delete</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+{% endblock %}
+{% block script %}
+  {% assets "blog_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+  {% endassets %}
 {% endblock %}

@@ -30,7 +30,7 @@ def create_talk():
 
 @app.route('/admin/talks/<uuid>', methods=['PUT'])
 @login_required
-def edit_talk(uuid):
+def update_talk(uuid):
     data = json.loads(request.data)
     talk = Talk.update_talk(uuid, **data)
     return json.dumps(talk), 200, {'Content-Type': 'application/json'}
