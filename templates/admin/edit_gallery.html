@@ -32,7 +32,7 @@
                         <h2>Cover Photo</h2>
                     </div>
                 </div>
-                <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="EditGalleryItemController" ng-init='item=galleryItem'>
+                <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
                     <div class='row'>
                         <div class='col-md-2 text-center'>
                             <div class='loading image-loader' ng-show='generatingSizes'>

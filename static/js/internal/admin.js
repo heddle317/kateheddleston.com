@@ -31,11 +31,19 @@ angularApp.controller('MiniEditTalkController', ['$scope', '$http', '$window', '
         $scope.published = true;
         $scope.updateTalk();
     };
+    $scope.updateTalk = function() {
+        var data = {'published': $scope.published};
+        $http.put("/admin/talks/" + $scope.talk.uuid, data).success(function(data) {
+            $scope.editing = false;
+            $scope.talk = data;
+        });
+    };
 }]);
 
 angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window', '$sce', function($scope, $http, $log, $window, $sce) {
     $scope.editing = false;
     $scope.talk_uuid = talkUUID;
+    $scope.talk = null;
     $scope.initTalk = function(talk) {
         $scope.talk = talk;
         $scope.talk_uuid = talk.uuid;
@@ -78,7 +86,7 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
                     'description_link': $scope.descriptionLink,
                     'location': $scope.location,
                     'date': $scope.datee,
-                    'image_name': $scope.imageName};
+                    'image_name': $scope.talk.image_name};
         if ($scope.talk_uuid) {
             data['published'] = $scope.published;
             $http.put("/admin/talks/" + $scope.uuid, data).success(function(data) {
@@ -143,6 +151,11 @@ angularApp.controller('MiniEditGalleryController', ['$scope', '$http', '$window'
     $scope.publishGallery = function() {
         $scope.published = true;
         $scope.updateGallery();
+    };
+    $scope.updateGallery = function() {
+        var data = {'published': $scope.published};
+        $http.put("/admin/gallery/" + $scope.gallery.uuid, data).success(function(data) {
+        });
     };
 }]);
 
@@ -235,7 +248,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     };
 }]);
 
-angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window', '$sce', '$upload', '$log', function($scope, $http, $window, $sce, $upload, $log) {
+angularApp.controller('UploadImageController', ['$scope', '$http', '$window', '$sce', '$upload', '$log', function($scope, $http, $window, $sce, $upload, $log) {
   $scope.file = [];
   $scope.dataUrls = [];
   $scope.item = null;
@@ -244,6 +257,10 @@ angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window'
   $scope.loading = false;
   $scope.widthStyle = {"width": "0%"};
   $scope.generatingSizes = false;
+  $scope.init = function(imageRoute, item) {
+      $scope.imageRoute = imageRoute;
+      $scope.item = item;
+  };
   $scope.onFileSelect = function($files) {
     $scope.files = $files;
     for (var i = 0; i < $files.length; i++) {
@@ -252,7 +269,7 @@ angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window'
       var fileName = timeStamp + "_" + file.name;
       var fields = fileName.split('\.');
       fileName = fields[0];
-      var key = "galleries/" + $scope.gallery_uuid + "/" + fileName;
+      var key = $scope.imageRoute + "/" + fileName;
       var data = {
             key: key,
             AWSAccessKeyId: accessKey, 
@@ -273,7 +290,9 @@ angularApp.controller('EditGalleryItemController', ['$scope', '$http', '$window'
         $scope.loading = true;
       }).success(function(data, status, headers, config) {
         $scope.generatingSizes = true;
-        $http.get('/blog/' + $scope.gallery_uuid + '/' + fileName + '/generate_sizes').success(function(data) {
+        data = {"image_route": $scope.imageRoute,
+                "filename": fileName};
+        $http.post('/images/generate_sizes', data).success(function(data) {
             $scope.generatingSizes = false;
             $scope.item.image_name = fileName;
         });
