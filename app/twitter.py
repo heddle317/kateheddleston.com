@@ -1,13 +1,35 @@
+import facebook
 import tweepy
 
 from app import config
+from app.db import get
 from app.db.comments import Comment
+from app.db.user import User
 from app.utils.datetime_tools import format_date
 
 
 def get_tweet_comments(gallery_uuid):
     tweets = Comment.get_comment_json(gallery_uuid)
     return tweets
+
+
+def update_facebook_comments(url, gallery_uuid):
+    # graph = facebook.GraphAPI()
+    access_token = get(User, email='kate.heddleston@gmail.com').code
+    graph = facebook.GraphAPI(access_token)
+    posts = graph.get_object('me/posts')
+    comments = []
+    for post in posts['data']:
+        if url in post.get('message', ''):
+            comment_response = graph.request('{}/comments'.format(post.get('id')))
+            comments = comments + comment_response.get('data')
+            while comment_response.get('paging').get('next') is not None:
+                after = comment_response.get('paging').get('cursors').get('after')
+                comment_response = graph.request('{}/comments'.format(post.get('id')), {'after': after})
+                comments = comments + comment_response.get('data')
+    print len(comments)
+    for comment in comments:
+        print comment
 
 
 def update_tweet_comments(url, gallery_uuid):

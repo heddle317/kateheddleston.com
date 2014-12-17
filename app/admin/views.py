@@ -2,6 +2,8 @@ import base64
 import hashlib
 import hmac
 import json
+import requests
+import urllib
 
 from app import app
 from app import config
@@ -131,3 +133,36 @@ def edit_gallery(uuid=None):
 def preview_gallery(uuid):
     g.nav_view = 'galleries'
     return render_template('admin/preview.html', gallery_uuid=uuid)
+
+
+@app.route('/admin/auth', methods=['GET'])
+@login_required
+@use_template_globals
+def social_auth():
+    if request.args.get('code'):
+        code = request.args.get('code')
+        route = "https://graph.facebook.com/oauth/access_token"
+        params = {'client_id': config.FACEBOOK_APP_ID,
+                  'client_secret': config.FACEBOOK_APP_SECRET,
+                  'code': code,
+                  'redirect_uri': '{}/admin/auth'.format(config.APP_BASE_LINK)}
+        path = route + "?" + urllib.urlencode(params)
+        response = requests.get(path)
+        access_token, expires = response.text.split('&')
+        access_token = access_token.split('=')[1]
+        print access_token
+        g.current_user.update_code(access_token)
+    g.nav_view = 'auth'
+    return render_template('admin/social_login.html')
+
+
+@app.route("/admin/auth/facebook", methods=['GET'])
+@login_required
+def facebook_auth_redirect():
+    redirect_uri = '{}/admin/auth'.format(config.APP_BASE_LINK)
+    scope = 'public_profile,publish_actions,read_stream'
+    params = {'client_id': config.FACEBOOK_APP_ID,
+              'redirect_uri': redirect_uri,
+              'scope': scope,
+              'response_type': 'code'}
+    return redirect('https://www.facebook.com/dialog/oauth?{}'.format(urllib.urlencode(params)))

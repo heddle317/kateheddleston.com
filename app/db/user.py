@@ -17,6 +17,7 @@ class User(db.Model):
     role = db.Column(db.SmallInteger)
     password_hash = db.Column(db.String(60), unique=False)
     email_verification_token = db.Column(db.String(50), unique=False)
+    code = db.Column(db.String(512), unique=False)
     created_at = db.Column(db.DateTime(), unique=False, default=func.now())
     dead = db.Column(db.Boolean(), default=False, nullable=False)
 
@@ -31,6 +32,13 @@ class User(db.Model):
 
     def get_id(self):
         return unicode(self.uuid)
+
+    def get_code(self):
+        return self.code
+
+    def update_code(self, code):
+        self.code = code
+        save(self)
 
     def __repr__(self):
         return '<User %r>' % (self.email)

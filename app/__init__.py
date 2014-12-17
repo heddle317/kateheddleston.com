@@ -105,6 +105,7 @@ assets.register('tiles_css', tiles_css)
 if config.ENV == 'production':
     admin_js = Bundle('js/internal/angular_app_module_admin.js',
                       'js/internal/admin.js',
+                      'js/internal/admin_auth.js',
                       filters='jsmin', output='gen/admin.%(version)s.js')
 
     angular_admin_js = Bundle('js/external/angular-file-upload-shim.min.js',
@@ -140,6 +141,7 @@ if config.ENV == 'production':
 else:
     admin_js = Bundle('js/internal/angular_app_module_admin.js',
                       'js/internal/admin.js',
+                      'js/internal/admin_auth.js',
                       output='gen/admin.%(version)s.js')
 
     angular_admin_js = Bundle('js/external/angular-file-upload-shim.js',
