@@ -58,7 +58,8 @@ def blog():
 @app.route('/blog/<uuid>', methods=['GET'])
 @use_template_globals
 def blog_post(uuid):
-    return render_template('post.html', gallery_uuid=uuid, full_page=True)
+    gallery = Gallery.get_gallery(uuid=uuid)
+    return render_template('post.html', gallery_uuid=uuid, gallery=gallery, full_page=True)
 
 
 @app.route('/blog/feed.atom', methods=['GET'])
