@@ -6,14 +6,48 @@
 {% endblock %}
 {% block content %}
 <div ng-controller='AdminGalleriesController' class='ng-cloak' ng-cloak>
-    <div class='page-btn'>
-        <a href="/admin/gallery" type='submit' class='btn btn-default'>Create Gallery</a>
-    </div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-click='changeTab(false)' ng-class="showPublished ? 'inactive' : 'active'"><a href="#">Unpublished</a></li>
+        <li role="presentation" ng-click='changeTab(true)' ng-class="showPublished ? 'active' : 'inactive'"><a href="#">Published</a></li>
+        <div class='page-btn'>
+            <a href="/admin/gallery" type='submit' class='btn btn-default'>Create Gallery</a>
+        </div>
+    </ul>
     <div class='loading main-loader'>
         <img src="{{g.images_base}}/images/loading.gif" />
     </div>
-    <div id='container' class="js-masonry" style='display:none;'>
-        <div class='item w4' ng-repeat='gallery in galleries' ng-controller='MiniEditGalleryController' ng-init='initGallery(gallery)'>
+    <div id="container" class="js-masonry published-container" style='display:none'>
+        <div class='item w4' ng-repeat='gallery in publishedGalleries' ng-controller='MiniEditGalleryController' ng-init='initGallery(gallery)'>
+            <div class='blog_item w4'>
+                <img ng-if='coverPhoto' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_medium" alt='No image'/>
+                <img ng-if='!coverPhoto' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>
+                <div class='blog_item_footer'>
+                    <div class='info caption'>
+                        <h4 ng-bind='name'></h4>
+                    </div>
+                    <div class='info-icons'>
+                        <div class='row'>
+                            <div class='col-md-6 date'>
+                                <i class='fa fa-clock-o'></i>
+                                <span ng-bind='published_ago'></span>
+                            </div>
+                            <div class='col-md-6'>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row buttons'>
+                        <div class='col-md-12 text-right'>
+                            <a class='btn btn-default' href="/admin/gallery/{[{uuid}]}">Edit</a>
+                            <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
+                            <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container" class="js-masonry unpublished-container" style='display:none'>
+        <div class='item w4' ng-repeat='gallery in unpublishedGalleries' ng-controller='MiniEditGalleryController' ng-init='initGallery(gallery)'>
             <div class='blog_item w4'>
                 <img ng-if='coverPhoto' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_medium" alt='No image'/>
                 <img ng-if='!coverPhoto' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>

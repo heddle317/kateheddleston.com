@@ -1,6 +1,7 @@
 angularApp.controller('AdminTalksController', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.talks = [];
     $scope.loading = true;
+    $scope.published = false;
     $http.get('/admin/talks').success(function(response) {
         $scope.talks = response;
         var $container = $('#container');
@@ -115,21 +116,41 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
 }]);
 
 angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', function($scope, $http, $log) {
-    $scope.galleries = [];
     $scope.loading = true;
     $http.get('/admin/galleries').success(function(response) {
-        $scope.galleries = response;
-        var $container = $('#container');
-        imagesLoaded($container, function() {
-            $('.loading.main-loader').hide();
-            $('#container').show();
-            var msnry = new Masonry('#container', {columnWidth: 100,
-                                                   itemSelector: ".item",
-                                                   gutter: 10,
-                                                   isFitWidth: true,
-                                                   transitionDuration: 0});
-        });
+        $('.loading.main-loader').show();
+        $scope.unpublishedGalleries = [];
+        $scope.publishedGalleries = [];
+        var i;
+        var item;
+        for (i = 0; i < response.length; i++) {
+            item = response[i];
+            if (item.published) {
+                $scope.publishedGalleries.push(item);
+            } else {
+                $scope.unpublishedGalleries.push(item);
+            }
+        };
+        $scope.changeTab(false);
     });
+    $scope.changeTab = function(published) {
+        $('.loading.main-loader').show();
+        var c = published ? '.published-container' : '.unpublished-container';
+        var hide_c = published ? '.unpublished-container' : '.published-container';
+        $(hide_c).hide();
+        var $container = $(c);
+        $container.hide();
+        $scope.showPublished = published;
+        imagesLoaded($container, function() {
+            $container.show();
+            $('.loading.main-loader').hide();
+            var msnry = new Masonry(c, {columnWidth: 100,
+                                        itemSelector: ".item",
+                                        gutter: 10,
+                                        isFitWidth: true,
+                                        transitionDuration: 0});
+        });
+    };
 }]);
 
 angularApp.controller('MiniEditGalleryController', ['$scope', '$http', '$window', '$sce', '$log', function($scope, $http, $window, $sce, $log) {
