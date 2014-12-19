@@ -34,7 +34,8 @@ app = Flask(__name__,
             static_folder=config.STATIC_FOLDER)
 app.config.from_object(config)
 Compress(app)
-handle_exceptions(app)
+if config.ENV == 'production':
+    handle_exceptions(app)
 
 CsrfProtect(app)
 app_db = SQLAlchemy(app)
