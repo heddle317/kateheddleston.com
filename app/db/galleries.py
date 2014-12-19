@@ -37,6 +37,7 @@ class Gallery(db.Model):
                 'cover_photo': self.cover_photo,
                 'cover_photo_url': '{}/{}'.format(base_url, self.cover_photo),
                 'base_url': base_url,
+                'description': self.description(),
                 'created_ago': relative_time(self.created_at),
                 'created_at': format_date(self.created_at, format='%B %d, %Y'),
                 'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%SZ') if self.published_at else '',
@@ -47,6 +48,12 @@ class Gallery(db.Model):
                 'prev_uuid': prev_uuid(Gallery, self, sort_by='published_at', published=True),
                 }
         return data
+
+    def description(self):
+        items = get_list(GalleryItem, gallery_uuid=self.uuid, sort_by='position', desc=False)
+        for item in items:
+            if item.body:
+                return item.body
 
     @staticmethod
     def get_blank_gallery():
