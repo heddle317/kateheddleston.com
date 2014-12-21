@@ -23,7 +23,7 @@ def index():
 def about():
     g.nav_view = 'about'
     gallery = Gallery.get_gallery(uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
-    return render_template('post.html', gallery=gallery, gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
+    return render_template('about.html', gallery=gallery, gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
 
 
 @app.route('/contact', methods=['GET'])
@@ -31,7 +31,7 @@ def about():
 def contact():
     g.nav_view = 'contact'
     gallery = Gallery.get_gallery('3d93674d-8331-4ac1-a318-26c7bb415fd9')
-    return render_template('post.html', gallery=gallery, gallery_uuid='3d93674d-8331-4ac1-a318-26c7bb415fd9', contact=True)
+    return render_template('contact.html', gallery=gallery, gallery_uuid='3d93674d-8331-4ac1-a318-26c7bb415fd9', contact=True)
 
 
 @app.route('/talks')

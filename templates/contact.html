@@ -1,30 +1,65 @@
 {% extends "base.html" %}
+{% import "top_navbar.html" as navbar with context %}
+{% import "bottom_icon.html" as icon with context %}
 {% block head %}
-  {% assets "post_css" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-  {% endassets %}
-  {% assets "contact_css" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-  {% endassets %}
+    <title>{{gallery.name}}</title>
+    <meta name="twitter:title" content="{{gallery.name}}" />
+    <meta name="og:title" content="{{gallery.name}}" />
+    <meta name="twitter:description" content="{{gallery.description}}" />
+    <meta name="og:description" content="{{gallery.description}}" />
+    <meta name="twitter:image" content="{{gallery.cover_photo_url}}_small" />
+    <meta name="og:image" content="{{gallery.cover_photo_url}}_small"/>
+    <meta name="twitter:url" content="{{g.app_base_link}}/blog/{{gallery_uuid}}" />
+    <meta name="og:url" content="{{g.app_base_link}}/blog/{{gallery_uuid}}" />
+    {% assets "contact_css" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    {% assets "post_css" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+    {% assets "header_css" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
 {% endblock %}
 {% block content %}
 <div class='gallery-item' ng-controller='PostController'>
-    <div class='gallery-content contact-page'>
+    <div class='gallery-content'>
+        <div class='contact-page'>
+            <div class='post-section title-section' >
+                <h2>Tweet at me</h2>
+                <a href="https://twitter.com/intent/tweet?screen_name=heddle317" class="twitter-mention-button" data-size="large" data-related="heddle317">Tweet to @heddle317</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
 
-        {% include "contact_custom.html" %}
+            <div class='post-section title-section' ng-controller='ContactController'>
+                <h2 class='text-center' style='margin-bottom:50px;'>
+                    Email Me
+                </h2>
+                <div class='alert' role='alert'>
+                    <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <span class='message'></span>
+                </div>
+                <form role='form' ng-submit='sendEmail()'>
+                    <div>
+                    <input class='form-control' type='email' ng-model='fromEmail' placeholder='Your Email Address' />
+                    <input class='form-control' type='text' ng-model='subject' placeholder='Subject' />
+                    <textarea class='form-control' ng-model='body' placeholder='Message'></textarea>
+                    <button class='btn btn-default pull-right'>Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
         {% include "post_sections.html" %}
-
     </div>
-
     {% include "left_nav.html" %}
-
 </div>
 {% endblock %}
 {% block script %}
-  {% assets "contact_js" %}
-      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}
+{% assets "contact_js" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+{% endassets %}
   {% assets "post_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}

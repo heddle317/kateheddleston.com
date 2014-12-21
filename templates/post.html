@@ -16,11 +16,6 @@
         <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
     {% endassets %}
   {% endif %}
-  {% if contact %}
-    {% assets "contact_css" %}
-        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-    {% endassets %}
-  {% endif %}
 
   {% assets "post_css" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
@@ -42,10 +37,6 @@
         {% include "header_slide.html" %}
     {% endif %}
 
-    {% if contact %}
-        {% include "contact_custom.html" %}
-    {% endif %}
-
     {% include "post_sections.html" %}
   </div>
   {% include "left_nav.html" %}
@@ -57,11 +48,6 @@
 {% block script %}
   {% if full_page %}
     {% assets "comment_js" %}
-        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-    {% endassets %}
-  {% endif %}
-  {% if contact %}
-    {% assets "contact_js" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
   {% endif %}
