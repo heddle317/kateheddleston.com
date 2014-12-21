@@ -31,6 +31,11 @@
                     <div class='col-md-10'>
                         <h2>Cover Photo</h2>
                     </div>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <button ng-click='addNewItem(1)' class='btn btn-success pull-right'>Add Item After</button>
+                        </div>
+                    </div>
                 </div>
                 <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
                     <div class='row'>
@@ -51,6 +56,8 @@
                                 </div>
                             </div>
                             <button class='btn btn-default margin-top-10' ng-show="editing && gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
+                            <small ng-show='!editing' ng-bind-html='item.image_caption'></small>
+                            <input rows=6 placeholder='Image Caption' class='form-control' name='image_caption' ng-show='editing' ng-model='item.image_caption' />
                         </div>
                         <div class='col-md-10'>
                             <div class='info caption'>

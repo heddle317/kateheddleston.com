@@ -61,6 +61,7 @@ class Gallery(db.Model):
                   'title': '',
                   'body': '',
                   'image_name': '',
+                  'image_caption': '',
                   'position': 1}]
         data = {'uuid': None,
                 'name': '',
@@ -136,6 +137,7 @@ class GalleryItem(db.Model):
     image_link = db.Column(db.String(500), nullable=True)
     image_name = db.Column(db.String(500), nullable=True)
     position = db.Column(db.Integer(), nullable=False)
+    image_caption = db.Column(db.String(500), nullable=True)
 
     def to_dict(self):
         data = {'uuid': self.uuid,
@@ -144,8 +146,10 @@ class GalleryItem(db.Model):
                 'body': self.body,
                 'image_link': self.image_link,
                 'image_name': self.image_name,
-                'position': self.position
+                'position': self.position,
+                'image_caption': self.image_caption
                 }
+        print data
         return data
 
     @staticmethod

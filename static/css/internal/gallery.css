@@ -19,6 +19,10 @@
   padding:20px 0;
 }
 
+#kateheddleston-wrap .gallery-content .image-section .image-caption {
+    margin-top:5px;
+}
+
 #kateheddleston-wrap .gallery-content .image-section img {
   width:100%;
   display:block;

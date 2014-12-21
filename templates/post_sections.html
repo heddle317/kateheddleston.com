@@ -8,6 +8,7 @@
       {% else %}
         <img ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_large" />
       {% endif %}
+      <small><em class='image-caption' ng-if='item.image_caption' ng-bind='item.image_caption'></em></small>
   </div>
   <div class='body-section post-section' ng-if='item.body'>
     <p ng-bind-html='item.body'>
