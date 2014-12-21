@@ -22,14 +22,16 @@ def index():
 @use_template_globals
 def about():
     g.nav_view = 'about'
-    return render_template('post.html', gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
+    gallery = Gallery.get_gallery(uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
+    return render_template('post.html', gallery=gallery, gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
 
 
 @app.route('/contact', methods=['GET'])
 @use_template_globals
 def contact():
     g.nav_view = 'contact'
-    return render_template('post.html', gallery_uuid='3d93674d-8331-4ac1-a318-26c7bb415fd9', contact=True)
+    gallery = Gallery.get_gallery('3d93674d-8331-4ac1-a318-26c7bb415fd9')
+    return render_template('post.html', gallery=gallery, gallery_uuid='3d93674d-8331-4ac1-a318-26c7bb415fd9', contact=True)
 
 
 @app.route('/talks')
