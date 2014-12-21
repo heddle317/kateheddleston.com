@@ -29,7 +29,6 @@ angularApp.controller('CommentController', ['$scope', '$http', '$window', '$log'
       return comment_array;
   };
   $scope.getComments = function() {
-    $http.get($window.location.pathname + '/comments/update');
     $http.get($window.location.pathname + '/comments').success(function(data) {
       $scope.numComments = data.num_comments;
       $scope.comments = data.comments;

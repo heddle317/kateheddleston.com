@@ -1,11 +1,10 @@
 import json
 
 from app import app
-from app import config
 from app.db.galleries import Gallery
 from app.db.subscriptions import Subscription
 from app.twitter import get_comments
-from app.twitter import update_tweet_comments
+from app.twitter import get_comments_for_items
 from app.utils.aws import s3_change_image_resolutions
 from app.utils.email import send_contact_email
 
@@ -32,11 +31,9 @@ def blog_comments(uuid):
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/blog/<uuid>/comments/update', methods=['GET'])
-def update_blog_comments(uuid):
-    # post = Gallery.get_gallery(uuid)
-    url = '{}/blog/{}'.format(config.APP_BASE_LINK, uuid)
-    tweets = update_tweet_comments(url, uuid)
+@app.route('/blog/comments/update', methods=['GET'])
+def update_blog_comments():
+    tweets = get_comments_for_items()
     data = {'comments': tweets, 'num_comments': len(tweets)}
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
 

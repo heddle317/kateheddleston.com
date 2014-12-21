@@ -1,5 +1,5 @@
-from app.twitter import migrate_old_comments
+from app.twitter import get_comments_for_items
 
 
 if __name__ == '__main__':
-    migrate_old_comments()
+    get_comments_for_items()

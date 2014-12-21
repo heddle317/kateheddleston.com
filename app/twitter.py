@@ -1,6 +1,5 @@
 import datetime
 import facebook
-import json
 import requests
 import tweepy
 
@@ -119,7 +118,7 @@ def get_entity_uuid(urls):
 
 def search_user_timeline(user_name, url, api):
     tweets = []
-    for tweet in tweepy.Cursor(api.user_timeline, screen_name='heddle317', q=url, count=1000).item():
+    for tweet in tweepy.Cursor(api.user_timeline, screen_name='heddle317', q=url, count=100).item():
         tweet.entity_uuid = get_entity_uuid(tweet.entities.get('urls'))
         tweets.append(tweet)
         tweets = tweets + get_mentions(tweet.author.screen_name, tweet.id, api)
@@ -127,17 +126,19 @@ def search_user_timeline(user_name, url, api):
 
 def get_comments_for_items():
     galleries = Gallery.get_galleries()
+    tweets = []
     for gallery in galleries:
         gallery_uuid = gallery.get('uuid')
         url = 'https://www.kateheddleston.com/blog/{}'.format(gallery_uuid)
         update_facebook_comments(url, gallery_uuid)
-        update_tweet_comments(url, gallery_uuid)
+        tweets = tweets + update_tweet_comments(url, gallery_uuid)
     talks = Talk.get_talks()
     for talk in talks:
         talk_uuid = talk.get('uuid')
         url = 'https://www.kateheddleston.com/talks/{}'.format(talk_uuid)
         update_facebook_comments(url, talk_uuid)
-        update_tweet_comments(url, talk_uuid)
+        tweets = tweets + update_tweet_comments(url, talk_uuid)
+    return tweets
 
 
 def find_all_comments():
@@ -183,18 +184,3 @@ def process_tweet(tweet):
     tweet_dict['in_reply_to_status_id'] = tweet.in_reply_to_status_id
     tweet_dict['source'] = 'twitter'
     return tweet_dict
-
-
-def migrate_old_comments():
-    comments = Comment.get_comments()
-    for comment in comments:
-        body = json.loads(comment.get('body'))
-        body['name'] = body['author']['name']
-        body['source'] = 'twitter'
-        body['profile_image'] = body['user']['profile_image_url']
-        body['screen_name'] = body['author']['screen_name']
-        body['user_url'] = 'https://www.twitter.com/{}'.format(body['author']['screen_name'])
-        created_at = datetime.datetime.strptime(body['created_at'], '%B %d, %Y')
-        body['created_time'] = datetime.datetime.strftime(created_at, '%Y-%m-%dT%H:%M:%S')
-        body['created_at'] = relative_time(created_at)
-        Comment.add_or_update(comment.get('social_id'), comment.get('gallery_uuid'), body)
