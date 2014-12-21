@@ -28,7 +28,7 @@ class Gallery(db.Model):
     published_at = db.Column(db.DateTime(), unique=False)
 
     def to_dict(self):
-        items = [item.to_dict() for item in get_list(GalleryItem, gallery_uuid=self.uuid)]
+        items = GalleryItem.get_list(self.uuid)
         items.sort(key=lambda x: x['position'])
         base_url = '{}/galleries/{}'.format(config.IMAGES_BASE, self.uuid)
         data = {'uuid': self.uuid,
@@ -131,6 +131,7 @@ class GalleryItem(db.Model):
     image_name = db.Column(db.String(500), nullable=True)
     position = db.Column(db.Integer(), nullable=False)
     image_caption = db.Column(db.String(500), nullable=True)
+    dead = db.Column(db.Boolean, default=False, nullable=False)
 
     def to_dict(self):
         data = {'uuid': self.uuid,
@@ -142,8 +143,12 @@ class GalleryItem(db.Model):
                 'position': self.position,
                 'image_caption': self.image_caption
                 }
-        print data
         return data
+
+    @staticmethod
+    def get_list(gallery_uuid):
+        items = [item.to_dict() for item in get_list(GalleryItem, gallery_uuid=gallery_uuid, dead=False)]
+        return items
 
     @staticmethod
     def update(uuid, **kwargs):
@@ -163,4 +168,4 @@ class GalleryItem(db.Model):
     @staticmethod
     def delete(uuid):
         item = get(GalleryItem, uuid=uuid)
-        delete(item)
+        item = update(item, {'dead': True})
