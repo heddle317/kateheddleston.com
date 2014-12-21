@@ -7,27 +7,16 @@
 
 #kateheddleston-wrap .gallery-content {
   line-height:25px;
-  font-size:18px;
+  font-size:16px;
   margin:0 auto;
   color:rgb(66, 66, 66);
   overflow:scroll;
   padding:10px 0;
+  width:1000px;
 }
 
 #kateheddleston-wrap .gallery-content .post-section {
-  width:100%;
-  padding:40px 6%;
-}
-
-#kateheddleston-wrap .gallery-content .body-section {
-  font-size:16px;
-  margin:0 10%;
-  width:auto;
-}
-
-#kateheddleston-wrap .gallery-content .image-section {
-  width:auto;
-  margin:0 5%;
+  padding:20px 0;
 }
 
 #kateheddleston-wrap .gallery-content .image-section img {
@@ -36,12 +25,14 @@
   margin:0 auto;
 }
 
-@media all and (max-width: 767px) {
-  #kateheddleston-wrap .gallery-content .body-section {
+@media all and (max-width: 1020px) {
+  #kateheddleston-wrap .gallery-content .post-section {
     margin:0;
+    padding:10px 5%;
+    width:auto;
   }
-  #kateheddleston-wrap .gallery-content .image-section {
-    margin:0;
+  #kateheddleston-wrap .gallery-content  {
+    width:auto;
   }
 }
 
