@@ -19,7 +19,7 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime(), unique=False)
 
     def to_dict(self, to_json=False):
-        if json:
+        if to_json:
             body = json.loads(self.body)
             body['uuid'] = self.uuid
             body['gallery_uuid'] = self.gallery_uuid
