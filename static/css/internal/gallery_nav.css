@@ -3,7 +3,7 @@
 
 #left-nav {
   position:fixed;
-  top:35%;
+  top:45%;
   bottom:auto;
   left:0;
   height:auto;
@@ -19,7 +19,7 @@
 
 #left-nav ul {
   padding:0;
-  margin:0 0 0 15px;
+  margin-left:15px;
 }
 
 #left-nav li {

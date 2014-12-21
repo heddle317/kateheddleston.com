@@ -50,6 +50,9 @@ angularApp.controller('PostController', ['$scope', '$http', '$log', function($sc
   $scope.browserHeight = function() {
     return {"height": $(window).height() + "px"};
   };
+  $scope.navHeight = function() {
+    return {"margin-top": '-' + $('#left-nav ul').height() / 2 + "px"};
+  }
 }]);
 
 $(document).ready(function() {
