@@ -104,13 +104,6 @@ class Gallery(db.Model):
             Subscription.send_subscription_emails(link, gallery.name)
         gallery = update(gallery, kwargs)
 
-        current_items = [item.get('uuid') for item in kwargs.get('items', [])]
-        item_list = get_list(GalleryItem, gallery_uuid=gallery.uuid)
-
-        delete_items = [item.uuid for item in item_list if item.uuid not in current_items]
-        for uuid in delete_items:
-            GalleryItem.delete(uuid)
-
         for item in kwargs.get('items', []):
             if item.get('uuid'):
                 GalleryItem.update(uuid=item.pop('uuid'), **item)
@@ -169,5 +162,5 @@ class GalleryItem(db.Model):
 
     @staticmethod
     def delete(uuid):
-        talk = get(GalleryItem, uuid=uuid)
-        delete(talk)
+        item = get(GalleryItem, uuid=uuid)
+        delete(item)

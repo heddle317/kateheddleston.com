@@ -219,11 +219,13 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
       $scope.editing = true;
     };
     $scope.removeItem = function(position) {
-      $scope.items.splice(position - 1, 1);
-      for (var i = position - 1; i < $scope.items.length; i++) {
-        $scope.items[i].position--;
-      }
-      $scope.updateGallery();
+        $http.delete('/admin/gallery/item/' + $scope.items[position - 1].uuid).success(function() {
+            $scope.items.splice(position - 1, 1);
+            for (var i = position - 1; i < $scope.items.length; i++) {
+                $scope.items[i].position--;
+            }
+            $scope.updateGallery();
+        });
     };
     $scope.cancel = function() {
       $scope.editing = false;

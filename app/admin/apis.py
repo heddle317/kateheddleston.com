@@ -3,6 +3,7 @@ import json
 
 from app import app
 from app.db.galleries import Gallery
+from app.db.galleries import GalleryItem
 from app.db.talks import Talk
 
 # from flask import g
@@ -69,4 +70,12 @@ def update_gallery(uuid=None):
 def delete_gallery(uuid):
     Gallery.delete_gallery(uuid)
     return_data = {'message': 'Your gallery was successfully deleted.'}
+    return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/gallery/item/<uuid>', methods=['DELETE'])
+@login_required
+def delete_gallery_item(uuid):
+    GalleryItem.delete(uuid)
+    return_data = {'message': 'The gallery item {} was successfully deleted.'.format(uuid)}
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
