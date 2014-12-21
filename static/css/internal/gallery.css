@@ -6,12 +6,15 @@
 }
 
 #kateheddleston-wrap .gallery-content {
-  line-height:25px;
-  font-size:16px;
   margin:0 auto;
-  color:rgb(66, 66, 66);
+  color:rgb(0, 0, 0, .8);
   padding:10px 0;
   width:1000px;
+  line-height:1.5;
+  font-size:20px;
+  word-wrap:break-word;
+  font-weight:400;
+  font-family: 'EB Garamond', serif;
 }
 
 #kateheddleston-wrap .gallery-content .post-section {
@@ -49,10 +52,12 @@
 
 #kateheddleston-wrap .gallery-content .post-section.name h1 {
   margin-top:10%;
+  font-family: 'Raleway', sans-serif;
 }
 
 #kateheddleston-wrap .gallery-content .post-section.name h5 {
   color:#666;
+  font-family: 'Raleway', sans-serif;
 }
 
 #kateheddleston-wrap .gallery-content .header {
