@@ -1,62 +1,165 @@
+import datetime
 import facebook
+import json
+import requests
 import tweepy
 
 from app import config
 from app.db import get
 from app.db.comments import Comment
+from app.db.galleries import Gallery
+from app.db.talks import Talk
 from app.db.user import User
-from app.utils.datetime_tools import format_date
+from app.utils.datetime_tools import relative_time
+
+from jinja2.utils import urlize
 
 
-def get_tweet_comments(gallery_uuid):
-    tweets = Comment.get_comment_json(gallery_uuid)
-    return tweets
+def get_comments(entity_uuid):
+    comments = Comment.get_comments(entity_uuid, to_json=True)
+    return comments
 
 
-def update_facebook_comments(url, gallery_uuid):
+def update_facebook_comments(url, entity_uuid):
     # graph = facebook.GraphAPI()
     access_token = get(User, email='kate.heddleston@gmail.com').code
     graph = facebook.GraphAPI(access_token)
-    posts = graph.get_object('me/posts')
+    post_response = graph.get_object('me/posts')
     comments = []
-    for post in posts['data']:
-        if url in post.get('message', ''):
-            comment_response = graph.request('{}/comments'.format(post.get('id')))
-            comments = comments + comment_response.get('data')
-            while comment_response.get('paging').get('next') is not None:
-                after = comment_response.get('paging').get('cursors').get('after')
-                comment_response = graph.request('{}/comments'.format(post.get('id')), {'after': after})
+    counter = 0
+    while post_response.get('paging', {}).get('next') is not None:
+        for post in post_response['data']:
+            if url in post.get('message', ''):
+                comment_response = graph.request('{}/comments'.format(post.get('id')))
                 comments = comments + comment_response.get('data')
-    print len(comments)
-    for comment in comments:
-        print comment
+                while comment_response.get('paging', {}).get('next') is not None:
+                    after = comment_response.get('paging', {}).get('cursors', {}).get('after')
+                    comment_response = graph.request('{}/comments'.format(post.get('id')), {'after': after})
+                    comments = comments + comment_response.get('data')
+                link = "https://www.facebook.com/photo.php?fbid={}".format(post.get('id').split('_')[0])
+                comments = [process_fb_comment(comment, link, graph) for comment in comments]
+                for comment in comments:
+                    Comment.add_or_update(comment.get('id'), entity_uuid, comment)
+                return comments
+        if counter > 10:
+            return []
+        post_response = requests.get(post_response.get('paging', {}).get('next')).json()
 
 
-def update_tweet_comments(url, gallery_uuid):
+def process_fb_comment(comment, post_link, graph):
+    fb_dict = {}
+    fb_dict['id'] = comment.get('id')
+    fb_dict['name'] = comment.get('from').get('name')
+    fb_dict['screen_name'] = comment.get('from').get('name')
+    fb_dict['user'] = comment.get('from')
+    fb_dict['author'] = comment.get('from')
+    fb_dict['user_url'] = 'https://www.facebook.com/{}'.format(comment.get('from').get('id'))
+    fb_dict['entities'] = []
+    fb_dict['created_time'] = comment.get('created_time')
+    created_time = datetime.datetime.strptime(comment.get('created_time').split('+')[0], '%Y-%m-%dT%H:%M:%S')
+    fb_dict['created_at'] = relative_time(created_time)
+    fb_dict['link'] = post_link
+    fb_dict['text'] = add_target_blank(urlize(comment.get('message')))
+    fb_dict['source'] = 'facebook'
+
+    user = graph.request('{}/picture'.format(comment.get('from').get('id')))
+    fb_dict['profile_image'] = user.get('url')
+    return fb_dict
+
+
+def add_target_blank(text):
+    '''
+    This is pretty awful, but the jinja filter will have a keyword for target blank pretty soon and this can
+    be removed.
+    '''
+    text = text.replace('<a href', '<a target="_blank" href')
+    return text
+
+
+def update_tweet_comments(url, entity_uuid):
     auth = tweepy.OAuthHandler(config.TWITTER_CONSUMER_KEY, config.TWITTER_CONSUMER_SECRET)
     api = tweepy.API(auth)
-    tweets = []
-    for tweet in tweepy.Cursor(api.search, q=url, rpp=100).items():
-        tweets.append(tweet)
-        screen_name = tweet.author.screen_name
-        for mention in tweepy.Cursor(api.search, q=screen_name, rpp=50).items():
-            if mention.in_reply_to_status_id == tweet.id:
-                tweets.append(mention)
-
+    tweets = search_twitter(url, api)
     tweets = [process_tweet(tweet) for tweet in tweets]
     for tweet in tweets:
-        Comment.add_or_update(tweet.get('id'), gallery_uuid, tweet)
+        Comment.add_or_update(tweet.get('id'), entity_uuid, tweet)
     return tweets
 
 
-def check_tweet(tweet, gallery_uuid, tweepy, api, tweets):
+def get_mentions(screen_name, tweet_id, api):
+    tweets = []
+    for mention in tweepy.Cursor(api.search, q=screen_name, rpp=50).items():
+        if mention.in_reply_to_status_id == tweet_id:
+            tweets.append(mention)
+    return tweets
+
+
+def search_twitter(url, api):
+    tweets = []
+    for tweet in tweepy.Cursor(api.search,
+                               q=url,
+                               rpp=100,
+                               include_entities=True,).items():
+        tweet.entity_uuid = get_entity_uuid(tweet.entities.get('urls'))
+        tweets.append(tweet)
+        tweets = tweets + get_mentions(tweet.author.screen_name, tweet.id, api)
+    return tweets
+
+
+def get_entity_uuid(urls):
+    entity_uuid = None
+    for u in urls:
+        if 'kateheddleston.com' in u.get('expanded_url'):
+            url = u.get('expanded_url').replace('https://www.kateheddleston.com/', '')
+            url_units = url.split('/')
+            if len(url_units) > 1:
+                return url_units[1]
+    return entity_uuid
+
+
+def search_user_timeline(user_name, url, api):
+    tweets = []
+    for tweet in tweepy.Cursor(api.user_timeline, screen_name='heddle317', q=url, count=1000).item():
+        tweet.entity_uuid = get_entity_uuid(tweet.entities.get('urls'))
+        tweets.append(tweet)
+        tweets = tweets + get_mentions(tweet.author.screen_name, tweet.id, api)
+
+
+def get_comments_for_items():
+    galleries = Gallery.get_galleries()
+    for gallery in galleries:
+        gallery_uuid = gallery.get('uuid')
+        url = 'https://www.kateheddleston.com/blog/{}'.format(gallery_uuid)
+        update_facebook_comments(url, gallery_uuid)
+        update_tweet_comments(url, gallery_uuid)
+    talks = Talk.get_talks()
+    for talk in talks:
+        talk_uuid = talk.get('uuid')
+        url = 'https://www.kateheddleston.com/talks/{}'.format(talk_uuid)
+        update_facebook_comments(url, talk_uuid)
+        update_tweet_comments(url, talk_uuid)
+
+
+def find_all_comments():
+    auth = tweepy.OAuthHandler(config.TWITTER_CONSUMER_KEY, config.TWITTER_CONSUMER_SECRET)
+    api = tweepy.API(auth)
+    tweets = search_twitter('kateheddleston.com', api)
+    tweets = tweets + search_user_timeline('heddle317', 'kateheddleston.com', api)
+
+    tweets = [process_tweet(tweet) for tweet in tweets]
+    for tweet in tweets:
+        Comment.add_or_update(tweet.get('id'), tweet.get('entity_uuid'), tweet)
+    return tweets
+
+
+def check_tweet(tweet, gallery_uuid, api, tweets):
     if tweet in tweets:
         return tweets
     tweets.append(tweet)
     screen_name = tweet.author.screen_name
     for mention in tweepy.Cursor(api.search, q=screen_name, rpp=50).items():
         if mention.in_reply_to_status_id == tweet.id:
-            tweets = check_tweet(mention, gallery_uuid, tweepy, api, tweets)
+            tweets = check_tweet(mention, gallery_uuid, api, tweets)
     return tweets
 
 
@@ -66,12 +169,32 @@ def process_tweet(tweet):
     '''
     tweet_dict = {}
     tweet_dict['id'] = tweet.id
-    tweet_dict['user'] = tweet.user._json
-    tweet_dict['author'] = tweet.author._json
+    tweet_dict['entity_uuid'] = tweet.entity_uuid
+    tweet_dict['profile_image'] = tweet.user._json.get('profile_image_url_https')
+    tweet_dict['name'] = tweet.author._json.get('name')
+    tweet_dict['screen_name'] = tweet.author._json.get('screen_name')
+    tweet_dict['user_url'] = 'https://www.twitter.com/{}'.format(tweet.author.screen_name)
     tweet_dict['entities'] = tweet.entities
-    tweet_dict['created_at'] = format_date(tweet.created_at, '%B %d, %Y')
-    link = "https://www.twitter.com/{}/status/{}".format(tweet.author._json.get('screen_name'), tweet_dict.get('id'))
+    tweet_dict['created_time'] = datetime.datetime.strftime(tweet.created_at, '%Y-%m-%dT%H:%M:%S')
+    tweet_dict['created_at'] = relative_time(tweet.created_at)
+    link = "https://www.twitter.com/{}/status/{}".format(tweet.author._json.get('screen_name'), tweet.id)
     tweet_dict['link'] = link
     tweet_dict['text'] = tweet.text
     tweet_dict['in_reply_to_status_id'] = tweet.in_reply_to_status_id
+    tweet_dict['source'] = 'twitter'
     return tweet_dict
+
+
+def migrate_old_comments():
+    comments = Comment.get_comments()
+    for comment in comments:
+        body = json.loads(comment.get('body'))
+        body['name'] = body['author']['name']
+        body['source'] = 'twitter'
+        body['profile_image'] = body['user']['profile_image_url']
+        body['screen_name'] = body['author']['screen_name']
+        body['user_url'] = 'https://www.twitter.com/{}'.format(body['author']['screen_name'])
+        created_at = datetime.datetime.strptime(body['created_at'], '%B %d, %Y')
+        body['created_time'] = datetime.datetime.strftime(created_at, '%Y-%m-%dT%H:%M:%S')
+        body['created_at'] = relative_time(created_at)
+        Comment.add_or_update(comment.get('social_id'), comment.get('gallery_uuid'), body)

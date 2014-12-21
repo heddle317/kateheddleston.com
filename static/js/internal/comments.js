@@ -39,10 +39,12 @@ angularApp.controller('CommentController', ['$scope', '$http', '$window', '$log'
         var j;
         var link;
         var url;
-        for (j = 0; j < comment.entities.urls.length; j++) {
-          url = comment.entities.urls[j];
-          link = "<a href='" + url.expanded_url + "' target='_blank'>" + url.url + "</a>";
-          comment.text = comment.text.replace(url.url, link);
+        if (comment.entities.urls) {
+            for (j = 0; j < comment.entities.urls.length; j++) {
+                url = comment.entities.urls[j];
+                link = "<a href='" + url.expanded_url + "' target='_blank'>" + url.url + "</a>";
+                comment.text = comment.text.replace(url.url, link);
+            }
         }
         var media;
         if (comment.entities.media) {
@@ -53,16 +55,20 @@ angularApp.controller('CommentController', ['$scope', '$http', '$window', '$log'
           }
         }
         var mention;
-        for (j = 0; j < comment.entities.user_mentions.length; j++) {
-          mention = comment.entities.user_mentions[j];
-          link = "<a href='https://www.twitter.com/" + mention.screen_name + "' target='_blank'>@" + mention.screen_name + "</a>";
-          comment.text = comment.text.replace("@" + mention.screen_name, link);
+        if (comment.entities.user_mentions) {
+            for (j = 0; j < comment.entities.user_mentions.length; j++) {
+                mention = comment.entities.user_mentions[j];
+                link = "<a href='https://www.twitter.com/" + mention.screen_name + "' target='_blank'>@" + mention.screen_name + "</a>";
+                comment.text = comment.text.replace("@" + mention.screen_name, link);
+            }
         }
         var hashtag;
-        for (j = 0; j < comment.entities.hashtags.length; j++) {
-          hashtag = comment.entities.hashtags[j];
-          link = "<a href='https://www.twitter.com/hashtag/" + hashtag.text + "?src=hash' target='_blank'>#" + hashtag.text + "</a>";
-          comment.text = comment.text.replace("#" + hashtag.text, link);
+        if (comment.entities.hashtags) {
+            for (j = 0; j < comment.entities.hashtags.length; j++) {
+                hashtag = comment.entities.hashtags[j];
+                link = "<a href='https://www.twitter.com/hashtag/" + hashtag.text + "?src=hash' target='_blank'>#" + hashtag.text + "</a>";
+                comment.text = comment.text.replace("#" + hashtag.text, link);
+            }
         }
       }
     });

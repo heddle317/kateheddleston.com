@@ -15,13 +15,18 @@
   </div>
   <div class='tweets'>
     <ul class="row" ng-repeat='row in rows()'>
-        <li class='tweet col-lg-3 col-md-6 col-sm-6 col-xs-12 tweet-height' ng-repeat='comment in getRowComments(row)'>
+        <li class='tweet col-lg-3 col-md-6 col-sm-6 col-xs-12 tweet-height {[{comment.source}]}' ng-repeat='comment in getRowComments(row)'>
             <div class='top'>
-                <img ng-src='{[{comment.user.profile_image_url_https}]}' />
+                <img ng-src='{[{comment.profile_image}]}' />
                 <div class='name'>
-                <span class='author' ng-bind="comment.author.name"></span>
-                <br>
-                <a class='screen-name' target="_blank" href="https://www.twitter.com/{[{comment.author.screen_name}]}">@<span ng-bind='comment.author.screen_name'></span></a>
+                    <div ng-if='comment.source == "twitter"' class='author' ng-bind="comment.name"></div>
+                    <a class='screen-name' target="_blank" href="{[{comment.user_url}]}"><span ng-if='comment.source == "twitter"'>@</span><span ng-bind='comment.screen_name'></span></a>
+                </div>
+                <div class='external-link pull-right'>
+                    <a href="{[{comment.link}]}" target="_blank">
+                        <img class='network-logo' ng-if='comment.source == "twitter"' src="{{g.images_base}}/images/twitter_logo_blue.png" />
+                        <img class='network-logo' ng-if='comment.source == "facebook"' src="{{g.images_base}}/images/FB_logo.png" />
+                    </a>
                 </div>
             </div>
             <div class='text'>
@@ -29,9 +34,6 @@
             </div>
             <div class='created-at pull-left'>
                 <span ng-bind='comment.created_at'></span>
-            </div>
-            <div class='external-link pull-right'>
-                <a href="https://www.twitter.com/{[{comment.author.screen_name}]}/status/{[{comment.id}]}" target="_blank"><i class='fa fa-external-link'></i></a>
             </div>
         </li>
     </ul>

@@ -68,10 +68,6 @@
   margin-top:6px;
 }
 
-#comments .tweets .tweet .name .author {
-  float:left;
-}
-
 #comments .tweets .tweet .name .screen-name {
   float:left;
 }
@@ -99,4 +95,17 @@
 
 #comments .tweets .tweet .external-link {
   margin-top:10px;
+}
+
+#comments .network-logo {
+    width:20px;
+    height:20px;
+}
+
+#comments .twitter a {
+    color:#4099FF;
+}
+
+#comments .facebook a {
+    color:#3b5998;
 }
