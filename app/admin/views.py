@@ -150,7 +150,6 @@ def social_auth():
         response = requests.get(path)
         access_token, expires = response.text.split('&')
         access_token = access_token.split('=')[1]
-        print access_token
         g.current_user.update_code(access_token)
     g.nav_view = 'auth'
     return render_template('admin/social_login.html')
