@@ -184,6 +184,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     $scope.gallery_uuid = galleryUUID;
     $scope.uuid = galleryUUID;
     $scope.name = '';
+    $scope.subtitle = '';
     $scope.author = '';
     $scope.coverPhoto = '';
     $scope.items = [];
@@ -195,6 +196,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         $scope.uuid = gallery.uuid;
         $scope.gallery_uuid = gallery.uuid;
         $scope.name = gallery.name;
+        $scope.subtitle = gallery.subtitle;
         $scope.author = gallery.author;
         $scope.coverPhoto = gallery.cover_photo;
         $scope.items = gallery.items;
@@ -250,6 +252,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     $scope.updateGallery = function() {
       if ($scope.gallery_uuid) {
         var data = {'name': $scope.name,
+                    'subtitle': $scope.subtitle,
                     'author': $scope.author,
                     'cover_photo': $scope.coverPhoto,
                     'items': $scope.items,
@@ -259,6 +262,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         });
       } else {
         var data = {'name': $scope.name,
+                    'subtitle': $scope.subtitle,
                     'author': $scope.author,
                     'cover_photo': $scope.coverPhoto,
                     'items': $scope.items};

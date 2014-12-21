@@ -20,6 +20,7 @@ class Gallery(db.Model):
     __tablename__ = 'galleries'
     uuid = db.Column(UUID, primary_key=True)
     name = db.Column(db.String(500), nullable=False)
+    subtitle = db.Column(db.String(500), nullable=False)
     published = db.Column(db.Boolean(), default=False, nullable=False)
     author = db.Column(db.String(256), nullable=True)
     cover_photo = db.Column(db.String(500), nullable=True)
@@ -33,6 +34,7 @@ class Gallery(db.Model):
         base_url = '{}/galleries/{}'.format(config.IMAGES_BASE, self.uuid)
         data = {'uuid': self.uuid,
                 'name': self.name,
+                'subtitle': self.subtitle,
                 'author': self.author,
                 'cover_photo': self.cover_photo,
                 'cover_photo_url': '{}/{}'.format(base_url, self.cover_photo),

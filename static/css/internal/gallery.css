@@ -55,11 +55,17 @@
 
 #kateheddleston-wrap .gallery-content .post-section.name {
     margin:10% auto;
+    font-family: 'Raleway', sans-serif;
 }
 
 #kateheddleston-wrap .gallery-content .post-section.name h1 {
     font-size:50px;
-    font-family: 'Raleway', sans-serif;
+    margin:10px 0;
+}
+
+#kateheddleston-wrap .gallery-content .post-section.name h3 {
+    margin-top:0;
+    margin-bottom:20px;
 }
 
 #kateheddleston-wrap .gallery-content .post-section.name h5 {
