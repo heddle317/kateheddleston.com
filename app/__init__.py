@@ -85,8 +85,7 @@ post_css = Bundle('css/internal/gallery.css',
                   filters='cssmin', output='gen/post.%(version)s.css')
 
 talk_css = Bundle('css/internal/talk.css',
-                  'css/internal/footer.css',
-                  'css/internal/header.css',
+                  'css/internal/talk_footer.css',
                   filters='cssmin', output='gen/talk.%(version)s.css')
 
 tiles_css = Bundle('css/internal/tiles.css',

@@ -1,6 +1,4 @@
 {% extends "base.html" %}
-{% import "top_navbar.html" as navbar with context %}
-{% import "bottom_icon.html" as icon with context %}
 {% block head %}
     <title>{{gallery.name}}</title>
     <meta name="twitter:title" content="{{gallery.name}}" />
@@ -11,58 +9,43 @@
     <meta name="og:image" content="{{gallery.cover_photo_url}}_small"/>
     <meta name="twitter:url" content="{{g.app_base_link}}/blog/{{gallery_uuid}}" />
     <meta name="og:url" content="{{g.app_base_link}}/blog/{{gallery_uuid}}" />
-  {% if full_page %}
     {% assets "comment_css" %}
         <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
     {% endassets %}
-  {% endif %}
-
-  {% assets "post_css" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-  {% endassets %}
-  {% assets "header_css" %}
-    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-  {% endassets %}
+    {% assets "post_css" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+    {% assets "header_css" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
 {% endblock %}
 {% block content %}
 <div class='gallery-item' ng-controller='PostController'>
-
-  {% if full_page %}
     {% include "post_navbar.html" %}
-  {% endif %}
-
-  <div class='gallery-content'>
-
-    {% if full_page %}
+    <div class='gallery-content'>
         {% include "header_slide.html" %}
-    {% endif %}
-
     {% include "post_sections.html" %}
   </div>
   {% include "left_nav.html" %}
 </div>
-{% if full_page %}
-    {% include "comments.html" %}
-{% endif %}
+{% include "comments.html" %}
 {% endblock %}
 {% block script %}
-  {% if full_page %}
     {% assets "comment_js" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
-  {% endif %}
-  {% assets "post_js" %}
-      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
-  {% endassets %}
-  <script>
-    var galleryUUID = '{{gallery_uuid}}';
-    $(window).scroll(function() {
-      var position = $('body').scrollTop();
-      if(position <= 50) {
-        $('.down_arrow').show();
-      } else {
-        $('.down_arrow').hide();
-      }
-    });
-  </script>
+    {% assets "post_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    <script>
+        var galleryUUID = '{{gallery_uuid}}';
+        $(window).scroll(function() {
+            var position = $('body').scrollTop();
+            if(position <= 50) {
+                $('.down_arrow').show();
+            } else {
+                $('.down_arrow').hide();
+            }
+        });
+    </script>
 {% endblock %}

@@ -1,6 +1,6 @@
 <div ng-repeat='item in gallery.items'>
-  <div id='item{[{item.position}]}' class='title-section post-section' ng-if='item.title' data-anchor='item{[{item.position}]}' position='{[{item.position}]}'>
-    <h3 ng-bind='item.title'></h3>
+  <div id='item{[{item.position}]}' class='title-section post-section deep-pink' ng-if='item.title' data-anchor='item{[{item.position}]}' position='{[{item.position}]}'>
+    <h2 ng-bind='item.title'></h2>
   </div>
   <div class='image-section post-section' ng-if='item.image_name'>
       {% if g.is_mobile %}

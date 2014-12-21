@@ -1,26 +1,22 @@
 {% extends "base.html" %}
-{% import "top_navbar.html" as navbar with context %}
-{% import "bottom_icon.html" as icon with context %}
 {% block head %}
+  {% assets "post_css" %}
+    <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+  {% endassets %}
   {% assets "talk_css" %}
     <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
   {% endassets %}
 {% endblock %}
 {% block content %}
-<div class='talk-page'>
-  {{ navbar.show(talk.prev_uuid, talk.next_uuid, 'talk') }}
-  <div class='talk-item'>
-    <div class='talk_video flex-video widescreen'>
-      {{ talk.video_link|safe }}
+<div class='talk-page gallery-content'>
+    <div class='talk-item'>
+        <div class='title-section post-section name'>
+            <h1 class='deep-pink'>{{talk.title}}</h1>
+        </div>
+        <div class='video-section talk_video flex-video widescreen'>
+            {{ talk.video_link|safe }}
+        </div>
     </div>
-  </div>
-  <div class='footer icons'>
-    <div class='icon-inner row'>
-    {{ icon.show(talk.date, 'fa-clock-o', False, '', False) }}
-    {{ icon.show(talk.location, 'fa-map-marker', False, '', False) }}
-    {{ icon.show('Description', 'fa-external-link', True, talk.description_link,  False) }}
-    {{ icon.show('Slides', 'fa-external-link', True, talk.slides_link, True) }}
-    </div>
-  </div>
+    {% include "talk_footer.html" %}
 </div>
 {% endblock %}

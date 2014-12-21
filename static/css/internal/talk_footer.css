@@ -1,0 +1,65 @@
+/* Talk Footer style elements CSS
+-------------------------------------------------- */
+
+#kateheddleston-wrap .talk-footer {
+  font-family: 'Raleway', sans-serif;
+  width:100%;
+  z-index:100;
+  position:fixed;
+  bottom:0;
+  left:0;
+  color:#999;
+  background-color:rgba(255, 255, 255, .97);
+  border-top:1px solid rgba(0,0,0,.05);
+}
+
+#kateheddleston-wrap .icon,
+#kateheddleston-wrap .icon {
+    height:40px;
+    font-size:14px;
+    line-height:30px;
+    display:inline-block;
+    padding:0;
+}
+
+#kateheddleston-wrap .icon.border-right {
+    border-right:1px solid rgba(0,0,0,.05);
+}
+
+#kateheddleston-wrap .icon.border-left {
+    border-left:1px solid rgba(0,0,0,.05);
+}
+
+#kateheddleston-wrap .talk-footer .icon .icon-wrapper,
+#kateheddleston-wrap .talk-footer .icon .icon-wrapper {
+  height:40px;
+  display:inline-block;
+  padding:8px;
+  color:#999;
+  width:100%;
+}
+
+#kateheddleston-wrap .talk-footer .icon a {
+    cursor:pointer;
+}
+
+#kateheddleston-wrap .talk-footer .icon a:hover,
+#kateheddleston-wrap .talk-footer .icon a:hover {
+  text-decoration:none;
+  background-color:rgba(205, 16, 118, 1);
+  color:#fff;
+  cursor:pointer;
+}
+
+#kateheddleston-wrap .talk-footer .icon:before {
+  margin:0;
+}
+
+#kateheddleston-wrap .talk-footer .icon:after {
+  margin:0;
+}
+
+#kateheddleston-wrap .talk-footer i {
+  margin-right:7px;
+  height:100%;
+}

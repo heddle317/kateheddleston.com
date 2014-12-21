@@ -44,16 +44,22 @@
 }
 
 #kateheddleston-wrap .gallery-content .title-section {
-  text-align:center;
+    text-align:center;
+    margin:80px auto 20px;
+    font-family: 'Raleway', sans-serif;
 }
 
-#kateheddleston-wrap .gallery-content .post-section.name div {
-  vertical-align:top;
+#kateheddleston-wrap .gallery-content .video-section {
+  margin-top:60px;
+}
+
+#kateheddleston-wrap .gallery-content .post-section.name {
+    margin:10% auto;
 }
 
 #kateheddleston-wrap .gallery-content .post-section.name h1 {
-  margin-top:10%;
-  font-family: 'Raleway', sans-serif;
+    font-size:50px;
+    font-family: 'Raleway', sans-serif;
 }
 
 #kateheddleston-wrap .gallery-content .post-section.name h5 {

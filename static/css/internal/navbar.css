@@ -22,7 +22,8 @@
 }
 
 #kateheddleston-wrap .navbar-custom.white-background {
-    background-color:rgba(255, 255, 255, .8);
+    background-color:rgba(255, 255, 255, .97);
+    border-bottom:1px solid rgba(0,0,0,.05);
 }
 
 #kateheddleston-wrap .navbar-custom .navbar-collapse {

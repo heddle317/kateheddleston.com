@@ -1,65 +1,49 @@
 /* Header style elements CSS
 -------------------------------------------------- */
 
-#kateheddleston-wrap .main-content {
-  margin:120px 0 0 0;
-}
-
-#kateheddleston-wrap .header {
+#kateheddleston-wrap .post_footer {
+  font-family: 'Raleway', sans-serif;
   width:100%;
   z-index:100;
   position:fixed;
-  top:65px;
+  bottom:0;
   left:0;
+  background-color:rgba(255, 255, 255, .97);
+  border-top:1px solid rgba(0,0,0,.05);
 }
 
-@media all and (max-width: 767px) {
-  #kateheddleston-wrap .main-content {
-    margin:160px 0 0 0;
-  }
-}
-
-@media all and (max-width: 450px) {
-  #kateheddleston-wrap .main-content {
-    margin:180px 0 0 0;
-  }
-}
-
-#kateheddleston-wrap .header .links {
+#kateheddleston-wrap .post_footer .links {
   height:40px;
 }
 
-#kateheddleston-wrap .prev-link,
-#kateheddleston-wrap .next-link {
-  width:70px;
+#kateheddleston-wrap .link {
   height:40px;
   font-size:14px;
   line-height:30px;
   display:inline-block;
+  padding:0;
 }
 
-#kateheddleston-wrap .prev-link {
-  float:left;
+#kateheddleston-wrap .link.border-right {
+    border-right:1px solid rgba(0,0,0,.05);
 }
 
-#kateheddleston-wrap .next-link {
-  float:right;
+#kateheddleston-wrap .link.border-left {
+    border-left:1px solid rgba(0,0,0,.05);
 }
 
-#kateheddleston-wrap .prev-link a,
-#kateheddleston-wrap .next-link a {
+#kateheddleston-wrap .link a {
   height:40px;
-  width:70px;
+  width:100%;
   display:inline-block;
-  padding:4px;
+  padding:8px;
   color:#999;
+  cursor:pointer;
 }
 
-#kateheddleston-wrap .prev-link a:hover,
-#kateheddleston-wrap .next-link a:hover {
+#kateheddleston-wrap .link a:hover {
   text-decoration:none;
   background-color:rgba(205, 16, 118, 1);
   color:#fff;
-  cursor:pointer;
 }
 
