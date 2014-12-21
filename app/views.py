@@ -80,7 +80,7 @@ def blog_feed():
         text = '<p>' + text + '</p>'
 
         post_url = "{}/blog/{}".format(g.app_base_link, post.get('uuid'))
-        published_at = datetime.datetime.strptime(post['published_at_raw'], '%Y-%m-%dT%H:%M:%SZ')
+        published_at = datetime.datetime.strptime(post['published_at_raw'], '%Y-%m-%dT%H:%M:%S')
         feed.add(post.get('name'),
                  unicode(text),
                  content_type='html',

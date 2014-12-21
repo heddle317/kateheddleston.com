@@ -40,7 +40,7 @@ class Gallery(db.Model):
                 'description': self.description(),
                 'created_ago': relative_time(self.created_at),
                 'created_at': format_date(self.created_at, format='%B %d, %Y'),
-                'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%SZ') if self.published_at else '',
+                'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%S') if self.published_at else '',
                 'published_ago': relative_time(self.published_at) if self.published_at else '',
                 'published': self.published,
                 'items': items,
