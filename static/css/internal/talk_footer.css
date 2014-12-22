@@ -8,7 +8,7 @@
   position:fixed;
   bottom:0;
   left:0;
-  color:#999;
+  color:rgba(0,0,0,.7);
   background-color:rgba(255, 255, 255, .97);
   border-top:1px solid rgba(0,0,0,.05);
 }
@@ -35,7 +35,7 @@
   height:40px;
   display:inline-block;
   padding:8px;
-  color:#999;
+  color:rgba(0,0,0,.7);
   width:100%;
 }
 

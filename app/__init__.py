@@ -77,11 +77,9 @@ comment_css = Bundle('css/internal/comments.css',
 contact_css = Bundle('css/internal/contact.css',
                      filters='cssmin', output='gen/contact.%(version)s.css')
 
-header_css = Bundle('css/internal/header.css',
-                    filters='cssmin', output='gen/header.%(version)s.css')
-
 post_css = Bundle('css/internal/gallery.css',
                   'css/internal/gallery_nav.css',
+                  'css/internal/post_footer.css',
                   filters='cssmin', output='gen/post.%(version)s.css')
 
 talk_css = Bundle('css/internal/talk.css',
@@ -96,7 +94,6 @@ assets.register('admin_css', admin_css)
 assets.register('base_css', base_css)
 assets.register('comment_css', comment_css)
 assets.register('contact_css', contact_css)
-assets.register('header_css', header_css)
 assets.register('post_css', post_css)
 assets.register('talk_css', talk_css)
 assets.register('tiles_css', tiles_css)
