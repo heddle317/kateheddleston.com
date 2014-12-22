@@ -124,6 +124,13 @@ def search_user_timeline(user_name, url, api):
         tweets = tweets + get_mentions(tweet.author.screen_name, tweet.id, api)
 
 
+def get_comments_for_item(uuid):
+    url = "{}/blog/{}".format(config.APP_BASE_LINK, uuid)
+    tweets = update_facebook_comments(url, uuid)
+    tweets = tweets + update_tweet_comments(url, uuid)
+    return tweets
+
+
 def get_comments_for_items():
     galleries = Gallery.get_galleries()
     tweets = []
