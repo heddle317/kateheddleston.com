@@ -3,8 +3,8 @@ import json
 from app import app
 from app.db.galleries import Gallery
 from app.db.subscriptions import Subscription
-from app.twitter import get_comments
-from app.twitter import get_comments_for_items
+from app.comments import get_comments
+from app.comments import get_comments_for_items
 from app.utils.aws import s3_change_image_resolutions
 from app.utils.email import send_contact_email
 
