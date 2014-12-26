@@ -38,6 +38,11 @@ How to setup this code repository if you want to fork it and use it for your own
  * Follow the instructions for creating a heroku account, installing the toolbelt, and creating a heroku app here (but you don't need to write the app code or Procfile since that's already in this repo): https://devcenter.heroku.com/articles/getting-started-with-python#introduction
  * ```heroku config:set BUILDPACK_URL='git://github.com/kennethjiang/heroku-buildpack-python-libffi.git'```
  * ```heroku config:set ENVIRONMENT='production'```
+ * Configuring custom domains with heroku:
+  * https://devcenter.heroku.com/articles/custom-domains
+ * Setting up SSL with heroku (this is the only thing that costs money)
+  * https://devcenter.heroku.com/articles/ssl-endpoint
+  * https://devcenter.heroku.com/articles/ssl-certificate-dnsimple
 
 
 Environment Variables and Third Party Apps
