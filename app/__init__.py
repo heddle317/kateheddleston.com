@@ -20,11 +20,6 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CsrfProtect
 
 
-# Configure Bugsnag
-bugsnag.configure(
-    api_key=config.BUGSNAG_KEY,
-    project_root=config.PROJECT_PATH,
-)
 
 
 app = Flask(__name__,
@@ -32,22 +27,27 @@ app = Flask(__name__,
             static_folder=config.STATIC_FOLDER)
 app.config.from_object(config)
 Compress(app)
-if config.ENV == 'production':
-    handle_exceptions(app)
-
 CsrfProtect(app)
 app_db = SQLAlchemy(app)
-
 login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.login_message = None
 login_manager.init_app(app)
 
 if config.ENV == 'production':
+    # Configure Bugsnag
+    bugsnag.configure(
+        api_key=config.BUGSNAG_KEY,
+        project_root=config.PROJECT_PATH,
+    )
+    handle_exceptions(app)
+
+    # Configure Logging
     stream_handler = logging.StreamHandler()
     app.logger.addHandler(stream_handler)
     app.logger.setLevel(logging.INFO)
 else:
+    # Configure local logging
     from logging.handlers import RotatingFileHandler
     file_handler = RotatingFileHandler('logs/kateheddleston.log', 'a', 1 * 1024 * 1024, 10)
     file_handler.setLevel(logging.INFO)
