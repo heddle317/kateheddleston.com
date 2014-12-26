@@ -20,11 +20,9 @@ from flask_login import LoginManager
 from flask_wtf.csrf import CsrfProtect
 
 
-
-
 app = Flask(__name__,
-            template_folder=config.TEMPLATE_FOLDER,
-            static_folder=config.STATIC_FOLDER)
+            template_folder=config.FLASK_TEMPLATE_FOLDER,
+            static_folder=config.FLASK_STATIC_FOLDER)
 app.config.from_object(config)
 Compress(app)
 CsrfProtect(app)
@@ -34,11 +32,11 @@ login_manager.login_view = "login"
 login_manager.login_message = None
 login_manager.init_app(app)
 
-if config.ENV == 'production':
+if config.ENVIRONMENT == 'production':
     # Configure Bugsnag
     bugsnag.configure(
         api_key=config.BUGSNAG_KEY,
-        project_root=config.PROJECT_PATH,
+        project_root=config.FLASK_PROJECT_PATH,
     )
     handle_exceptions(app)
 
@@ -59,7 +57,7 @@ else:
 @app.before_request
 def before_request():
     g.user = current_user
-    if request.headers.get('X_FORWARDED_PROTO') == 'http' and config.ENV != 'dev':
+    if request.headers.get('X_FORWARDED_PROTO') == 'http' and config.ENVIRONMENT != 'dev':
         return redirect(request.url.replace("http://", "https://"))
 
 

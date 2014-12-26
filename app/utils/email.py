@@ -22,12 +22,12 @@ def send_verification_email(subscription):
 def send_contact_email(from_email, subject, body):
     subject = '[kateheddleston.com] ' + subject
     body = "\n This email was sent by {}\n\n".format(from_email) + body
-    send_email(config.PERSONAL_EMAIL, subject, body)
+    send_email(config.EMAIL_PERSONAL, subject, body)
 
 
 def send_email(to, subject, body):
     # Send a single message
-    message = pystmark.Message(sender=config.SENDER_EMAIL,
+    message = pystmark.Message(sender=config.EMAIL_SENDER,
                                to=to,
                                subject=subject,
                                text=body)

@@ -31,7 +31,7 @@ class Gallery(db.Model):
     def to_dict(self):
         items = GalleryItem.get_list(self.uuid)
         items.sort(key=lambda x: x['position'])
-        base_url = '{}/galleries/{}'.format(config.IMAGES_BASE, self.uuid)
+        base_url = '{}/galleries/{}'.format(config.AWS_IMAGES_BASE, self.uuid)
         data = {'uuid': self.uuid,
                 'name': self.name,
                 'subtitle': self.subtitle,

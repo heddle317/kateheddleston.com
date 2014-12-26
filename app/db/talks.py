@@ -35,7 +35,7 @@ class Talk(db.Model):
                 'slides_link': self.slides_link,
                 'video_link': self.video_link,
                 'image_name': self.image_name,
-                'base_url': '{}/talks/{}'.format(config.IMAGES_BASE, self.uuid),
+                'base_url': '{}/talks/{}'.format(config.AWS_IMAGES_BASE, self.uuid),
                 'description_link': self.description_link,
                 'location': self.location,
                 'date': datetime.datetime.strftime(self.date, '%B %d, %Y') if self.date else '',

@@ -12,10 +12,10 @@ from PIL import Image
 
 def s3_change_image_resolutions(image_route, filename):
     conn = S3Connection(config.AWS_ACCESS_KEY_ID, config.AWS_SECRET_ACCESS_KEY)
-    bucket = conn.get_bucket(config.IMAGE_BUCKET)
+    bucket = conn.get_bucket(config.AWS_IMAGE_BUCKET)
     key = Key(bucket)
 
-    url = "{}/{}/{}".format(config.IMAGES_BASE, image_route, filename)
+    url = "{}/{}/{}".format(config.AWS_IMAGES_BASE, image_route, filename)
     # Retrieve our source image from a URL
     fp = urllib.urlopen(url)
     content_type = fp.info().get('content-type')
@@ -35,10 +35,10 @@ def s3_change_image_resolutions(image_route, filename):
 
 def update_image_headers(image_route, filename):
     conn = S3Connection(config.AWS_ACCESS_KEY_ID, config.AWS_SECRET_ACCESS_KEY)
-    bucket = conn.get_bucket(config.IMAGE_BUCKET)
+    bucket = conn.get_bucket(config.AWS_IMAGE_BUCKET)
     key = Key(bucket)
 
-    url = "{}/{}/{}".format(config.IMAGES_BASE, image_route, filename)
+    url = "{}/{}/{}".format(config.AWS_IMAGES_BASE, image_route, filename)
     # Retrieve our source image from a URL
     fp = urllib.urlopen(url)
     content_type = fp.info().get('content-type')

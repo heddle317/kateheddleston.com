@@ -48,7 +48,7 @@ assets.register('talk_css', talk_css)
 assets.register('tiles_css', tiles_css)
 
 
-if config.ENV == 'production':
+if config.ENVIRONMENT == 'production':
     admin_js = Bundle('js/internal/angular_app_module_admin.js',
                       'js/internal/admin.js',
                       'js/internal/admin_auth.js',
