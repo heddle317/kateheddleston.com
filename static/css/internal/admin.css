@@ -34,3 +34,9 @@ img {
 .flex-video embed {
     left:50%;
 }
+
+#kateheddleston-wrap .login-wrapper {
+    width:300px;
+    display:block;
+    margin:30px auto;
+}

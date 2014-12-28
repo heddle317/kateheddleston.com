@@ -1,6 +1,7 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-    <form class='form-inline' action='login' method="POST">
+<div class='login-wrapper'>
+    <form class='form' action='login' method="POST">
         <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
         <div class="form-group">
             <input class='form-control' placeholder="Email" type='email' name='email' />
@@ -8,6 +9,7 @@
         <div class="form-group">
             <input class='form-control' placeholder='Password' type='password' name='password' />
         </div>
-        <button type="submit" class="btn btn-default">Login</button>
+        <button type="submit" class="btn btn-default pull-right">Login</button>
     </form>
+</div>
 {% endblock %}
