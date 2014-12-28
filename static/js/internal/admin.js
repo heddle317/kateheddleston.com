@@ -216,7 +216,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         var item = {'title': '', 'body': '', 'image_name': '', 'position': position};
         $scope.items.splice(position - 1, 0, item);
         for (var i = position; i < $scope.items.length; i++) {
-            $scope.items[i].position++;
+            $scope.items[i].position = i + 1;
         }
         $scope.editing = true;
     };
@@ -229,7 +229,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
                     position = $scope.items[i].position;
                 }
                 if (position >= 0) {
-                    $scope.items[i].position--;
+                    $scope.items[i].position = i;
                 }
             }
             $scope.items.splice(position - 1, 1);
