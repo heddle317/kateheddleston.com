@@ -46,8 +46,8 @@
                   <li class="{% if g.nav_view == 'auth' %}active{% endif %}"><a href="{{g.app_base_link}}/admin/auth">Auth</a></li>
               </ul>
             </div>
-            <div class='brand brand-bottom pull-right'>
-              <ul class='icons nav navbar-nav'>
+            <div class='navbar-text pull-right'>
+              <ul class='nav navbar-nav'>
                   <li><a href="{{g.app_base_link}}/logout">Logout</a></li>
               </ul>
             </div>
@@ -65,6 +65,9 @@
                 {% endif %}
             {% endwith %}
             {% block content %}{% endblock %}
+            <div id="popup">
+                {% block popup %}{% endblock %}
+            </div>
         </div>
         <div class='footer'>
             <div class='container-fluid'>

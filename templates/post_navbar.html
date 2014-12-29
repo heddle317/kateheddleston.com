@@ -1,9 +1,23 @@
 <div class='post_footer'>
-    <div class='links text-center'>
-        <div class='prev-link link col-md-1 pull-left border-right'>
-            <a ng-if='prevLink' href="{[{ prevLink }]}">Read Prev</a>
-        </div><div class='next-link link col-md-1 pull-right border-left'>
-            <a ng-if='nextLink' href="{[{ nextLink }]}">Read Next</a>
+    {% if g.user.is_authenticated() %}
+        <div class='links text-center'>
+            <div class='prev-link link col-md-1 pull-left border-right'>
+                <a href="/admin/gallery/{{gallery.uuid}}">Edit</a>
+            </div>
+            <div class='prev-link link col-md-1 pull-left border-right'>
+                <a ng-if='prevLink' href="{[{ prevLink }]}">Read Prev</a>
+            </div>
+            <div class='next-link link col-md-1 pull-right border-left'>
+                <a ng-if='nextLink' href="{[{ nextLink }]}">Read Next</a>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class='links text-center'>
+            <div class='prev-link link col-md-1 pull-left border-right'>
+                <a ng-if='prevLink' href="{[{ prevLink }]}">Read Prev</a>
+            </div><div class='next-link link col-md-1 pull-right border-left'>
+                <a ng-if='nextLink' href="{[{ nextLink }]}">Read Next</a>
+            </div>
+        </div>
+    {% endif %}
 </div>

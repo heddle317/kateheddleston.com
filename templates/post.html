@@ -36,13 +36,5 @@
     {% endassets %}
     <script>
         var galleryUUID = '{{gallery_uuid}}';
-        $(window).scroll(function() {
-            var position = $('body').scrollTop();
-            if(position <= 50) {
-                $('.down_arrow').show();
-            } else {
-                $('.down_arrow').hide();
-            }
-        });
     </script>
 {% endblock %}
