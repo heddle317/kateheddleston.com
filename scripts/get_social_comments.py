@@ -1,7 +1,7 @@
 import sys
 
-from app.twitter import get_comments_for_item
-from app.twitter import get_comments_for_items
+from app.comments import get_comments_for_item
+from app.comments import get_comments_for_items
 
 
 if __name__ == '__main__':
