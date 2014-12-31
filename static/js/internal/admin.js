@@ -117,38 +117,54 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
 
 angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', function($scope, $http, $log) {
     $scope.loading = true;
+    $scope.items = {'published': [], 'unpublished': [], 'archived': []};
+    $scope.currentContainer = '.published';
     $http.get('/admin/galleries').success(function(response) {
         $('.loading.main-loader').show();
         $scope.unpublishedGalleries = [];
         $scope.publishedGalleries = [];
+        $scope.archivedGalleries = [];
         var i;
         var item;
         for (i = 0; i < response.length; i++) {
             item = response[i];
             if (item.published) {
-                $scope.publishedGalleries.push(item);
+                $scope.items['published'].push(item);
+            } else if (item.archived) {
+                $scope.items['archived'].push(item);
             } else {
-                $scope.unpublishedGalleries.push(item);
+                $scope.items['unpublished'].push(item);
             }
         };
-        $scope.changeTab(false);
+        $scope.changeTab('unpublished');
     });
-    $scope.changeTab = function(published) {
+    $scope.sortLists = function() {
+    };
+    $scope.removeItem = function(uuid) {
+        for (var listName in $scope.items) {
+            if ($scope.items.hasOwnProperty(listName)) {
+                var list = $scope.items[listName];
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].uuid == uuid) {
+                        list.splice(i, 1);
+                    }
+                }
+            }
+        };
+    };
+    $scope.changeTab = function(className) {
         $('.loading.main-loader').show();
-        var c = published ? '.published-container' : '.unpublished-container';
-        var hide_c = published ? '.unpublished-container' : '.published-container';
-        $(hide_c).hide();
-        var $container = $(c);
-        $container.hide();
-        $scope.showPublished = published;
-        imagesLoaded($container, function() {
-            $container.show();
+        $($scope.currentContainer).hide();
+        $scope.currentContainer = '.' + className;
+        $($scope.currentContainer).hide();
+        imagesLoaded($($scope.currentContainer), function() {
+            $($scope.currentContainer).show();
             $('.loading.main-loader').hide();
-            var msnry = new Masonry(c, {columnWidth: 100,
-                                        itemSelector: ".item",
-                                        gutter: 10,
-                                        isFitWidth: true,
-                                        transitionDuration: 0});
+            var msnry = new Masonry($scope.currentContainer, {columnWidth: 100,
+                                                              itemSelector: ".item",
+                                                              gutter: 10,
+                                                              isFitWidth: true,
+                                                              transitionDuration: 0});
         });
     };
 }]);
@@ -156,25 +172,29 @@ angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', fu
 angularApp.controller('MiniEditGalleryController', ['$scope', '$http', '$window', '$sce', '$log', function($scope, $http, $window, $sce, $log) {
     $scope.initGallery = function(gallery) {
         $scope.gallery = gallery;
-        $scope.uuid = gallery.uuid;
         $scope.gallery_uuid = gallery.uuid;
-        $scope.name = gallery.name;
-        $scope.author = gallery.author;
-        $scope.coverPhoto = gallery.cover_photo;
-        $scope.items = gallery.items;
-        $scope.published = gallery.published;
-        $scope.published_ago = gallery.published_ago;
     };
-    $scope.unpublishGallery = function() {
-        $scope.published = false;
+    $scope.publishGallery = function(publish) {
+        $scope.gallery.published = publish;
+        $scope.gallery.archived = false;
         $scope.updateGallery();
     };
-    $scope.publishGallery = function() {
-        $scope.published = true;
+    $scope.archiveGallery = function(archive) {
+        $scope.gallery.archived = archive;
         $scope.updateGallery();
     };
     $scope.updateGallery = function() {
-        var data = {'published': $scope.published};
+        $scope.removeItem($scope.gallery.uuid);
+        if ($scope.gallery.published) {
+            $scope.items.published.push($scope.gallery);
+        } else if ($scope.gallery.archived) {
+            $scope.items.archived.push($scope.gallery);
+        } else {
+            $scope.items.unpublished.push($scope.gallery);
+        }
+        $scope.sortLists();
+        var data = {'published': $scope.gallery.published,
+                    'archived': $scope.gallery.archived};
         $http.put("/admin/gallery/" + $scope.gallery.uuid, data).success(function(data) {
         });
     };

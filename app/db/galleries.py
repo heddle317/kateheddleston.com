@@ -25,6 +25,7 @@ class Gallery(db.Model):
     author = db.Column(db.String(256), nullable=True)
     cover_photo = db.Column(db.String(500), nullable=True)
     dead = db.Column(db.Boolean(), default=False, nullable=False)
+    archived = db.Column(db.Boolean(), default=False, nullable=False)
     created_at = db.Column(db.DateTime(), unique=False)
     published_at = db.Column(db.DateTime(), unique=False)
 
@@ -46,6 +47,7 @@ class Gallery(db.Model):
                 'published_ago': relative_time(self.published_at) if self.published_at else '',
                 'published': self.published,
                 'items': items,
+                'archived': self.archived,
                 'next_uuid': next_uuid(Gallery, self, sort_by='published_at', published=True),
                 'prev_uuid': prev_uuid(Gallery, self, sort_by='published_at', published=True),
                 }
