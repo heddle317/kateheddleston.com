@@ -117,13 +117,10 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
 
 angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', function($scope, $http, $log) {
     $scope.loading = true;
-    $scope.items = {'published': [], 'unpublished': [], 'archived': []};
+    $scope.items = {'published': [], 'unpublished': [], 'archived': [], 'permanent': []};
     $scope.currentContainer = '.published';
     $http.get('/admin/galleries').success(function(response) {
         $('.loading.main-loader').show();
-        $scope.unpublishedGalleries = [];
-        $scope.publishedGalleries = [];
-        $scope.archivedGalleries = [];
         var i;
         var item;
         for (i = 0; i < response.length; i++) {
@@ -132,6 +129,8 @@ angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', fu
                 $scope.items['published'].push(item);
             } else if (item.archived) {
                 $scope.items['archived'].push(item);
+            } else if (item.permanent) {
+                $scope.items['permanent'].push(item);
             } else {
                 $scope.items['unpublished'].push(item);
             }

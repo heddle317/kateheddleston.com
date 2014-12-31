@@ -26,6 +26,7 @@ class Gallery(db.Model):
     cover_photo = db.Column(db.String(500), nullable=True)
     dead = db.Column(db.Boolean(), default=False, nullable=False)
     archived = db.Column(db.Boolean(), default=False, nullable=False)
+    permanent = db.Column(db.Boolean(), default=False, nullable=False)
     created_at = db.Column(db.DateTime(), unique=False)
     published_at = db.Column(db.DateTime(), unique=False)
 
@@ -48,6 +49,7 @@ class Gallery(db.Model):
                 'published': self.published,
                 'items': items,
                 'archived': self.archived,
+                'permanent': self.permanent,
                 'next_uuid': next_uuid(Gallery, self, sort_by='published_at', published=True),
                 'prev_uuid': prev_uuid(Gallery, self, sort_by='published_at', published=True),
                 }

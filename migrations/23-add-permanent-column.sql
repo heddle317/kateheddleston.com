@@ -1,0 +1,1 @@
+ALTER TABLE galleries ADD COLUMN permanent BOOLEAN NOT NULL DEFAULT false;
