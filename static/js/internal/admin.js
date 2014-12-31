@@ -1,22 +1,53 @@
 angularApp.controller('AdminTalksController', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
-    $scope.talks = [];
     $scope.loading = true;
-    $scope.published = false;
+    $scope.items = {'published': [], 'unpublished': [], 'archived': []};
+    $scope.currentContainer = '.published';
     $http.get('/admin/talks').success(function(response) {
-        $scope.talks = response;
-        var $container = $('#container');
-        imagesLoaded($container, function() {
-            $('.loading.main-loader').hide();
-            $('#container').show();
-            var msnry = new Masonry('#container', {columnWidth: 100,
-                                                   itemSelector: ".item",
-                                                   gutter: 10,
-                                                   isFitWidth: true,
-                                                   transitionDuration: 0});
-        });
+        $('.loading.main-loader').show();
+        var i;
+        var item;
+        for (i = 0; i < response.length; i++) {
+            item = response[i];
+            if (item.published) {
+                $scope.items['published'].push(item);
+            } else if (item.archived) {
+                $scope.items['archived'].push(item);
+            } else if (item.permanent) {
+                $scope.items['permanent'].push(item);
+            } else {
+                $scope.items['unpublished'].push(item);
+            }
+        };
+        $scope.changeTab('unpublished');
     });
-    $scope.trustHTML = function(html) {
-        return $sce.trustAsHtml(html);
+    $scope.sortLists = function() {
+    };
+    $scope.removeItem = function(uuid) {
+        for (var listName in $scope.items) {
+            if ($scope.items.hasOwnProperty(listName)) {
+                var list = $scope.items[listName];
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].uuid == uuid) {
+                        list.splice(i, 1);
+                    }
+                }
+            }
+        };
+    };
+    $scope.changeTab = function(className) {
+        $('.loading.main-loader').show();
+        $($scope.currentContainer).hide();
+        $scope.currentContainer = '.' + className;
+        $($scope.currentContainer).hide();
+        imagesLoaded($($scope.currentContainer), function() {
+            $($scope.currentContainer).show();
+            $('.loading.main-loader').hide();
+            var msnry = new Masonry($scope.currentContainer, {columnWidth: 100,
+                                                              itemSelector: ".item",
+                                                              gutter: 10,
+                                                              isFitWidth: true,
+                                                              transitionDuration: 0});
+        });
     };
 }]);
 
@@ -24,19 +55,28 @@ angularApp.controller('MiniEditTalkController', ['$scope', '$http', '$window', '
     $scope.initTalk = function(talk) {
         $scope.talk = talk;
     };
-    $scope.unpublishTalk = function() {
-        $scope.published = false;
+    $scope.publishTalk = function(publish) {
+        $scope.talk.published = publish;
+        $scope.talk.archived = false;
         $scope.updateTalk();
     };
-    $scope.publishTalk = function() {
-        $scope.published = true;
+    $scope.archiveTalk = function(archive) {
+        $scope.talk.archived = archive;
         $scope.updateTalk();
     };
     $scope.updateTalk = function() {
-        var data = {'published': $scope.published};
+        $scope.removeItem($scope.talk.uuid);
+        if ($scope.talk.published) {
+            $scope.items.published.push($scope.talk);
+        } else if ($scope.talk.archived) {
+            $scope.items.archived.push($scope.talk);
+        } else {
+            $scope.items.unpublished.push($scope.talk);
+        }
+        $scope.sortLists();
+        var data = {'published': $scope.talk.published,
+                    'archived': $scope.talk.archived};
         $http.put("/admin/talks/" + $scope.talk.uuid, data).success(function(data) {
-            $scope.editing = false;
-            $scope.talk = data;
         });
     };
 }]);

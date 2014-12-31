@@ -6,21 +6,29 @@
 {% endblock %}
 {% block content %}
 <div ng-controller='AdminTalksController' class='ng-cloak' ng-cloak>
-    <div class='page-btn'>
-        <a href="/admin/talk" type='submit' class='btn btn-default'>Create Talk</a>
-    </div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-click='changeTab("unpublished")' ng-class="currentContainer == '.unpublished' ? 'active' : 'inactive'">
+            <a href="#">Unpublished &#40;<span ng-bind='items.unpublished.length'></span>&#41;</a>
+        </li>
+        <li role="presentation" ng-click='changeTab("published")' ng-class="currentContainer == '.published' ? 'active' : 'inactive'">
+            <a href="#">Published &#40;<span ng-bind='items.published.length'></span>&#41;</a>
+        </li>
+        <li role="presentation" ng-click='changeTab("archived")' ng-class="currentContainer == '.archived' ? 'active' : 'inactive'">
+            <a href="#">Archived &#40;<span ng-bind='items.archived.length'></span>&#41;</a>
+        </li>
+        <div class='page-btn'>
+            <a href="/admin/talk" type='submit' class='btn btn-default'>Create Talk</a>
+        </div>
+    </ul>
     <div class='loading main-loader'>
         <img src="{{g.images_base}}/images/loading.gif" />
     </div>
-    <div id='container' class="js-masonry" style='display:none;'>
-        <div class='item w4' ng-repeat='talkInfo in talks' ng-controller='MiniEditTalkController' ng-init='initTalk(talkInfo)'>
-            <div class='blog_item w4'>
-                <img ng-if='talk.image_name' ng-src="{[{talk.base_url}]}/{[{talk.image_name}]}_medium" alt='No image'/>
-                <img ng-if='!talk.image_name' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>
-                <div class='blog_item_footer'>
-                    <div class='info caption'>
-                        <h4 ng-bind='talk.name'></h4>
-                    </div>
+    <div ng-repeat='(itemsName, talks) in items'>
+        <div id="container" class="js-masonry" ng-class='itemsName' style='display:none'>
+            <div class='item w4' ng-repeat='talkInfo in talks' ng-controller='MiniEditTalkController' ng-init='initTalk(talkInfo)'>
+                <div class='blog_item w4'>
+                    <img ng-if='talk.image_name' ng-src="{[{talk.base_url}]}/{[{talk.image_name}]}" alt='No image'/>
+                    <img ng-if='!talk.image_name' ng-src="{{g.images_base}}/images/no_image.png" alt='No image'/>
                     <div class='blog_item_footer'>
                         <div class='info caption'>
                             <h4 ng-bind='talk.title'></h4>
@@ -35,12 +43,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class='row buttons'>
-                        <div class='col-md-12 text-right'>
-                            <a class='btn btn-default' href="/admin/talk/{[{talk.uuid}]}">Edit</a>
-                            <button class='btn btn-warning' ng-show='!talk.published && !editing' ng-click='publishTalk()'>Publish</button>
-                            <button class='btn btn-success' ng-show='talk.published && !editing' ng-click='unpublishTalk()'>Unpublish</button>
+                        <div class='row buttons'>
+                            <div class='col-md-12 text-right'>
+                                <a class='btn btn-default' href="/admin/talk/{[{talk.uuid}]}">Edit</a>
+                                <button class='btn btn-warning' ng-show='!talk.published && !talk.archived' ng-click='publishTalk(true)'>Publish</button>
+                                <button class='btn btn-success' ng-show='talk.published' ng-click='publishTalk(false)'>Unpublish</button>
+                                <button class='btn btn-primary' ng-show='!talk.published && !talk.archived' ng-click='archiveTalk(true)'>Archive</button>
+                                <button class='btn btn-default' ng-show='talk.archived' ng-click='archiveTalk(false)'>Unarchive</button>
+                            </div>
                         </div>
                     </div>
                 </div>

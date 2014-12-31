@@ -26,6 +26,7 @@ class Talk(db.Model):
     date = db.Column(db.DateTime(), unique=True)
     created_at = db.Column(db.DateTime(), unique=False)
     dead = db.Column(db.Boolean(), default=False, nullable=False)
+    archived = db.Column(db.Boolean(), default=False, nullable=False)
     published = db.Column(db.Boolean(), default=False, nullable=False)
 
     def to_dict(self):
@@ -40,6 +41,7 @@ class Talk(db.Model):
                 'location': self.location,
                 'date': datetime.datetime.strftime(self.date, '%B %d, %Y') if self.date else '',
                 'published': self.published,
+                'archived': self.archived,
                 'next_uuid': next_uuid(Talk, self, sort_by='date', published=True),
                 'prev_uuid': prev_uuid(Talk, self, sort_by='date', published=True),
                 }
