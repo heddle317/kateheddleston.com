@@ -44,3 +44,40 @@ img {
 #kateheddleston-wrap .login-wrapper button {
     width:100%;
 }
+
+#kateheddleston-wrap .editing-header {
+    position:fixed;
+    top:66px;
+    left:0;
+    width:100%;
+    display:block;
+    padding:10px;
+    background-color:rgba(255,255,255,.97);
+    border-bottom:1px solid #d6e9c6;
+    z-index:1000;
+    margin:0;
+}
+
+#kateheddleston-wrap .editing-header.panel-success {
+    background-image:linear-gradient(to bottom,#dff0d8 0,#d0e9c6 100%)
+    background-color:#dff0d8;
+    border-bottom:1px solid #d6e9c6;
+}
+
+#kateheddleston-wrap .title-section {
+    margin:10px auto 40px;
+    width:900px;
+}
+
+#kateheddleston-wrap .gallery-item-buttons {
+    margin:10px 0;
+}
+
+#kateheddleston-wrap .editing-sections {
+    padding-top:40px;
+}
+
+#kateheddleston-wrap .edit_panel {
+    margin:0 5% 0;
+}
+

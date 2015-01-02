@@ -1,85 +1,10 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-    <div class='row edit_panel ng-cloak' ng-controller='EditGalleryController' ng-cloak>
-        <div class='panel' ng-class='published ? "panel-success" : "panel-default"'>
-            <div class="panel-heading">
-                <div class='row'>
-                    <div class='col-md-6'>
-                        <h3 class="panel-title" ng-bind='name' ng-show='!editing'></h3>
-                        <input type='text' placeholder='Name' class='form-control' name='name' ng-model='name' ng-show='editing'/>
-                        <h3 class="panel-title" ng-bind='subtitle' ng-show='!editing'></h3>
-                        <input type='text' placeholder='Subtitle' class='form-control' name='subtitle' ng-model='subtitle' ng-show='editing'/>
-                        <h5 class='panel-title' ng-bind='author' ng-show='!editing'></h3>
-                        <input type='text' placeholder='Author' class='form-control' name='author' ng-model='author' ng-show='editing'/>
-                    </div>
-                    <div class='text-right col-md-6'>
-                        <a class='btn btn-default' href="/blog/{[{gallery.uuid}]}">Preview</a>
-                        <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
-                        <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
-                        <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
-                        <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
-                        <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
-                        <button class='btn btn-danger' ng-click='deleteGallery()'>Delete</button>
-                    </div>
-                </div>
+    <div class='edit_panel ng-cloak' ng-controller='EditGalleryController' ng-cloak>
+        <div class='editing-header row' ng-class='published ? "header-success" : "header-default"'>
+            <div class='col-md-6'>
             </div>
-            <div class='panel-body'>
-                <div class='row'>
-                    <div class='col-md-2'>
-                        <img ng-if='coverPhoto' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_small" />
-                        <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no_image.png" />
-                        <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
-                    </div>
-                    <div class='col-md-10'>
-                        <h2>Cover Photo</h2>
-                    </div>
-                    <div class='row'>
-                        <div class='col-md-12'>
-                            <button ng-click='addNewItem(1)' class='btn btn-success pull-right'>Add Item After</button>
-                        </div>
-                    </div>
-                </div>
-                <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
-                    <div class='row'>
-                        <div class='col-md-2 text-center'>
-                            <div class='loading image-loader' ng-show='generatingSizes'>
-                                <img src="{{g.images_base}}/images/loading.gif" />
-                            </div>
-                            <img ng-if='item.image_name' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_small" />
-                            <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='editing' ng-model='item.image_name'>
-                            <div class='alert alert-warning' role='alert' ng-show='error'>
-                                <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <span class='message' ng-bind='alertMessage'></span>
-                            </div>
-                            <div class='loading' ng-show='loading' style='margin:20px auto 0;width:60%'>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="{[{percent}]}" aria-valuemin="0" aria-valuemax="100" ng-style="widthStyle">
-                                    </div>
-                                </div>
-                            </div>
-                            <button class='btn btn-default margin-top-10' ng-show="editing && gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
-                            <small ng-show='!editing' ng-bind-html='item.image_caption'></small>
-                            <input rows=6 placeholder='Image Caption' class='form-control' name='image_caption' ng-show='editing' ng-model='item.image_caption' />
-                        </div>
-                        <div class='col-md-10'>
-                            <div class='info caption'>
-                                <h4 ng-bind='item.position'></h4>
-                                <h4 ng-show='!editing' ng-bind='item.title'></h4>
-                                <input type='text' placeholder='Title' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
-                            </div>
-                            <p ng-show='!editing' ng-bind-html='item.body'></p>
-                            <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
-                        </div>
-                    </div>
-                    <div class='row'>
-                        <div class='col-md-12'>
-                            <button ng-click='addNewItem(item.position + 1)' class='btn btn-success pull-right'>Add Item After</button>
-                            <button ng-click='removeItem(item.uuid)' class='btn btn-danger pull-right'>Remove This Item</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class='panel-footer text-right'>
+            <div class='text-right col-md-6'>
                 <a class='btn btn-default' href="/blog/{[{gallery.uuid}]}">Preview</a>
                 <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
                 <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
@@ -87,6 +12,74 @@
                 <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
                 <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
                 <button class='btn btn-danger' ng-click='deleteGallery()'>Delete</button>
+            </div>
+        </div>
+        <div class='editing-sections .gallery-content'>
+            <div class="title-section text-center">
+                <h1 class='deep-pink' ng-bind-html='gallery.name' ng-show='!editing'></h1>
+                <input type='text' placeholder='Name' class='form-control' name='name' ng-model='name' ng-show='editing'/>
+                <h3 class="" ng-bind='subtitle' ng-show='!editing'></h3>
+                <input type='text' placeholder='Subtitle' class='form-control' name='subtitle' ng-model='subtitle' ng-show='editing'/>
+                <h5 class='panel-title' ng-bind='author' ng-show='!editing'></h5>
+                <input type='text' placeholder='Author' class='form-control' name='author' ng-model='author' ng-show='editing'/>
+            </div>
+            <div class='panel panel-default'>
+                <div class='panel-body'>
+                    <div class='row'>
+                        <div class='col-md-2'>
+                            <img ng-if='coverPhoto' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_small" />
+                            <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no_image.png" />
+                            <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
+                        </div>
+                        <div class='col-md-10'>
+                            <h2>Cover Photo</h2>
+                        </div>
+                    </div>
+                    <div class='row gallery-item-buttons'>
+                        <div class='col-md-12'>
+                            <button ng-click='addNewItem(1)' class='btn btn-success pull-right'>Add Item After</button>
+                        </div>
+                    </div>
+                    <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
+                        <div class='row'>
+                            <div class='col-md-2 text-center'>
+                                <div class='loading image-loader' ng-show='generatingSizes'>
+                                    <img src="{{g.images_base}}/images/loading.gif" />
+                                </div>
+                                <img ng-if='item.image_name' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_small" />
+                                <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='editing' ng-model='item.image_name'>
+                                <div class='alert alert-warning' role='alert' ng-show='error'>
+                                    <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <span class='message' ng-bind='alertMessage'></span>
+                                </div>
+                                <div class='loading' ng-show='loading' style='margin:20px auto 0;width:60%'>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="{[{percent}]}" aria-valuemin="0" aria-valuemax="100" ng-style="widthStyle">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class='btn btn-default margin-top-10' ng-show="editing && gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
+                                <small ng-show='!editing' ng-bind-html='item.image_caption'></small>
+                                <input rows=6 placeholder='Image Caption' class='form-control' name='image_caption' ng-show='editing' ng-model='item.image_caption' />
+                            </div>
+                            <div class='col-md-10'>
+                                <div class='info caption'>
+                                    <h4 ng-bind='item.position'></h4>
+                                    <h4 ng-show='!editing' ng-bind='item.title'></h4>
+                                    <input type='text' placeholder='Title' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
+                                </div>
+                                <p ng-show='!editing' ng-bind-html='item.body'></p>
+                                <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
+                            </div>
+                        </div>
+                        <div class='row gallery-item-buttons'>
+                            <div class='col-md-12'>
+                                <button ng-click='addNewItem(item.position + 1)' class='btn btn-success pull-right'>Add Item After</button>
+                                <button ng-click='removeItem(item.uuid)' class='btn btn-danger pull-right'>Remove This Item</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
