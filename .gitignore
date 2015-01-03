@@ -11,3 +11,4 @@ static/gen
 cffi/
 certs/
 logs/
+*.swl

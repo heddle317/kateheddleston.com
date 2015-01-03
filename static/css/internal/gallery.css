@@ -119,5 +119,6 @@
     display:block;
 }
 
-#kateheddleston-wrap .subscription-notice {
+#kateheddleston-wrap .subscription-notice .page-btn {
+    padding:0;
 }
