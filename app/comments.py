@@ -131,7 +131,7 @@ def get_comments_for_item(uuid):
     return tweets
 
 
-def get_comments_for_items():
+def get_comments_for_galleries():
     galleries = Gallery.get_galleries()
     tweets = []
     for gallery in galleries:
@@ -139,13 +139,16 @@ def get_comments_for_items():
         url = 'https://www.kateheddleston.com/blog/{}'.format(gallery_uuid)
         update_facebook_comments(url, gallery_uuid)
         tweets = tweets + update_tweet_comments(url, gallery_uuid)
+    return tweets
+
+
+def get_comments_for_talks():
     talks = Talk.get_talks()
     for talk in talks:
         talk_uuid = talk.get('uuid')
         url = 'https://www.kateheddleston.com/talks/{}'.format(talk_uuid)
         update_facebook_comments(url, talk_uuid)
         tweets = tweets + update_tweet_comments(url, talk_uuid)
-    return tweets
 
 
 def find_all_comments():

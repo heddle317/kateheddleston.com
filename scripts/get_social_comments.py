@@ -1,7 +1,8 @@
 import sys
 
 from app.comments import get_comments_for_item
-from app.comments import get_comments_for_items
+from app.comments import get_comments_for_galleries
+from app.comments import get_comments_for_talks
 
 
 if __name__ == '__main__':
@@ -9,4 +10,5 @@ if __name__ == '__main__':
         gallery_uuid = sys.argv[1]
         get_comments_for_item(gallery_uuid)
     else:
-        get_comments_for_items()
+        get_comments_for_galleries()
+        get_comments_for_talks()
