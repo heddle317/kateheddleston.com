@@ -71,8 +71,10 @@ if config.ENVIRONMENT == 'production':
                      'js/external/bootstrap.min.js',
                      filters='jsmin', output='gen/base.%(version)s.js')
 
-    blog_js = Bundle('js/internal/subscriptions.js',
-                     'js/external/masonry.pkgd.min.js',
+    subscription_js = Bundle('js/internal/subscriptions.js',
+                             filters='jsmin', output='gen/subscription.%(version)s.js')
+
+    blog_js = Bundle('js/external/masonry.pkgd.min.js',
                      'js/external/imagesloaded.pkgd.min.js',
                      filters='jsmin', output='gen/blog.%(version)s.js')
 
@@ -107,8 +109,10 @@ else:
                      'js/external/bootstrap.min.js',
                      output='gen/base.%(version)s.js')
 
-    blog_js = Bundle('js/internal/subscriptions.js',
-                     'js/external/masonry.pkgd.min.js',
+    subscription_js = Bundle('js/internal/subscriptions.js',
+                             output='gen/subscription.%(version)s.js')
+
+    blog_js = Bundle('js/external/masonry.pkgd.min.js',
                      'js/external/imagesloaded.pkgd.min.js',
                      output='gen/blog.%(version)s.js')
 
@@ -128,4 +132,5 @@ assets.register('base_js', base_js)
 assets.register('blog_js', blog_js)
 assets.register('comment_js', comment_js)
 assets.register('contact_js', contact_js)
+assets.register('subscription_js', subscription_js)
 assets.register('post_js', post_js)
