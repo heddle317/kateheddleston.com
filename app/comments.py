@@ -78,30 +78,29 @@ def add_target_blank(text):
 def update_tweet_comments(url, entity_uuid):
     auth = tweepy.OAuthHandler(config.TWITTER_CONSUMER_KEY, config.TWITTER_CONSUMER_SECRET)
     api = tweepy.API(auth)
-    tweets = search_twitter(url, api)
-    tweets = [process_tweet(tweet) for tweet in tweets]
-    for tweet in tweets:
-        Comment.add_or_update(tweet.get('id'), entity_uuid, tweet)
+    tweets = search_twitter(url, api, entity_uuid)
     return tweets
 
 
-def get_mentions(screen_name, tweet_id, api):
+def get_mentions(screen_name, tweet_id, api, entity_uuid):
     tweets = []
     for mention in tweepy.Cursor(api.search, q=screen_name, rpp=50).items():
         if mention.in_reply_to_status_id == tweet_id:
+            Comment.add_or_update(mention.id, entity_uuid, process_tweet(mention))
             tweets.append(mention)
     return tweets
 
 
-def search_twitter(url, api):
+def search_twitter(url, api, entity_uuid):
     tweets = []
     for tweet in tweepy.Cursor(api.search,
                                q=url,
                                rpp=100,
                                include_entities=True,).items():
         tweet.entity_uuid = get_entity_uuid(tweet.entities.get('urls'))
+        Comment.add_or_update(tweet.id, entity_uuid, process_tweet(tweet))
         tweets.append(tweet)
-        tweets = tweets + get_mentions(tweet.author.screen_name, tweet.id, api)
+        tweets = tweets + get_mentions(tweet.author.screen_name, tweet.id, api, entity_uuid)
     return tweets
 
 
@@ -144,6 +143,7 @@ def get_comments_for_galleries():
 
 def get_comments_for_talks():
     talks = Talk.get_talks()
+    tweets = []
     for talk in talks:
         talk_uuid = talk.get('uuid')
         url = 'https://www.kateheddleston.com/talks/{}'.format(talk_uuid)
