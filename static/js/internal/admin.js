@@ -325,6 +325,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
                     'published': $scope.published};
         $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(data) {
             $scope.editing = false;
+            $scope.initGallery(response);
         });
       } else {
         var data = {'name': $scope.name,
