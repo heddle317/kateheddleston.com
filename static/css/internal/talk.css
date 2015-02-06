@@ -8,6 +8,14 @@
     padding:30px 0 30px;
 }
 
+#kateheddleston-wrap .talk-item {
+    padding-top:0;
+}
+
+#kateheddleston-wrap .talk-item .title-section {
+    padding-top:0;
+}
+
 #kateheddleston-wrap .talk-item .header {
   margin:20px 20px 15px;
 }
