@@ -323,7 +323,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
                     'cover_photo': $scope.coverPhoto,
                     'items': $scope.items,
                     'published': $scope.published};
-        $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(data) {
+        $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(response) {
             $scope.editing = false;
             $scope.initGallery(response);
         });
