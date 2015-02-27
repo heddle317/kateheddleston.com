@@ -1,14 +1,14 @@
 <div class='post_footer'>
         <div class='links text-center'>
             {% if g.user.is_authenticated() %}
-            <div class='link col-md-1 pull-left border-right'>
+            <div class='link col-lg-1 col-md-2 col-sm-3 col-xs-3 pull-left border-right'>
                 <a href="/admin/gallery/{{gallery.uuid}}">Edit</a>
             </div>
             {% endif %}
-            <div class='prev-link link col-md-1 pull-right border-left'>
+            <div class='prev-link link col-lg-1 col-md-2 col-sm-3 col-xs-4 pull-right border-left'>
                 <a ng-show='gallery.next_uuid' href="/blog/{[{ gallery.next_uuid }]}">Read Next</a>
             </div>
-            <div class='next-link link col-md-1 pull-right border-left'>
+            <div class='next-link link col-lg-1 col-md-2 col-sm-3 col-xs-4 pull-right border-left'>
                 <a ng-show='gallery.prev_uuid' href="/blog/{[{ gallery.prev_uuid }]}">Read Prev</a>
             </div>
         </div>
