@@ -1,73 +1,66 @@
 angularApp.controller('PostController', ['$scope', '$http', '$log', function($scope, $http, $log) {
-  $scope.position = 1;
-  $http.get('/gallery/' + galleryUUID).success(function(response) {
-      $scope.init(response);
-  });
-  $scope.init = function(gallery) {
-    gallery = angular.fromJson(gallery);
-    $scope.gallery = gallery;
-    $scope.titles = [];
-    for (var i = 0; i < $scope.gallery.items.length; i++) {
-      if ($scope.gallery.items[i].title) {
-        $scope.titles.push($scope.gallery.items[i].title);
-      }
-    }
-  };
-  $scope.displayPosition = function() {
-    return $scope.position + 1;
-  };
-  $scope.movePage = function(position) {
-    $scope.position = position;
-    var sectionId = '#item' + position;
-    $("html, body").animate({ scrollTop: $(sectionId).offset().top }, 1000);
-  };
-  $scope.nextItem = function() {
-    $scope.position += 1;
-    if ($scope.position === $scope.items.length) {
-      $scope.position = 0;
-    }
-  };
-  $scope.prevItem = function() {
-    $scope.position -= 1;
-    if ($scope.position < 0) {
-      $scope.position = $scope.items.length - 1;
-    }
-  };
-  $scope.isSelected = function(position) {
-    if ($scope.position === position) {
-      return true;
-    }
-    return false;
-  };
-  $scope.browserHeight = function() {
-    return {"height": $(window).height() + "px"};
-  };
-  $scope.navHeight = function() {
-    return {"margin-top": '-' + $('#left-nav ul').height() / 2 + "px"};
-  }
+    $scope.position = 1;
+    $http.get('/gallery/' + galleryUUID).success(function(response) {
+        $scope.init(response);
+    });
+    $scope.init = function(gallery) {
+        gallery = angular.fromJson(gallery);
+        $scope.gallery = gallery;
+        var $container = $('.gallery-content');
+        imagesLoaded($($container), function() {
+            var i;
+            var item;
+            for (i = 0; i < $scope.gallery.items.length; i++) {
+                item = $scope.gallery.items[i];
+                $scope.loadImage(item.image_name);
+            }
+        });
+    };
+    $scope.displayPosition = function() {
+        return $scope.position + 1;
+    };
+    $scope.movePage = function(position) {
+        $scope.position = position;
+        var sectionId = '#item' + position;
+        $("html, body").animate({ scrollTop: $(sectionId).offset().top }, 1000);
+    };
+    $scope.nextItem = function() {
+        $scope.position += 1;
+        if ($scope.position === $scope.items.length) {
+        $scope.position = 0;
+        }
+    };
+    $scope.prevItem = function() {
+        $scope.position -= 1;
+        if ($scope.position < 0) {
+        $scope.position = $scope.items.length - 1;
+        }
+    };
+    $scope.isSelected = function(position) {
+        if ($scope.position === position) {
+        return true;
+        }
+        return false;
+    };
+    $scope.browserHeight = function() {
+        return {"height": $(window).height() + "px"};
+    };
+    $scope.navHeight = function() {
+        return {"margin-top": '-' + $('#left-nav ul').height() / 2 + "px"};
+    };
+    $scope.loadImage = function(imageName) {
+        var size = 'small';
+        var image = $('#' + imageName);
+        var url = $scope.gallery.base_url + '/' + imageName + '_' + size;
+        image.attr('src', url);
+        imagesLoaded($(image), function() {
+            size = image.attr('size');
+            if (size == 'small') {
+                // we're all done :)
+                return;
+            }
+            url = $scope.gallery.base_url + '/' + imageName + '_' + size;
+            image.attr('src', url);
+        });
+    };
 }]);
-
-$(document).ready(function() {
-  $(window).on('scroll', function() {
-    var items = $('div[data-anchor]');
-    var item;
-    var position;
-    for (var i = 0; i < items.length; i++) {
-      item = $(items[i]);
-      position = item.attr('position');
-      updatePosition(item, position);
-    }
-  });
-  function updatePosition(section, position) {
-    var nextPosition = parseInt(position, 10) + 1;
-    var nextSection = $('#fullpage div.post-section[data-anchor="item' + nextPosition + '"]');
-    var pageBottom = $(window).height() + $(window).scrollTop();
-    var dot = $('.nav-item.item' + position);
-    // if it's been scrolled past and we're not to the next section, return true
-    if(section.offset().top < pageBottom && (nextSection.length === 0 || nextSection.offset().top > pageBottom)) {
-      dot.addClass('selected');
-    } else {
-      dot.removeClass('selected');
-    }
-  };
-});

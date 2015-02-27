@@ -20,8 +20,8 @@
 <div class='gallery-item' ng-controller='PostController'>
     <div class='gallery-content'>
         {% include "header_slide.html" %}
-    {% include "post_sections.html" %}
-  </div>
+        {% include "post_sections.html" %}
+    </div>
     <div class='text-center subscription-notice'>
         <h4>Want emails notifying you of new content? Subscribe here.</h4>
         {% include "subscription.html" %}
@@ -40,7 +40,10 @@
     {% assets "subscription_js" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
-    <script>
+    {% assets "blog_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    <script type='text/javascript'>
         var galleryUUID = '{{gallery_uuid}}';
     </script>
 {% endblock %}

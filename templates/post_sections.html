@@ -4,9 +4,9 @@
   </div>
   <div class='image-section post-section' ng-if='item.image_name'>
       {% if g.is_mobile %}
-        <img ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_small" />
+        <img src='{{g.images_base}}/images/empty.png' id="{[{item.image_name}]}" size="small" />
       {% else %}
-        <img ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_large" />
+        <img src='{{g.images_base}}/images/empty.png' id="{[{item.image_name}]}" size="large" />
       {% endif %}
       <small><em class='image-caption' ng-if='item.image_caption' ng-bind='item.image_caption'></em></small>
   </div>
