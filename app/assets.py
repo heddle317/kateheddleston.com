@@ -85,6 +85,7 @@ if config.ENVIRONMENT == 'production':
                         filters='jsmin', output='gen/contact.%(version)s.js')
 
     post_js = Bundle('js/internal/gallery.js',
+                     'js/external/imagesloaded.pkgd.min.js',
                      filters='jsmin', output='gen/post.%(version)s.js')
 else:
     admin_js = Bundle('js/internal/angular_app_module_admin.js',
@@ -123,6 +124,7 @@ else:
                         output='gen/contact.%(version)s.js')
 
     post_js = Bundle('js/internal/gallery.js',
+                     'js/external/imagesloaded.pkgd.min.js',
                      output='gen/post.%(version)s.js')
 
 assets.register('admin_js', admin_js)
