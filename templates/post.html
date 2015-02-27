@@ -22,13 +22,13 @@
         {% include "header_slide.html" %}
     {% include "post_sections.html" %}
   </div>
+    <div class='text-center subscription-notice'>
+        <h4>Want emails notifying you of new content? Subscribe here.</h4>
+        {% include "subscription.html" %}
+    </div>
+    {% include "comments.html" %}
+    {% include "post_navbar.html" %}
 </div>
-<div class='text-center subscription-notice'>
-    <h4>Want emails notifying you of new content? Subscribe here.</h4>
-    {% include "subscription.html" %}
-</div>
-{% include "comments.html" %}
-{% include "post_navbar.html" %}
 {% endblock %}
 {% block script %}
     {% assets "comment_js" %}
