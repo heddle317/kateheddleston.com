@@ -7,6 +7,8 @@ def now_utc():
 
 
 def format_date(date, format='%B %d, %Y'):
+    if not date:
+        return ''
     return datetime.datetime.strftime(date, format)
 
 

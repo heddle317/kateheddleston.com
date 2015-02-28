@@ -159,7 +159,7 @@ angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', fu
     $scope.loading = true;
     $scope.items = {'published': [], 'unpublished': [], 'archived': [], 'permanent': []};
     $scope.currentContainer = '.published';
-    $http.get('/admin/galleries').success(function(response) {
+    $http.get('/api/admin/galleries').success(function(response) {
         $('.loading.main-loader').show();
         var i;
         var item;
@@ -274,9 +274,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     $scope.addNewItem = function(position) {
         var item = {'title': '', 'body': '', 'image_name': '', 'position': position};
         $scope.items.splice(position - 1, 0, item);
-        for (var i = position; i < $scope.items.length; i++) {
-            $scope.items[i].position = i + 1;
-        }
+        $scope.updateItemPosition();
         $scope.editing = true;
     };
     $scope.removeItem = function(uuid) {
@@ -315,7 +313,14 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         $scope.published = true;
         $scope.updateGallery();
     };
+    $scope.updateItemPosition = function() {
+      var i;
+      for (i = 0; i < $scope.items.length; i++) {
+          $scope.items[i].position = i + 1;
+      };
+    };
     $scope.updateGallery = function() {
+        $scope.updateItemPosition();
       if ($scope.gallery_uuid) {
         var data = {'name': $scope.name,
                     'subtitle': $scope.subtitle,

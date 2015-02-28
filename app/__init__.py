@@ -13,7 +13,6 @@ from flask import request
 
 from flask.ext.compress import Compress
 from flask.ext.login import current_user
-from flask.ext.sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager
 
@@ -26,7 +25,6 @@ app = Flask(__name__,
 app.config.from_object(config)
 Compress(app)
 CsrfProtect(app)
-app_db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.login_view = "login"
 login_manager.login_message = None

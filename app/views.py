@@ -22,38 +22,38 @@ def index():
 @use_template_globals
 def about():
     g.nav_view = 'about'
-    gallery = Gallery.get_gallery(uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
-    return render_template('about.html', gallery=gallery, gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
+    gallery = Gallery.get(uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
+    return render_template('about.html', gallery=gallery.to_dict(), gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
 
 
 @app.route('/contact', methods=['GET'])
 @use_template_globals
 def contact():
     g.nav_view = 'contact'
-    gallery = Gallery.get_gallery('3d93674d-8331-4ac1-a318-26c7bb415fd9')
-    return render_template('contact.html', gallery=gallery, gallery_uuid='3d93674d-8331-4ac1-a318-26c7bb415fd9', contact=True)
+    gallery = Gallery.get(uuid='3d93674d-8331-4ac1-a318-26c7bb415fd9')
+    return render_template('contact.html', gallery=gallery.to_dict(), gallery_uuid='3d93674d-8331-4ac1-a318-26c7bb415fd9', contact=True)
 
 
 @app.route('/talks')
 @use_template_globals
 def talks():
     g.nav_view = 'talks'
-    talks = Talk.get_talks()
+    talks = Talk.get_list(published=True, sort_by='date', to_json=True)
     return render_template('talks.html', talks=talks)
 
 
 @app.route('/talk/<uuid>', methods=['GET'])
 @use_template_globals
 def talk(uuid):
-    talk = Talk.get_talk(uuid)
-    return render_template('talk.html', talk=talk)
+    talk = Talk.get(uuid=uuid)
+    return render_template('talk.html', talk=talk.to_dict())
 
 
 @app.route('/blog', methods=["GET"])
 @use_template_globals
 def blog():
     g.nav_view = 'blog'
-    posts = Gallery.get_galleries()
+    posts = Gallery.get_list(published=True, to_json=True)
     return render_template('blog.html', posts=posts)
 
 
@@ -71,7 +71,7 @@ def blog_post_title(blog_attr):
 @app.route('/blog/feed.atom', methods=['GET'])
 @use_template_globals
 def blog_feed():
-    posts = Gallery.get_galleries()
+    posts = Gallery.get_list(published=True, to_json=True)
 
     feed_url = "{}/blog/feed.atom".format(g.app_base_link)
     feed = AtomFeed('Recent Posts',

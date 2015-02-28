@@ -1,12 +1,28 @@
+import copy
 import datetime
 
-from app import app_db
+from app import config
+from app.utils.datetime_tools import format_date
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 from uuid import uuid4
 
 
+engine = create_engine(config.SQLALCHEMY_DATABASE_URI, convert_unicode=True)
+KateHeddlestonDB = scoped_session(sessionmaker(autocommit=False,
+                                               autoflush=False,
+                                               expire_on_commit=False,
+                                               bind=engine))
+Base = declarative_base()
+Base.query = KateHeddlestonDB.query_property()
+
+
 def get(model, **kwargs):
-    return app_db.session.query(model).filter_by(**kwargs).first()
+    return KateHeddlestonDB.query(model).filter_by(**kwargs).first()
 
 
 def get_list(model, **kwargs):
@@ -14,7 +30,7 @@ def get_list(model, **kwargs):
     limit = kwargs.pop('limit', None)
     desc = kwargs.pop('desc', True)
     published = kwargs.pop('published', True)
-    items = app_db.session.query(model).filter_by(**kwargs)
+    items = KateHeddlestonDB.query(model).filter_by(**kwargs)
     if published and hasattr(model, 'published'):
         items = items.filter_by(published=published)
     if hasattr(model, sort_by):
@@ -28,11 +44,11 @@ def get_list(model, **kwargs):
 
 
 def save(obj, refresh=True):
-    obj = app_db.session.merge(obj)
-    app_db.session.commit()
+    obj = KateHeddlestonDB.merge(obj)
+    KateHeddlestonDB.commit()
 
     if refresh:
-        app_db.session.refresh(obj)
+        KateHeddlestonDB.refresh(obj)
 
     return obj
 
@@ -43,8 +59,8 @@ def publish(obj):
 
 
 def delete(obj, hard_delete=False):
-    app_db.session.delete(obj)
-    app_db.session.commit()
+    KateHeddlestonDB.delete(obj)
+    KateHeddlestonDB.commit()
 
 
 def update(obj, data):
@@ -96,3 +112,50 @@ def create(model, **kwargs):
             setattr(m, k, v)
 
     return save(m)
+
+
+def jsonify_model(obj):
+    if obj is None:
+        return {}
+    if isinstance(obj, list):
+        items = [item.to_dict() for item in obj]
+        return items
+    return obj.to_dict()
+
+
+class BaseModelObject(object):
+
+    def to_dict(self):
+        attr_dict = copy.deepcopy(self.__dict__)
+        for key, value in attr_dict.iteritems():
+            if isinstance(value, datetime.datetime):
+                attr_dict[key] = format_date(value)
+        if attr_dict.get('_sa_instance_state'):
+            del attr_dict['_sa_instance_state']
+        return attr_dict
+
+    @classmethod
+    def get_list(cls, to_json=False, **kwargs):
+        items = get_list(cls, **kwargs)
+        return jsonify_model(items) if to_json else items
+
+    @classmethod
+    def get(cls, to_json=False, **kwargs):
+        item = get(cls, **kwargs)
+        return jsonify_model(item) if to_json else item
+
+    @classmethod
+    def update(cls, uuid, **kwargs):
+        item = get(cls, uuid=uuid)
+        item = update(item, kwargs)
+        return item
+
+    @classmethod
+    def create(cls, **kwargs):
+        item = create(cls, **kwargs)
+        return item
+
+    @classmethod
+    def delete(cls, **kwargs):
+        item = get(cls, **kwargs)
+        delete(item)

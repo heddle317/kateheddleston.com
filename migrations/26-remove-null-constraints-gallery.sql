@@ -1,0 +1,2 @@
+ALTER TABLE gallery_items ALTER COLUMN title DROP NOT NULL;
+ALTER TABLE gallery_items ALTER COLUMN body DROP NOT NULL;

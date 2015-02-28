@@ -59,7 +59,7 @@ def logout():
 @use_template_globals
 def get_talks():
     if request.is_xhr:
-        talks = Talk.get_talks(published=False)
+        talks = Talk.get_list(published=False, to_json=True, sort_by='date')
         return json.dumps(talks), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'talks'
     return render_template('admin/talks.html')
@@ -72,9 +72,9 @@ def get_talks():
 def edit_talk(uuid=None):
     if request.is_xhr:
         if uuid:
-            talk = Talk.get_talk(uuid)
+            talk = Talk.get(uuid=uuid).to_dict()
         else:
-            talk = Talk.get_blank_gallery()
+            talk = Talk.blank()
         return json.dumps(talk), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'talks'
     policy = base64.b64encode(json.dumps(policy_document))
@@ -91,9 +91,6 @@ def edit_talk(uuid=None):
 @login_required
 @use_template_globals
 def get_galleries():
-    if request.is_xhr:
-        galleries = Gallery.get_galleries(published=False)
-        return json.dumps(galleries), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'galleries'
     return render_template('admin/galleries.html')
 
@@ -101,7 +98,7 @@ def get_galleries():
 @app.route('/admin/gallery/create', methods=['GET'])
 @login_required
 def get_admin_gallery(uuid=None):
-    gallery = Gallery.get_blank_gallery()
+    gallery = Gallery.blank()
     return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
 
 
@@ -112,9 +109,9 @@ def get_admin_gallery(uuid=None):
 def edit_gallery(uuid=None):
     if request.is_xhr:
         if uuid:
-            gallery = Gallery.get_gallery(uuid)
+            gallery = Gallery.get(uuid=uuid).to_dict()
         else:
-            gallery = Gallery.get_blank_gallery()
+            gallery = Gallery.blank()
         return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'galleries'
     policy = base64.b64encode(json.dumps(policy_document))

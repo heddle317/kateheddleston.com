@@ -14,11 +14,6 @@ from app.utils.datetime_tools import relative_time
 from jinja2.utils import urlize
 
 
-def get_comments(entity_uuid):
-    comments = Comment.get_comments(entity_uuid, to_json=True)
-    return comments
-
-
 def update_facebook_comments(url, entity_uuid):
     # graph = facebook.GraphAPI()
     access_token = get(User, email='kate.heddleston@gmail.com').code
@@ -131,10 +126,10 @@ def get_comments_for_item(uuid):
 
 
 def get_comments_for_galleries():
-    galleries = Gallery.get_galleries()
+    galleries = Gallery.get_list(published=True)
     tweets = []
     for gallery in galleries:
-        gallery_uuid = gallery.get('uuid')
+        gallery_uuid = gallery.uuid
         url = 'https://www.kateheddleston.com/blog/{}'.format(gallery_uuid)
         update_facebook_comments(url, gallery_uuid)
         tweets = tweets + update_tweet_comments(url, gallery_uuid)
@@ -142,10 +137,10 @@ def get_comments_for_galleries():
 
 
 def get_comments_for_talks():
-    talks = Talk.get_talks()
+    talks = Talk.get_list(published=True)
     tweets = []
     for talk in talks:
-        talk_uuid = talk.get('uuid')
+        talk_uuid = talk.uuid
         url = 'https://www.kateheddleston.com/talks/{}'.format(talk_uuid)
         update_facebook_comments(url, talk_uuid)
         tweets = tweets + update_tweet_comments(url, talk_uuid)

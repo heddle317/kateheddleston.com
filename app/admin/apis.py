@@ -22,27 +22,34 @@ def create_talk():
         date = datetime.datetime.strptime(date, '%B %d, %Y')
         data['date'] = date
     try:
-        talk = Talk.create_talk(**data)
+        talk = Talk.create(**data)
     except ValueError as e:
         flash(e.message, 'danger')
         return json.dumps({'message': e.message}), 400, {'Content-Type': 'application/json'}
-    return json.dumps(talk), 200, {'Content-Type': 'application/json'}
+    return json.dumps(talk.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/talks/<uuid>', methods=['PUT'])
 @login_required
 def update_talk(uuid):
     data = json.loads(request.data)
-    talk = Talk.update_talk(uuid, **data)
-    return json.dumps(talk), 200, {'Content-Type': 'application/json'}
+    talk = Talk.update(uuid, **data)
+    return json.dumps(talk.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/talks/<uuid>', methods=['DELETE'])
 @login_required
 def delete_talk(uuid):
-    Talk.delete_talk(uuid)
+    Talk.delete(uuid=uuid)
     return_data = {'message': 'Your talk was successfully deleted.'}
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/api/admin/galleries', methods=['GET'])
+@login_required
+def admin_api_get_galleries():
+    galleries = Gallery.get_list(published=False, to_json=True)
+    return json.dumps(galleries), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/galleries', methods=['POST'])
@@ -50,25 +57,25 @@ def delete_talk(uuid):
 def create_gallery():
     data = json.loads(request.data)
     try:
-        gallery = Gallery.create_gallery(**data)
+        gallery = Gallery.create(**data)
     except ValueError as e:
         flash(e.message, 'danger')
         return json.dumps({'message': e.message}), 400, {'Content-Type': 'application/json'}
-    return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
+    return json.dumps(gallery.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/gallery/<uuid>', methods=['PUT'])
 @login_required
 def update_gallery(uuid=None):
     data = json.loads(request.data)
-    gallery = Gallery.update_gallery(uuid, **data)
-    return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
+    gallery = Gallery.update(uuid, **data)
+    return json.dumps(gallery.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/gallery/<uuid>', methods=['DELETE'])
 @login_required
 def delete_gallery(uuid):
-    Gallery.delete_gallery(uuid)
+    Gallery.delete(uuid=uuid)
     return_data = {'message': 'Your gallery was successfully deleted.'}
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
 
@@ -76,6 +83,6 @@ def delete_gallery(uuid):
 @app.route('/admin/gallery/item/<uuid>', methods=['DELETE'])
 @login_required
 def delete_gallery_item(uuid):
-    GalleryItem.delete(uuid)
+    GalleryItem.delete(uuid=uuid)
     return_data = {'message': 'The gallery item {} was successfully deleted.'.format(uuid)}
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}

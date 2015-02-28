@@ -1,9 +1,9 @@
 import json
 
 from app import app
+from app.db.comments import Comment
 from app.db.galleries import Gallery
 from app.db.subscriptions import Subscription
-from app.comments import get_comments
 from app.utils.aws import s3_change_image_resolutions
 from app.utils.email import send_contact_email
 
@@ -25,7 +25,7 @@ def email_message():
 
 @app.route('/blog/<uuid>/comments', methods=['GET'])
 def blog_comments(uuid):
-    tweets = get_comments(uuid)
+    tweets = Comment.get_comments_json(gallery_uuid=uuid, sort_by='-created_at')
     data = {'comments': tweets, 'num_comments': len(tweets)}
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
 
@@ -41,7 +41,7 @@ def create_multiple_photos():
 @app.route('/subscriptions/subscribe', methods=['POST'])
 def subscribe():
     data = json.loads(request.data)
-    Subscription.create_subscription(**data)
+    Subscription.create_or_update(**data)
     message = "You have successfully subscribed to KateHeddleston.com's blog with email address {}.<br><br>" \
               "You will receive an email to verify your email address shortly. Be sure to check your spam folder if you " \
               "don't see it after a few minutes. Thanks!".format(data.get('email'))
@@ -51,8 +51,8 @@ def subscribe():
 
 @app.route('/gallery/<uuid>', methods=['GET'])
 def get_gallery_ajax(uuid):
-    gallery = Gallery.get_gallery(uuid)
-    return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
+    gallery = Gallery.get(uuid=uuid)
+    return json.dumps(gallery.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/ping', methods=["GET"])
