@@ -1,24 +1,16 @@
 import copy
 import datetime
 
-from app import config
+from app import app_db
 from app.utils.datetime_tools import format_date
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 from uuid import uuid4
 
 
-engine = create_engine(config.SQLALCHEMY_DATABASE_URI, convert_unicode=True)
-KateHeddlestonDB = scoped_session(sessionmaker(autocommit=False,
-                                               autoflush=False,
-                                               expire_on_commit=False,
-                                               bind=engine))
+KateHeddlestonDB = app_db.session
 Base = declarative_base()
-Base.query = KateHeddlestonDB.query_property()
 
 
 def get(model, **kwargs):
