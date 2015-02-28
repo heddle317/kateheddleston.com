@@ -29,7 +29,7 @@ angularApp.controller('CommentController', ['$scope', '$http', '$window', '$log'
       return comment_array;
   };
   $scope.getComments = function() {
-    $http.get($window.location.pathname + '/comments').success(function(data) {
+    $http.get('/blog/' + galleryUUID + '/comments').success(function(data) {
       $scope.numComments = data.num_comments;
       $scope.comments = data.comments;
       var comment;

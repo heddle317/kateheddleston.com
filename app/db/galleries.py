@@ -1,4 +1,5 @@
 import datetime
+import string
 
 from app import config
 from app.db import app_db as db
@@ -24,6 +25,7 @@ class Gallery(db.Model):
     published = db.Column(db.Boolean(), default=False, nullable=False)
     author = db.Column(db.String(256), nullable=True)
     cover_photo = db.Column(db.String(500), nullable=True)
+    url_title = db.Column(db.String(1024), nullable=True)
     dead = db.Column(db.Boolean(), default=False, nullable=False)
     archived = db.Column(db.Boolean(), default=False, nullable=False)
     permanent = db.Column(db.Boolean(), default=False, nullable=False)
@@ -49,6 +51,7 @@ class Gallery(db.Model):
                 'published': self.published,
                 'items': items,
                 'archived': self.archived,
+                'url_title': self.url_title,
                 'permanent': self.permanent,
                 'next_uuid': next_uuid(Gallery, self, sort_by='published_at', published=True),
                 'prev_uuid': prev_uuid(Gallery, self, sort_by='published_at', published=True),
@@ -92,14 +95,27 @@ class Gallery(db.Model):
         return get(Gallery, uuid=uuid).to_dict()
 
     @staticmethod
+    def get(**kwargs):
+        return get(Gallery, **kwargs)
+
+    @staticmethod
     def create_gallery(**kwargs):
         if not kwargs.get('name'):
             raise ValueError('name required')
-        gallery = create(Gallery, **kwargs)
+        url_title = Gallery.get_url_title(kwargs['name'])
+        gallery = create(Gallery, url_title=url_title, **kwargs)
         for item in kwargs.get('items', []):
             item['gallery_uuid'] = gallery.uuid
             GalleryItem.add_item(**item)
         return gallery.to_dict()
+
+    @staticmethod
+    def get_url_title(title):
+        title = ''.join(ch for ch in title if ch not in set(string.punctuation.decode('utf-8')))
+        title = title.rstrip()
+        title = title.lower().replace(' ', '-')
+        print title
+        return title
 
     @staticmethod
     def update_gallery(uuid, **kwargs):
@@ -108,6 +124,7 @@ class Gallery(db.Model):
             kwargs['published_at'] = datetime.datetime.utcnow()
             link = "{}/blog/{}".format(config.APP_BASE_LINK, uuid)
             Subscription.send_subscription_emails(link, gallery.name)
+        kwargs['url_title'] = Gallery.get_url_title(kwargs.get('name', gallery.name))
         gallery = update(gallery, kwargs)
 
         for item in kwargs.get('items', []):

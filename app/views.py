@@ -57,11 +57,15 @@ def blog():
     return render_template('blog.html', posts=posts)
 
 
-@app.route('/blog/<uuid>', methods=['GET'])
+@app.route('/blog/<blog_attr>', methods=['GET'])
 @use_template_globals
-def blog_post(uuid):
-    gallery = Gallery.get_gallery(uuid=uuid)
-    return render_template('post.html', gallery_uuid=uuid, gallery=gallery, full_page=True)
+def blog_post_title(blog_attr):
+    gallery = Gallery.get(url_title=blog_attr)
+    if gallery is None:
+        gallery = Gallery.get(uuid=blog_attr)
+        if gallery is None:
+            return render_template('')
+    return render_template('post.html', gallery_uuid=gallery.uuid, gallery=gallery.to_dict(), full_page=True)
 
 
 @app.route('/blog/feed.atom', methods=['GET'])
