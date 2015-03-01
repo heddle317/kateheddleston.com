@@ -6,8 +6,6 @@ from app.db import Base
 from app.db import BaseModelObject
 from app.db import create
 from app.db import delete
-from app.db import next_uuid
-from app.db import prev_uuid
 from app.db import update
 from app.db.subscriptions import Subscription
 from app.utils.datetime_tools import format_date
@@ -47,8 +45,8 @@ class Gallery(Base, BaseModelObject):
                           'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%S') if self.published_at else '',
                           'published_ago': relative_time(self.published_at) if self.published_at else '',
                           'items': GalleryItem.get_list(gallery_uuid=self.uuid, sort_by='position', desc=False, to_json=True),
-                          'next_uuid': next_uuid(Gallery, self, sort_by='published_at', published=True),
-                          'prev_uuid': prev_uuid(Gallery, self, sort_by='published_at', published=True)})
+                          'prev': Gallery.prev(self, attrs=['uuid', 'url_title'], sort_by='published_at', published=True, desc=False),
+                          'next': Gallery.next(self, attrs=['uuid', 'url_title'], sort_by='published_at', published=True, desc=False)})
         return attr_dict
 
     def description(self):

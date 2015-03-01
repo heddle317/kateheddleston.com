@@ -69,28 +69,28 @@ def update(obj, data):
     return obj
 
 
-def next_uuid(model, current_item, sort_by='created_at', published=True):
-    items = get_list(model, published=published, sort_by=sort_by, desc=False)
+def next_item(model, current_item, **kwargs):
+    items = get_list(model, **kwargs)
     try:
         index = [index for index, item in enumerate(items) if item.uuid == current_item.uuid][0]
     except:
-        next_uuid = None
+        next_item = None
     else:
-        next_uuid = items[index + 1].uuid if index < len(items) - 1 else None
+        next_item = items[index + 1] if index < len(items) - 1 else None
 
-    return next_uuid
+    return next_item
 
 
-def prev_uuid(model, current_item, sort_by='created_at', published=True):
-    items = get_list(model, published=published, sort_by=sort_by, desc=False)
+def prev_item(model, current_item, **kwargs):
+    items = get_list(model, **kwargs)
     try:
         index = [index for index, item in enumerate(items) if item.uuid == current_item.uuid][0]
     except:
-        prev_uuid = None
+        prev_item = None
     else:
-        prev_uuid = items[index - 1].uuid if index > 0 else None
+        prev_item = items[index - 1] if index > 0 else None
 
-    return prev_uuid
+    return prev_item
 
 
 def create(model, **kwargs):
@@ -151,3 +151,25 @@ class BaseModelObject(object):
     def delete(cls, **kwargs):
         item = get(cls, **kwargs)
         delete(item)
+
+    @classmethod
+    def next(cls, current_item, attrs=None, **kwargs):
+        n = next_item(cls, current_item, **kwargs)
+        if attrs and n:
+            return_dict = {}
+            for field in attrs:
+                if hasattr(n, field):
+                    return_dict[field] = getattr(n, field)
+            return return_dict
+        return n
+
+    @classmethod
+    def prev(cls, current_item, attrs=None, **kwargs):
+        prev = prev_item(cls, current_item, **kwargs)
+        if attrs and prev:
+            return_dict = {}
+            for field in attrs:
+                if hasattr(prev, field):
+                    return_dict[field] = getattr(prev, field)
+            return return_dict
+        return prev

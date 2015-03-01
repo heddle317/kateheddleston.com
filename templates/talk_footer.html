@@ -20,13 +20,13 @@
         </div>
         {% endif %}
         <div class='next-link icon col-lg-1 col-md-1 col-sm-6 col-xs-6 pull-right border-left'>
-            {% if talk.next_uuid %}
-                <a class='icon-wrapper' href="{{g.app_base_link}}/talk/{{talk.next_uuid}}">View Next</a>
+            {% if talk.next %}
+                <a class='icon-wrapper' href="{{g.app_base_link}}/talk/{{talk.next.uuid}}">View Next</a>
             {% endif %}
         </div>
         <div class='prev-link icon col-lg-1 col-md-1 col-sm-6 col-xs-6 pull-right border-left'>
-            {% if talk.prev_uuid %}
-                <a class='icon-wrapper' href="{{g.app_base_link}}/talk/{{talk.prev_uuid}}">View Prev</a>
+            {% if talk.prev %}
+                <a class='icon-wrapper' href="{{g.app_base_link}}/talk/{{talk.prev.uuid}}">View Prev</a>
             {% endif %}
         </div>
     </div>

@@ -1,8 +1,6 @@
 from app import config
 from app.db import Base
 from app.db import BaseModelObject
-from app.db import next_uuid
-from app.db import prev_uuid
 from app.utils.datetime_tools import format_date
 
 from sqlalchemy import Boolean
@@ -32,8 +30,8 @@ class Talk(Base, BaseModelObject):
         attr_dict = BaseModelObject.to_dict(self)
         attr_dict.update({'base_url': '{}/talks/{}'.format(config.AWS_IMAGES_BASE, self.uuid),
                           'date': format_date(self.date, '%B %d, %Y'),
-                          'next_uuid': next_uuid(Talk, self, sort_by='date', published=True),
-                          'prev_uuid': prev_uuid(Talk, self, sort_by='date', published=True)})
+                          'next': Talk.next(self, attrs=['uuid'], sort_by='date', published=True, desc=False),
+                          'prev': Talk.prev(self, attrs=['uuid'], sort_by='date', published=True, desc=False)})
         return attr_dict
 
     @staticmethod
