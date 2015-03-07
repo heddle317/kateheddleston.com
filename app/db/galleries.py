@@ -71,7 +71,8 @@ class Gallery(Base, BaseModelObject):
         url_title = Gallery.get_url_title(kwargs['name'])
         gallery = create(Gallery, url_title=url_title, **kwargs)
         for item_data in kwargs.get('items', []):
-            item_data.pop('gallery_uuid')
+            if 'gallery_uuid' in item_data.keys():
+                item_data.pop('gallery_uuid')
             GalleryItem.create(gallery_uuid=gallery.uuid, **item_data)
         return gallery
 
