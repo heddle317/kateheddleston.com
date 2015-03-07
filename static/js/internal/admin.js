@@ -273,7 +273,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     };
     $scope.addNewItem = function(position) {
         var item = {'title': '', 'body': '', 'image_name': '', 'position': position};
-        $scope.items.splice(position - 1, 0, item);
+        $scope.items.splice(position, 0, item);
         $scope.updateItemPosition();
         $scope.editing = true;
     };
