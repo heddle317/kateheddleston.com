@@ -63,13 +63,15 @@
                                 <input rows=6 placeholder='Image Caption' class='form-control' name='image_caption' ng-show='editing' ng-model='item.image_caption' />
                             </div>
                             <div class='col-md-10'>
-                                <div class='info caption'>
-                                    <h4 ng-bind='item.position'></h4>
-                                    <h4 ng-show='!editing' ng-bind='item.title'></h4>
-                                    <input type='text' placeholder='Title' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
+                                <div>
+                                    <div class='info caption'>
+                                        <h4 ng-bind='item.position'></h4>
+                                        <h4 ng-show='!editing' ng-bind='item.title'></h4>
+                                        <input type='text' placeholder='Title' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
+                                    </div>
+                                    <p ng-show='!editing' ng-bind-html='item.body'></p>
+                                    <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
                                 </div>
-                                <p ng-show='!editing' ng-bind-html='item.body'></p>
-                                <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
                             </div>
                         </div>
                         <div class='row gallery-item-buttons'>
