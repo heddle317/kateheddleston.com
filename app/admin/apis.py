@@ -4,6 +4,7 @@ import json
 from app import app
 from app.db.galleries import Gallery
 from app.db.galleries import GalleryItem
+from app.db.galleries import GalleryItemComment
 from app.db.talks import Talk
 
 # from flask import g
@@ -86,3 +87,32 @@ def delete_gallery_item(uuid):
     GalleryItem.delete(uuid=uuid)
     return_data = {'message': 'The gallery item {} was successfully deleted.'.format(uuid)}
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/gallery/item/<item_uuid>/comments', methods=['POST'])
+@login_required
+def gallery_item_create_comment(item_uuid):
+    item = GalleryItem.get(uuid=item_uuid)
+    if not item:
+        return '', 404, {'Content-Type': 'application/json'}
+    data = json.loads(request.data)
+    item.add_comment(**data)
+    item = GalleryItem.get(uuid=item_uuid)
+    return json.dumps(item.to_dict()), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/gallery/item/<item_uuid>/comments/<comment_uuid>', methods=['POST'])
+@login_required
+def gallery_item_comment_update(item_uuid, comment_uuid):
+    data = json.loads(request.data)
+    GalleryItemComment.update(comment_uuid, **data)
+    item = GalleryItem.get(uuid=item_uuid)
+    return json.dumps(item.to_dict()), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/gallery/item/<item_uuid>/comments/<comment_uuid>', methods=['DELETE'])
+@login_required
+def gallery_item_comment_delete(item_uuid, comment_uuid):
+    GalleryItemComment.delete(uuid=comment_uuid)
+    item = GalleryItem.get(uuid=item_uuid)
+    return json.dumps(item.to_dict()), 200, {'Content-Type': 'application/json'}

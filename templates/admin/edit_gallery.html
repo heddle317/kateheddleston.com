@@ -72,12 +72,15 @@
                                     <p ng-show='!editing' ng-bind-html='item.body'></p>
                                     <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
                                 </div>
+                                {% include "admin/gallery_comments.html" %}
                             </div>
                         </div>
                         <div class='row gallery-item-buttons'>
-                            <div class='col-md-12'>
-                                <button ng-click='addNewItem(item.position)' class='btn btn-success pull-right'>Add Item After</button>
-                                <button ng-click='removeItem(item.uuid)' class='btn btn-danger pull-right'>Remove This Item</button>
+                            <div class='col-md-6'>
+                                <button ng-click='removeItem(item.uuid)' class='btn btn-danger'>Remove This Item</button>
+                            </div>
+                            <div class='col-md-6 text-right'>
+                                <button ng-click='addNewItem(item.position)' class='btn btn-success'>Add Item After</button>
                             </div>
                         </div>
                     </div>

@@ -122,8 +122,26 @@ class GalleryItem(Base, BaseModelObject):
     image_caption = Column(String(500), nullable=True)
     dead = Column(Boolean, default=False, nullable=False)
 
+    def to_dict(self):
+        attr_dict = BaseModelObject.to_dict(self)
+        attr_dict.update({'comments': GalleryItemComment.get_list(to_json=True, gallery_item_uuid=self.uuid)})
+        return attr_dict
+
+    def add_comment(self, **kwargs):
+        comment = GalleryItemComment.create(gallery_item_uuid=self.uuid, **kwargs)
+        return comment
+
     @staticmethod
     def delete_list(gallery_uuid):
         items = GalleryItem.get_list(gallery_uuid=gallery_uuid)
         for item in items:
             GalleryItem.delete(uuid=item.uuid)
+
+
+class GalleryItemComment(Base, BaseModelObject):
+    __tablename__ = 'gallery_item_comments'
+    uuid = Column(UUID, primary_key=True)
+    gallery_item_uuid = Column(UUID, nullable=False)
+    body = Column(String(), nullable=True)
+    resolved = Column(Boolean(), default=False, nullable=False)
+    created_at = Column(DateTime(), unique=False)

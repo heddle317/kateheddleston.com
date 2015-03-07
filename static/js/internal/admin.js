@@ -347,6 +347,82 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     };
 }]);
 
+angularApp.controller('GalleryItemCommentController', ['$scope', '$http', '$window', '$sce', '$upload', '$log', function($scope, $http, $window, $sce, $upload, $log) {
+    $scope.newComment = '';
+    $scope.showResolved = false;
+    $scope.initGalleryItem = function(gallery_item) {
+        $scope.galleryItem = gallery_item;
+    };
+    $scope.rows = function() {
+        var rows = Math.ceil($scope.currentComments().length / 4);
+        var row_array = new Array();
+        for (var i = 0; i < rows + 1; i++) {
+            row_array.push(i);
+        }
+        return row_array;
+    };
+    $scope.getRowComments = function(row) {
+        var currentComments = $scope.currentComments();
+        var comment_array = new Array();
+        var start_index = row * 4;
+        var end_index = start_index + 4;
+        var index = start_index;
+        while (index < end_index) {
+            if (index < currentComments.length) {
+                comment_array.push(currentComments[index]);
+            }
+            index = index + 1;
+        }
+        return comment_array;
+    };
+    $scope.resolveComment = function(comment) {
+        $http.post('/admin/gallery/item/' + $scope.galleryItem.uuid + '/comments/' + comment.uuid, data={'resolved': true}).success(function(response) {
+            $scope.galleryItem = response;
+        });
+    };
+    $scope.addComment = function() {
+        $http.post('/admin/gallery/item/' + $scope.galleryItem.uuid + '/comments', data={'body': $scope.newComment}).success(function(response) {
+            $scope.newComment = '';
+            $scope.galleryItem = response;
+        });
+    };
+    $scope.currentComments = function() {
+        if ($scope.showResolved) {
+            return $scope.galleryItem.comments;
+        }
+        var unresolvedComments = [];
+        var comment;
+        for (i = 0; i < $scope.galleryItem.comments.length; i++) {
+            comment = $scope.galleryItem.comments[i];
+            if (!comment.resolved) {
+                unresolvedComments.push(comment);
+            }
+        }
+        return unresolvedComments;
+    };
+    $scope.toggleResolvedComments = function() {
+        $scope.showResolved = !$scope.showResolved;
+    };
+    $scope.showComment = function(comment) {
+        if (!comment.resolved) {
+            return true;
+        }
+        if ($scope.showResolved && comment.resolved) {
+            return true;
+        }
+        return false;
+    };
+    $scope.deleteComment = function(comment) {
+        var confirm = $window.confirm("Are you sure you want to delete this comment?");
+        if (!confirm) {
+            return;
+        }
+        $http.delete('/admin/gallery/item/' + $scope.galleryItem.uuid + '/comments/' + comment.uuid).success(function(response) {
+            $scope.galleryItem = response;
+        });
+    };
+}]);
+
 angularApp.controller('UploadImageController', ['$scope', '$http', '$window', '$sce', '$upload', '$log', function($scope, $http, $window, $sce, $upload, $log) {
   $scope.file = [];
   $scope.dataUrls = [];
