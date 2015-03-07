@@ -4,11 +4,11 @@ from app import config
 
 
 def send_subscription_email(subscription, post_link, post_name):
-    unsubscribe = "{}/subscriptions/cancel/{}".format(config.APP_BASE_LINK, subscription.get('uuid'))
+    unsubscribe = "{}/subscriptions/cancel/{}".format(config.APP_BASE_LINK, subscription.uuid)
     body = "Hi {},\n\nThere is a new blog post available at KateHeddleston.com: {}\n\n" \
            "I hope you're having a wonderful day!\nKate Heddleston\n\n\n" \
-           "To unsubscribe from these emails, click here: {}".format(subscription['name'], post_link, unsubscribe)
-    send_email(subscription['email'], post_name, body)
+           "To unsubscribe from these emails, click here: {}".format(subscription.name, post_link, unsubscribe)
+    send_email(subscription.email, post_name, body)
 
 
 def send_verification_email(subscription):
