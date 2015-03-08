@@ -69,15 +69,10 @@ img {
 }
 
 #kateheddleston-wrap .editing-header {
-    position:fixed;
-    top:66px;
-    left:0;
     width:100%;
     display:block;
     padding:10px;
-    background-color:rgba(255,255,255,.97);
     border-bottom:1px solid #d6e9c6;
-    z-index:1000;
     margin:0;
 }
 

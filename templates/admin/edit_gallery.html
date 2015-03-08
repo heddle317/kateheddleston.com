@@ -25,21 +25,23 @@
                     <input type='text' placeholder='Author' class='form-control' name='author' ng-model='author' ng-show='editing'/>
                 </div>
             </div>
+            <div class='row'>
+                <div class='col-md-4'>
+                </div>
+                <div class='col-md-4 text-center'>
+                    <img ng-if='coverPhoto' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_small" />
+                    <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no-image.png" />
+                    <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
+                    <h2>Cover Photo</h2>
+                </div>
+                <div class='col-md-4'>
+                </div>
+            </div>
             <div class='panel panel-default'>
                 <div class='panel-body'>
-                    <div class='row'>
-                        <div class='col-md-3'>
-                            <img ng-if='coverPhoto' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_small" />
-                            <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no-image.png" />
-                            <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
-                        </div>
-                        <div class='col-md-9'>
-                            <h2>Cover Photo</h2>
-                        </div>
-                    </div>
                     <div class='row gallery-item-buttons'>
                         <div class='col-md-12 text-right'>
-                            <button ng-click='addNewItem(1)' class='btn btn-primary'>Add Item After</button>
+                            <button ng-click='addNewItem(1)' class='btn btn-primary'>Insert Item at the Front</button>
                         </div>
                     </div>
                     <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
