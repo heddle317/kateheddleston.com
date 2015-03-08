@@ -42,7 +42,7 @@
                     </div>
                     <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
                         <div class='row'>
-                            <div class='col-md-2 text-center'>
+                            <div class='col-md-3 text-center'>
                                 <div class='loading image-loader' ng-show='generatingSizes'>
                                     <img src="{{g.images_base}}/images/loading.gif" />
                                 </div>
@@ -62,7 +62,7 @@
                                 <small ng-show='!editing' ng-bind-html='item.image_caption'></small>
                                 <input rows=6 placeholder='Image Caption' class='form-control' name='image_caption' ng-show='editing' ng-model='item.image_caption' />
                             </div>
-                            <div class='col-md-10'>
+                            <div class='col-md-6'>
                                 <div>
                                     <div class='info caption'>
                                         <h4 ng-bind='item.position'></h4>
@@ -72,15 +72,15 @@
                                     <p ng-show='!editing' ng-bind-html='item.body'></p>
                                     <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
                                 </div>
+                            </div>
+                            <div class='col-md-3'>
                                 {% include "admin/gallery_comments.html" %}
                             </div>
                         </div>
                         <div class='row gallery-item-buttons'>
-                            <div class='col-md-6'>
+                            <div class='col-md-12'>
                                 <button ng-click='removeItem(item.uuid)' class='btn btn-danger'>Remove This Item</button>
-                            </div>
-                            <div class='col-md-6 text-right'>
-                                <button ng-click='addNewItem(item.position)' class='btn btn-success'>Add Item After</button>
+                                <button ng-click='addNewItem(item.position)' class='btn btn-primary'>Add Item After</button>
                             </div>
                         </div>
                     </div>

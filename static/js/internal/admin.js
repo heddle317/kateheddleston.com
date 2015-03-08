@@ -353,28 +353,6 @@ angularApp.controller('GalleryItemCommentController', ['$scope', '$http', '$wind
     $scope.initGalleryItem = function(gallery_item) {
         $scope.galleryItem = gallery_item;
     };
-    $scope.rows = function() {
-        var rows = Math.ceil($scope.currentComments().length / 4);
-        var row_array = new Array();
-        for (var i = 0; i < rows + 1; i++) {
-            row_array.push(i);
-        }
-        return row_array;
-    };
-    $scope.getRowComments = function(row) {
-        var currentComments = $scope.currentComments();
-        var comment_array = new Array();
-        var start_index = row * 4;
-        var end_index = start_index + 4;
-        var index = start_index;
-        while (index < end_index) {
-            if (index < currentComments.length) {
-                comment_array.push(currentComments[index]);
-            }
-            index = index + 1;
-        }
-        return comment_array;
-    };
     $scope.resolveComment = function(comment) {
         $http.post('/admin/gallery/item/' + $scope.galleryItem.uuid + '/comments/' + comment.uuid, data={'resolved': true}).success(function(response) {
             $scope.galleryItem = response;

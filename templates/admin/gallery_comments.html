@@ -1,6 +1,6 @@
 <div class='comments container-fluid' ng-controller='GalleryItemCommentController' ng-cloak class="ng-cloak" ng-init='initGalleryItem(galleryItem)'>
-    <ul class="row" ng-repeat='row in rows()'>
-        <li class='col-lg-3 col-md-6 col-sm-6 col-xs-12' ng-repeat='comment in getRowComments(row)'>
+    <ul class="row">
+        <li class='col-md-12' ng-repeat='comment in currentComments()'>
             <div class='comment' ng-class="comment.resolved ? 'resolved' : ''" ng-show='showComment(comment)'>
                 <div class='buttons text-right'>
                     <button class='btn btn-default' ng-click='resolveComment(comment)' ng-show='!comment.resolved'><i class='fa fa-check'></i></button>
@@ -18,6 +18,6 @@
     <a class='link' ng-click='toggleResolvedComments()' ng-show='showResolved'>Hide Resolved Comments</a>
     <div class='add-comment'>
         <textarea rows=2 placeholder='New Comment' class='form-control' name='body' ng-model='newComment'></textarea>
-        <button class='btn btn-success' ng-click='addComment()'>Add Comment</button>
+        <button class='btn btn-default' ng-click='addComment()'>Add Comment</button>
     </div>
 </div>

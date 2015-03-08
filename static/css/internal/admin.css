@@ -100,14 +100,15 @@ img {
 }
 
 #kateheddleston-wrap .comments li {
-    display:inline-block;
+    display:block;
+    padding:0;
 }
 
 #kateheddleston-wrap .comments .comment {
-    margin:10px;
+    margin-bottom:10px;
     border:1px solid #eaeaea;
     border-radius:4px;
-    background-color:rgba(205, 16, 118, .2);
+    background-color:rgba(255, 255, 255, 1);
 }
 
 #kateheddleston-wrap .comments .comment .buttons {
@@ -127,5 +128,4 @@ img {
 }
 
 #kateheddleston-wrap .comments .comment.resolved {
-    background-color:rgba(51, 255, 153, .2);
 }
