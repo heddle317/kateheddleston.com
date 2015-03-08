@@ -62,7 +62,7 @@ def create_gallery():
     except ValueError as e:
         flash(e.message, 'danger')
         return json.dumps({'message': e.message}), 400, {'Content-Type': 'application/json'}
-    return json.dumps(gallery.to_dict()), 200, {'Content-Type': 'application/json'}
+    return json.dumps(gallery.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/gallery/<uuid>', methods=['PUT'])
@@ -70,7 +70,7 @@ def create_gallery():
 def update_gallery(uuid=None):
     data = json.loads(request.data)
     gallery = Gallery.update(uuid, **data)
-    return json.dumps(gallery.to_dict()), 200, {'Content-Type': 'application/json'}
+    return json.dumps(gallery.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/gallery/<uuid>', methods=['DELETE'])
@@ -98,7 +98,7 @@ def gallery_item_create_comment(item_uuid):
     data = json.loads(request.data)
     item.add_comment(author_uuid=g.user.uuid, **data)
     item = GalleryItem.get(uuid=item_uuid)
-    return json.dumps(item.to_dict()), 200, {'Content-Type': 'application/json'}
+    return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/gallery/item/<item_uuid>/comments/<comment_uuid>', methods=['POST'])
@@ -107,7 +107,7 @@ def gallery_item_comment_update(item_uuid, comment_uuid):
     data = json.loads(request.data)
     GalleryItemComment.update(comment_uuid, **data)
     item = GalleryItem.get(uuid=item_uuid)
-    return json.dumps(item.to_dict()), 200, {'Content-Type': 'application/json'}
+    return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/gallery/item/<item_uuid>/comments/<comment_uuid>', methods=['DELETE'])
@@ -115,4 +115,4 @@ def gallery_item_comment_update(item_uuid, comment_uuid):
 def gallery_item_comment_delete(item_uuid, comment_uuid):
     GalleryItemComment.delete(uuid=comment_uuid)
     item = GalleryItem.get(uuid=item_uuid)
-    return json.dumps(item.to_dict()), 200, {'Content-Type': 'application/json'}
+    return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}

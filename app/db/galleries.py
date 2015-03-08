@@ -8,6 +8,7 @@ from app.db import create
 from app.db import delete
 from app.db import update
 from app.db.subscriptions import Subscription
+from app.db.user import User
 from app.utils.datetime_tools import format_date
 from app.utils.datetime_tools import relative_time
 
@@ -34,7 +35,7 @@ class Gallery(Base, BaseModelObject):
     created_at = Column(DateTime(), unique=False)
     published_at = Column(DateTime(), unique=False)
 
-    def to_dict(self):
+    def to_dict(self, admin=False):
         base_url = '{}/galleries/{}'.format(config.AWS_IMAGES_BASE, self.uuid)
         attr_dict = BaseModelObject.to_dict(self)
         attr_dict.update({'cover_photo_url': '{}/{}'.format(base_url, self.cover_photo),
@@ -44,7 +45,7 @@ class Gallery(Base, BaseModelObject):
                           'created_at': format_date(self.created_at, format='%B %d, %Y'),
                           'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%S') if self.published_at else '',
                           'published_ago': relative_time(self.published_at) if self.published_at else '',
-                          'items': GalleryItem.get_list(gallery_uuid=self.uuid, sort_by='position', desc=False, to_json=True),
+                          'items': GalleryItem.get_items(gallery_uuid=self.uuid, sort_by='position', desc=False, to_json=True, admin=admin),
                           'prev': Gallery.prev(self, attrs=['uuid', 'url_title'], sort_by='published_at', published=True, desc=False),
                           'next': Gallery.next(self, attrs=['uuid', 'url_title'], sort_by='published_at', published=True, desc=False)})
         return attr_dict
@@ -122,14 +123,22 @@ class GalleryItem(Base, BaseModelObject):
     image_caption = Column(String(500), nullable=True)
     dead = Column(Boolean, default=False, nullable=False)
 
-    def to_dict(self):
+    def to_dict(self, admin=False):
         attr_dict = BaseModelObject.to_dict(self)
-        attr_dict.update({'comments': GalleryItemComment.get_list(to_json=True, gallery_item_uuid=self.uuid)})
+        if admin:
+            attr_dict.update({'comments': GalleryItemComment.get_list(to_json=True, gallery_item_uuid=self.uuid)})
         return attr_dict
 
     def add_comment(self, **kwargs):
         comment = GalleryItemComment.create(gallery_item_uuid=self.uuid, **kwargs)
         return comment
+
+    @staticmethod
+    def get_items(admin=False, to_json=False, **kwargs):
+        items = GalleryItem.get_list(**kwargs)
+        if to_json:
+            items = [item.to_dict(admin=admin) for item in items]
+        return items
 
     @staticmethod
     def delete_list(gallery_uuid):
@@ -146,3 +155,15 @@ class GalleryItemComment(Base, BaseModelObject):
     body = Column(String(), nullable=True)
     resolved = Column(Boolean(), default=False, nullable=False)
     created_at = Column(DateTime(), unique=False)
+
+    def to_dict(self, admin=False):
+        attr_dict = BaseModelObject.to_dict(self)
+        attr_dict.update({'author_email': self.author_name(),
+                          'created_ago': relative_time(self.created_at)})
+        return attr_dict
+
+    def author_name(self):
+        author = User.get(uuid=self.author_uuid)
+        if author:
+            return author.email
+        return ''

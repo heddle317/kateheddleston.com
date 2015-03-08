@@ -109,10 +109,7 @@ img {
     border:1px solid #eaeaea;
     border-radius:4px;
     background-color:rgba(255, 255, 255, 1);
-}
-
-#kateheddleston-wrap .comments .comment .buttons {
-    padding: 10px;
+    padding:10px;
 }
 
 #kateheddleston-wrap .comments .comment .buttons button {
@@ -122,9 +119,21 @@ img {
 }
 
 #kateheddleston-wrap .comments .comment .text {
-    margin-bottom:10px;
+    margin-bottom:20px;
+}
+
+#kateheddleston-wrap .comments .comment .text .text-body {
     white-space:pre-line;
-    margin:0 10px 20px;
+}
+
+#kateheddleston-wrap .comments .comment .author,
+#kateheddleston-wrap .comments .comment .time {
+    color:rgba(0,0,0,.5);
+    font-size:12px;
+}
+
+#kateheddleston-wrap .comments .comment .author p {
+    margin:0;
 }
 
 #kateheddleston-wrap .comments .comment.resolved {

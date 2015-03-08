@@ -13,6 +13,8 @@ def format_date(date, format='%B %d, %Y'):
 
 
 def relative_time(date):
+    if not date:
+        return ''
     time_diff = now_utc() - date
     if time_diff.days < 1:
         if time_diff.seconds < 60 * 60:

@@ -109,7 +109,7 @@ def get_admin_gallery(uuid=None):
 def edit_gallery(uuid=None):
     if request.is_xhr:
         if uuid:
-            gallery = Gallery.get(uuid=uuid).to_dict()
+            gallery = Gallery.get(uuid=uuid).to_dict(admin=True)
         else:
             gallery = Gallery.blank()
         return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
