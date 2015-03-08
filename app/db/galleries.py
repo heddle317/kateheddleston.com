@@ -142,6 +142,7 @@ class GalleryItemComment(Base, BaseModelObject):
     __tablename__ = 'gallery_item_comments'
     uuid = Column(UUID, primary_key=True)
     gallery_item_uuid = Column(UUID, nullable=False)
+    author_uuid = Column(UUID, nullable=False)
     body = Column(String(), nullable=True)
     resolved = Column(Boolean(), default=False, nullable=False)
     created_at = Column(DateTime(), unique=False)

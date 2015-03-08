@@ -7,7 +7,7 @@ from app.db.galleries import GalleryItem
 from app.db.galleries import GalleryItemComment
 from app.db.talks import Talk
 
-# from flask import g
+from flask import g
 # from flask import redirect
 from flask import flash
 from flask import request
@@ -96,7 +96,7 @@ def gallery_item_create_comment(item_uuid):
     if not item:
         return '', 404, {'Content-Type': 'application/json'}
     data = json.loads(request.data)
-    item.add_comment(**data)
+    item.add_comment(author_uuid=g.user.uuid, **data)
     item = GalleryItem.get(uuid=item_uuid)
     return json.dumps(item.to_dict()), 200, {'Content-Type': 'application/json'}
 
