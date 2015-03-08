@@ -272,12 +272,20 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
       $scope.editing = true;
     };
     $scope.addNewItem = function(position) {
-        var item = {'title': '', 'body': '', 'image_name': '', 'position': position, 'comments': []};
+        var item = {'title': '',
+                    'body': '',
+                    'image_name': '',
+                    'position': position,
+                    'comments': [],
+                    'editing': true};
         $scope.items.splice(position, 0, item);
         $scope.updateItemPosition();
-        $scope.editing = true;
     };
-    $scope.removeItem = function(uuid) {
+    $scope.deleteGalleryItem = function(uuid) {
+        var confirm = $window.confirm("Are you sure you want to delete this item?");
+        if (!confirm) {
+            return;
+        }
         var item;
         $http.delete('/admin/gallery/item/' + uuid).success(function() {
             var position = -1;
@@ -344,6 +352,10 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
             $window.location = "/admin/gallery/" + $scope.gallery_uuid;
         });
       }
+    };
+    $scope.updateGalleryItem = function(item) {
+        item.editing = false;
+        $scope.updateGallery();
     };
 }]);
 

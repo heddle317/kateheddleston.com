@@ -25,6 +25,29 @@
   padding-top:10px;
 }
 
+#kateheddleston-wrap .gallery_item button {
+    min-height:34px;
+}
+
+#kateheddleston-wrap .gallery_item .title-row {
+    margin-bottom:10px;
+}
+
+#kateheddleston-wrap .gallery_item .title-row input {
+    margin:0;
+}
+
+#kateheddleston-wrap .gallery_item .item-body {
+    margin-bottom:10px;
+}
+
+#kateheddleston-wrap .no-image {
+    width:100%;
+    max-height:700px;
+    text-align:center;
+    border:1px solid #eaeaea;
+}
+
 img {
     width:100%;
 }
@@ -67,10 +90,6 @@ img {
 #kateheddleston-wrap .title-section {
     margin:10px auto 40px;
     width:900px;
-}
-
-#kateheddleston-wrap .gallery-item-buttons {
-    margin:10px 0;
 }
 
 #kateheddleston-wrap .editing-sections {

@@ -7,10 +7,10 @@
             <div class='text-right col-md-6'>
                 <a class='btn btn-default' target="_blank" href="/blog/{[{gallery.url_title}]}">Preview</a>
                 <button class='btn btn-default' ng-show='!editing' ng-click='editGallery()'>Edit</button>
-                <button class='btn btn-success' ng-show='editing' ng-click='updateGallery()'>Save</button>
                 <button class='btn btn-default' ng-show='editing' ng-click='cancel()'>Cancel</button>
                 <button class='btn btn-warning' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
                 <button class='btn btn-success' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
+                <button class='btn btn-success' ng-click='updateGallery()' ng-show='editing'>Save</button>
                 <button class='btn btn-danger' ng-click='deleteGallery()'>Delete</button>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <div class='row'>
                         <div class='col-md-3'>
                             <img ng-if='coverPhoto' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_small" />
-                            <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no_image.png" />
+                            <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no-image.png" />
                             <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
                         </div>
                         <div class='col-md-9'>
@@ -38,18 +38,24 @@
                         </div>
                     </div>
                     <div class='row gallery-item-buttons'>
-                        <div class='col-md-12'>
+                        <div class='col-md-12 text-right'>
                             <button ng-click='addNewItem(1)' class='btn btn-primary'>Add Item After</button>
                         </div>
                     </div>
                     <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
                         <div class='row'>
+                            <div class='col-md-12'>
+                                <h4 ng-bind='item.position'></h4>
+                            </div>
+                        </div>
+                        <div class='row'>
                             <div class='col-md-3 text-center'>
                                 <div class='loading image-loader' ng-show='generatingSizes'>
                                     <img src="{{g.images_base}}/images/loading.gif" />
                                 </div>
+                                <img ng-if='!item.image_name' style='width:100%' ng-src="{{g.images_base}}/images/no-image.png" />
                                 <img ng-if='item.image_name' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_small" />
-                                <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='editing' ng-model='item.image_name'>
+                                <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='item.editing' ng-model='item.image_name'>
                                 <div class='alert alert-warning' role='alert' ng-show='error'>
                                     <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     <span class='message' ng-bind='alertMessage'></span>
@@ -60,29 +66,39 @@
                                         </div>
                                     </div>
                                 </div>
-                                <small ng-show='!editing' ng-bind-html='item.image_caption'></small>
-                                <input rows=6 placeholder='Image Caption' class='form-control' name='image_caption' ng-show='editing' ng-model='item.image_caption' />
+                                <small ng-show='!item.editing' ng-bind-html='item.image_caption'></small>
+                                <input rows=6 placeholder='Image Caption' class='form-control' name='image_caption' ng-show='item.editing' ng-model='item.image_caption' />
                                 <button class='btn btn-default margin-top-10' ng-show="gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
                             </div>
                             <div class='col-md-6'>
-                                <div>
-                                    <div class='info caption'>
-                                        <h4 ng-bind='item.position'></h4>
-                                        <h4 ng-show='!editing' ng-bind='item.title'></h4>
-                                        <input type='text' placeholder='Title' class='form-control' name='title' ng-model='item.title' ng-show='editing'/>
+                                <div class='row title-row'>
+                                    <div class='info caption col-md-6'>
+                                        <h4 ng-show='!item.editing' ng-bind='item.title'></h4>
+                                        <input type='text' placeholder='Title' class='form-control' name='title' ng-model='item.title' ng-show='item.editing'/>
                                     </div>
-                                    <p ng-show='!editing' ng-bind-html='item.body'></p>
-                                    <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='editing' ng-model='item.body'></textarea>
+                                    <div class='info caption col-md-6 text-right'>
+                                        <button class='btn btn-default' ng-click='item.editing=false' ng-show='item.editing'>Cancel</button>
+                                        <button class='btn btn-success' ng-click='updateGalleryItem(item)' ng-show='item.editing'>Save</button>
+                                        <button class='btn btn-default' ng-click='item.editing=true' ng-show='!item.editing'><i class='fa fa-edit'></i></button>
+                                        <button class='btn btn-danger' ng-click='deleteGalleryItem(item.uuid)'>Delete</button>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='col-md-12'>
+                                        <div class='item-body'>
+                                            <p ng-show='!item.editing' ng-bind-html='item.body'></p>
+                                            <textarea rows=6 placeholder='Item body' class='form-control' name='body' ng-show='item.editing' ng-model='item.body'></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class='col-md-12 text-right'>
+                                        <button ng-click='addNewItem(item.position)' class='btn btn-primary'>Add Item After</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class='col-md-3'>
                                 {% include "admin/gallery_comments.html" %}
-                            </div>
-                        </div>
-                        <div class='row gallery-item-buttons'>
-                            <div class='col-md-12'>
-                                <button ng-click='removeItem(item.uuid)' class='btn btn-danger'>Remove This Item</button>
-                                <button ng-click='addNewItem(item.position)' class='btn btn-primary'>Add Item After</button>
                             </div>
                         </div>
                     </div>
