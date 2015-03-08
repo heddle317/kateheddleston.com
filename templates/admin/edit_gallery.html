@@ -15,29 +15,31 @@
             </div>
         </div>
         <div class='editing-sections .gallery-content'>
-            <div class="title-section text-center">
-                <h1 class='deep-pink' ng-bind-html='gallery.name' ng-show='!editing'></h1>
-                <input type='text' placeholder='Name' class='form-control' name='name' ng-model='name' ng-show='editing'/>
-                <h3 class="" ng-bind='subtitle' ng-show='!editing'></h3>
-                <input type='text' placeholder='Subtitle' class='form-control' name='subtitle' ng-model='subtitle' ng-show='editing'/>
-                <h5 class='panel-title' ng-bind='author' ng-show='!editing'></h5>
-                <input type='text' placeholder='Author' class='form-control' name='author' ng-model='author' ng-show='editing'/>
+            <div class="row text-center">
+                <div class='col-md-12'>
+                    <h1 class='deep-pink' ng-bind-html='gallery.name' ng-show='!editing'></h1>
+                    <input type='text' placeholder='Name' class='form-control' name='name' ng-model='name' ng-show='editing'/>
+                    <h3 class="" ng-bind='subtitle' ng-show='!editing'></h3>
+                    <input type='text' placeholder='Subtitle' class='form-control' name='subtitle' ng-model='subtitle' ng-show='editing'/>
+                    <h5 class='panel-title' ng-bind='author' ng-show='!editing'></h5>
+                    <input type='text' placeholder='Author' class='form-control' name='author' ng-model='author' ng-show='editing'/>
+                </div>
             </div>
             <div class='panel panel-default'>
                 <div class='panel-body'>
                     <div class='row'>
-                        <div class='col-md-2'>
+                        <div class='col-md-3'>
                             <img ng-if='coverPhoto' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_small" />
                             <img ng-if='!coverPhoto' style='width:100%' ng-src="{{g.images_base}}/images/no_image.png" />
                             <input type="text" placeholder='Cover Photo' class="form-control" name="cover_photo" ng-show='editing' ng-model='coverPhoto'>
                         </div>
-                        <div class='col-md-10'>
+                        <div class='col-md-9'>
                             <h2>Cover Photo</h2>
                         </div>
                     </div>
                     <div class='row gallery-item-buttons'>
                         <div class='col-md-12'>
-                            <button ng-click='addNewItem(1)' class='btn btn-success pull-right'>Add Item After</button>
+                            <button ng-click='addNewItem(1)' class='btn btn-primary'>Add Item After</button>
                         </div>
                     </div>
                     <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
@@ -58,9 +60,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class='btn btn-default margin-top-10' ng-show="editing && gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
                                 <small ng-show='!editing' ng-bind-html='item.image_caption'></small>
                                 <input rows=6 placeholder='Image Caption' class='form-control' name='image_caption' ng-show='editing' ng-model='item.image_caption' />
+                                <button class='btn btn-default margin-top-10' ng-show="gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
                             </div>
                             <div class='col-md-6'>
                                 <div>
