@@ -268,6 +268,14 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
             $scope.editing = true;
         }
     });
+    $scope.itemsArrayLength = function() {
+        var arr = [];
+        var i;
+        for (i = 0; i < $scope.items.length; i++) {
+            arr.push(i + 1);
+        }
+        return arr;
+    };
     $scope.editGallery = function() {
       $scope.editing = true;
     };
@@ -279,7 +287,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
                     'comments': [],
                     'editing': true};
         $scope.items.splice(position, 0, item);
-        $scope.updateItemPosition();
+        $scope.updateItemsPosition();
     };
     $scope.deleteGalleryItem = function(uuid) {
         var confirm = $window.confirm("Are you sure you want to delete this item?");
@@ -321,14 +329,21 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         $scope.published = true;
         $scope.updateGallery();
     };
-    $scope.updateItemPosition = function() {
+    $scope.updateItemPosition = function(item, newPosition) {
+        item.position = newPosition;
+        var currentPosition = $scope.items.indexOf(item);
+        $scope.items.splice(currentPosition, 1);
+        $scope.items.splice(newPosition - 1, 0, item);
+        $scope.updateGallery();
+    };
+    $scope.updateItemsPosition = function() {
       var i;
       for (i = 0; i < $scope.items.length; i++) {
           $scope.items[i].position = i + 1;
-      };
+      }
     };
     $scope.updateGallery = function() {
-        $scope.updateItemPosition();
+        $scope.updateItemsPosition();
       if ($scope.gallery_uuid) {
         var data = {'name': $scope.name,
                     'subtitle': $scope.subtitle,

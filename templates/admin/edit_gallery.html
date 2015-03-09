@@ -46,8 +46,9 @@
                     </div>
                     <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="UploadImageController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
                         <div class='row'>
-                            <div class='col-md-12'>
-                                <h4 ng-bind='item.position'></h4>
+                            <div class='col-md-1'>
+                                <select class='form-control' ng-model='item.position' ng-change='updateItemPosition(item, item.position)' ng-options="num for num in itemsArrayLength()">
+                                </select>
                             </div>
                         </div>
                         <div class='row'>
