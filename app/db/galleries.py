@@ -146,6 +146,11 @@ class GalleryItem(Base, BaseModelObject):
         for item in items:
             GalleryItem.delete(uuid=item.uuid)
 
+    @staticmethod
+    def kill(item_uuid):
+        item = GalleryItem.update(item_uuid, dead=True)
+        return item
+
 
 class GalleryItemComment(Base, BaseModelObject):
     __tablename__ = 'gallery_item_comments'

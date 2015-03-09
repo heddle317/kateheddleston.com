@@ -77,10 +77,13 @@
     </div>
 {% endblock %}
 {% block script %}
-  <script type='text/javascript'>
-      var policy = '{{policy}}';
-      var signature = '{{signature}}';
-      var accessKey = '{{accessKey}}';
-      var talkUUID = '{{talk_uuid}}';
-  </script>
+    {% assets "admin_talks_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    <script type='text/javascript'>
+        var policy = '{{policy}}';
+        var signature = '{{signature}}';
+        var accessKey = '{{accessKey}}';
+        var talkUUID = '{{talk_uuid}}';
+    </script>
 {% endblock %}

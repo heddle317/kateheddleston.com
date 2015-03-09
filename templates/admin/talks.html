@@ -60,6 +60,9 @@
 </div>
 {% endblock %}
 {% block script %}
+    {% assets "admin_talks_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
   {% assets "blog_js" %}
       <script type="text/javascript" src="{{ ASSET_URL }}"></script>
   {% endassets %}

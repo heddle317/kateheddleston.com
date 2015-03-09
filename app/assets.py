@@ -50,9 +50,14 @@ assets.register('tiles_css', tiles_css)
 
 if config.ENVIRONMENT == 'production':
     admin_js = Bundle('js/internal/angular_app_module_admin.js',
-                      'js/internal/admin.js',
                       'js/internal/admin_auth.js',
                       filters='jsmin', output='gen/admin.%(version)s.js')
+
+    admin_galleries_js = Bundle('js/internal/admin_galleries.js',
+                                filters='jsmin', output='gen/admin_galleries.%(version)s.js')
+
+    admin_talks_js = Bundle('js/internal/admin_talks.js',
+                            filters='jsmin', output='gen/admin_galleries.%(version)s.js')
 
     angular_admin_js = Bundle('js/external/angular-file-upload-shim.min.js',
                               'js/external/angular.min.js',
@@ -89,9 +94,14 @@ if config.ENVIRONMENT == 'production':
                      filters='jsmin', output='gen/post.%(version)s.js')
 else:
     admin_js = Bundle('js/internal/angular_app_module_admin.js',
-                      'js/internal/admin.js',
                       'js/internal/admin_auth.js',
                       output='gen/admin.%(version)s.js')
+
+    admin_galleries_js = Bundle('js/internal/admin_galleries.js',
+                                output='gen/admin_galleries.%(version)s.js')
+
+    admin_talks_js = Bundle('js/internal/admin_talks.js',
+                            output='gen/admin_galleries.%(version)s.js')
 
     angular_admin_js = Bundle('js/external/angular-file-upload-shim.js',
                               'js/external/angular.js',
@@ -128,6 +138,8 @@ else:
                      output='gen/post.%(version)s.js')
 
 assets.register('admin_js', admin_js)
+assets.register('admin_galleries_js', admin_galleries_js)
+assets.register('admin_talks_js', admin_talks_js)
 assets.register('angular_admin_js', angular_admin_js)
 assets.register('angular_base_js', angular_base_js)
 assets.register('base_js', base_js)

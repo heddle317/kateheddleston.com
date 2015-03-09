@@ -81,6 +81,25 @@ def delete_gallery(uuid):
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
 
 
+@app.route('/admin/gallery/item', methods=['POST'])
+@login_required
+def create_gallery_item():
+    data = json.loads(request.data)
+    item = GalleryItem.create(**data)
+    return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/gallery/item/<uuid>', methods=['POST'])
+@login_required
+def update_gallery_item(uuid):
+    item = GalleryItem.get(uuid=uuid)
+    if not item:
+        return '', 404, {'Content-Type': 'application/json'}
+    data = json.loads(request.data)
+    item = GalleryItem.update(uuid, **data)
+    return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
+
+
 @app.route('/admin/gallery/item/<uuid>', methods=['DELETE'])
 @login_required
 def delete_gallery_item(uuid):
