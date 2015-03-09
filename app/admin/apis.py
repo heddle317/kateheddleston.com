@@ -96,6 +96,8 @@ def update_gallery_item(uuid):
     if not item:
         return '', 404, {'Content-Type': 'application/json'}
     data = json.loads(request.data)
+    if 'uuid' in data.keys():
+        data.pop('uuid')
     item = GalleryItem.update(uuid, **data)
     return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 

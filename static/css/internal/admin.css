@@ -25,6 +25,11 @@
   padding-top:10px;
 }
 
+#kateheddleston-wrap .gallery_item.dead h4,
+#kateheddleston-wrap .gallery_item.dead {
+    color:rgba(0, 0, 0, .2);
+}
+
 #kateheddleston-wrap .gallery_item button {
     min-height:34px;
 }

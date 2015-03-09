@@ -44,7 +44,7 @@
                             <button ng-click='addNewItem(1)' class='btn btn-primary'>Insert Item at the Front</button>
                         </div>
                     </div>
-                    <div class='item gallery_item' ng-repeat='galleryItem in items' ng-controller="GalleryItemController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
+                    <div class='item gallery_item' ng-class='item.dead ? "dead" : ""' ng-repeat='galleryItem in items' ng-controller="GalleryItemController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
                         <div class='row'>
                             <div class='col-md-1'>
                                 <select class='form-control' ng-model='item.position' ng-change='updateItemPosition(item.position)' ng-options="num for num in itemsArrayLength()">
@@ -83,6 +83,8 @@
                                         <button class='btn btn-default' ng-click='item.editing=false' ng-show='item.editing'>Cancel</button>
                                         <button class='btn btn-success' ng-click='updateGalleryItem()' ng-show='item.editing'>Save</button>
                                         <button class='btn btn-default' ng-click='item.editing=true' ng-show='!item.editing'><i class='fa fa-edit'></i></button>
+                                        <button class='btn btn-warning' ng-click='killGalleryItem(true)' ng-show='!item.dead'>Kill</button>
+                                        <button class='btn btn-info' ng-click='killGalleryItem(false)' ng-show='item.dead'>Resurrect</button>
                                         <button class='btn btn-danger' ng-click='deleteGalleryItem()'>Delete</button>
                                     </div>
                                 </div>

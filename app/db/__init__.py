@@ -138,6 +138,8 @@ class BaseModelObject(object):
 
     @classmethod
     def update(cls, uuid, **kwargs):
+        if 'uuid' in kwargs.keys():
+            kwargs.pop('uuid')
         item = get(cls, uuid=uuid)
         item = update(item, kwargs)
         return item

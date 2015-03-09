@@ -135,7 +135,10 @@ class GalleryItem(Base, BaseModelObject):
 
     @staticmethod
     def get_items(admin=False, to_json=False, **kwargs):
-        items = GalleryItem.get_list(**kwargs)
+        if admin:
+            items = GalleryItem.get_list(**kwargs)
+        else:
+            items = GalleryItem.get_list(dead=False, **kwargs)
         if to_json:
             items = [item.to_dict(admin=admin) for item in items]
         return items

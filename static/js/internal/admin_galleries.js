@@ -128,10 +128,11 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
                     'image_name': '',
                     'position': position,
                     'gallery_uuid': $scope.gallery_uuid,
+                    'dead': false,
                     'comments': [],
                     'editing': true};
         $scope.items.splice(position, 0, item);
-        $scope.updateItemsPosition();
+        $scope.updateGallery()
     };
     $scope.cancel = function() {
       $scope.editing = false;
@@ -325,10 +326,18 @@ angularApp.controller('GalleryItemController', ['$scope', '$http', '$window', '$
             });
         }
     };
+    $scope.killGalleryItem = function(dead) {
+        $scope.item.dead = dead;
+        $scope.updateGalleryItem();
+    };
     $scope.deleteGalleryItem = function() {
         var confirm = $window.confirm("Are you sure you want to delete this item?");
         if (!confirm) {
             return;
+        }
+        if (!$scope.item.uuid) {
+            var currentPosition = $scope.items.indexOf($scope.item);
+            $scope.items.splice(currentPosition, 1);
         }
         $http.delete('/admin/gallery/item/' + $scope.item.uuid).success(function() {
             var currentPosition = $scope.items.indexOf($scope.item);
