@@ -69,6 +69,8 @@ class Gallery(Base, BaseModelObject):
 
     @staticmethod
     def create(**kwargs):
+        if 'gallery_uuid' in kwargs.keys():
+            kwargs.pop('gallery_uuid')
         url_title = Gallery.get_url_title(kwargs['name'])
         gallery = create(Gallery, url_title=url_title, **kwargs)
         for item_data in kwargs.get('items', []):
@@ -97,6 +99,8 @@ class Gallery(Base, BaseModelObject):
         gallery = update(gallery, kwargs)
 
         for item_data in kwargs.get('items', []):
+            if 'gallery_uuid' in item_data.keys():
+                item_data.pop('gallery_uuid')
             if item_data.get('uuid'):
                 GalleryItem.update(item_data.pop('uuid'), **item_data)
             else:
