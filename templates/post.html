@@ -2,13 +2,19 @@
 {% block head %}
     <title>{{gallery.name}}</title>
     <meta name="twitter:title" content="{{gallery.name}}" />
-    <meta name="og:title" content="{{gallery.name}}" />
     <meta name="twitter:description" content="{{gallery.description}}" />
-    <meta name="og:description" content="{{gallery.description}}" />
     <meta name="twitter:image" content="{{gallery.cover_photo_url}}_small" />
-    <meta name="og:image" content="{{gallery.cover_photo_url}}_small"/>
     <meta name="twitter:url" content="{{g.app_base_link}}/blog/{{gallery.url_title}}" />
+
+    <meta name="og:title" content="{{gallery.name}}" />
+    <meta property="og:title" content="{{gallery.name}}" />
+    <meta name="og:description" content="{{gallery.description}}" />
+    <meta property="og:description" content="{{gallery.description}}" />
+    <meta name="og:image" content="{{gallery.cover_photo_url}}_small"/>
+    <meta property="og:image" content="{{gallery.cover_photo_url}}_small"/>
     <meta name="og:url" content="{{g.app_base_link}}/blog/{{gallery.url_title}}" />
+    <meta property="og:url" content="{{g.app_base_link}}/blog/{{gallery.url_title}}" />
+    <meta property="og:type" content="article" />
     {% assets "comment_css" %}
         <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
     {% endassets %}
