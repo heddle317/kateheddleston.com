@@ -61,6 +61,8 @@ class Gallery(Base, BaseModelObject):
         titles = GalleryTitle.get_list(gallery_uuid=self.uuid, sort_by='created_at', desc=True)
         if len(titles) > 0:
             return titles[0].title
+        if self.url_title:
+            return self.url_title
         return self.uuid
 
     @staticmethod
@@ -78,8 +80,10 @@ class Gallery(Base, BaseModelObject):
     def create(**kwargs):
         if 'gallery_uuid' in kwargs.keys():
             kwargs.pop('gallery_uuid')
-        url_title = Gallery.create_url_title(kwargs['name'])
-        gallery = create(Gallery, url_title=url_title, **kwargs)
+        gallery = create(Gallery, **kwargs)
+
+        title = Gallery.create_url_title(kwargs.get('name'))
+        GalleryTitle.add_title(gallery.uuid, title)
         for item_data in kwargs.get('items', []):
             if 'gallery_uuid' in item_data.keys():
                 item_data.pop('gallery_uuid')
