@@ -162,3 +162,13 @@
 
 #kateheddleston-wrap .comments .comment.resolved {
 }
+
+#kateheddleston-wrap .btn {
+    background-image:none;
+    border:none;
+    border-radius:0px;
+}
+
+#kateheddleston-wrap .btn.btn-default {
+    background-color:rgba(0,0,0,.025);
+}
