@@ -15,7 +15,6 @@ from jinja2.utils import urlize
 
 
 def update_facebook_comments(url, entity_uuid):
-    # graph = facebook.GraphAPI()
     access_token = get(User, email='kate.heddleston@gmail.com').code
     graph = facebook.GraphAPI(access_token)
     post_response = graph.get_object('me/posts')
