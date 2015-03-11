@@ -1,0 +1,6 @@
+Hi {{user_name}}, thanks for subscribing to my blog! Click below to verify your email address so you can be notified when there are new posts:
+
+{{verify_url}}
+
+Sincerely,
+Kate Heddleston

@@ -1,0 +1,15 @@
+Hi {{user_name}},
+
+There is a new blog post available at KateHeddleston.com:
+
+{{ blog_url }}
+
+I hope you're having a wonderful day!
+
+Sincerely,
+Kate
+
+
+To unsubscribe from these emails, click here:
+
+{{ unsubscribe_url }}

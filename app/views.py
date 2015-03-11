@@ -67,7 +67,6 @@ def blog_post_title(blog_attr):
         if gallery is None:
             return render_template('')
     current_url = "{}/blog/{}".format(config.APP_BASE_LINK, blog_attr)
-    print config.FACEBOOK_APP_ID
     return render_template('post.html',
                            gallery_uuid=gallery.uuid,
                            gallery=gallery.to_dict(),

@@ -100,7 +100,7 @@ class Gallery(Base, BaseModelObject):
         if not gallery.published and kwargs.get('published', False):
             kwargs['published_at'] = datetime.datetime.utcnow()
             link = "{}/blog/{}".format(config.APP_BASE_LINK, uuid)
-            Subscription.send_subscription_emails(link, gallery.name)
+            Subscription.send_subscription_emails(link, gallery)
 
         title = Gallery.create_url_title(kwargs.get('name', gallery.name))
         GalleryTitle.add_title(uuid, title)
@@ -143,7 +143,6 @@ class GalleryTitle(Base, BaseModelObject):
 
     @staticmethod
     def add_title(gallery_uuid, url_title):
-        print url_title
         gallery_title = GalleryTitle.get(gallery_uuid=gallery_uuid, title=url_title)
         if not gallery_title:
             gallery_title = GalleryTitle.create(gallery_uuid=gallery_uuid, title=url_title)

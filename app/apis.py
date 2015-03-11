@@ -41,10 +41,7 @@ def create_multiple_photos():
 @app.route('/subscriptions/subscribe', methods=['POST'])
 def subscribe():
     data = json.loads(request.data)
-    Subscription.create_or_update(**data)
-    message = "You have successfully subscribed to KateHeddleston.com's blog with email address {}.<br><br>" \
-              "You will receive an email to verify your email address shortly. Be sure to check your spam folder if you " \
-              "don't see it after a few minutes. Thanks!".format(data.get('email'))
+    subscription, message = Subscription.create_or_update(**data)
     message = {"message": message}
     return json.dumps(message), 200, {'Content-Type': 'application/json'}
 

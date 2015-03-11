@@ -39,11 +39,19 @@ class Subscription(Base, BaseModelObject):
             subscription = Subscription.update(subscription.uuid, dead=False, name=kwargs.get('name'))
             if not subscription.verified:
                 send_verification_email(subscription)
+                message = "A verification email has been sent to your email address. Be sure to check your " \
+                          "spam folder if you don't see it in a few minutes." \
+                          "<br><br>Thanks!".format(subscription.email)
+                return subscription, message
+            return subscription, "Email address {} is already subscribed to this blog. Thanks!".format(subscription.email)
         else:
             kwargs['email_verification_token'] = str(uuid4())
             subscription = Subscription.create(**kwargs)
             send_verification_email(subscription)
-        return subscription
+        message = "You have successfully subscribed to my blog with email address {}.<br><br>" \
+                  "A verification email has been sent to your email address. Be sure to check your spam folder if you " \
+                  "don't see it after a few minutes.<br><br>Thanks!".format(subscription.email)
+        return subscription, message
 
     @staticmethod
     def verify_email(email_verification_token):
