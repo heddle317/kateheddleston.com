@@ -100,6 +100,7 @@ def create(model, **kwargs):
     if hasattr(m, 'created_at'):
         m.created_at = datetime.datetime.utcnow()
     for k, v in kwargs.items():
+        print k, v
         if hasattr(m, k):
             setattr(m, k, v)
 

@@ -40,6 +40,7 @@ class Gallery(Base, BaseModelObject):
         attr_dict = BaseModelObject.to_dict(self)
         attr_dict.update({'cover_photo_url': '{}/{}'.format(base_url, self.cover_photo),
                           'base_url': base_url,
+                          'url_title': self.latest_url_title(),
                           'description': self.description(),
                           'created_ago': relative_time(self.created_at),
                           'created_at': format_date(self.created_at, format='%B %d, %Y'),
@@ -56,6 +57,12 @@ class Gallery(Base, BaseModelObject):
             if item.body:
                 return item.body
 
+    def latest_url_title(self):
+        titles = GalleryTitle.get_list(gallery_uuid=self.uuid, sort_by='created_at', desc=True)
+        if len(titles) > 0:
+            return titles[0].title
+        return self.uuid
+
     @staticmethod
     def blank():
         blank_item = dict((key, '') for key in GalleryItem.__dict__.keys() if key.find('_') > 0)
@@ -71,7 +78,7 @@ class Gallery(Base, BaseModelObject):
     def create(**kwargs):
         if 'gallery_uuid' in kwargs.keys():
             kwargs.pop('gallery_uuid')
-        url_title = Gallery.get_url_title(kwargs['name'])
+        url_title = Gallery.create_url_title(kwargs['name'])
         gallery = create(Gallery, url_title=url_title, **kwargs)
         for item_data in kwargs.get('items', []):
             if 'gallery_uuid' in item_data.keys():
@@ -80,7 +87,7 @@ class Gallery(Base, BaseModelObject):
         return gallery
 
     @staticmethod
-    def get_url_title(title):
+    def create_url_title(title):
         title = ''.join(ch for ch in title if ch not in set(string.punctuation.decode('utf-8')))
         title = title.rstrip()
         title = title.lower().replace(' ', '-')
@@ -95,7 +102,8 @@ class Gallery(Base, BaseModelObject):
             link = "{}/blog/{}".format(config.APP_BASE_LINK, uuid)
             Subscription.send_subscription_emails(link, gallery.name)
 
-        kwargs['url_title'] = Gallery.get_url_title(kwargs.get('name', gallery.name))
+        title = Gallery.create_url_title(kwargs.get('name', gallery.name))
+        GalleryTitle.add_title(uuid, title)
         gallery = update(gallery, kwargs)
 
         for item_data in kwargs.get('items', []):
@@ -109,10 +117,37 @@ class Gallery(Base, BaseModelObject):
         return gallery
 
     @staticmethod
+    def get_custom_url(url_title):
+        gallery_title = GalleryTitle.get(title=url_title)
+        if gallery_title:
+            return Gallery.get(uuid=gallery_title.gallery_uuid)
+        gallery = Gallery.get(url_title=url_title)
+        if gallery:
+            GalleryTitle.add_title(gallery.uuid, url_title)
+            return gallery
+        return None
+
+    @staticmethod
     def delete(uuid=None):
         gallery = Gallery.get(uuid=uuid)
         GalleryItem.delete_list(uuid)
         delete(gallery)
+
+
+class GalleryTitle(Base, BaseModelObject):
+    __tablename__ = 'gallery_titles'
+    uuid = Column(UUID, primary_key=True)
+    gallery_uuid = Column(UUID, nullable=False)
+    title = Column(String(500), nullable=False, unique=True)
+    created_at = Column(DateTime(), unique=False)
+
+    @staticmethod
+    def add_title(gallery_uuid, url_title):
+        print url_title
+        gallery_title = GalleryTitle.get(gallery_uuid=gallery_uuid, title=url_title)
+        if not gallery_title:
+            gallery_title = GalleryTitle.create(gallery_uuid=gallery_uuid, title=url_title)
+        return gallery_title
 
 
 class GalleryItem(Base, BaseModelObject):

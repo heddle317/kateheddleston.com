@@ -61,7 +61,7 @@ def blog():
 @app.route('/blog/<blog_attr>', methods=['GET'])
 @use_template_globals
 def blog_post_title(blog_attr):
-    gallery = Gallery.get(url_title=blog_attr)
+    gallery = Gallery.get_custom_url(blog_attr)
     if gallery is None:
         gallery = Gallery.get(uuid=blog_attr)
         if gallery is None:
