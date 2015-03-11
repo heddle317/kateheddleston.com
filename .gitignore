@@ -12,3 +12,4 @@ cffi/
 certs/
 logs/
 *.swl
+*.swk

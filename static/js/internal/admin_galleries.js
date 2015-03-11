@@ -132,7 +132,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
                     'comments': [],
                     'editing': true};
         $scope.items.splice(position, 0, item);
-        $scope.updateGallery()
+        $scope.updateGallery(true)
     };
     $scope.cancel = function() {
       $scope.editing = false;
@@ -148,11 +148,15 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     };
     $scope.unpublishGallery = function() {
         $scope.published = false;
-        $scope.updateGallery();
+        $scope.updateGallery(false);
     };
     $scope.publishGallery = function() {
+        if (!$scope.coverPhoto) {
+            alert("You can't publish a gallery without a cover photo.");
+            return;
+        }
         $scope.published = true;
-        $scope.updateGallery();
+        $scope.updateGallery(false);
     };
     $scope.updateItemsPosition = function() {
       var i;
@@ -160,31 +164,26 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
           $scope.items[i].position = i + 1;
       }
     };
-    $scope.updateGallery = function() {
+    $scope.updateGallery = function(updateItems) {
         $scope.updateItemsPosition();
-      if ($scope.gallery_uuid) {
         var data = {'name': $scope.name,
                     'subtitle': $scope.subtitle,
                     'author': $scope.author,
-                    'cover_photo': $scope.coverPhoto,
-                    'items': $scope.items,
-                    'published': $scope.published};
-        $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(response) {
-            $scope.editing = false;
-            $scope.initGallery(response);
-        });
-      } else {
-        var data = {'name': $scope.name,
-                    'subtitle': $scope.subtitle,
-                    'author': $scope.author,
-                    'cover_photo': $scope.coverPhoto,
-                    'items': $scope.items};
-        $http.post("/admin/galleries", data).success(function(response) {
-            $scope.editing = false;
-            $scope.initGallery(response);
-            $window.location = "/admin/gallery/" + $scope.gallery_uuid;
-        });
-      }
+                    'cover_photo': $scope.coverPhoto};
+        if (updateItems) {
+            data['items'] = $scope.items;
+        }
+        if ($scope.gallery_uuid) {
+            data['published'] = $scope.published;
+            $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(response) {
+                $scope.editing = false;
+                $scope.initGallery(response);
+            });
+        } else {
+            $http.post("/admin/galleries", data).success(function(response) {
+                $window.location = "/admin/gallery/" + $scope.gallery_uuid;
+            });
+        }
     };
 }]);
 
@@ -256,6 +255,7 @@ angularApp.controller('GalleryItemController', ['$scope', '$http', '$window', '$
         $scope.item = item;
     };
     $scope.onFileSelect = function($files) {
+        $log.log('here');
         $scope.files = $files;
         for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
@@ -307,7 +307,7 @@ angularApp.controller('GalleryItemController', ['$scope', '$http', '$window', '$
         var currentPosition = $scope.items.indexOf($scope.item);
         $scope.items.splice(currentPosition, 1);
         $scope.items.splice(newPosition - 1, 0, $scope.item);
-        $scope.updateGallery();
+        $scope.updateGallery(true);
     };
     $scope.updateGalleryItem = function() {
         if (!$scope.item.uuid) {
@@ -342,7 +342,7 @@ angularApp.controller('GalleryItemController', ['$scope', '$http', '$window', '$
         $http.delete('/admin/gallery/item/' + $scope.item.uuid).success(function() {
             var currentPosition = $scope.items.indexOf($scope.item);
             $scope.items.splice(currentPosition, 1);
-            $scope.updateGallery();
+            $scope.updateGallery(true);
         });
     };
 }]);

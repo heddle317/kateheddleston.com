@@ -1,4 +1,12 @@
-<div class='comments container-fluid' ng-controller='GalleryItemCommentController' ng-cloak class="ng-cloak" ng-init='initGalleryItem(galleryItem)'>
+<div class='comments' ng-controller='GalleryItemCommentController' ng-cloak class="ng-cloak" ng-init='initGalleryItem(galleryItem)'>
+    <form class='add-comment form form-vertical'>
+        <div class='form-group'>
+            <textarea rows=2 placeholder='New Comment' class='form-control' name='body' ng-model='newComment'></textarea>
+            <button class='btn btn-default form-control' ng-click='addComment()'>Add Comment</button>
+        </div>
+    </form>
+    <a class='link' ng-click='toggleResolvedComments()' ng-show='!showResolved'>Show Resolved Comments (<span ng-bind='galleryItem.comments.length - currentComments().length'></span>)</a>
+    <a class='link' ng-click='toggleResolvedComments()' ng-show='showResolved'>Hide Resolved Comments</a>
     <ul class="row">
         <li class='col-md-12' ng-repeat='comment in currentComments()'>
             <div class='comment' ng-class="comment.resolved ? 'resolved' : ''" ng-show='showComment(comment)'>
@@ -23,10 +31,4 @@
             </div>
         </li>
     </ul>
-    <a class='link' ng-click='toggleResolvedComments()' ng-show='!showResolved'>Show Resolved Comments (<span ng-bind='galleryItem.comments.length - currentComments().length'></span>)</a>
-    <a class='link' ng-click='toggleResolvedComments()' ng-show='showResolved'>Hide Resolved Comments</a>
-    <div class='add-comment'>
-        <textarea rows=2 placeholder='New Comment' class='form-control' name='body' ng-model='newComment'></textarea>
-        <button class='btn btn-default' ng-click='addComment()'>Add Comment</button>
-    </div>
 </div>
