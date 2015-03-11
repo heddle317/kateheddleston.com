@@ -34,7 +34,7 @@ class Comment(Base, BaseModelObject):
 
         item = Comment.get(social_id=str(social_id), gallery_uuid=gallery_uuid)
         if item:
-            item = Comment.update(item.uuid, {'body': body})
+            item = Comment.update(item.uuid, body=body)
         else:
             args_dict = {'gallery_uuid': gallery_uuid,
                          'social_id': social_id,
