@@ -15,7 +15,7 @@
     <meta name="og:url" content="{{g.app_base_link}}/blog/{{gallery.url_title}}" />
     <meta property="og:url" content="{{g.app_base_link}}/blog/{{gallery.url_title}}" />
     <meta property="og:type" content="article" />
-    {% assets "comment_css" %}
+    {% assets "social_css" %}
         <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
     {% endassets %}
     {% assets "post_css" %}
@@ -28,14 +28,14 @@
         {% include "header_slide.html" %}
         {% include "post_sections.html" %}
     </div>
-    <div class='text-center subscription-notice'>
-        <h4>Want emails notifying you of new content? Subscribe here.</h4>
-        {% include "subscription.html" %}
-    </div>
+    {% include "social.html" %}
     {% include "post_navbar.html" %}
 </div>
 {% endblock %}
 {% block script %}
+    {% assets "social_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
     {% assets "post_js" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}

@@ -1,6 +1,7 @@
 import datetime
 
 from app import app
+from app import config
 from app.db.galleries import Gallery
 from app.db.subscriptions import Subscription
 from app.db.talks import Talk
@@ -65,7 +66,14 @@ def blog_post_title(blog_attr):
         gallery = Gallery.get(uuid=blog_attr)
         if gallery is None:
             return render_template('')
-    return render_template('post.html', gallery_uuid=gallery.uuid, gallery=gallery.to_dict(), full_page=True)
+    current_url = "{}/blog/{}".format(config.APP_BASE_LINK, blog_attr)
+    print config.FACEBOOK_APP_ID
+    return render_template('post.html',
+                           gallery_uuid=gallery.uuid,
+                           gallery=gallery.to_dict(),
+                           current_url=current_url,
+                           facebook_app_id=config.FACEBOOK_APP_ID,
+                           full_page=True)
 
 
 @app.route('/blog/feed.atom', methods=['GET'])

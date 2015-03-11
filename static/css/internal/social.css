@@ -1,0 +1,64 @@
+#kateheddleston-wrap .social {
+    margin:40px 0;
+    border-top:1px solid #eaeaea;
+    padding:20px;
+}
+
+#kateheddleston-wrap .social .share-buttons {
+    margin-top:35px;
+}
+
+#kateheddleston-wrap .social .share-button {
+    display:inline-block;
+    padding:0 2px 0 2px;
+    color:#ffffff;
+    cursor:pointer;
+    text-transform:none;
+    transition:all .2s ease-in-out;
+    width:100%;
+    text-align:center;
+    text-decoration:none;
+}
+
+#kateheddleston-wrap .social .share-button .icon {
+    width:36px;
+    height:36px;
+    line-height:36px;
+    background-size:36px !important;
+    background-repeat:no-repeat;
+    background-position:top left;
+    margin:0;
+    overflow:hidden;
+    text-indent:-9999em;
+    color:white;
+    margin-right:7px;
+    cursor:pointer;
+}
+
+#kateheddleston-wrap .social .share-button .label {
+    font-size:15px;
+    padding:0 15px 0 0;
+    margin:0;
+    height:36px;
+    line-height:36px;
+    background:none;
+    color:white;
+    margin-right:7px;
+    cursor:pointer;
+}
+
+#kateheddleston-wrap .social .share-buttons .facebook {
+    background:#305891;
+}
+
+#kateheddleston-wrap .social .share-button .facebook-icon {
+    background:url('') no-repeat left;
+}
+
+#kateheddleston-wrap .social .share-buttons .twitter {
+    background:#2ca8d2;
+}
+
+#kateheddleston-wrap .social .share-button .twitter-icon {
+    background:url('') no-repeat left;
+}

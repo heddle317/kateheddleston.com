@@ -124,14 +124,6 @@ def edit_gallery(uuid=None):
                            accessKey=access_key)
 
 
-@app.route('/admin/gallery/<uuid>/preview', methods=['GET'])
-@login_required
-@use_template_globals
-def preview_gallery(uuid):
-    g.nav_view = 'galleries'
-    return render_template('admin/preview.html', gallery_uuid=uuid)
-
-
 @app.route('/admin/auth', methods=['GET'])
 @login_required
 @use_template_globals
