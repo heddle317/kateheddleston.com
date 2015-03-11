@@ -115,3 +115,7 @@
 #kateheddleston-wrap .line-through {
     text-decoration:line-through;
 }
+
+#kateheddleston-wrap .footer {
+    min-height:50px;
+}

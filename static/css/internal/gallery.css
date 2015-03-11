@@ -110,6 +110,10 @@
   overflow:scroll;
 }
 
+#kateheddleston-wrap .gallery-item {
+    margin-bottom:30px;
+}
+
 #kateheddleston-wrap .gallery-item .post-item ul {
     margin:0;
     padding:0;
