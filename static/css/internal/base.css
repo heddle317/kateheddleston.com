@@ -119,3 +119,15 @@
 #kateheddleston-wrap .footer {
     min-height:50px;
 }
+
+#kateheddleston-wrap .subscribe-btn {
+  background:rgba(205, 16, 118, 1);
+  color:white;
+  cursor:pointer;
+  text-decoration:none;
+  font-size:20px;
+  height:40px;
+  line-height:40px;
+  padding:10px 20px;
+  font-weight:bold;
+}
