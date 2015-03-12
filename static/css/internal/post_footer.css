@@ -28,6 +28,10 @@
     border-right:1px solid rgba(0,0,0,.05);
 }
 
+#kateheddleston-wrap .copyright {
+    line-height:40px;
+}
+
 #kateheddleston-wrap .link.border-left {
     border-left:1px solid rgba(0,0,0,.05);
 }
