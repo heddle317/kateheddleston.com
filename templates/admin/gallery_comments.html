@@ -8,25 +8,33 @@
     <a class='link' ng-click='toggleResolvedComments()' ng-show='!showResolved'>Show Resolved Comments (<span ng-bind='galleryItem.comments.length - currentComments().length'></span>)</a>
     <a class='link' ng-click='toggleResolvedComments()' ng-show='showResolved'>Hide Resolved Comments</a>
     <ul class="row">
-        <li class='col-md-12' ng-repeat='comment in currentComments()'>
+        <li class='col-md-12' ng-class='comment.resoved ? "resolved": ""'  ng-repeat='comment in currentComments()'>
             <div class='comment' ng-class="comment.resolved ? 'resolved' : ''" ng-show='showComment(comment)'>
                 <div class='buttons row'>
-                    <div class='col-md-7 time'>
+                    <div class='col-md-8 time'>
                         <i class='fa fa-clock-o'></i>
                         <span ng-bind-html='comment.created_ago'></span>
                     </div>
-                    <div class='col-md-5 text-right'>
-                        <button class='btn btn-default' aria-label='Resolve' ng-click='resolveComment(comment)' ng-show='!comment.resolved'><i class='fa fa-check'></i></button>
+                    <div class='col-md-4 text-right'>
                         <button type='button' class='close' ng-click='deleteComment(comment)' aria-label='Close'>
                             <span aria-hidden='true'>x</span>
                         </button>
                     </div>
                 </div>
-                <div class='text'>
-                    <p class='text_body' ng-bind-html='comment.body'></p>
+                <div class='text row'>
+                    <div class='col-md-12'>
+                        <p class='text_body' ng-bind-html='comment.body'></p>
+                    </div>
                 </div>
-                <div class='author'>
-                    <p ng-bind-html='comment.author_email'></p>
+                <div class='row resolve-button' ng-if='!comment.resolved'>
+                    <div class='col-md-12'>
+                        <button class='btn btn-default form-control' aria-label='Resolve' ng-click='resolveComment(comment)'>Resolve</button>
+                    </div>
+                </div>
+                <div class='author row'>
+                    <div class='col-md-12'>
+                        <p ng-bind-html='comment.author_email'></p>
+                    </div>
                 </div>
             </div>
         </li>

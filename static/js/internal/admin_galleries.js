@@ -255,7 +255,6 @@ angularApp.controller('GalleryItemController', ['$scope', '$http', '$window', '$
         $scope.item = item;
     };
     $scope.onFileSelect = function($files) {
-        $log.log('here');
         $scope.files = $files;
         for (var i = 0; i < $files.length; i++) {
         var file = $files[i];
@@ -289,6 +288,7 @@ angularApp.controller('GalleryItemController', ['$scope', '$http', '$window', '$
             $http.post('/images/generate_sizes', data).success(function(data) {
                 $scope.generatingSizes = false;
                 $scope.item.image_name = fileName;
+                $scope.updateGalleryItem();
             });
         }).error(function(data, status, headers, config) {
             $scope.error = true;
