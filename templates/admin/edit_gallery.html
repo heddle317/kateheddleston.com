@@ -62,8 +62,8 @@
                     <form class='form form-vertical'>
                         <select class='form-control' ng-model='item.position' ng-change='updateItemPosition(item.position)' ng-options="num for num in itemsArrayLength()">
                         </select>
-                        <button class='btn btn-default form-control' ng-click='item.editing=false' ng-show='item.editing'>Cancel</button>
                         <button class='btn btn-success form-control' ng-click='updateGalleryItem()' ng-show='item.editing'>Save</button>
+                        <button class='btn btn-default form-control' ng-click='item.editing=false' ng-show='item.editing'>Cancel</button>
                         <button class='btn btn-default form-control' ng-click='item.editing=true' ng-show='!item.editing'><i class='fa fa-edit'></i></button>
                         <button class='btn btn-warning form-control' ng-click='killGalleryItem(true)' ng-show='!item.dead'>Kill</button>
                         <button class='btn btn-info form-control' ng-click='killGalleryItem(false)' ng-show='item.dead'>Resurrect</button>
