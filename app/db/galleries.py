@@ -58,7 +58,7 @@ class Gallery(Base, BaseModelObject):
                 return item.body
 
     def latest_url_title(self):
-        titles = GalleryTitle.get_list(gallery_uuid=self.uuid, sort_by='created_at', desc=True)
+        titles = GalleryTitle.get_list(gallery_uuid=self.uuid, sort_by='created_at', desc=False)
         if len(titles) > 0:
             return titles[0].title
         if self.url_title:
