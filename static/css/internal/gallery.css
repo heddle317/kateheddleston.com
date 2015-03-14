@@ -119,14 +119,6 @@
     padding:0;
 }
 
-#kateheddleston-wrap .gallery-item .post-item li {
-    display:block;
-}
-
 #kateheddleston-wrap .subscription-notice .page-btn {
     padding:0;
-}
-
-#kateheddleston-wrap ul.numbered-list {
-    list-style-type:decimal;
 }

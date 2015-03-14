@@ -131,3 +131,11 @@
   padding:10px 20px;
   font-weight:bold;
 }
+
+#kateheddleston-wrap ul.numbered-list {
+    list-style-type:decimal;
+}
+
+#kateheddleston-wrap .margin-lr-30 {
+    margin:0 30px;
+}
