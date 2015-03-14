@@ -9,7 +9,7 @@
   margin:0 auto;
   color:rgb(0, 0, 0, .8);
   padding:10px 0;
-  width:900px;
+  max-width:715px;
   line-height:1.5;
   font-size:20px;
   word-wrap:break-word;
