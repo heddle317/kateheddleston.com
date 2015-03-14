@@ -68,6 +68,7 @@ class Gallery(Base, BaseModelObject):
     @staticmethod
     def blank():
         blank_item = dict((key, '') for key in GalleryItem.__dict__.keys() if key.find('_') > 0)
+        blank_item['comments'] = []
         blank_gallery = dict((key, '') for key in Gallery.__dict__.keys() if key.find('_') > 0)
         blank_gallery.update({'items': [blank_item],
                               'published_at_raw': '',

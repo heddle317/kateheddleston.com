@@ -170,18 +170,19 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
                     'subtitle': $scope.subtitle,
                     'author': $scope.author,
                     'cover_photo': $scope.coverPhoto};
-        if (updateItems) {
-            data['items'] = $scope.items;
-        }
         if ($scope.gallery_uuid) {
+            if (updateItems) {
+                data['items'] = $scope.items;
+            }
             data['published'] = $scope.published;
             $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(response) {
                 $scope.editing = false;
                 $scope.initGallery(response);
             });
         } else {
+            data['items'] = $scope.items;
             $http.post("/admin/galleries", data).success(function(response) {
-                $window.location = "/admin/gallery/" + $scope.gallery_uuid;
+                $window.location = "/admin/gallery/" + response.uuid;
             });
         }
     };
