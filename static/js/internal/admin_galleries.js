@@ -57,6 +57,10 @@ angularApp.controller('MiniEditGalleryController', ['$scope', '$http', '$window'
         $scope.gallery_uuid = gallery.uuid;
     };
     $scope.publishGallery = function(publish) {
+        var confirm = $window.confirm("Are you sure you want to publish or unpublish this blog post?");
+        if (!confirm) {
+            return;
+        }
         $scope.gallery.published = publish;
         $scope.gallery.archived = false;
         $scope.updateGallery();
@@ -147,12 +151,20 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
       });
     };
     $scope.unpublishGallery = function() {
+        var confirm = $window.confirm("Are you sure you want to unpublish this blog post?");
+        if (!confirm) {
+            return;
+        }
         $scope.published = false;
         $scope.updateGallery(false);
     };
     $scope.publishGallery = function() {
         if (!$scope.coverPhoto) {
             alert("You can't publish a gallery without a cover photo.");
+            return;
+        }
+        var confirm = $window.confirm("Are you sure you want to publish this blog post?");
+        if (!confirm) {
             return;
         }
         $scope.published = true;
