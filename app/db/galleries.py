@@ -65,6 +65,11 @@ class Gallery(Base, BaseModelObject):
             return self.url_title
         return self.uuid
 
+    def add_category(self, category_name=None):
+        category = GalleryCategory.get(name=category_name)
+        gallery_category = GalleryGalleryCategory.create(gallery_uuid=self.uuid, category_uuid=category.uuid)
+        return gallery_category
+
     @staticmethod
     def blank():
         blank_item = dict((key, '') for key in GalleryItem.__dict__.keys() if key.find('_') > 0)
@@ -137,6 +142,19 @@ class Gallery(Base, BaseModelObject):
         gallery = Gallery.get(uuid=uuid)
         GalleryItem.delete_list(uuid)
         delete(gallery)
+
+
+class GalleryGalleryCategory(Base, BaseModelObject):
+    __tablename__ = 'gallery_gallery_categories'
+    uuid = Column(UUID, primary_key=True)
+    gallery_uuid = Column(UUID)
+    gallery_category_uuid = Column(UUID)
+
+
+class GalleryCategory(Base, BaseModelObject):
+    __tablename__ = 'gallery_categories'
+    uuid = Column(UUID, primary_key=True)
+    name = Column(String(500), nullable=False, unique=True)
 
 
 class GalleryTitle(Base, BaseModelObject):
