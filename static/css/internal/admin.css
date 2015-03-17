@@ -183,3 +183,11 @@
 #kateheddleston-wrap .btn.btn-default {
     background-color:rgba(0,0,0,.025);
 }
+
+#kateheddleston-wrap .subscribers .dead {
+    color:rgba(0, 0, 0, .3);
+}
+
+#kateheddleston-wrap .subscribers .fa-check {
+    color:green;
+}

@@ -124,6 +124,14 @@ def edit_gallery(uuid=None):
                            accessKey=access_key)
 
 
+@app.route('/admin/subscribers', methods=['GET'])
+@login_required
+@use_template_globals
+def subscribers():
+    g.nav_view = 'subscribers'
+    return render_template('admin/subscribers.html')
+
+
 @app.route('/admin/auth', methods=['GET'])
 @login_required
 @use_template_globals

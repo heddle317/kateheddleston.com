@@ -22,6 +22,9 @@ class Subscription(Base, BaseModelObject):
     dead = Column(Boolean(), nullable=False, default=False)
     created_at = Column(DateTime(), unique=False)
 
+    def send_verification_email(self):
+        send_verification_email(self)
+
     @staticmethod
     def send_subscription_emails(post_link, post_name):
         subscriptions = Subscription.get_list(dead=False, verified=True)

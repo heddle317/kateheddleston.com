@@ -92,6 +92,9 @@ if config.ENVIRONMENT == 'production':
     post_js = Bundle('js/internal/gallery.js',
                      'js/external/imagesloaded.pkgd.min.js',
                      filters='jsmin', output='gen/post.%(version)s.js')
+
+    subscribers_js = Bundle('js/internal/subscribers.js',
+                            filters='jsmin', output='gen/subscribers.%(version)s.js')
 else:
     admin_js = Bundle('js/internal/angular_app_module_admin.js',
                       'js/internal/admin_auth.js',
@@ -127,15 +130,18 @@ else:
     contact_js = Bundle('js/internal/contact.js',
                         output='gen/contact.%(version)s.js')
 
-    social_js = Bundle('js/internal/social.js',
-                       output='gen/social.%(version)s.js')
-
-    subscription_js = Bundle('js/internal/subscriptions.js',
-                             output='gen/subscription.%(version)s.js')
-
     post_js = Bundle('js/internal/gallery.js',
                      'js/external/imagesloaded.pkgd.min.js',
                      output='gen/post.%(version)s.js')
+
+    social_js = Bundle('js/internal/social.js',
+                       output='gen/social.%(version)s.js')
+
+    subscribers_js = Bundle('js/internal/subscribers.js',
+                            filters='jsmin', output='gen/subscribers.%(version)s.js')
+
+    subscription_js = Bundle('js/internal/subscriptions.js',
+                             output='gen/subscription.%(version)s.js')
 
 assets.register('admin_js', admin_js)
 assets.register('admin_galleries_js', admin_galleries_js)
@@ -145,6 +151,7 @@ assets.register('angular_base_js', angular_base_js)
 assets.register('base_js', base_js)
 assets.register('blog_js', blog_js)
 assets.register('contact_js', contact_js)
-assets.register('social_js', social_js)
-assets.register('subscription_js', subscription_js)
 assets.register('post_js', post_js)
+assets.register('social_js', social_js)
+assets.register('subscribers_js', subscribers_js)
+assets.register('subscription_js', subscription_js)

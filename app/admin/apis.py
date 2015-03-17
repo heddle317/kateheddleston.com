@@ -5,6 +5,7 @@ from app import app
 from app.db.galleries import Gallery
 from app.db.galleries import GalleryItem
 from app.db.galleries import GalleryItemComment
+from app.db.subscriptions import Subscription
 from app.db.talks import Talk
 
 from flask import g
@@ -137,3 +138,18 @@ def gallery_item_comment_delete(item_uuid, comment_uuid):
     GalleryItemComment.delete(uuid=comment_uuid)
     item = GalleryItem.get(uuid=item_uuid)
     return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/subscribers', methods=['GET'])
+@login_required
+def get_subscribers():
+    subscribers = Subscription.get_list(sort_by='created_at', desc=True, to_json=True)
+    return json.dumps(subscribers), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/subscribers/<uuid>/verify', methods=['POST'])
+@login_required
+def verify_subscriber(uuid):
+    subscriber = Subscription.get(uuid=uuid)
+    subscriber.send_verification_email()
+    return json.dumps(subscriber.to_dict()), 200, {'Content-Type': 'application/json'}

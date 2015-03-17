@@ -1,0 +1,38 @@
+{% extends "admin/admin_base.html" %}
+{% block head %}
+    {% assets "subscribermgmt_css" %}
+        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+{% endblock %}
+{% block content %}
+<div class='subscribers' ng-controller='SubscriptionController'>
+    <table class='table'>
+        <tr class='subscribers-header'>
+            <th>Verification Token</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Active</th>
+            <th>Created</th>
+            <th>Verified</th>
+        </tr>
+        <tr ng-repeat='subscriber in subscribers' class='{[{user.uuid}]}' ng-class='subscriber.dead ? "dead" : ""'>
+            <td ng-bind='subscriber.email_verification_token'></td>
+            <td ng-bind='subscriber.name'></td>
+            <td ng-bind='subscriber.email'></td>
+            <td>
+                <i ng-show='!subscriber.dead' class='fa fa-check'></i>
+            </td>
+            <td ng-bind='subscriber.created_at'></td>
+            <td>
+                <button class='btn btn-default verify' ng-show='!subscriber.verified && !subscriber.dead' ng-click='sendVerificationEmail(subscriber)' data-loading-text='Sending...'>Re-Send Verification</button>
+                <i ng-show='subscriber.verified' class='fa fa-check'></i>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
+{% block script %}
+    {% assets "subscribers_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}
