@@ -6,6 +6,20 @@
 {% endblock %}
 {% block content %}
 <div class='subscribers' ng-controller='SubscriptionController'>
+    <div class='subscription-status row text-center'>
+        <div class='col-md-4'>
+            <h1>Total Subscribers</h1>
+            <h2 class='deep-pink' ng-bind="activeSubscribers.length"></h2>
+        </div>
+        <div class='col-md-4'>
+            <h1>Unverified</h1>
+            <h2 class='deep-pink' ng-bind="unverifiedSubscribers.length"></h2>
+        </div>
+        <div class='col-md-4'>
+            <h1>Unsubscribed</h1>
+            <h2 class='deep-pink' ng-bind="unsubscribed.length"></h2>
+        </div>
+    </div>
     <table class='table'>
         <tr class='subscribers-header'>
             <th>Verification Token</th>
