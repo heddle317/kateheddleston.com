@@ -9,10 +9,10 @@
         <link rel="shortcut icon" href="https://s3.amazonaws.com/images.kateheddleston.com/images/winery_bowl_small.jpg">
         <title>Kate Heddleston</title>
 
-        <link rel="stylesheet" type="text/css" href="/static/css/external/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/static/css/external/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="/static/css/internal/base.css">
-        <link rel="stylesheet" type="text/css" href="/static/css/internal/navbar.css">
+        <link rel="stylesheet" type="text/css" href="https://s3-us-west-2.amazonaws.com/static.kateheddleston.com/css/external/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://s3-us-west-2.amazonaws.com/static.kateheddleston.com/css/external/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="https://s3-us-west-2.amazonaws.com/static.kateheddleston.com/css/internal/base.css">
+        <link rel="stylesheet" type="text/css" href="https://s3-us-west-2.amazonaws.com/static.kateheddleston.com/css/internal/navbar.css">
 
         <!-- Google fonts -->
         <link href='https://fonts.googleapis.com/css?family=Open+Sans|Raleway' rel='stylesheet' type='text/css'>
@@ -67,17 +67,15 @@
             </div>
         </div>
 
-        {% if g.env == 'production' %}
-          <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-44313210-1', 'auto');
-            ga('send', 'pageview');
+        ga('create', 'UA-44313210-1', 'auto');
+        ga('send', 'pageview');
 
-          </script>
-        {% endif %}
+        </script>
     </body>
 </html>
