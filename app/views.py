@@ -7,6 +7,7 @@ from app.db.subscriptions import Subscription
 from app.db.talks import Talk
 from app.utils.decorators.template_globals import use_template_globals
 
+from flask import abort
 from flask import g
 from flask import render_template
 from werkzeug.contrib.atom import AtomFeed
@@ -47,7 +48,9 @@ def talks():
 @use_template_globals
 def talk(uuid):
     talk = Talk.get(uuid=uuid)
-    return render_template('talk.html', talk=talk.to_dict())
+    if not talk:
+        abort(404)
+    return render_template('talk.html', talk=talk)
 
 
 @app.route('/blog', methods=["GET"])
@@ -66,7 +69,7 @@ def blog_post_title(blog_attr):
     if gallery is None:
         gallery = Gallery.get(uuid=blog_attr)
         if gallery is None:
-            return render_template('404.html')
+            abort(404)
     current_url = u"{}/blog/{}".format(config.APP_BASE_LINK, blog_attr)
     return render_template('post.html',
                            gallery_uuid=gallery.uuid,
@@ -109,6 +112,8 @@ def blog_feed():
 @use_template_globals
 def verify_email(verification_code):
     subscription = Subscription.verify_email(verification_code)
+    if not subscription:
+        abort(404)
     return render_template("email_verified.html", subscription=subscription)
 
 
