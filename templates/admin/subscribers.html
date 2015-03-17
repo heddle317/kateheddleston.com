@@ -1,9 +1,4 @@
 {% extends "admin/admin_base.html" %}
-{% block head %}
-    {% assets "subscribermgmt_css" %}
-        <link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
-    {% endassets %}
-{% endblock %}
 {% block content %}
 <div class='subscribers' ng-controller='SubscriptionController'>
     <div class='subscription-status row text-center'>
