@@ -96,7 +96,7 @@ def blog_feed():
             if item.get('title'):
                 item_text += u'<h2>{}</h2><br>'.format(item.get('title'))
             if item.get('image_name'):
-                img_src = u'{}/{}'.format(config.AWS_IMAGES_BASE, item.get('image_name'))
+                img_src = u'{}/{}'.format(post.get('base_url'), item.get('image_name'))
                 item_text += u"<img src='{}' />".format(img_src)
             if item.get('image_caption'):
                 item_text += u"<div>{}</div>".format(item.get('image_caption'))
