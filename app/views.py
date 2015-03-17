@@ -62,6 +62,7 @@ def blog():
 @use_template_globals
 def blog_post_title(blog_attr):
     gallery = Gallery.get_custom_url(blog_attr)
+
     if gallery is None:
         gallery = Gallery.get(uuid=blog_attr)
         if gallery is None:
@@ -116,3 +117,8 @@ def verify_email(verification_code):
 def cancel_subscription(uuid):
     subscription = Subscription.cancel_subscription(uuid)
     return render_template("subscription_canceled.html", subscription=subscription)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
