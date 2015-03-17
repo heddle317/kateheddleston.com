@@ -92,7 +92,17 @@ def blog_feed():
     for post in posts:
         post_html = []
         for item in post.get('items'):
-            post_html.append(item.get('body'))
+            item_text = ""
+            if item.get('title'):
+                item_text += u'<h2>{}</h2><br>'.format(item.get('title'))
+            if item.get('image_name'):
+                img_src = u'{}/{}'.format(config.AWS_IMAGES_BASE, item.get('image_name'))
+                item_text += u"<img src='{}' />".format(img_src)
+            if item.get('image_caption'):
+                item_text += u"<div>{}</div>".format(item.get('image_caption'))
+            item_text += '<br>'
+            item_text += item.get('body')
+            post_html.append(item_text)
         text = '</p><br><br><p>'.join(post_html)
         text = '<p>' + text + '</p>'
 
