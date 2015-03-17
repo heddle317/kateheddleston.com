@@ -139,3 +139,18 @@
 #kateheddleston-wrap .margin-lr-30 {
     margin:0 30px;
 }
+
+#kateheddleston-wrap .message-404 {
+    text-align:center;
+    padding:0 15px;
+}
+
+#kateheddleston-wrap .message-404 h1 {
+    font-size:150px;
+}
+
+@media screen and (min-width: 500px) {
+    #kateheddleston-wrap .message-404 h1 {
+        font-size:225px;
+    }
+}

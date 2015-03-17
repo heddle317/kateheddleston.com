@@ -65,7 +65,7 @@ def blog_post_title(blog_attr):
     if gallery is None:
         gallery = Gallery.get(uuid=blog_attr)
         if gallery is None:
-            return render_template('')
+            return render_template('404.html')
     current_url = u"{}/blog/{}".format(config.APP_BASE_LINK, blog_attr)
     return render_template('post.html',
                            gallery_uuid=gallery.uuid,

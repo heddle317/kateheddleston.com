@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />    
+        <meta name="robots" content="index,follow" />
+        <meta name="url" content="https://kateheddleston.com">
+        <meta name="subject" content="Kate Heddleston">
+        <link rel="shortcut icon" href="https://s3.amazonaws.com/images.kateheddleston.com/images/winery_bowl_small.jpg">
+        <title>Kate Heddleston</title>
+
+        <link rel="stylesheet" type="text/css" href="/static/css/external/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/external/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/internal/base.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/internal/navbar.css">
+
+        <!-- Google fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans|Raleway' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body id="kateheddleston-wrap">
+        <div class="navbar-custom container-fluid {%if g.nav_view!='home'%}white-background{%endif%}" id="nav-target">
+          <div class='navbar-header'>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-nav-button">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <div class='brand brand-top pull-left'>
+              <div class='logo'>
+                <a href="https://kateheddleston.com">
+                  <img src="https://s3.amazonaws.com/images.kateheddleston.com/images/binary_logo.png">
+                </a>
+              </div>
+              <!--<p class='name'>Kate Heddleston</p>-->
+            </div>
+          </div>
+          <div class="collapse navbar-collapse" id="mobile-nav-button">
+            <div class='navbar-text pull-left'>
+              <ul class="nav navbar-nav">
+                  <li><a href="https://www.kateheddleston.com/about">About</a></li>
+                  <li><a href="https://www.kateheddleston.com/talks">Talks</a></li>
+                  <li><a href="https://www.kateheddleston.com/blog">Blog</a></li>
+                  <li><a href="https://www.kateheddleston.com/contact">Contact</a></li>
+              </ul>
+            </div>
+            <div class='brand brand-bottom pull-right'>
+              <ul class='icons nav navbar-nav'>
+                  <li><a href='https://www.facebook.com/kate.heddleston' target="_blank"><img src='https://s3.amazonaws.com/images.kateheddleston.com/images/facebook_icon.png'/></a></li>
+                  <li><a href='https://twitter.com/heddle317' target="_blank"><img src='https://s3.amazonaws.com/images.kateheddleston.com/images/twitter_icon.png'/></a></li>
+                  <li><a href='https://www.linkedin.com/in/kateheddleston' target="_blank"><img src='https://s3.amazonaws.com/images.kateheddleston.com/images/linkedin_icon.png'/></a></li>
+                  <li><a href='https://github.com/heddle317/kateheddleston.com' target="_blank"><img src='https://s3.amazonaws.com/images.kateheddleston.com/images/github_icon.png'/></a></li>
+              </ul>
+            </div>
+          </div><!-- /.navbar-collapse -->
+        </div>
+        <div class='container-fluid main-content'>
+            <div class='message-404'>
+                <h1 class='deep-pink'>404</h1>
+                <h3>The page you are looking for is not found.</h3>
+            </div>
+        </div>
+        <div class='footer'>
+            <div class='container-fluid'>
+            </div>
+        </div>
+
+        {% if g.env == 'production' %}
+          <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-44313210-1', 'auto');
+            ga('send', 'pageview');
+
+          </script>
+        {% endif %}
+    </body>
+</html>

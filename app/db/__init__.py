@@ -14,7 +14,10 @@ Base = declarative_base()
 
 
 def get(model, **kwargs):
-    return KateHeddlestonDB.query(model).filter_by(**kwargs).first()
+    try:
+        return KateHeddlestonDB.query(model).filter_by(**kwargs).first()
+    except:
+        return None
 
 
 def get_list(model, **kwargs):
