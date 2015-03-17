@@ -184,8 +184,12 @@
     background-color:rgba(0,0,0,.025);
 }
 
-#kateheddleston-wrap .subscribers .dead {
+#kateheddleston-wrap .subscribers .subscriber.dead {
     color:rgba(0, 0, 0, .3);
+}
+
+#kateheddleston-wrap .subscribers .unverified {
+    color:rgba(255, 0, 0, 1);
 }
 
 #kateheddleston-wrap .subscribers .fa-check {

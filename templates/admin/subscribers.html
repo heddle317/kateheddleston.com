@@ -15,12 +15,12 @@
             <th>Created</th>
             <th>Verified</th>
         </tr>
-        <tr ng-repeat='subscriber in subscribers' class='{[{user.uuid}]}' ng-class='subscriber.dead ? "dead" : ""'>
+        <tr ng-repeat='subscriber in subscribers' class='{[{user.uuid}]} subscriber' ng-class='{dead: subscriber.dead}'>
             <td ng-bind='subscriber.email_verification_token'></td>
             <td ng-bind='subscriber.name'></td>
             <td ng-bind='subscriber.email'></td>
             <td>
-                <i ng-show='!subscriber.dead' class='fa fa-check'></i>
+                <i ng-show='!subscriber.dead && subscriber.verified' class='fa fa-check'></i>
             </td>
             <td ng-bind='subscriber.created_at'></td>
             <td>
