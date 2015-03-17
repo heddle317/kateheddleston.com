@@ -103,7 +103,7 @@ def blog_feed():
             item_text += '<br>'
             item_text += item.get('body')
             post_html.append(item_text)
-        text = '</p><br><br><p>'.join(post_html)
+        text = '</p><p>'.join(post_html)
         text = '<p>' + text + '</p>'
 
         post_url = "{}/blog/{}".format(g.app_base_link, post.get('uuid'))
