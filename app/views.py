@@ -87,7 +87,7 @@ def blog_feed():
     feed_url = "{}/blog/feed.atom".format(g.app_base_link)
     feed = AtomFeed('KateHeddleston.com Blog Posts',
                     feed_url=feed_url,
-                    url=g.app_base_link)
+                    url='{}/blog'.format(g.app_base_link))
 
     for post in posts:
         post_html = []
