@@ -43,6 +43,6 @@ if ENVIRONMENT == 'dev':
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/kateheddleston_db'
 else:
-    APP_BASE_LINK = 'https://www.kateheddleston.com'
+    APP_BASE_LINK = 'https://kateheddleston.com'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
