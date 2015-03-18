@@ -57,7 +57,7 @@ def talk(uuid):
 @use_template_globals
 def blog():
     g.nav_view = 'blog'
-    posts = Gallery.get_list(published=True, to_json=True)
+    posts = Gallery.get_list(published=True, to_json=True, sort_by='published_at')
     return render_template('blog.html', posts=posts)
 
 
