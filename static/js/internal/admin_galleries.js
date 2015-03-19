@@ -115,6 +115,13 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
             $scope.editing = true;
         }
     });
+    $scope.wordCount = function() {
+        var count = 0;
+        for (var i = 0; i < $scope.items.length; i++) {
+            count += $scope.items[i].body.split(" ").length;
+        }
+        return count;
+    };
     $scope.itemsArrayLength = function() {
         var arr = [];
         var i;
