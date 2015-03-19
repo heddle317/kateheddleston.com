@@ -9,6 +9,7 @@ from app.utils.decorators.template_globals import use_template_globals
 
 from flask import abort
 from flask import g
+from flask import redirect
 from flask import render_template
 from werkzeug.contrib.atom import AtomFeed
 
@@ -70,6 +71,9 @@ def blog_post_title(blog_attr):
         gallery = Gallery.get(uuid=blog_attr)
         if gallery is None:
             abort(404)
+    latest_title_url = gallery.latest_url_title()
+    if blog_attr != latest_title_url:
+        return redirect(u'{}/blog/{}'.format(config.APP_BASE_LINK, latest_title_url))
     current_url = u"{}/blog/{}".format(config.APP_BASE_LINK, blog_attr)
     return render_template('post.html',
                            gallery_uuid=gallery.uuid,
