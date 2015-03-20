@@ -35,7 +35,7 @@ def create_talk():
 @login_required
 def update_talk(uuid):
     data = json.loads(request.data)
-    talk = Talk.update(uuid, **data)
+    talk = Talk.update_talk(uuid, **data)
     return json.dumps(talk.to_dict()), 200, {'Content-Type': 'application/json'}
 
 

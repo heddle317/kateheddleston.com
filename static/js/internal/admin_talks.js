@@ -126,7 +126,7 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
                     'video_link': $scope.videoLink,
                     'description_link': $scope.descriptionLink,
                     'location': $scope.location,
-                    'date': $scope.datee,
+                    'date': $scope.date,
                     'image_name': $scope.talk.image_name};
         if ($scope.talk_uuid) {
             data['published'] = $scope.published;
@@ -201,7 +201,6 @@ angularApp.controller('UploadImageController', ['$scope', '$http', '$window', '$
             $http.post('/images/generate_sizes', data).success(function(data) {
                 $scope.generatingSizes = false;
                 $scope.item.image_name = fileName;
-                $scope.updateGalleryItem();
             });
         }).error(function(data, status, headers, config) {
             $scope.error = true;

@@ -12,6 +12,12 @@ def format_date(date, format='%B %d, %Y'):
     return datetime.datetime.strftime(date, format)
 
 
+def parse_date(date, format='%Y-%m-%dT%H:%M:%S'):
+    if not date:
+        return None
+    return datetime.datetime.strptime(date, format)
+
+
 def relative_time(date):
     if not date:
         return ''

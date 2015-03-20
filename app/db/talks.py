@@ -2,6 +2,7 @@ from app import config
 from app.db import Base
 from app.db import BaseModelObject
 from app.utils.datetime_tools import format_date
+from app.utils.datetime_tools import parse_date
 
 from sqlalchemy import Boolean
 from sqlalchemy import Column
@@ -33,6 +34,14 @@ class Talk(Base, BaseModelObject):
                           'next': Talk.next(self, attrs=['uuid'], sort_by='date', published=True, desc=False),
                           'prev': Talk.prev(self, attrs=['uuid'], sort_by='date', published=True, desc=False)})
         return attr_dict
+
+    @staticmethod
+    def update_talk(uuid, **kwargs):
+        if kwargs.get('date'):
+            date = kwargs.pop('date')
+            parsed_date = parse_date(date, '%B %d, %Y')
+            kwargs['date'] = parsed_date
+        return Talk.update(uuid, **kwargs)
 
     @staticmethod
     def blank():
