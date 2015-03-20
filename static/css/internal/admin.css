@@ -34,7 +34,7 @@
     margin-bottom:10px;
 }
 
-#kateheddleston-wrap .gallery_item .add-image-button {
+#kateheddleston-wrap .add-image-button {
     margin:15px 0;
     border:2px dashed rgba(0,0,0,.5);
     color:rgba(0,0,0,.5);
@@ -198,4 +198,8 @@
 
 #kateheddleston-wrap .subscribers .fa-check {
     color:green;
+}
+
+.talk-body img {
+    width:100%;
 }

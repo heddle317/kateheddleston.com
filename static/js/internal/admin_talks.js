@@ -154,3 +154,65 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
         return $sce.trustAsHtml(html);
     };
 }]);
+
+angularApp.controller('UploadImageController', ['$scope', '$http', '$window', '$sce', '$upload', '$log', function($scope, $http, $window, $sce, $upload, $log) {
+    $scope.file = [];
+    $scope.dataUrls = [];
+    $scope.error = false;
+    $scope.alertMessage = '';
+    $scope.loading = false;
+    $scope.widthStyle = {"width": "0%"};
+    $scope.generatingSizes = false;
+    $scope.init = function(imageRoute, item) {
+        $scope.imageRoute = imageRoute;
+        $scope.item = item;
+    };
+    $scope.onFileSelect = function($files) {
+        $scope.files = $files;
+        for (var i = 0; i < $files.length; i++) {
+        var file = $files[i];
+        var timeStamp = new Date().getTime();
+        var fileName = timeStamp + "_" + file.name;
+        var fields = fileName.split('\.');
+        fileName = fields[0];
+        var key = $scope.imageRoute + "/" + fileName;
+        var data = {
+                key: key,
+                AWSAccessKeyId: accessKey, 
+                acl: 'public-read',
+                policy: policy,
+                signature: signature,
+                "Content-Type": file.type != '' ? file.type : 'application/octet-stream',
+                filename: key,
+        };
+        $upload.upload({
+            url: imagesBase,
+            method: 'POST',
+            data: data,
+            file: file,
+        }).progress(function(evt) {
+            $scope.percent = parseInt(100.0 * evt.loaded / evt.total);
+            $scope.widthStyle = {"width": $scope.percent + "%"};
+            $scope.loading = true;
+        }).success(function(data, status, headers, config) {
+            $scope.generatingSizes = true;
+            data = {"image_route": $scope.imageRoute,
+                    "filename": fileName};
+            $http.post('/images/generate_sizes', data).success(function(data) {
+                $scope.generatingSizes = false;
+                $scope.item.image_name = fileName;
+                $scope.updateGalleryItem();
+            });
+        }).error(function(data, status, headers, config) {
+            $scope.error = true;
+            $scope.alertMessage = "There was an error uploading your photo.";
+        }).then(function() {
+            $scope.loading = false;
+        });
+        }
+    };
+    $scope.toggleAlert = function(show) {
+        $scope.error = show;
+        $scope.alertMessage = '';
+    };
+}]);

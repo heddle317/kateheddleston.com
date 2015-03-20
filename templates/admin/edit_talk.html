@@ -26,23 +26,27 @@
                     </div>
                 </div>
             </div>
-            <div class='panel-body'>
+            <div class='panel-body talk-body'>
                 <div class='row'>
-                    <div class='col-md-4' ng-repeat='talkItem in [talk]' ng-controller='UploadImageController' ng-init='init("talks/" + talk_uuid, talkItem)'>
-                        <img ng-if='item.image_name' ng-src="{[{talk.base_url}]}/{[{item.image_name}]}" />
-                        <img ng-if='!item.image_name' style='width:100%' ng-src="{{g.images_base}}/images/no_image.png" />
-                        <input type="text" placeholder='Image Name' class="form-control" ng-show='editing' ng-model='item.image_name'>
-                        <div class='alert alert-warning' role='alert' ng-show='error'>
-                            <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                            <span class='message' ng-bind='alertMessage'></span>
-                        </div>
-                        <div class='loading' ng-show='loading' style='margin:20px auto 0;width:60%'>
+                    <div class='col-md-4 text-center' ng-repeat='talkItem in [talk]' ng-controller='UploadImageController' ng-init='init("talks/" + talk_uuid, talkItem)'>
+                        <img ng-if='item.image_name' ng-show='!generatingSizes' ng-src="{[{talk.base_url}]}/{[{item.image_name}]}" />
+                        <img ng-if='!item.image_name' ng-show='!generatingSizes' ng-src="{{g.images_base}}/images/no_image.png" />
+                        <div class='loading' ng-show='generatingSizes' style='margin:20px auto 0;width:60%'>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="{[{percent}]}" aria-valuemin="0" aria-valuemax="100" ng-style="widthStyle">
                                 </div>
                             </div>
                         </div>
-                        <button class='btn btn-default margin-top-10' ng-show="editing && talk_uuid" ng-file-select="onFileSelect($files)" accept="image/*">Upload Image</button>
+                        <input type="text" placeholder='Image Name' class="form-control" ng-show='editing' ng-model='item.image_name'>
+                        <div class='alert alert-warning' role='alert' ng-show='error'>
+                            <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <span class='message' ng-bind='alertMessage'></span>
+                        </div>
+                        <button class='add-image-button' ng-show="talk_uuid" ng-file-select="onFileSelect($files)" accept="image/*">
+                            <i class='fa fa-plus'></i>
+                            <span ng-if='item.image_name'>Change Image</span>
+                            <span ng-if='!item.image_name'>Add Image</span>
+                        </button>
                     </div>
                     <div class='col-md-8'>
                         <div class='video_display thumbnail'>
@@ -60,8 +64,10 @@
                         <input type="text" placeholder='Slide Link' class="form-control" ng-show='editing' ng-model='slidesLink'>
                     </div>
                     <div class='col-md-8'>
-                        <p ng-show='!editing' ng-bind='description'></p>
-                        <textarea rows=4 placeholder='Description...' class='form-control' ng-show='editing' ng-model='description'></textarea>
+                        <div>
+                            <p ng-show='!editing' ng-bind='description'></p>
+                            <textarea rows=4 placeholder='Description...' class='form-control' ng-show='editing' ng-model='description'></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
