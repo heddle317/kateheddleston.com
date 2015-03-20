@@ -30,7 +30,7 @@ class Talk(Base, BaseModelObject):
     def to_dict(self):
         attr_dict = BaseModelObject.to_dict(self)
         attr_dict.update({'base_url': '{}/talks/{}'.format(config.AWS_IMAGES_BASE, self.uuid),
-                          'date': format_date(self.date, '%B %d, %Y'),
+                          'formatted_date': format_date(self.date, format='%B %d, %Y'),
                           'next': Talk.next(self, attrs=['uuid'], sort_by='date', published=True, desc=False),
                           'prev': Talk.prev(self, attrs=['uuid'], sort_by='date', published=True, desc=False)})
         return attr_dict

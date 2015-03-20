@@ -51,7 +51,7 @@ def talk(uuid):
     talk = Talk.get(uuid=uuid)
     if not talk:
         abort(404)
-    return render_template('talk.html', talk=talk)
+    return render_template('talk.html', talk=talk.to_dict())
 
 
 @app.route('/blog', methods=["GET"])
