@@ -66,8 +66,8 @@ class Gallery(Base, BaseModelObject):
         return self.uuid
 
     def add_category(self, category_name=None):
-        category = GalleryCategory.get(name=category_name)
-        gallery_category = GalleryGalleryCategory.create(gallery_uuid=self.uuid, category_uuid=category.uuid)
+        category = Category.get(name=category_name)
+        gallery_category = GalleryCategory.create(gallery_uuid=self.uuid, category_uuid=category.uuid)
         return gallery_category
 
     @staticmethod
@@ -144,15 +144,15 @@ class Gallery(Base, BaseModelObject):
         delete(gallery)
 
 
-class GalleryGalleryCategory(Base, BaseModelObject):
-    __tablename__ = 'gallery_gallery_categories'
+class GalleryCategory(Base, BaseModelObject):
+    __tablename__ = 'gallery_categories'
     uuid = Column(UUID, primary_key=True)
     gallery_uuid = Column(UUID)
     gallery_category_uuid = Column(UUID)
 
 
-class GalleryCategory(Base, BaseModelObject):
-    __tablename__ = 'gallery_categories'
+class Category(Base, BaseModelObject):
+    __tablename__ = 'categories'
     uuid = Column(UUID, primary_key=True)
     name = Column(String(500), nullable=False, unique=True)
 
