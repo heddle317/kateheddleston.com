@@ -6,23 +6,39 @@
 {% endblock %}
 {% block content %}
 <div ng-controller='AdminGalleriesController' class='ng-cloak' ng-cloak>
-    <ul class="nav nav-tabs">
-        <li role="presentation" ng-click='changeTab("unpublished")' ng-class="currentContainer == '.unpublished' ? 'active' : 'inactive'">
-            <a href="#">Unpublished &#40;<span ng-bind='items.unpublished.length'></span>&#41;</a>
-        </li>
-        <li role="presentation" ng-click='changeTab("published")' ng-class="currentContainer == '.published' ? 'active' : 'inactive'">
-            <a href="#">Published &#40;<span ng-bind='items.published.length'></span>&#41;</a>
-        </li>
-        <li role="presentation" ng-click='changeTab("archived")' ng-class="currentContainer == '.archived' ? 'active' : 'inactive'">
-            <a href="#">Archived &#40;<span ng-bind='items.archived.length'></span>&#41;</a>
-        </li>
-        <li role="presentation" ng-click='changeTab("permanent")' ng-class="currentContainer == '.permanent' ? 'active' : 'inactive'">
-            <a href="#">Permanent &#40;<span ng-bind='items.permanent.length'></span>&#41;</a>
-        </li>
-        <div class='page-btn'>
+    <nav class="navbar navbar-inverse">
+        <div class='container-fluid'>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#gallery-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="gallery-navbar">
+                <ul class="nav navbar-nav">
+                    <li ng-click='changeTab("unpublished")' ng-class="currentContainer == '.unpublished' ? 'active' : 'inactive'">
+                        <a>Unpublished &#40;<span ng-bind='items.unpublished.length'></span>&#41;</a>
+                    </li>
+                    <li ng-click='changeTab("published")' ng-class="currentContainer == '.published' ? 'active' : 'inactive'">
+                        <a>Published &#40;<span ng-bind='items.published.length'></span>&#41;</a>
+                    </li>
+                    <li ng-click='changeTab("archived")' ng-class="currentContainer == '.archived' ? 'active' : 'inactive'">
+                        <a>Archived &#40;<span ng-bind='items.archived.length'></span>&#41;</a>
+                    </li>
+                    <li ng-click='changeTab("permanent")' ng-class="currentContainer == '.permanent' ? 'active' : 'inactive'">
+                        <a>Permanent &#40;<span ng-bind='items.permanent.length'></span>&#41;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class='row text-right'>
+        <div class='page-btn col-md-2'>
             <a href="/admin/gallery" type='submit' class='btn btn-default'>Create Gallery</a>
         </div>
-    </ul>
+    </div>
     <div class='loading main-loader'>
         <img src="{{g.images_base}}/images/loading.gif" />
     </div>
@@ -49,10 +65,10 @@
                         <div class='row buttons'>
                             <div class='col-md-12 text-right'>
                                 <a class='btn btn-default' href="/admin/gallery/{[{gallery.uuid}]}">Edit</a>
-                                <button class='btn btn-warning' ng-show='!gallery.published && !gallery.archived && !gallery.permanent' ng-click='publishGallery(true)'>Publish</button>
-                                <button class='btn btn-success' ng-show='gallery.published && !gallery.permanent' ng-click='publishGallery(false)'>Unpublish</button>
                                 <button class='btn btn-primary' ng-show='!gallery.published && !gallery.archived && !gallery.permanent' ng-click='archiveGallery(true)'>Archive</button>
                                 <button class='btn btn-default' ng-show='gallery.archived && !gallery.permanent' ng-click='archiveGallery(false)'>Unarchive</button>
+                                <button class='btn btn-warning' ng-show='!gallery.published && !gallery.archived && !gallery.permanent' ng-click='publishGallery(true)'>Publish</button>
+                                <button class='btn btn-success' ng-show='gallery.published && !gallery.permanent' ng-click='publishGallery(false)'>Unpublish</button>
                             </div>
                         </div>
                     </div>

@@ -203,3 +203,12 @@
 .talk-body img {
     width:100%;
 }
+
+#gallery-navbar li a {
+    cursor:pointer;
+    color:rgba(205, 16, 118, 1);
+}
+
+#gallery-navbar li.active a {
+    color:white;
+}
