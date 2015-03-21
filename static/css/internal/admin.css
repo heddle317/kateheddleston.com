@@ -33,12 +33,12 @@
 }
 
 #kateheddleston-wrap .add-image-button {
-    margin:15px 0;
+    margin:8px 0;
     border:2px dashed rgba(0,0,0,.5);
     color:rgba(0,0,0,.5);
     background:none;
     text-decoration:none;
-    padding:7px;
+    padding:4px;
     font-size:16px;
     display:inline-block;
     cursor:pointer;
@@ -219,4 +219,9 @@
 
 #kateheddleston-wrap .edit_gallery .navbar .form-control {
     margin-top:8px;
+}
+
+#kateheddleston-wrap .navbar-form {
+    margin-top:0;
+    margin-bottom:0;
 }
