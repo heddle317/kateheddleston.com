@@ -1,15 +1,35 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-    <div class='edit_panel ng-cloak' ng-controller='EditGalleryController' ng-cloak>
-        <div class='row'>
-            <div class='col-md-2'>
-                <form class='form form-vertical'>
-                    <button class='btn btn-default form-control' ng-show='!editing' ng-click='editGallery()'>Edit</button>
-                    <button class='btn btn-default form-control' ng-show='editing' ng-click='cancel()'>Cancel</button>
-                    <button class='btn btn-success form-control' ng-click='updateGallery(false)' ng-show='editing'>Save</button>
-                </form>
+    <div class='edit_panel edit_gallery ng-cloak' ng-controller='EditGalleryController' ng-cloak>
+        <nav class="navbar navbar-default">
+            <div class='container-fluid'>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".gallery-item-header">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse gallery-item-header">
+                    <form class='navbar-form navbar-left'>
+                        <button class='btn btn-default navbar-btn form-control' ng-show='!editing' ng-click='editGallery()'>Edit</button>
+                        <button class='btn btn-default navbar-btn form-control' ng-show='editing' ng-click='cancel()'>Cancel</button>
+                        <button class='btn btn-success navbar-btn form-control' ng-click='updateGallery(false)' ng-show='editing'>Save</button>
+                    </form>
+                    <form class='navbar-form navbar-right'>
+                        <button class='btn btn-default navbar-btn form-control' target="_blank" href="/blog/{[{gallery.url_title}]}">Preview</button>
+                        <button class='btn btn-success navbar-btn form-control' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
+                        <button class='btn btn-warning navbar-btn form-control' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
+                        <button class='btn btn-danger navbar-btn form-control' ng-click='deleteGallery()'>Delete</button>
+                    </form>
+                </div>
             </div>
-            <div class='col-md-8'>
+        </nav>
+        <div class='row'>
+            <div class='col-md-3'>
+            </div>
+            <div class='col-md-6'>
                 <div class='row'>
                     <div class='col-md-12 text-center cover-image'>
                         <img ng-if='coverPhoto' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{coverPhoto}]}_small" />
@@ -38,40 +58,57 @@
                     </div>
                 </div>
             </div>
-            <div class='col-md-2'>
-                <form class='form form-vertical'>
-                    <a class='btn btn-default form-control' target="_blank" href="/blog/{[{gallery.url_title}]}">Preview</a>
-                    <button class='btn btn-success form-control' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
-                    <button class='btn btn-warning form-control' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
-                    <button class='btn btn-danger form-control' ng-click='deleteGallery()'>Delete</button>
-                </form>
+            <div class='col-md-3'>
                 <h3 class='text-center margin-top-20 large'>Word Count:<br><span class='deep-pink' ng-bind='wordCount()'></span></h3>
             </div>
         </div>
         <div class='row'>
-            <div class='col-md-2'>
+            <div class='col-md-9'>
+            </div>
+            <div class='col-md-3'>
                 <form class='form form-vertical'>
                     <button class='btn btn-primary form-control' ng-click='addNewItem(item.position)'>Add Item After</button>
                 </form>
             </div>
-            <div class='col-md-10'>
-            </div>
         </div>
         <div class='item gallery_item' ng-class='item.dead ? "dead" : ""' ng-repeat='galleryItem in items' ng-controller="GalleryItemController" ng-init='init("galleries/" + gallery_uuid, galleryItem)'>
-            <div class='row'>
-                <div class='col-md-2'>
-                    <form class='form form-vertical'>
-                        <select class='form-control' ng-model='item.position' ng-change='updateItemPosition(item.position)' ng-options="num for num in itemsArrayLength()">
-                        </select>
-                        <button class='btn btn-success form-control' ng-click='updateGalleryItem()' ng-show='item.editing'>Save</button>
-                        <button class='btn btn-default form-control' ng-click='item.editing=false' ng-show='item.editing'>Cancel</button>
-                        <button class='btn btn-default form-control' ng-click='item.editing=true' ng-show='!item.editing'><i class='fa fa-edit'></i></button>
-                        <button class='btn btn-warning form-control' ng-click='killGalleryItem(true)' ng-show='!item.dead'>Kill</button>
-                        <button class='btn btn-info form-control' ng-click='killGalleryItem(false)' ng-show='item.dead'>Resurrect</button>
-                        <button class='btn btn-danger form-control' ng-click='deleteGalleryItem()'>Delete</button>
-                    </form>
+            <nav class="navbar navbar-default">
+                <div class='container-fluid'>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".gallery-item-{[{item.uuid}]}">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="text-center collapse navbar-collapse gallery-item-{[{item.uuid}]}">
+                        <form class='navbar-form navbar-left'>
+                            <div class='form-group'>
+                                <select class='form-control navbar-btn' ng-model='item.position' ng-change='updateItemPosition(item.position)' ng-options="num for num in itemsArrayLength()">
+                                </select>
+                            </div>
+                            <button class='btn btn-success navbar-btn form-control' ng-click='updateGalleryItem()' ng-show='item.editing'>Save</button>
+                            <button class='btn btn-default navbar-btn form-control' ng-click='item.editing=false' ng-show='item.editing'>Cancel</button>
+                            <button class='btn btn-default navbar-btn form-control' ng-click='item.editing=true' ng-show='!item.editing'>Edit</button>
+                        </form>
+                        <button class='add-image-button' ng-show="gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">
+                            <i class='fa fa-plus'></i>
+                            <span ng-if='item.image_name'>Change Image</span>
+                            <span ng-if='!item.image_name'>Add Image</span>
+                        </button>
+                        <form class='navbar-form navbar-right'>
+                            <button class='btn btn-warning navbar-btn form-control' ng-click='killGalleryItem(true)' ng-show='!item.dead'>Kill</button>
+                            <button class='btn btn-info navbar-btn form-control' ng-click='killGalleryItem(false)' ng-show='item.dead'>Resurrect</button>
+                            <button class='btn btn-danger navbar-btn form-control' ng-click='deleteGalleryItem()'>Delete</button>
+                        </form>
+                    </div>
                 </div>
-                <div class='col-md-8'>
+            </nav>
+            <div class='row'>
+                <div class='col-md-3'>
+                </div>
+                <div class='col-md-6'>
                     <div class='row'>
                         <div class='col-md-12 text-center info caption'>
                             <h3 class='deep-pink' ng-show='!item.editing' ng-bind='item.title'></h3>
@@ -98,15 +135,10 @@
                             </div>
                             <div>
                                 <small ng-show='!item.editing' ng-bind-html='item.image_caption'></small>
-                                <input type='text' placeholder='Image Caption' class='form-control' name='image_caption' ng-show='item.editing' ng-model='item.image_caption' />
                                 <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='item.editing' ng-model='item.image_name'>
+                                <input type='text' placeholder='Image Caption' class='form-control' name='image_caption' ng-show='item.editing' ng-model='item.image_caption' />
                             </div>
                             <div>
-                                <button class='add-image-button' ng-show="gallery_uuid" ng-file-select="onFileSelect($files)" accept="image/*">
-                                    <i class='fa fa-plus'></i>
-                                    <span ng-if='item.image_name'>Change Image</span>
-                                    <span ng-if='!item.image_name'>Add Image</span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -119,17 +151,17 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-md-2'>
+                <div class='col-md-3'>
                     {% include "admin/gallery_comments.html" %}
                 </div>
             </div>
             <div class='row'>
-                <div class='col-md-2'>
+                <div class='col-md-9'>
+                </div>
+                <div class='col-md-3'>
                     <form class='form form-vertical'>
                         <button class='btn btn-primary form-control' ng-click='addNewItem(item.position)'>Add Item After</button>
                     </form>
-                </div>
-                <div class='col-md-10'>
                 </div>
             </div>
         </div>

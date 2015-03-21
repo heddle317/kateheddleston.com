@@ -20,9 +20,7 @@
 }
 
 #kateheddleston-wrap .gallery_item {
-  border-top:1px solid #eaeaea;
   margin-top:20px;
-  padding-top:10px;
 }
 
 #kateheddleston-wrap .gallery_item.dead h4,
@@ -175,13 +173,7 @@
 }
 
 #kateheddleston-wrap .btn {
-    background-image:none;
-    border:none;
     border-radius:0px;
-}
-
-#kateheddleston-wrap .btn.btn-default {
-    background-color:rgba(0,0,0,.025);
 }
 
 #kateheddleston-wrap .subscribers {
@@ -211,4 +203,20 @@
 
 #gallery-navbar li.active a {
     color:white;
+}
+
+#kateheddleston-wrap .gallery_item form.navbar-form .navbar-btn {
+    margin-right:7px;
+}
+
+#kateheddleston-wrap .gallery_item form.navbar-form select.navbar-btn {
+    min-width:75px;
+}
+
+#kateheddleston-wrap .edit_gallery .form-control {
+    margin-top:10px;
+}
+
+#kateheddleston-wrap .edit_gallery .navbar .form-control {
+    margin-top:8px;
 }
