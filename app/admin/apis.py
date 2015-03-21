@@ -50,7 +50,7 @@ def delete_talk(uuid):
 @app.route('/api/admin/galleries', methods=['GET'])
 @login_required
 def admin_api_get_galleries():
-    galleries = Gallery.get_list(published=False, to_json=True)
+    galleries = Gallery.get_list(published=False, to_json=True, sort_by='published_at')
     return json.dumps(galleries), 200, {'Content-Type': 'application/json'}
 
 
