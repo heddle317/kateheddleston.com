@@ -8,7 +8,7 @@
     margin-top:50px;
 }
 
-#kateheddleston-wrap .social .share-button {
+#kateheddleston-wrap .share-button {
     display:inline-block;
     padding:0 2px 0 2px;
     color:#ffffff;
@@ -22,7 +22,7 @@
     min-width:220px;
 }
 
-#kateheddleston-wrap .social .share-button .icon {
+#kateheddleston-wrap .share-button .icon {
     width:36px;
     height:36px;
     line-height:36px;
@@ -37,7 +37,7 @@
     cursor:pointer;
 }
 
-#kateheddleston-wrap .social .share-button .label {
+#kateheddleston-wrap .share-button .label {
     font-size:15px;
     padding:0 15px 0 0;
     margin:0;
@@ -49,18 +49,10 @@
     cursor:pointer;
 }
 
-#kateheddleston-wrap .social .share-buttons .facebook {
+#kateheddleston-wrap .share-button.facebook {
     background:#305891;
 }
 
-#kateheddleston-wrap .social .share-button .facebook-icon {
-    background:url('') no-repeat left;
-}
-
-#kateheddleston-wrap .social .share-buttons .twitter {
+#kateheddleston-wrap .share-button.twitter {
     background:#2ca8d2;
-}
-
-#kateheddleston-wrap .social .share-button .twitter-icon {
-    background:url('') no-repeat left;
 }
