@@ -6,5 +6,5 @@ CREATE TABLE categories (
 CREATE TABLE gallery_categories (
     "uuid" uuid NOT NULL,
     "gallery_uuid" uuid NOT NULL,
-    "gallery_category_uuid" uuid NOT NULL
+    "category_uuid" uuid NOT NULL
 );

@@ -65,9 +65,8 @@ class Gallery(Base, BaseModelObject):
             return self.url_title
         return self.uuid
 
-    def add_category(self, category_name=None):
-        category = Category.get(name=category_name)
-        gallery_category = GalleryCategory.create(gallery_uuid=self.uuid, category_uuid=category.uuid)
+    def add_category(self, category_uuid):
+        gallery_category = GalleryCategory.create(gallery_uuid=self.uuid, category_uuid=category_uuid)
         return gallery_category
 
     @staticmethod
@@ -148,7 +147,13 @@ class GalleryCategory(Base, BaseModelObject):
     __tablename__ = 'gallery_categories'
     uuid = Column(UUID, primary_key=True)
     gallery_uuid = Column(UUID)
-    gallery_category_uuid = Column(UUID)
+    category_uuid = Column(UUID)
+
+    def to_dict(self):
+        attr_dict = BaseModelObject.to_dict(self)
+        category = Category.get(gallery_uuid=self.gallery_uuid, category_uuid=self.category_uuid)
+        attr_dict.update({'name': category.name})
+        return attr_dict
 
 
 class Category(Base, BaseModelObject):
