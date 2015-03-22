@@ -2,7 +2,9 @@ import datetime
 import json
 
 from app import app
+from app.db.galleries import Category
 from app.db.galleries import Gallery
+from app.db.galleries import GalleryCategory
 from app.db.galleries import GalleryItem
 from app.db.galleries import GalleryItemComment
 from app.db.subscriptions import Subscription
@@ -153,3 +155,28 @@ def verify_subscriber(uuid):
     subscriber = Subscription.get(uuid=uuid)
     subscriber.send_verification_email()
     return json.dumps(subscriber.to_dict()), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/gallery/<gallery_uuid>/categories', methods=['GET'])
+@login_required
+def gallery_get_categories(gallery_uuid):
+    gallery_categories = GalleryCategory.get_list(gallery_uuid=gallery_uuid, to_json=True)
+    categories = Category.get_list(to_json=True)
+    return json.dumps({'gallery_categories': gallery_categories, 'categories': categories}), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/gallery/<gallery_uuid>/categories', methods=['POST'])
+@login_required
+def gallery_add_category(gallery_uuid):
+    category_uuid = json.loads(request.data).get('category_uuid')
+    GalleryCategory.create(gallery_uuid=gallery_uuid, category_uuid=category_uuid)
+    gallery_categories = GalleryCategory.get_list(gallery_uuid=gallery_uuid, to_json=True)
+    return json.dumps(gallery_categories), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/gallery/<gallery_uuid>/categories/<category_uuid>', methods=['DELETE'])
+@login_required
+def gallery_delete_category(gallery_uuid, category_uuid):
+    GalleryCategory.delete(uuid=category_uuid)
+    gallery_categories = GalleryCategory.get_list(gallery_uuid=gallery_uuid)
+    return json.dumps(gallery_categories), 200, {'Content-Type': 'application/json'}

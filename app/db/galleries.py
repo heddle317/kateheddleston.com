@@ -151,7 +151,7 @@ class GalleryCategory(Base, BaseModelObject):
 
     def to_dict(self):
         attr_dict = BaseModelObject.to_dict(self)
-        category = Category.get(gallery_uuid=self.gallery_uuid, category_uuid=self.category_uuid)
+        category = Category.get(uuid=self.category_uuid)
         attr_dict.update({'name': category.name})
         return attr_dict
 

@@ -205,6 +205,24 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
             });
         }
     };
+    $http.get('/admin/api/gallery/' + $scope.gallery_uuid + '/categories').success(function(response) {
+        $scope.categories = response.categories;
+        $log.log($scope.categories);
+        $scope.galleryCategories = response.gallery_categories;
+    });
+    $scope.addCategory = function(category) {
+        $log.log(category);
+        $http.post('/admin/api/gallery/' + $scope.gallery_uuid + '/categories', data={'category_uuid': category.uuid}).success(function(response) {
+            $scope.galleryCategories = response;
+            $scope.newCategory = '';
+        });
+    };
+    $scope.removeCategory = function(category) {
+        $http.delete('/admin/api/gallery/' + $scope.gallery_uuid + '/categories/' + category.uuid).success(function(response) {
+            $scope.galleryCategories = response;
+            $scope.newCategory = '';
+        });
+    };
 }]);
 
 angularApp.controller('GalleryItemCommentController', ['$scope', '$http', '$window', '$sce', '$upload', '$log', function($scope, $http, $window, $sce, $upload, $log) {

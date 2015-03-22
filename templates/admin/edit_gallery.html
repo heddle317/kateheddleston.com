@@ -60,6 +60,14 @@
             </div>
             <div class='col-md-3'>
                 <h3 class='text-center margin-top-20 large'>Word Count:<br><span class='deep-pink' ng-bind='wordCount()'></span></h3>
+                <div class='add-category'>
+                    <select class='form-control' ng-model='newCategory' ng-change='addCategory(newCategory)' ng-options="category.name for category in categories">
+                    </select>
+                </div>
+                <div ng-repeat='category in galleryCategories'>
+                    <span ng-bind='category.name'></span>
+                    <a href='#' ng-click='removeCategory(category)'>X</a>
+                </div>
             </div>
         </div>
         <div class='row'>
