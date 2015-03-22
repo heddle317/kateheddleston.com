@@ -1,5 +1,5 @@
 <div ng-controller='SubscriptionController' ng-cloak class="ng-cloak">
-    <div id='subscribe' class='modal fade'>
+    <div id='subscribe' class='modal fade text-left'>
       <div class="modal-dialog">
         <div class="modal-content">
           <form ng-show='!success'>
@@ -9,7 +9,7 @@
                 </div>
               <div class="form-group">
                   <input type="text" class="form-control" name="name" ng-model='name' placeholder='Name'>
-                  <input type="text" class="form-control" name="email" ng-model='email' placeholder='Email'>
+                  <input type="text" class="form-control margin-top-10" name="email" ng-model='email' placeholder='Email'>
               </div>
               <a href='{{g.app_base_link}}/blog/feed.atom' target='_blank'>RSS Feed</a>
             </div>

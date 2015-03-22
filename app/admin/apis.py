@@ -178,5 +178,5 @@ def gallery_add_category(gallery_uuid):
 @login_required
 def gallery_delete_category(gallery_uuid, category_uuid):
     GalleryCategory.delete(uuid=category_uuid)
-    gallery_categories = GalleryCategory.get_list(gallery_uuid=gallery_uuid)
+    gallery_categories = GalleryCategory.get_list(gallery_uuid=gallery_uuid, to_json=True)
     return json.dumps(gallery_categories), 200, {'Content-Type': 'application/json'}

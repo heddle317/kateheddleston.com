@@ -207,11 +207,27 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     };
     $http.get('/admin/api/gallery/' + $scope.gallery_uuid + '/categories').success(function(response) {
         $scope.categories = response.categories;
-        $log.log($scope.categories);
         $scope.galleryCategories = response.gallery_categories;
     });
+    $scope.currentCategories = function() {
+        if (!$scope.categories) {
+            return [];
+        }
+        var current = [];
+        var i;
+        var inArray;
+        for (i = 0; i < $scope.categories.length; i++) {
+            inArray = $scope.galleryCategories.filter(function(obj) {
+                return obj.category_uuid == $scope.categories[i].uuid;
+            });
+            if (inArray.length == 0) {
+                current.push($scope.categories[i]);
+            }
+            inArray = [];
+        }
+        return current;
+    };
     $scope.addCategory = function(category) {
-        $log.log(category);
         $http.post('/admin/api/gallery/' + $scope.gallery_uuid + '/categories', data={'category_uuid': category.uuid}).success(function(response) {
             $scope.galleryCategories = response;
             $scope.newCategory = '';
