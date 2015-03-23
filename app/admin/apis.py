@@ -199,16 +199,16 @@ def api_get_categories():
 def subscription_add_category(subscription_uuid):
     category_uuid = json.loads(request.data).get('category_uuid')
     SubscriptionCategory.create(subscription_uuid=subscription_uuid, category_uuid=category_uuid)
-    subscription_categories = SubscriptionCategory.get_list(subscription_uuid=subscription_uuid, to_json=True)
-    return json.dumps(subscription_categories), 200, {'Content-Type': 'application/json'}
+    subscription = Subscription.get(uuid=subscription_uuid)
+    return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/api/subscriptions/<subscription_uuid>/categories/<subscription_category_uuid>', methods=['DELETE'])
+@app.route('/admin/api/subscriptions/<subscription_uuid>/categories/<category_uuid>', methods=['DELETE'])
 @login_required
-def subscription_delete_category(subscription_uuid, subscription_category_uuid):
-    SubscriptionCategory.delete(uuid=subscription_category_uuid)
-    subscription_categories = SubscriptionCategory.get_list(subscription_uuid=subscription_uuid, to_json=True)
-    return json.dumps(subscription_categories), 200, {'Content-Type': 'application/json'}
+def subscription_delete_category(subscription_uuid, category_uuid):
+    SubscriptionCategory.delete(subscription_uuid=subscription_uuid, category_uuid=category_uuid)
+    subscription = Subscription.get(uuid=subscription_uuid)
+    return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/api/gallery/<gallery_uuid>/categories', methods=['POST'])

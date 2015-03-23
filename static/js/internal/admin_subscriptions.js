@@ -33,34 +33,32 @@ angularApp.controller('AdminSubscriptionController', ['$scope', '$http', '$windo
     $http.get('/admin/api/categories').success(function(response) {
         $scope.categories = response;
     });
-    $scope.currentCategories = function() {
-        if (!$scope.categories) {
-            return [];
+    $scope.toggleCategory = function(subscription, category) {
+        if ($scope.hasCategory(subscription, category) >= 0) {
+            $scope.removeCategory(subscription, category);
+        } else {
+            $scope.addCategory(subscription, category);
         }
-        var current = [];
-        var i;
-        var inArray;
-        for (i = 0; i < $scope.categories.length; i++) {
-            inArray = $scope.gallery.gallery_categories.filter(function(obj) {
-                return obj.category_uuid == $scope.categories[i].uuid;
-            });
-            if (inArray.length == 0) {
-                current.push($scope.categories[i]);
-            }
-            inArray = [];
-        }
-        return current;
     };
-    $scope.addCategory = function(subscription) {
-        $http.post('/admin/api//' + $scope.gallery_uuid + '/categories', data={'category_uuid': category.uuid}).success(function(response) {
-            $scope.gallery.gallery_categories = response;
-            $scope.newCategory = '';
+    $scope.hasCategory = function(subscription, category) {
+        var i;
+        for (i = 0; i < subscription.categories.length; i++) {
+            if (subscription.categories[i].category_uuid == category.uuid) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    $scope.addCategory = function(subscription, category) {
+        $http.post('/admin/api/subscriptions/' + subscription.uuid + '/categories', data={'category_uuid': category.uuid}).success(function(response) {
+            var index = $scope.subscriptions.indexOf(subscription);
+            $scope.subscriptions[index] = response;
         });
     };
-    $scope.removeCategory = function(category) {
-        $http.delete('/admin/api/gallery/' + $scope.gallery_uuid + '/categories/' + category.uuid).success(function(response) {
-            $scope.gallery.gallery_categories = response;
-            $scope.newCategory = '';
+    $scope.removeCategory = function(subscription, category) {
+        $http.delete('/admin/api/subscriptions/' + subscription.uuid + '/categories/' + category.uuid).success(function(response) {
+            var index = $scope.subscriptions.indexOf(subscription);
+            $scope.subscriptions[index] = response;
         });
     };
 }]);

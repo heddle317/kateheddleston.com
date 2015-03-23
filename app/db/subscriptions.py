@@ -24,6 +24,12 @@ class Subscription(Base, BaseModelObject):
     dead = Column(Boolean(), nullable=False, default=False)
     created_at = Column(DateTime(), unique=False)
 
+    def to_dict(self):
+        attr_dict = BaseModelObject.to_dict(self)
+        subscription_categories = SubscriptionCategory.get_list(subscription_uuid=self.uuid, to_json=True)
+        attr_dict.update({'categories': subscription_categories})
+        return attr_dict
+
     def send_verification_email(self):
         send_verification_email(self)
 

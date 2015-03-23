@@ -155,7 +155,8 @@ class BaseModelObject(object):
     @classmethod
     def delete(cls, **kwargs):
         item = get(cls, **kwargs)
-        delete(item)
+        if item:
+            delete(item)
 
     @classmethod
     def next(cls, current_item, attrs=None, **kwargs):

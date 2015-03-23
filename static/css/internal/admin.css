@@ -192,6 +192,10 @@
     color:green;
 }
 
+#kateheddleston-wrap .subscriptions .subscription-categories label {
+    text-transform:capitalize;
+}
+
 .talk-body img {
     width:100%;
 }
