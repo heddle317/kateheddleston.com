@@ -65,7 +65,7 @@
                         <option value=''>- Add Category -</option>
                     </select>
                 </div>
-                <div class='label label-default margin-top-10 margin-r-20 category-label' ng-repeat='category in galleryCategories'>
+                <div class='label label-default margin-top-10 margin-r-20 category-label' ng-repeat='category in gallery.gallery_categories'>
                     <span ng-bind='category.name'></span>
                     <a class='margin-l-10' href='#' ng-click='removeCategory(category)'>X</a>
                 </div>

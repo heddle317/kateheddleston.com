@@ -1,6 +1,6 @@
 {% extends "admin/admin_base.html" %}
 {% block content %}
-<div class='subscribers' ng-controller='SubscriptionController'>
+<div class='subscriptions' ng-controller='AdminSubscriptionController'>
     <div class='subscription-status row text-center'>
         <div class='col-md-4'>
             <h1>Total Subscribers</h1>
@@ -16,7 +16,7 @@
         </div>
     </div>
     <table class='table'>
-        <tr class='subscribers-header'>
+        <tr class='subscriptions-header'>
             <th>Verification Token</th>
             <th>Name</th>
             <th>Email</th>
@@ -24,24 +24,24 @@
             <th>Created</th>
             <th>Verified</th>
         </tr>
-        <tr ng-repeat='subscriber in subscribers' class='{[{user.uuid}]} subscriber' ng-class='{dead: subscriber.dead}'>
-            <td ng-bind='subscriber.email_verification_token'></td>
-            <td ng-bind='subscriber.name'></td>
-            <td ng-bind='subscriber.email'></td>
+        <tr ng-repeat='subscription in subscriptions' class='{[{user.uuid}]} subscription' ng-class='{dead: subscription.dead}'>
+            <td ng-bind='subscription.email_verification_token'></td>
+            <td ng-bind='subscription.name'></td>
+            <td ng-bind='subscription.email'></td>
             <td>
-                <i ng-show='!subscriber.dead && subscriber.verified' class='fa fa-check'></i>
+                <i ng-show='!subscription.dead && subscription.verified' class='fa fa-check'></i>
             </td>
-            <td ng-bind='subscriber.created_at'></td>
+            <td ng-bind='subscription.created_at'></td>
             <td>
-                <button class='btn btn-default verify' ng-show='!subscriber.verified && !subscriber.dead' ng-click='sendVerificationEmail(subscriber)' data-loading-text='Sending...'>Re-Send Verification</button>
-                <i ng-show='subscriber.verified' class='fa fa-check'></i>
+                <button class='btn btn-default verify' ng-show='!subscription.verified && !subscription.dead' ng-click='sendVerificationEmail(subscription)' data-loading-text='Sending...'>Re-Send Verification</button>
+                <i ng-show='subscription.verified' class='fa fa-check'></i>
             </td>
         </tr>
     </table>
 </div>
 {% endblock %}
 {% block script %}
-    {% assets "subscribers_js" %}
+    {% assets "admin_subscriptions_js" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
 {% endblock %}

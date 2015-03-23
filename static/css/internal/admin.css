@@ -176,19 +176,19 @@
     border-radius:0px;
 }
 
-#kateheddleston-wrap .subscribers {
+#kateheddleston-wrap .subscriptions {
     padding:0 15px;
 }
 
-#kateheddleston-wrap .subscribers .subscriber.dead {
+#kateheddleston-wrap .subscriptions .subscription.dead {
     color:rgba(0, 0, 0, .3);
 }
 
-#kateheddleston-wrap .subscribers .unverified {
+#kateheddleston-wrap .subscriptions .unverified {
     color:rgba(255, 0, 0, 1);
 }
 
-#kateheddleston-wrap .subscribers .fa-check {
+#kateheddleston-wrap .subscriptions .fa-check {
     color:green;
 }
 

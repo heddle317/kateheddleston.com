@@ -56,6 +56,9 @@ if config.ENVIRONMENT == 'production':
     admin_galleries_js = Bundle('js/internal/admin_galleries.js',
                                 filters='jsmin', output='gen/admin_galleries.%(version)s.js')
 
+    admin_subscriptions_js = Bundle('js/internal/admin_subscriptions.js',
+                                    filters='jsmin', output='gen/admin_subscriptions.%(version)s.js')
+
     admin_talks_js = Bundle('js/internal/admin_talks.js',
                             filters='jsmin', output='gen/admin_galleries.%(version)s.js')
 
@@ -92,9 +95,6 @@ if config.ENVIRONMENT == 'production':
     post_js = Bundle('js/internal/gallery.js',
                      'js/external/imagesloaded.pkgd.min.js',
                      filters='jsmin', output='gen/post.%(version)s.js')
-
-    subscribers_js = Bundle('js/internal/subscribers.js',
-                            filters='jsmin', output='gen/subscribers.%(version)s.js')
 else:
     admin_js = Bundle('js/internal/angular_app_module_admin.js',
                       'js/internal/admin_auth.js',
@@ -105,6 +105,9 @@ else:
 
     admin_talks_js = Bundle('js/internal/admin_talks.js',
                             output='gen/admin_galleries.%(version)s.js')
+
+    admin_subscriptions_js = Bundle('js/internal/admin_subscriptions.js',
+                                    output='gen/admin_subscriptions.%(version)s.js')
 
     angular_admin_js = Bundle('js/external/angular-file-upload-shim.js',
                               'js/external/angular.js',
@@ -137,9 +140,6 @@ else:
     social_js = Bundle('js/internal/social.js',
                        output='gen/social.%(version)s.js')
 
-    subscribers_js = Bundle('js/internal/subscribers.js',
-                            filters='jsmin', output='gen/subscribers.%(version)s.js')
-
     subscription_js = Bundle('js/internal/subscriptions.js',
                              output='gen/subscription.%(version)s.js')
 
@@ -153,5 +153,5 @@ assets.register('blog_js', blog_js)
 assets.register('contact_js', contact_js)
 assets.register('post_js', post_js)
 assets.register('social_js', social_js)
-assets.register('subscribers_js', subscribers_js)
+assets.register('admin_subscriptions_js', admin_subscriptions_js)
 assets.register('subscription_js', subscription_js)

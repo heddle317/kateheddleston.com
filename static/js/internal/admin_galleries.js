@@ -205,9 +205,8 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
             });
         }
     };
-    $http.get('/admin/api/gallery/' + $scope.gallery_uuid + '/categories').success(function(response) {
-        $scope.categories = response.categories;
-        $scope.galleryCategories = response.gallery_categories;
+    $http.get('/admin/api/categories').success(function(response) {
+        $scope.categories = response;
     });
     $scope.currentCategories = function() {
         if (!$scope.categories) {
@@ -217,7 +216,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         var i;
         var inArray;
         for (i = 0; i < $scope.categories.length; i++) {
-            inArray = $scope.galleryCategories.filter(function(obj) {
+            inArray = $scope.gallery.gallery_categories.filter(function(obj) {
                 return obj.category_uuid == $scope.categories[i].uuid;
             });
             if (inArray.length == 0) {
@@ -229,13 +228,13 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     };
     $scope.addCategory = function(category) {
         $http.post('/admin/api/gallery/' + $scope.gallery_uuid + '/categories', data={'category_uuid': category.uuid}).success(function(response) {
-            $scope.galleryCategories = response;
+            $scope.gallery.gallery_categories = response;
             $scope.newCategory = '';
         });
     };
     $scope.removeCategory = function(category) {
         $http.delete('/admin/api/gallery/' + $scope.gallery_uuid + '/categories/' + category.uuid).success(function(response) {
-            $scope.galleryCategories = response;
+            $scope.gallery.gallery_categories = response;
             $scope.newCategory = '';
         });
     };
