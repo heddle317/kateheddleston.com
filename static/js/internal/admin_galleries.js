@@ -1,7 +1,7 @@
 angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', function($scope, $http, $log) {
     $scope.loading = true;
     $scope.items = {'published': [], 'unpublished': [], 'archived': [], 'permanent': []};
-    $scope.currentContainer = '.published';
+    $scope.currentContainer = '.unpublished';
     $http.get('/admin/api/galleries').success(function(response) {
         $('.loading.main-loader').show();
         var i;

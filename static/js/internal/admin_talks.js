@@ -1,7 +1,7 @@
 angularApp.controller('AdminTalksController', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
     $scope.loading = true;
     $scope.items = {'published': [], 'unpublished': [], 'archived': []};
-    $scope.currentContainer = '.published';
+    $scope.currentContainer = '.unpublished';
     $http.get('/admin/api/talks').success(function(response) {
         $('.loading.main-loader').show();
         var i;
