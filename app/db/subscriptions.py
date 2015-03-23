@@ -1,3 +1,4 @@
+from app import config
 from app.db import Base
 from app.db import BaseModelObject
 from app.utils.email import send_subscription_email
@@ -25,11 +26,17 @@ class Subscription(Base, BaseModelObject):
     def send_verification_email(self):
         send_verification_email(self)
 
+    def send_subscription_email(self, gallery):
+        send_subscription_email(self, gallery)
+
+    def cancel_url(self):
+        return u"{}/subscriptions/cancel/{}".format(config.APP_BASE_LINK, self.uuid)
+
     @staticmethod
-    def send_subscription_emails(post_link, post_name):
+    def send_subscription_emails(gallery):
         subscriptions = Subscription.get_list(dead=False, verified=True)
         for subscription in subscriptions:
-            send_subscription_email(subscription, post_link, post_name)
+            send_subscription_email(subscription, gallery)
 
     @staticmethod
     def create_or_update(**kwargs):

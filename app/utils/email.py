@@ -5,21 +5,20 @@ from app import config
 from flask import render_template
 
 
-def send_subscription_email(subscription, post_link, gallery):
-    unsubscribe = u"{}/subscriptions/cancel/{}".format(config.APP_BASE_LINK, subscription.uuid)
+def send_subscription_email(subscription, gallery):
     description = u'{}...'.format(gallery.description()[:400]) if gallery.description() else ''
     body_text = render_template('subscription_email.txt',
                                 user_name=subscription.name,
-                                blog_url=post_link,
-                                unsubscribe_url=unsubscribe)
+                                blog_url=gallery.url(),
+                                unsubscribe_url=subscription.cancel_url())
     body_html = render_template('subscription_email.html',
                                 user_name=subscription.name,
-                                blog_url=post_link,
+                                blog_url=gallery.url(),
                                 gallery_title=gallery.name,
                                 subtitle=gallery.subtitle,
                                 author=gallery.author,
                                 description=description,
-                                unsubscribe_url=unsubscribe)
+                                unsubscribe_url=subscription.cancel_url())
     send_email(subscription.email, gallery.name, body_text=body_text, body_html=body_html)
 
 

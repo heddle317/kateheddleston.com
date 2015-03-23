@@ -69,6 +69,9 @@ class Gallery(Base, BaseModelObject):
         gallery_category = GalleryCategory.create(gallery_uuid=self.uuid, category_uuid=category_uuid)
         return gallery_category
 
+    def url(self):
+        return u'{}/blog/{}'.format(config.APP_BASE_LINK, self.latest_url_title())
+
     @staticmethod
     def blank():
         blank_item = dict((key, '') for key in GalleryItem.__dict__.keys() if key.find('_') > 0)
@@ -108,8 +111,7 @@ class Gallery(Base, BaseModelObject):
 
         if not gallery.published and kwargs.get('published', False):
             kwargs['published_at'] = datetime.datetime.utcnow()
-            link = "{}/blog/{}".format(config.APP_BASE_LINK, uuid)
-            Subscription.send_subscription_emails(link, gallery)
+            Subscription.send_subscription_emails(gallery)
 
         title = Gallery.create_url_title(kwargs.get('name', gallery.name))
         GalleryTitle.add_title(uuid, title)
