@@ -83,12 +83,13 @@ angularApp.controller('MiniEditTalkController', ['$scope', '$http', '$window', '
 
 angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window', '$sce', function($scope, $http, $log, $window, $sce) {
     $scope.editing = false;
-    $scope.talk_uuid = talkUUID;
     $scope.talk = null;
     $scope.initTalk = function(talk) {
         $scope.talk = talk;
         $scope.talk_uuid = talk.uuid;
-        $scope.uuid = talk.uuid;
+        if (!$scope.talk_uuid) {
+            $scope.editing = true;
+        }
         $scope.title = talk.title;
         $scope.imageName = talk.image_name;
         $scope.slidesLink = talk.slides_link;
@@ -99,12 +100,15 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
         $scope.date = talk.date;
         $scope.published = talk.published;
     };
-    $http.get($window.location.pathname).success(function(response) {
-        $scope.initTalk(response);
-        if (!$scope.talk_uuid) {
-            $scope.editing = true;
-        }
-    });
+    if (talkUUID) {
+        $http.get('/admin/api/talks/' + talkUUID).success(function(response) {
+            $scope.initTalk(response);
+        });
+    } else {
+        $http.get('/admin/api/talks').success(function(response) {
+            $scope.initTalk(response);
+        });
+    }
     $scope.cancel = function() {
         $scope.editing = false;
     };
@@ -130,7 +134,7 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
                     'image_name': $scope.talk.image_name};
         if ($scope.talk_uuid) {
             data['published'] = $scope.published;
-            $http.put("/admin/api/talks/" + $scope.uuid, data).success(function(data) {
+            $http.put("/admin/api/talks/" + $scope.talk_uuid, data).success(function(data) {
                 $scope.editing = false;
             });
         } else {
@@ -146,7 +150,7 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
       if (!confirm) {
         return;
       }
-      $http.delete("/admin/api/talks/" + $scope.uuid).success(function(data) {
+      $http.delete("/admin/api/talks/" + $scope.talk_uuid).success(function(data) {
           $window.location = "/admin/talks";
       });
     };

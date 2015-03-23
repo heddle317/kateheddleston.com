@@ -71,7 +71,7 @@ def edit_talk(uuid=None):
     signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
     access_key = config.AWS_ACCESS_KEY_ID
     return render_template('admin/edit_talk.html',
-                           talk_uuid=uuid,
+                           talk_uuid=uuid or '',
                            policy=policy,
                            signature=signature,
                            accessKey=access_key)
