@@ -8,6 +8,7 @@ from app.db.galleries import GalleryCategory
 from app.db.galleries import GalleryItem
 from app.db.galleries import GalleryItemComment
 from app.db.subscriptions import Subscription
+from app.db.subscriptions import SubscriptionCategory
 from app.db.talks import Talk
 
 from flask import g
@@ -61,7 +62,7 @@ def admin_api_get_galleries():
 def create_gallery():
     data = json.loads(request.data)
     try:
-        gallery = Gallery.create(**data)
+        gallery = Gallery.create_gallery(**data)
     except ValueError as e:
         flash(e.message, 'danger')
         return json.dumps({'message': e.message}), 400, {'Content-Type': 'application/json'}
@@ -157,12 +158,28 @@ def verify_subscriber(uuid):
     return json.dumps(subscriber.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/api/gallery/<gallery_uuid>/categories', methods=['GET'])
+@app.route('/admin/api/categories', methods=['GET'])
 @login_required
-def gallery_get_categories(gallery_uuid):
-    gallery_categories = GalleryCategory.get_list(gallery_uuid=gallery_uuid, to_json=True)
+def api_get_categories(subscribers_uuid):
     categories = Category.get_list(to_json=True)
-    return json.dumps({'gallery_categories': gallery_categories, 'categories': categories}), 200, {'Content-Type': 'application/json'}
+    return json.dumps(categories), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/subscribers/<subscriber_uuid>/categories', methods=['POST'])
+@login_required
+def subscriber_add_category(subscriber_uuid):
+    category_uuid = json.loads(request.data).get('category_uuid')
+    SubscriptionCategory.create(subscriber_uuid=subscriber_uuid, category_uuid=category_uuid)
+    subscriber_categories = SubscriptionCategory.get_list(subscriber_uuid=subscriber_uuid, to_json=True)
+    return json.dumps(subscriber_categories), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/subsribers/<subscriber_uuid>/categories/<subscriber_category_uuid>', methods=['DELETE'])
+@login_required
+def subscriber_delete_category(subscriber_uuid, subscriber_category_uuid):
+    SubscriptionCategory.delete(uuid=subscriber_category_uuid)
+    subscriber_categories = SubscriptionCategory.get_list(subscriber_uuid=subscriber_uuid, to_json=True)
+    return json.dumps(subscriber_categories), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/admin/api/gallery/<gallery_uuid>/categories', methods=['POST'])

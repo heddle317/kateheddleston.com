@@ -1,6 +1,7 @@
 from app import config
 from app.db import Base
 from app.db import BaseModelObject
+from app.db.categories import Category
 from app.utils.email import send_subscription_email
 from app.utils.email import send_verification_email
 
@@ -73,3 +74,16 @@ class Subscription(Base, BaseModelObject):
     def cancel_subscription(uuid):
         subscription = Subscription.update(uuid, dead=True, verified=False)
         return subscription
+
+
+class SubscriptionCategory(Base, BaseModelObject):
+    __tablename__ = 'subscription_categories'
+    uuid = Column(UUID, primary_key=True)
+    subscription_uuid = Column(UUID)
+    category_uuid = Column(UUID)
+
+    def to_dict(self):
+        attr_dict = BaseModelObject.to_dict(self)
+        category = Category.get(uuid=self.category_uuid)
+        attr_dict.update({'name': category.name})
+        return attr_dict

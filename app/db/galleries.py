@@ -4,9 +4,9 @@ import string
 from app import config
 from app.db import Base
 from app.db import BaseModelObject
-from app.db import create
 from app.db import delete
 from app.db import update
+from app.db.categories import Category
 from app.db.subscriptions import Subscription
 from app.db.user import User
 from app.utils.datetime_tools import format_date
@@ -37,6 +37,7 @@ class Gallery(Base, BaseModelObject):
 
     def to_dict(self, admin=False):
         base_url = '{}/galleries/{}'.format(config.AWS_IMAGES_BASE, self.uuid)
+        gallery_categories = GalleryCategory.get_list(gallery_uuid=self.uuid, to_json=True)
         attr_dict = BaseModelObject.to_dict(self)
         attr_dict.update({'cover_photo_url': '{}/{}'.format(base_url, self.cover_photo),
                           'base_url': base_url,
@@ -46,6 +47,7 @@ class Gallery(Base, BaseModelObject):
                           'created_at': format_date(self.created_at, format='%B %d, %Y'),
                           'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%S') if self.published_at else '',
                           'published_ago': relative_time(self.published_at) if self.published_at else '',
+                          'gallery_categories': gallery_categories,
                           'items': GalleryItem.get_items(gallery_uuid=self.uuid, sort_by='position', desc=False, to_json=True, admin=admin),
                           'prev': Gallery.prev(self, attrs=['uuid', 'url_title'], sort_by='published_at', published=True, desc=False),
                           'next': Gallery.next(self, attrs=['uuid', 'url_title'], sort_by='published_at', published=True, desc=False)})
@@ -65,10 +67,6 @@ class Gallery(Base, BaseModelObject):
             return self.url_title
         return self.uuid
 
-    def add_category(self, category_uuid):
-        gallery_category = GalleryCategory.create(gallery_uuid=self.uuid, category_uuid=category_uuid)
-        return gallery_category
-
     def url(self):
         return u'{}/blog/{}'.format(config.APP_BASE_LINK, self.latest_url_title())
 
@@ -85,10 +83,10 @@ class Gallery(Base, BaseModelObject):
         return blank_gallery
 
     @staticmethod
-    def create(**kwargs):
+    def create_gallery(**kwargs):
         if 'gallery_uuid' in kwargs.keys():
             kwargs.pop('gallery_uuid')
-        gallery = create(Gallery, **kwargs)
+        gallery = Gallery.create(**kwargs)
 
         title = Gallery.create_url_title(kwargs.get('name'))
         GalleryTitle.add_title(gallery.uuid, title)
@@ -156,12 +154,6 @@ class GalleryCategory(Base, BaseModelObject):
         category = Category.get(uuid=self.category_uuid)
         attr_dict.update({'name': category.name})
         return attr_dict
-
-
-class Category(Base, BaseModelObject):
-    __tablename__ = 'categories'
-    uuid = Column(UUID, primary_key=True)
-    name = Column(String(500), nullable=False, unique=True)
 
 
 class GalleryTitle(Base, BaseModelObject):
