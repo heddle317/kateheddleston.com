@@ -78,6 +78,7 @@ class Gallery(Base, BaseModelObject):
         blank_gallery.update({'items': [blank_item],
                               'published_at_raw': '',
                               'published_ago': '',
+                              'gallery_categories': [],
                               'created_ago': '',
                               'published': False})
         return blank_gallery

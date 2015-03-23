@@ -87,20 +87,16 @@ angularApp.controller('MiniEditGalleryController', ['$scope', '$http', '$window'
 }]);
 
 angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$sce', '$log', function($scope, $http, $window, $sce, $log) {
-    $scope.gallery_uuid = galleryUUID;
-    $scope.uuid = galleryUUID;
-    $scope.name = '';
-    $scope.subtitle = '';
-    $scope.author = '';
-    $scope.coverPhoto = '';
     $scope.items = [];
     $scope.published = false;
-    $scope.published_ago = '';
     $scope.editing = false;
     $scope.initGallery = function(gallery) {
         $scope.gallery = gallery;
         $scope.uuid = gallery.uuid;
         $scope.gallery_uuid = gallery.uuid;
+        if (!$scope.gallery_uuid) {
+            $scope.editing = true;
+        }
         $scope.name = gallery.name;
         $scope.subtitle = gallery.subtitle;
         $scope.author = gallery.author;
@@ -109,16 +105,21 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         $scope.published = gallery.published;
         $scope.published_ago = gallery.published_ago;
     };
-    $http.get($window.location.pathname).success(function(response) {
-        $scope.initGallery(response);
-        if (!$scope.gallery_uuid) {
-            $scope.editing = true;
-        }
-    });
+    if (galleryUUID) {
+        $http.get('/admin/api/gallery/' + galleryUUID).success(function(response) {
+            $scope.initGallery(response);
+        });
+    } else {
+        $http.get('/admin/api/gallery').success(function(response) {
+            $scope.initGallery(response);
+        });
+    }
     $scope.wordCount = function() {
         var count = 0;
         for (var i = 0; i < $scope.items.length; i++) {
-            count += $scope.items[i].body.split(" ").length;
+            if ($scope.items[i].body) {
+                count += $scope.items[i].body.split(" ").length;
+            }
         }
         return count;
     };
@@ -209,7 +210,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         $scope.categories = response;
     });
     $scope.currentCategories = function() {
-        if (!$scope.categories) {
+        if (!$scope.gallery || !$scope.categories) {
             return [];
         }
         var current = [];

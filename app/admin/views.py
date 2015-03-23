@@ -102,7 +102,7 @@ def edit_gallery(uuid=None):
     signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
     access_key = config.AWS_ACCESS_KEY_ID
     return render_template('admin/edit_gallery.html',
-                           gallery_uuid=uuid,
+                           gallery_uuid=uuid or '',
                            policy=policy,
                            signature=signature,
                            accessKey=access_key)
