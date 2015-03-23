@@ -2,7 +2,7 @@ angularApp.controller('AdminTalksController', ['$scope', '$http', '$sce', functi
     $scope.loading = true;
     $scope.items = {'published': [], 'unpublished': [], 'archived': []};
     $scope.currentContainer = '.published';
-    $http.get('/admin/talks').success(function(response) {
+    $http.get('/admin/api/talks').success(function(response) {
         $('.loading.main-loader').show();
         var i;
         var item;
@@ -76,7 +76,7 @@ angularApp.controller('MiniEditTalkController', ['$scope', '$http', '$window', '
         $scope.sortLists();
         var data = {'published': $scope.talk.published,
                     'archived': $scope.talk.archived};
-        $http.put("/admin/talks/" + $scope.talk.uuid, data).success(function(data) {
+        $http.put("/admin/api/talks/" + $scope.talk.uuid, data).success(function(data) {
         });
     };
 }]);
@@ -130,14 +130,14 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
                     'image_name': $scope.talk.image_name};
         if ($scope.talk_uuid) {
             data['published'] = $scope.published;
-            $http.put("/admin/talks/" + $scope.uuid, data).success(function(data) {
+            $http.put("/admin/api/talks/" + $scope.uuid, data).success(function(data) {
                 $scope.editing = false;
             });
         } else {
-            $http.post("/admin/talks", data).success(function(data) {
+            $http.post("/admin/api/talks", data).success(function(data) {
                 $scope.editing = false;
                 $scope.initTalk(data);
-                $window.location = "/admin/talk/" + $scope.talk_uuid;
+                $window.location = "/admin/api/talks/" + $scope.talk_uuid;
             });
         }
     };
@@ -146,7 +146,7 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
       if (!confirm) {
         return;
       }
-      $http.delete("/admin/talks/" + $scope.uuid).success(function(data) {
+      $http.delete("/admin/api/talks/" + $scope.uuid).success(function(data) {
           $window.location = "/admin/talks";
       });
     };

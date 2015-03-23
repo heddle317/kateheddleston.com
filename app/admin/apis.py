@@ -18,7 +18,14 @@ from flask import request
 from flask_login import login_required
 
 
-@app.route('/admin/talks', methods=['POST'])
+@app.route('/admin/api/talks', methods=['GET'])
+@login_required
+def api_get_talks():
+    talks = Talk.get_list(published=False, to_json=True, sort_by='date')
+    return json.dumps(talks), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/talks', methods=['POST'])
 @login_required
 def create_talk():
     data = json.loads(request.data)
@@ -34,7 +41,18 @@ def create_talk():
     return json.dumps(talk.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/talks/<uuid>', methods=['PUT'])
+@app.route('/admin/api/talks', methods=['GET'])
+@app.route('/admin/api/talks/<uuid>', methods=['GET'])
+@login_required
+def api_edit_talk(uuid=None):
+    if uuid:
+        talk = Talk.get(uuid=uuid).to_dict()
+    else:
+        talk = Talk.blank()
+    return json.dumps(talk), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/talks/<uuid>', methods=['PUT'])
 @login_required
 def update_talk(uuid):
     data = json.loads(request.data)
@@ -42,7 +60,7 @@ def update_talk(uuid):
     return json.dumps(talk.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/talks/<uuid>', methods=['DELETE'])
+@app.route('/admin/api/talks/<uuid>', methods=['DELETE'])
 @login_required
 def delete_talk(uuid):
     Talk.delete(uuid=uuid)
@@ -50,14 +68,14 @@ def delete_talk(uuid):
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/api/admin/galleries', methods=['GET'])
+@app.route('/admin/api/galleries', methods=['GET'])
 @login_required
-def admin_api_get_galleries():
+def api_get_galleries():
     galleries = Gallery.get_list(published=False, to_json=True, sort_by='published_at')
     return json.dumps(galleries), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/galleries', methods=['POST'])
+@app.route('/admin/api/galleries', methods=['POST'])
 @login_required
 def create_gallery():
     data = json.loads(request.data)
@@ -69,7 +87,18 @@ def create_gallery():
     return json.dumps(gallery.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/gallery/<uuid>', methods=['PUT'])
+@app.route('/admin/api/gallery', methods=['GET'])
+@app.route('/admin/api/gallery/<uuid>', methods=['GET'])
+@login_required
+def api_edit_gallery(uuid=None):
+    if uuid:
+        gallery = Gallery.get(uuid=uuid).to_dict(admin=True)
+    else:
+        gallery = Gallery.blank()
+    return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/gallery/<uuid>', methods=['PUT'])
 @login_required
 def update_gallery(uuid=None):
     data = json.loads(request.data)
@@ -77,7 +106,7 @@ def update_gallery(uuid=None):
     return json.dumps(gallery.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/gallery/<uuid>', methods=['DELETE'])
+@app.route('/admin/api/gallery/<uuid>', methods=['DELETE'])
 @login_required
 def delete_gallery(uuid):
     Gallery.delete(uuid=uuid)
@@ -85,7 +114,7 @@ def delete_gallery(uuid):
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/gallery/item', methods=['POST'])
+@app.route('/admin/api/gallery/item', methods=['POST'])
 @login_required
 def create_gallery_item():
     data = json.loads(request.data)
@@ -93,7 +122,7 @@ def create_gallery_item():
     return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/gallery/item/<uuid>', methods=['POST'])
+@app.route('/admin/api/gallery/item/<uuid>', methods=['POST'])
 @login_required
 def update_gallery_item(uuid):
     item = GalleryItem.get(uuid=uuid)
@@ -106,7 +135,7 @@ def update_gallery_item(uuid):
     return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/gallery/item/<uuid>', methods=['DELETE'])
+@app.route('/admin/api/gallery/item/<uuid>', methods=['DELETE'])
 @login_required
 def delete_gallery_item(uuid):
     GalleryItem.delete(uuid=uuid)
@@ -114,7 +143,7 @@ def delete_gallery_item(uuid):
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/gallery/item/<item_uuid>/comments', methods=['POST'])
+@app.route('/admin/api/gallery/item/<item_uuid>/comments', methods=['POST'])
 @login_required
 def gallery_item_create_comment(item_uuid):
     item = GalleryItem.get(uuid=item_uuid)
@@ -126,7 +155,7 @@ def gallery_item_create_comment(item_uuid):
     return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/gallery/item/<item_uuid>/comments/<comment_uuid>', methods=['POST'])
+@app.route('/admin/api/gallery/item/<item_uuid>/comments/<comment_uuid>', methods=['POST'])
 @login_required
 def gallery_item_comment_update(item_uuid, comment_uuid):
     data = json.loads(request.data)
@@ -135,7 +164,7 @@ def gallery_item_comment_update(item_uuid, comment_uuid):
     return json.dumps(item.to_dict(admin=True)), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/gallery/item/<item_uuid>/comments/<comment_uuid>', methods=['DELETE'])
+@app.route('/admin/api/gallery/item/<item_uuid>/comments/<comment_uuid>', methods=['DELETE'])
 @login_required
 def gallery_item_comment_delete(item_uuid, comment_uuid):
     GalleryItemComment.delete(uuid=comment_uuid)
@@ -174,7 +203,7 @@ def subscriber_add_category(subscriber_uuid):
     return json.dumps(subscriber_categories), 200, {'Content-Type': 'application/json'}
 
 
-@app.route('/admin/api/subsribers/<subscriber_uuid>/categories/<subscriber_category_uuid>', methods=['DELETE'])
+@app.route('/admin/api/subscribers/<subscriber_uuid>/categories/<subscriber_category_uuid>', methods=['DELETE'])
 @login_required
 def subscriber_delete_category(subscriber_uuid, subscriber_category_uuid):
     SubscriptionCategory.delete(uuid=subscriber_category_uuid)

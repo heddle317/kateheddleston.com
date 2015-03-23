@@ -2,7 +2,7 @@ angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', fu
     $scope.loading = true;
     $scope.items = {'published': [], 'unpublished': [], 'archived': [], 'permanent': []};
     $scope.currentContainer = '.published';
-    $http.get('/api/admin/galleries').success(function(response) {
+    $http.get('/admin/api/galleries').success(function(response) {
         $('.loading.main-loader').show();
         var i;
         var item;
@@ -81,7 +81,7 @@ angularApp.controller('MiniEditGalleryController', ['$scope', '$http', '$window'
         $scope.sortLists();
         var data = {'published': $scope.gallery.published,
                     'archived': $scope.gallery.archived};
-        $http.put("/admin/gallery/" + $scope.gallery.uuid, data).success(function(data) {
+        $http.put("/admin/api/gallery/" + $scope.gallery.uuid, data).success(function(data) {
         });
     };
 }]);
@@ -153,7 +153,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
       if (!confirm) {
         return;
       }
-      $http.delete("/admin/gallery/" + $scope.gallery_uuid).success(function(data) {
+      $http.delete("/admin/api/gallery/" + $scope.gallery_uuid).success(function(data) {
           $window.location = "/admin/galleries";
       });
     };
@@ -194,13 +194,13 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
                 data['items'] = $scope.items;
             }
             data['published'] = $scope.published;
-            $http.put("/admin/gallery/" + $scope.gallery_uuid, data).success(function(response) {
+            $http.put("/admin/api/gallery/" + $scope.gallery_uuid, data).success(function(response) {
                 $scope.editing = false;
                 $scope.initGallery(response);
             });
         } else {
             data['items'] = $scope.items;
-            $http.post("/admin/galleries", data).success(function(response) {
+            $http.post("/admin/api/galleries", data).success(function(response) {
                 $window.location = "/admin/gallery/" + response.uuid;
             });
         }
@@ -248,12 +248,12 @@ angularApp.controller('GalleryItemCommentController', ['$scope', '$http', '$wind
         $scope.galleryItem = gallery_item;
     };
     $scope.resolveComment = function(comment) {
-        $http.post('/admin/gallery/item/' + $scope.galleryItem.uuid + '/comments/' + comment.uuid, data={'resolved': true}).success(function(response) {
+        $http.post('/admin/api/gallery/item/' + $scope.galleryItem.uuid + '/comments/' + comment.uuid, data={'resolved': true}).success(function(response) {
             $scope.galleryItem = response;
         });
     };
     $scope.addComment = function() {
-        $http.post('/admin/gallery/item/' + $scope.galleryItem.uuid + '/comments', data={'body': $scope.newComment}).success(function(response) {
+        $http.post('/admin/api/gallery/item/' + $scope.galleryItem.uuid + '/comments', data={'body': $scope.newComment}).success(function(response) {
             $scope.newComment = '';
             $scope.galleryItem = response;
         });
@@ -289,7 +289,7 @@ angularApp.controller('GalleryItemCommentController', ['$scope', '$http', '$wind
         if (!confirm) {
             return;
         }
-        $http.delete('/admin/gallery/item/' + $scope.galleryItem.uuid + '/comments/' + comment.uuid).success(function(response) {
+        $http.delete('/admin/api/gallery/item/' + $scope.galleryItem.uuid + '/comments/' + comment.uuid).success(function(response) {
             $scope.galleryItem = response;
         });
     };
@@ -365,14 +365,14 @@ angularApp.controller('GalleryItemController', ['$scope', '$http', '$window', '$
     };
     $scope.updateGalleryItem = function() {
         if (!$scope.item.uuid) {
-            $http.post('/admin/gallery/item', data=$scope.item).success(function(response) {
+            $http.post('/admin/api/gallery/item', data=$scope.item).success(function(response) {
                 var currentPosition = $scope.items.indexOf($scope.item);
                 $scope.items[currentPosition] = response;
                 $scope.item.editing = false;
                 $scope.item = response;
             });
         } else {
-            $http.post('/admin/gallery/item/' + $scope.item.uuid, data=$scope.item).success(function(response) {
+            $http.post('/admin/api/gallery/item/' + $scope.item.uuid, data=$scope.item).success(function(response) {
                 var currentPosition = $scope.items.indexOf($scope.item);
                 $scope.items[currentPosition] = response;
                 $scope.item = response;
@@ -393,7 +393,7 @@ angularApp.controller('GalleryItemController', ['$scope', '$http', '$window', '$
             var currentPosition = $scope.items.indexOf($scope.item);
             $scope.items.splice(currentPosition, 1);
         }
-        $http.delete('/admin/gallery/item/' + $scope.item.uuid).success(function() {
+        $http.delete('/admin/api/gallery/item/' + $scope.item.uuid).success(function() {
             var currentPosition = $scope.items.indexOf($scope.item);
             $scope.items.splice(currentPosition, 1);
             $scope.updateGallery(true);

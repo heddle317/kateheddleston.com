@@ -8,7 +8,6 @@ import urllib
 from app import app
 from app import config
 from app.db.galleries import Gallery
-from app.db.talks import Talk
 from app.db.user import get_verified_user
 from app.utils.decorators.template_globals import use_template_globals
 
@@ -58,9 +57,6 @@ def logout():
 @login_required
 @use_template_globals
 def get_talks():
-    if request.is_xhr:
-        talks = Talk.get_list(published=False, to_json=True, sort_by='date')
-        return json.dumps(talks), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'talks'
     return render_template('admin/talks.html')
 
@@ -70,12 +66,6 @@ def get_talks():
 @login_required
 @use_template_globals
 def edit_talk(uuid=None):
-    if request.is_xhr:
-        if uuid:
-            talk = Talk.get(uuid=uuid).to_dict()
-        else:
-            talk = Talk.blank()
-        return json.dumps(talk), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'talks'
     policy = base64.b64encode(json.dumps(policy_document))
     signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
@@ -107,12 +97,6 @@ def get_admin_gallery(uuid=None):
 @login_required
 @use_template_globals
 def edit_gallery(uuid=None):
-    if request.is_xhr:
-        if uuid:
-            gallery = Gallery.get(uuid=uuid).to_dict(admin=True)
-        else:
-            gallery = Gallery.blank()
-        return json.dumps(gallery), 200, {'Content-Type': 'application/json'}
     g.nav_view = 'galleries'
     policy = base64.b64encode(json.dumps(policy_document))
     signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
