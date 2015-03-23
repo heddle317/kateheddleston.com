@@ -1,30 +1,30 @@
 <div class='talk-footer'>
     <div class='links text-center'>
-        <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12 icon pull-left border-right'>
+        <div class='col-lg-4 col-md-4 col-sm-4 col-xs-12 icon border-right'>
             <span class='icon-wrapper'>
                 <i class='fa fa-map-marker'></i>{{talk.location}},&nbsp;&nbsp;{{talk.formatted_date}}
             </span>
         </div>
         {% if talk.slides_link %}
-        <div class='icon col-md-3 col-lg-3 col-sm-4 col-xs-6 pull-left border-right'>
+        <div class='icon col-md-3 col-lg-3 col-sm-4 col-xs-6 border-right'>
             <a class='icon-wrapper' target="_blank" href="{{talk.slides_link}}">
                 <i class='fa fa-external-link'></i>Slides
             </a>
         </div>
         {% endif %}
         {% if talk.description_link %}
-        <div class='icon col-md-3 col-lg-3 col-sm-4 col-xs-6 pull-left border-right'>
+        <div class='icon col-md-3 col-lg-3 col-sm-4 col-xs-6 border-right'>
             <a class='icon-wrapper' target="_blank" href="{{talk.description_link}}">
                 <i class='fa fa-external-link'></i>Description
             </a>
         </div>
         {% endif %}
-        <div class='next-link icon col-lg-1 col-md-1 col-sm-6 col-xs-6 pull-right border-left'>
+        <div class='next-link icon col-lg-1 col-md-1 col-sm-6 col-xs-6 border-left'>
             {% if talk.next %}
                 <a class='icon-wrapper' href="{{g.app_base_link}}/talk/{{talk.next.uuid}}">View Next</a>
             {% endif %}
         </div>
-        <div class='prev-link icon col-lg-1 col-md-1 col-sm-6 col-xs-6 pull-right border-left'>
+        <div class='prev-link icon col-lg-1 col-md-1 col-sm-6 col-xs-6 border-left'>
             {% if talk.prev %}
                 <a class='icon-wrapper' href="{{g.app_base_link}}/talk/{{talk.prev.uuid}}">View Prev</a>
             {% endif %}
