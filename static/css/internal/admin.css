@@ -30,6 +30,8 @@
 
 #kateheddleston-wrap .gallery_item .item-body {
     margin-bottom:10px;
+    overflow:auto;
+    word-wrap: break-word;
 }
 
 #kateheddleston-wrap .add-image-button {
@@ -156,6 +158,8 @@
 
 #kateheddleston-wrap .comments .comment .text .text-body {
     white-space:pre-line;
+    overflow:auto;
+    word-wrap: break-word;
 }
 
 #kateheddleston-wrap .comments .comment .author,
