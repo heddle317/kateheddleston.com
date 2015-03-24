@@ -230,3 +230,7 @@
     font-size:16px;
     display:inline-block;
 }
+
+#kateheddleston-wrap .edit_gallery .form-control {
+    margin-top:10px;
+}

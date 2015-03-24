@@ -182,6 +182,7 @@ class GalleryItem(Base, BaseModelObject):
     image_name = Column(String(500), nullable=True)
     position = Column(Integer(), nullable=False)
     image_caption = Column(String(500), nullable=True)
+    image_alt = Column(String(500), nullable=True)
     dead = Column(Boolean, default=False, nullable=False)
 
     def to_dict(self, admin=False):

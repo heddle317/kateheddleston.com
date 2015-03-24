@@ -18,7 +18,7 @@
                         <button class='btn btn-success navbar-btn form-control' ng-click='updateGallery(false)' ng-show='editing'>Save</button>
                     </form>
                     <form class='navbar-form navbar-right'>
-                        <button class='btn btn-default navbar-btn form-control' target="_blank" href="/blog/{[{gallery.url_title}]}">Preview</button>
+                        <a class='btn btn-default navbar-btn form-control' target="_blank" href="/blog/{[{gallery.url_title}]}">Preview</a>
                         <button class='btn btn-success navbar-btn form-control' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
                         <button class='btn btn-warning navbar-btn form-control' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
                         <button class='btn btn-danger navbar-btn form-control' ng-click='deleteGallery()'>Delete</button>
@@ -131,7 +131,7 @@
                                 <span class='message' ng-bind='alertMessage'></span>
                             </div>
                             <div ng-show='!generatingSizes'>
-                                <img ng-if='item.image_name' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_small" />
+                                <img ng-if='item.image_name' style='width:100%' ng-src="{[{gallery.base_url}]}/{[{item.image_name}]}_small" alt='{[{item.image_alt}]}'/>
                             </div>
                             <div class='loading image-loader' ng-show='generatingSizes'>
                                 <img src="{{g.images_base}}/images/loading.gif" />
@@ -143,8 +143,10 @@
                                 </div>
                             </div>
                             <div>
-                                <small ng-show='!item.editing' ng-bind-html='item.image_caption'></small>
+                                <p ng-bind='item.image_alt'></p>
+                                <p><em ng-show='!item.editing' ng-bind-html='item.image_caption'></em></p>
                                 <input type="text" placeholder='Image Name' class="form-control" name="image" ng-show='item.editing' ng-model='item.image_name'>
+                                <input type='text' placeholder='Image Alt Text' class='form-control' name='image_alt' ng-show='item.editing' ng-model='item.image_alt' />
                                 <input type='text' placeholder='Image Caption' class='form-control' name='image_caption' ng-show='item.editing' ng-model='item.image_caption' />
                             </div>
                             <div>
