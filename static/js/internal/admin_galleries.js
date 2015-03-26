@@ -117,7 +117,7 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
     $scope.wordCount = function() {
         var count = 0;
         for (var i = 0; i < $scope.items.length; i++) {
-            if ($scope.items[i].body) {
+            if ($scope.items[i].body && !$scope.items[i].dead) {
                 count += $scope.items[i].body.split(" ").length;
             }
         }
