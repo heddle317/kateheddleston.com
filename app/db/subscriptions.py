@@ -64,6 +64,9 @@ class Subscription(Base, BaseModelObject):
         else:
             kwargs['email_verification_token'] = str(uuid4())
             subscription = Subscription.create(**kwargs)
+            categories = Category.get_list()
+            for category in categories:
+                SubscriptionCategory.create(subscription_uuid=subscription.uuid, category_uuid=category.uuid)
             send_verification_email(subscription)
         message = "You have successfully subscribed to my blog with email address {}.<br><br>" \
                   "A verification email has been sent to your email address. Be sure to check your spam folder if you " \
