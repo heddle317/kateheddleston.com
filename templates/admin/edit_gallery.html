@@ -22,6 +22,7 @@
                         <button class='btn btn-success navbar-btn form-control' ng-show='!published && !editing' ng-click='publishGallery()'>Publish</button>
                         <button class='btn btn-warning navbar-btn form-control' ng-show='published && !editing' ng-click='unpublishGallery()'>Unpublish</button>
                         <button class='btn btn-danger navbar-btn form-control' ng-click='deleteGallery()'>Delete</button>
+                        <button class='btn btn-info navbar-btn form-control send-emails' ng-show='published' data-loading-text="Sending..." ng-click='sendEmails()'>Send Emails</button>
                     </form>
                 </div>
             </div>

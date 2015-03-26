@@ -110,7 +110,6 @@ class Gallery(Base, BaseModelObject):
 
         if not gallery.published and kwargs.get('published', False):
             kwargs['published_at'] = datetime.datetime.utcnow()
-            Subscription.send_subscription_emails(gallery)
 
         title = Gallery.create_url_title(kwargs.get('name', gallery.name))
         GalleryTitle.add_title(uuid, title)
@@ -125,6 +124,11 @@ class Gallery(Base, BaseModelObject):
                 GalleryItem.create(gallery_uuid=gallery.uuid, **item_data)
 
         return gallery
+
+    @staticmethod
+    def send_emails(uuid):
+        gallery = Gallery.get(uuid=uuid)
+        Subscription.send_subscription_emails(gallery)
 
     @staticmethod
     def get_custom_url(url_title):

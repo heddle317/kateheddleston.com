@@ -178,6 +178,17 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         $scope.published = true;
         $scope.updateGallery(false);
     };
+    $scope.sendEmails = function() {
+        var confirm = $window.confirm("Are you sure you want to send notification emails for this blog post?");
+        if (!confirm) {
+            return;
+        }
+        var $btn = $('.send-emails').button('loading');
+        $http.post('/admin/api/gallery/' + $scope.gallery_uuid + '/send_emails').success(function() {
+            $btn.button('reset');
+            alert('Emails successfully sent.')
+        });
+    }
     $scope.updateItemsPosition = function() {
       var i;
       for (i = 0; i < $scope.items.length; i++) {

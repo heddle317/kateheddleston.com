@@ -114,6 +114,13 @@ def delete_gallery(uuid):
     return json.dumps(return_data), 200, {'Content-Type': 'application/json'}
 
 
+@app.route('/admin/api/gallery/<uuid>/send_emails', methods=['POST'])
+@login_required
+def send_gallery_emails(uuid):
+    Gallery.send_emails(uuid)
+    return json.dumps({'message': 'Emails were successfully sent.'}), 200, {'Content-Type': 'application/json'}
+
+
 @app.route('/admin/api/gallery/item', methods=['POST'])
 @login_required
 def create_gallery_item():
