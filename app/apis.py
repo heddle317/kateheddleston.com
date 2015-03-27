@@ -2,8 +2,10 @@ import json
 
 from app import app
 from app.db.comments import Comment
+from app.db.categories import Category
 from app.db.galleries import Gallery
 from app.db.subscriptions import Subscription
+from app.db.subscriptions import SubscriptionCategory
 from app.utils.aws import s3_change_image_resolutions
 from app.utils.email import send_contact_email
 
@@ -50,6 +52,40 @@ def subscribe():
 def get_gallery_ajax(uuid):
     gallery = Gallery.get(uuid=uuid)
     return json.dumps(gallery.to_dict()), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/subscription/categories', methods=['GET'])
+def subscription_categories():
+    categories = Category.get_list(to_json=True)
+    return json.dumps(categories), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/subscription/<uuid>', methods=['POST'])
+def edit_subscription(uuid):
+    data = json.loads(request.data)
+    subscription = Subscription.update(uuid, **data)
+    return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/subscription/<uuid>', methods=['DELETE'])
+def cancel_subscription(uuid):
+    subscription = Subscription.cancel_subscription(uuid)
+    return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/subscription/<subscription_uuid>/categories', methods=['POST'])
+def subscription_add_category(subscription_uuid):
+    category_uuid = json.loads(request.data).get('category_uuid')
+    SubscriptionCategory.create(subscription_uuid=subscription_uuid, category_uuid=category_uuid)
+    subscription = Subscription.get(uuid=subscription_uuid)
+    return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/subscription/<subscription_uuid>/categories/<category_uuid>', methods=['DELETE'])
+def subscription_delete_category(subscription_uuid, category_uuid):
+    SubscriptionCategory.delete(subscription_uuid=subscription_uuid, category_uuid=category_uuid)
+    subscription = Subscription.get(uuid=subscription_uuid)
+    return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/ping', methods=["GET"])

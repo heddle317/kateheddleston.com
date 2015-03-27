@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div ng-controller='EditSubscriptionController' ng-init='initSubscription({{subscription}})'>
+    <div class='verification_message margin-top-20' ng-if='!subscription.dead'>
+        <div class='row text-center'>
+            <h3>
+                <i class='fa fa-check green'></i>
+                <strong><span ng-bind='subscription.email'></span></strong> verified.
+            </h3>
+        </div>
+        <div class='row'>
+            <div class='subscription-categories col-md-12 text-center'>
+                <h2 class='deep-pink text-center'>Update Subscription Categories</h2>
+                <p>You receive emails for content in the following categories.</p>
+                <br>
+                <div class='subscription-category {[{category.uuid}]}' ng-repeat='category in categories'>
+                    <div class='loading-markers'>
+                        <i class='fa fa-thumbs-up green' style='display:none'></i>
+                        <i class='fa fa-close red' style='display:none'></i>
+                        <img class='loading' style='display:none' width='20' height='20' src="{{g.images_base}}/images/loading.gif" />
+                    </div>
+                    <input class='pointer' type='checkbox' ng-checked='hasCategory(category) >= 0' ng-click='toggleCategory(category)' />
+                    <label class='capitalize pointer' ng-bind='category.name' ng-click='toggleCategory(category)'></label>
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='page-btn text-center unsubscribe-btn col-md-12'>
+                <a ng-click='cancelSubscription()' class='gray-btn cancel-subscription' data-loading-text='Canceling...'>Cancel Subscription</a>
+            </div>
+        </div>
+    </div>
+    <div ng-if='subscription.dead'>
+        <div class='verification_message'>
+            Email <span ng-bind='subscription.email'></span> is no longer subscribed to this blog.
+            <br>
+            <br>
+            <div class='page-btn'>
+                <a ng-click='resubscribe()' class='pink-btn resubscribe' data-loading-text='Subscribing...'>Re-subscribe</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+    {% assets "subscription_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}

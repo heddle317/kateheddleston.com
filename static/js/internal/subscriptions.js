@@ -35,3 +35,85 @@ angularApp.controller('SubscriptionController', ['$scope', '$http', '$window', '
         });
     };
 }]);
+
+
+angularApp.controller('EditSubscriptionController', ['$scope', '$http', '$window', '$log', function($scope, $http, $window, $log) {
+    $scope.subscription = null;
+    $scope.categories = [];
+    $http.get('/subscription/categories').success(function(response) {
+        $scope.categories = response;
+    });
+    $scope.initSubscription = function(subscription) {
+        $scope.subscription = angular.fromJson(subscription);
+    };
+    $scope.resubscribe = function() {
+        var $btn = $('.resubscribe').button('loading');
+        $http.post('/subscription/' + $scope.subscription.uuid, data={'dead': false}).success(function(response) {
+            $scope.subscription = response;
+            $scope.success = true;
+        }).error(function(response) {
+            $scope.error = true;
+            $scope.message = data.message;
+        }).then(function() {
+            $btn.button('reset');
+        });
+    };
+    $scope.cancelSubscription = function() {
+        var confirm = $window.confirm("Are you sure you want to cancel your subscription? You will no longer receive any notifications from this blog.");
+        if (!confirm) {
+            return;
+        }
+        var $btn = $('.cancel-subscription').button('loading');
+        $http.delete('/subscription/' + $scope.subscription.uuid).success(function(response, status, headers, config) {
+            $scope.subscription = response;
+            $scope.success = true;
+        }).error(function(response) {
+            $scope.error = true;
+            $scope.message = data.message;
+        }).then(function() {
+            $btn.button('reset');
+        });
+    };
+    $scope.addCategory = function(category) {
+        $('.' + category.uuid + ' .loading').show();
+        $http.post('/subscription/' + $scope.subscription.uuid + '/categories', data={'category_uuid': category.uuid}).success(function(response) {
+            $scope.subscription = response;
+            var elem = $('.' + category.uuid + ' .fa-thumbs-up').show();
+            setTimeout(function(){ elem.fadeOut() }, 1000);
+        }).error(function(response) {
+            var elem = $('.' + category.uuid + ' .fa-close').show();
+            setTimeout(function(){ elem.fadeOut() }, 1000);
+        }).then(function() {
+            $('.' + category.uuid + ' .loading').hide();
+        });
+    };
+    $scope.removeCategory = function(category) {
+        $('.' + category.uuid + ' .loading').show();
+        $http.delete('/subscription/' + $scope.subscription.uuid + '/categories/' + category.uuid).success(function(response) {
+            $scope.subscription = response;
+            var elem = $('.' + category.uuid + ' .fa-thumbs-up').show();
+            setTimeout(function(){ elem.fadeOut() }, 1000);
+        }).error(function(response) {
+            var elem = $('.' + category.uuid + ' .fa-close').show();
+            setTimeout(function(){ elem.fadeOut() }, 1000);
+        }).then(function() {
+            $('.' + category.uuid + ' .loading').hide();
+        });
+    };
+    $scope.toggleCategory = function(category) {
+        if ($scope.hasCategory(category) >= 0) {
+            $scope.removeCategory(category);
+        } else {
+            $scope.addCategory(category);
+        }
+    };
+    $scope.hasCategory = function(category) {
+        var i;
+        for (i = 0; i < $scope.subscription.categories.length; i++) {
+            if ($scope.subscription.categories[i].category_uuid == category.uuid) {
+                return i;
+            }
+        }
+        return -1;
+    };
+}]);

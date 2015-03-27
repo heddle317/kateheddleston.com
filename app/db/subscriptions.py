@@ -36,8 +36,8 @@ class Subscription(Base, BaseModelObject):
     def send_subscription_email(self, gallery):
         send_subscription_email(self, gallery)
 
-    def cancel_url(self):
-        return u"{}/subscriptions/cancel/{}".format(config.APP_BASE_LINK, self.uuid)
+    def url(self):
+        return u"{}/subscription/{}".format(config.APP_BASE_LINK, self.uuid)
 
     @staticmethod
     def send_subscription_emails(gallery):
@@ -47,10 +47,6 @@ class Subscription(Base, BaseModelObject):
 
     @staticmethod
     def create_or_update(**kwargs):
-        if not kwargs.get('name'):
-            raise ValueError('name required')
-        if not kwargs.get('email'):
-            raise ValueError('email required')
         subscription = Subscription.get(email=kwargs.get('email'))
         if subscription:
             subscription = Subscription.update(subscription.uuid, dead=False, name=kwargs.get('name'))
@@ -62,6 +58,10 @@ class Subscription(Base, BaseModelObject):
                 return subscription, message
             return subscription, "Email address {} is already subscribed to this blog. Thanks!".format(subscription.email)
         else:
+            if not kwargs.get('name'):
+                raise ValueError('name required')
+            if not kwargs.get('email'):
+                raise ValueError('email required')
             kwargs['email_verification_token'] = str(uuid4())
             subscription = Subscription.create(**kwargs)
             categories = Category.get_list()
@@ -81,7 +81,7 @@ class Subscription(Base, BaseModelObject):
 
     @staticmethod
     def cancel_subscription(uuid):
-        subscription = Subscription.update(uuid, dead=True, verified=False)
+        subscription = Subscription.update(uuid, dead=True)
         return subscription
 
 

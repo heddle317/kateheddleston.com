@@ -203,7 +203,7 @@ def api_get_categories():
 
 @app.route('/admin/api/subscriptions/<subscription_uuid>/categories', methods=['POST'])
 @login_required
-def subscription_add_category(subscription_uuid):
+def admin_subscription_add_category(subscription_uuid):
     category_uuid = json.loads(request.data).get('category_uuid')
     SubscriptionCategory.create(subscription_uuid=subscription_uuid, category_uuid=category_uuid)
     subscription = Subscription.get(uuid=subscription_uuid)
@@ -212,7 +212,7 @@ def subscription_add_category(subscription_uuid):
 
 @app.route('/admin/api/subscriptions/<subscription_uuid>/categories/<category_uuid>', methods=['DELETE'])
 @login_required
-def subscription_delete_category(subscription_uuid, category_uuid):
+def admin_subscription_delete_category(subscription_uuid, category_uuid):
     SubscriptionCategory.delete(subscription_uuid=subscription_uuid, category_uuid=category_uuid)
     subscription = Subscription.get(uuid=subscription_uuid)
     return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}

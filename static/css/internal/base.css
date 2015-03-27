@@ -30,12 +30,40 @@
   color:rgba(205, 16, 118, 1);
 }
 
+.green {
+    color:#048000;
+}
+
+.light-green {
+    color:#15CD10;
+}
+
+.light-teal {
+    color:#1B8D9A;
+}
+
+.brown {
+    color:#CD1076;
+}
+
+.dark-gray {
+    color:#353435;
+}
+
+.red {
+    color:#E4060F;
+}
+
 .deep-teal {
   color:rgba(9, 161, 178, 1);
 }
 
 .deep-yellow {
   color:rgba(255, 227, 25, 1);
+}
+
+.yellow {
+    color:#D5C026;
 }
 
 .maroon-light {
@@ -93,10 +121,29 @@
     margin-top:10px;
 }
 
+#kateheddleston-wrap .subscription-category {
+    width:150px;
+    text-align:left;
+    margin:0 auto;
+}
+
+#kateheddleston-wrap .subscription-category .loading-markers {
+    min-width:20px;
+    display:inline-block;
+}
+
+#katheddleston-wrap .subscription-category img {
+    width:20px;
+}
+
 #kateheddleston-wrap .verification_message {
     width:50%;
-    margin:10% auto 0;
+    margin:0 auto;
     font-size:18px;
+}
+
+#kateheddleston-wrap .unsubscribe-btn {
+    margin-top:75px;
 }
 
 .margin-top-10 {
@@ -109,6 +156,18 @@
 
 #kateheddleston-wrap .footer {
     min-height:50px;
+}
+
+#kateheddleston-wrap .gray-btn {
+  background:rgba(0, 0, 0, .7);
+  color:white;
+  cursor:pointer;
+  text-decoration:none;
+  font-size:20px;
+  height:40px;
+  line-height:40px;
+  padding:10px 20px;
+  font-weight:bold;
 }
 
 #kateheddleston-wrap .pink-btn {
@@ -164,4 +223,12 @@
     #kateheddleston-wrap .message-404 h1 {
         font-size:225px;
     }
+}
+
+#kateheddleston-wrap .capitalize {
+    text-transform:capitalize;
+}
+
+#kateheddleston-wrap .pointer {
+    cursor:pointer;
 }

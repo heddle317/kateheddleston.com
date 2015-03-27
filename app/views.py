@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from app import app
 from app import config
@@ -128,14 +129,16 @@ def verify_email(verification_code):
     subscription = Subscription.verify_email(verification_code)
     if not subscription:
         abort(404)
-    return render_template("email_verified.html", subscription=subscription)
+    return redirect('/subscription/{}'.format(subscription.uuid))
 
 
-@app.route('/subscriptions/cancel/<uuid>', methods=['GET'])
+@app.route('/subscription/<uuid>', methods=['GET'])
 @use_template_globals
-def cancel_subscription(uuid):
-    subscription = Subscription.cancel_subscription(uuid)
-    return render_template("subscription_canceled.html", subscription=subscription)
+def manage_subscription(uuid):
+    subscription = Subscription.get(uuid=uuid)
+    if not subscription.verified:
+        Subscription.verify_email(subscription.email_verification_token)
+    return render_template("edit_subscription.html", subscription=json.dumps(subscription.to_dict()))
 
 
 @app.errorhandler(404)

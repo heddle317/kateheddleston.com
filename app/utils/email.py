@@ -10,7 +10,7 @@ def send_subscription_email(subscription, gallery):
     body_text = render_template('subscription_email.txt',
                                 user_name=subscription.name,
                                 blog_url=gallery.url(),
-                                unsubscribe_url=subscription.cancel_url())
+                                unsubscribe_url=subscription.url())
     body_html = render_template('subscription_email.html',
                                 user_name=subscription.name,
                                 blog_url=gallery.url(),
@@ -18,7 +18,7 @@ def send_subscription_email(subscription, gallery):
                                 subtitle=gallery.subtitle,
                                 author=gallery.author,
                                 description=description,
-                                unsubscribe_url=subscription.cancel_url())
+                                unsubscribe_url=subscription.url())
     send_email(subscription.email, gallery.name, body_text=body_text, body_html=body_html)
 
 
