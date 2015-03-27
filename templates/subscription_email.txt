@@ -10,6 +10,13 @@ Sincerely,
 Kate
 
 
-To unsubscribe from these emails, click here:
+{% if category %}
+    To unsubscribe from {{category}} content, click here:
 
-{{ unsubscribe_url }}
+    {{ unsubscribe_url }}
+{% endif %}
+
+
+To cancel your subscription, click here:
+
+{{ cancel_url }}

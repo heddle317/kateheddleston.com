@@ -36,6 +36,9 @@ class Subscription(Base, BaseModelObject):
     def send_subscription_email(self, gallery):
         send_subscription_email(self, gallery)
 
+    def cancel_url(self):
+        return u"{}/subscription/{}/cancel".format(config.APP_BASE_LINK, self.uuid)
+
     def url(self):
         return u"{}/subscription/{}".format(config.APP_BASE_LINK, self.uuid)
 
@@ -46,10 +49,15 @@ class Subscription(Base, BaseModelObject):
             send_subscription_email(subscription, gallery)
 
     @staticmethod
-    def create_or_update(**kwargs):
-        subscription = Subscription.get(email=kwargs.get('email'))
+    def create_or_update(email, name=None):
+        if not email:
+            raise ValueError('email required')
+        subscription = Subscription.get(email=email)
         if subscription:
-            subscription = Subscription.update(subscription.uuid, dead=False, name=kwargs.get('name'))
+            if name:
+                subscription = Subscription.update(subscription.uuid, dead=False, name=name)
+            else:
+                subscription = Subscription.update(subscription.uuid, dead=False)
             if not subscription.verified:
                 send_verification_email(subscription)
                 message = "A verification email has been sent to your email address. Be sure to check your " \
@@ -58,19 +66,18 @@ class Subscription(Base, BaseModelObject):
                 return subscription, message
             return subscription, "Email address {} is already subscribed to this blog. Thanks!".format(subscription.email)
         else:
-            if not kwargs.get('name'):
+            if not name:
                 raise ValueError('name required')
-            if not kwargs.get('email'):
-                raise ValueError('email required')
-            kwargs['email_verification_token'] = str(uuid4())
-            subscription = Subscription.create(**kwargs)
+            email_verification_token = str(uuid4())
+            subscription = Subscription.create(name=name, email=email, email_verification_token=email_verification_token)
             categories = Category.get_list()
             for category in categories:
                 SubscriptionCategory.create(subscription_uuid=subscription.uuid, category_uuid=category.uuid)
             send_verification_email(subscription)
         message = "You have successfully subscribed to my blog with email address {}.<br><br>" \
-                  "A verification email has been sent to your email address. Be sure to check your spam folder if you " \
-                  "don't see it after a few minutes.<br><br>Thanks!".format(subscription.email)
+                  "A verification email has been sent to your email address. Be sure to check your " \
+                  "spam folder if you don't see it in a few minutes." \
+                  "<br><br>Thanks!".format(subscription.email)
         return subscription, message
 
     @staticmethod

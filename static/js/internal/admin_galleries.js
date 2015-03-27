@@ -186,7 +186,8 @@ angularApp.controller('EditGalleryController', ['$scope', '$http', '$window', '$
         var $btn = $('.send-emails').button('loading');
         $http.post('/admin/api/gallery/' + $scope.gallery_uuid + '/send_emails').success(function() {
             $btn.button('reset');
-            alert('Emails successfully sent.')
+        }).error(function(response) {
+            alert('Emails failed to send for some reason!')
         });
     }
     $scope.updateItemsPosition = function() {

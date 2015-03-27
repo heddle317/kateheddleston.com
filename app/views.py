@@ -141,6 +141,14 @@ def manage_subscription(uuid):
     return render_template("edit_subscription.html", subscription=json.dumps(subscription.to_dict()))
 
 
+@app.route('/subscription/<uuid>/cancel', methods=['GET'])
+@use_template_globals
+def cancel_subscription(uuid):
+    subscription = Subscription.get(uuid=uuid)
+    subscription = Subscription.cancel_subscription(uuid)
+    return redirect('/subscription/{}'.format(subscription.uuid))
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404

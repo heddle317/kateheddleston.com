@@ -1,23 +1,31 @@
 import pystmark
 
 from app import config
+from app.utils.datetime_tools import format_date
 
 from flask import render_template
 
 
 def send_subscription_email(subscription, gallery):
     description = u'{}...'.format(gallery.description()[:400]) if gallery.description() else ''
+    category = gallery.latest_category()
     body_text = render_template('subscription_email.txt',
                                 user_name=subscription.name,
                                 blog_url=gallery.url(),
+                                cancel_url=subscription.cancel_url(),
+                                published_at=format_date(gallery.published_at),
+                                category=category,
                                 unsubscribe_url=subscription.url())
     body_html = render_template('subscription_email.html',
                                 user_name=subscription.name,
                                 blog_url=gallery.url(),
                                 gallery_title=gallery.name,
                                 subtitle=gallery.subtitle,
+                                published_at=format_date(gallery.published_at),
                                 author=gallery.author,
                                 description=description,
+                                category=category,
+                                cancel_url=subscription.cancel_url(),
                                 unsubscribe_url=subscription.url())
     send_email(subscription.email, gallery.name, body_text=body_text, body_html=body_html)
 

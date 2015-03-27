@@ -50,6 +50,10 @@
     color:#353435;
 }
 
+.light-gray {
+    rgba(0,0,0,.3)
+}
+
 .red {
     color:#E4060F;
 }

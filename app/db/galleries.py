@@ -44,7 +44,6 @@ class Gallery(Base, BaseModelObject):
                           'url_title': self.latest_url_title(),
                           'description': self.description(),
                           'created_ago': relative_time(self.created_at),
-                          'created_at': format_date(self.created_at, format='%B %d, %Y'),
                           'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%S') if self.published_at else '',
                           'published_ago': relative_time(self.published_at) if self.published_at else '',
                           'gallery_categories': gallery_categories,
@@ -58,6 +57,12 @@ class Gallery(Base, BaseModelObject):
         for item in items:
             if item.body:
                 return item.body
+
+    def latest_category(self):
+        gallery_categories = GalleryCategory.get_list(gallery_uuid=self.uuid, to_json=True)
+        if gallery_categories:
+            return gallery_categories[0]['name']
+        return None
 
     def latest_url_title(self):
         titles = GalleryTitle.get_list(gallery_uuid=self.uuid, sort_by='created_at', desc=True)

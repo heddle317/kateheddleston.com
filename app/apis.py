@@ -43,7 +43,7 @@ def create_multiple_photos():
 @app.route('/subscriptions/subscribe', methods=['POST'])
 def subscribe():
     data = json.loads(request.data)
-    subscription, message = Subscription.create_or_update(**data)
+    subscription, message = Subscription.create_or_update(data.get('email'), name=data.get('name'))
     message = {"message": message}
     return json.dumps(message), 200, {'Content-Type': 'application/json'}
 
@@ -63,12 +63,12 @@ def subscription_categories():
 @app.route('/subscription/<uuid>', methods=['POST'])
 def edit_subscription(uuid):
     data = json.loads(request.data)
-    subscription = Subscription.update(uuid, **data)
+    subscription = Subscription.create_or_update(data.get('email'), name=data.get('name'))
     return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/subscription/<uuid>', methods=['DELETE'])
-def cancel_subscription(uuid):
+def api_cancel_subscription(uuid):
     subscription = Subscription.cancel_subscription(uuid)
     return json.dumps(subscription.to_dict()), 200, {'Content-Type': 'application/json'}
 
