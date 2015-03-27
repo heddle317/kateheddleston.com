@@ -91,7 +91,7 @@ angularApp.controller('EditSubscriptionController', ['$scope', '$http', '$window
         $('.' + category.uuid + ' .loading').show();
         $http.delete('/subscription/' + $scope.subscription.uuid + '/categories/' + category.uuid).success(function(response) {
             $scope.subscription = response;
-            var elem = $('.' + category.uuid + ' .fa-thumbs-up').show();
+            var elem = $('.' + category.uuid + ' .fa-frown-o').show();
             setTimeout(function(){ elem.fadeOut() }, 1000);
         }).error(function(response) {
             var elem = $('.' + category.uuid + ' .fa-close').show();
