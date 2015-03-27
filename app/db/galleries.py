@@ -64,6 +64,10 @@ class Gallery(Base, BaseModelObject):
             return gallery_categories[0]['name']
         return None
 
+    def category_uuids(self):
+        gallery_categories = GalleryCategory.get_list(gallery_uuid=self.uuid)
+        return [gc.category_uuid for gc in gallery_categories]
+
     def latest_url_title(self):
         titles = GalleryTitle.get_list(gallery_uuid=self.uuid, sort_by='created_at', desc=True)
         if len(titles) > 0:
