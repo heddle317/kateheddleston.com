@@ -33,9 +33,6 @@ class Subscription(Base, BaseModelObject):
     def send_verification_email(self):
         send_verification_email(self)
 
-    def send_subscription_email(self, gallery):
-        send_subscription_email(self, gallery)
-
     def cancel_url(self):
         return u"{}/subscription/{}/cancel".format(config.APP_BASE_LINK, self.uuid)
 
@@ -61,35 +58,54 @@ class Subscription(Base, BaseModelObject):
 
     @staticmethod
     def create_or_update(email, name=None):
-        if not email:
-            raise ValueError('email required')
         subscription = Subscription.get(email=email)
         if subscription:
-            if name:
-                subscription = Subscription.update(subscription.uuid, dead=False, name=name)
+            if subscription.verified:
+                if subscription.dead:
+                    message = "Email address {} has been re-subscribed to this blog. Thanks!".format(subscription.email)
+                else:
+                    message = "Email address {} is already subscribed to this blog. Thanks!".format(subscription.email)
             else:
-                subscription = Subscription.update(subscription.uuid, dead=False)
-            if not subscription.verified:
-                send_verification_email(subscription)
                 message = "A verification email has been sent to your email address. Be sure to check your " \
                           "spam folder if you don't see it in a few minutes." \
                           "<br><br>Thanks!".format(subscription.email)
-                return subscription, message
-            return subscription, "Email address {} is already subscribed to this blog. Thanks!".format(subscription.email)
+            subscription = Subscription.update_subscription(subscription.uuid, name=name)
         else:
-            if not name:
-                raise ValueError('name required')
-            email_verification_token = str(uuid4())
-            subscription = Subscription.create(name=name, email=email, email_verification_token=email_verification_token)
-            categories = Category.get_list()
-            for category in categories:
-                SubscriptionCategory.create(subscription_uuid=subscription.uuid, category_uuid=category.uuid)
-            send_verification_email(subscription)
-        message = "You have successfully subscribed to my blog with email address {}.<br><br>" \
-                  "A verification email has been sent to your email address. Be sure to check your " \
-                  "spam folder if you don't see it in a few minutes." \
-                  "<br><br>Thanks!".format(subscription.email)
+            subscription = Subscription.create_subscription(email, name)
+            message = "You have successfully subscribed to my blog with email address {}.<br><br>" \
+                      "A verification email has been sent to your email address. Be sure to check your " \
+                      "spam folder if you don't see it in a few minutes." \
+                      "<br><br>Thanks!".format(subscription.email)
         return subscription, message
+
+    @staticmethod
+    def create_subscription(email, name):
+        if not email:
+            raise ValueError('email required')
+        if not name:
+            raise ValueError('name required')
+        subscription = Subscription.get(email=email)
+        if subscription:
+            raise ValueError('Subscription already exists')
+
+        email_verification_token = str(uuid4())
+        subscription = Subscription.create(name=name, email=email, email_verification_token=email_verification_token)
+        categories = Category.get_list()
+        for category in categories:
+            SubscriptionCategory.create(subscription_uuid=subscription.uuid, category_uuid=category.uuid)
+        send_verification_email(subscription)
+        return subscription
+
+    @staticmethod
+    def update_subscription(uuid, name=None):
+        subscription = Subscription.get(uuid=uuid)
+        if name:
+            subscription = Subscription.update(subscription.uuid, dead=False, name=name)
+        else:
+            subscription = Subscription.update(subscription.uuid, dead=False)
+        if not subscription.verified:
+            send_verification_email(subscription)
+        return subscription
 
     @staticmethod
     def verify_email(email_verification_token):
