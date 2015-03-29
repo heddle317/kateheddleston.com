@@ -39,7 +39,8 @@
             </td>
             <td class='subscription-categories'>
                 <div ng-repeat='category in categories'>
-                    <input class='margin-r-10' type='checkbox' ng-checked='hasCategory(subscription, category) >= 0' ng-click='toggleCategory(subscription, category)' /><label ng-bind='category.name'></label>
+                    <input class='margin-r-10 pointer' type='checkbox' ng-checked='hasCategory(subscription, category) >= 0' ng-click='toggleCategory(subscription, category)' />
+                    <label class='pointer' ng-click='toggleCategory(subscription, category)' ng-bind='category.name'></label>
                 </div>
             </td>
         </tr>
