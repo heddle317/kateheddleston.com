@@ -50,8 +50,12 @@
     color:#353435;
 }
 
+.medium-gray {
+    color:#eaeaea;
+}
+
 .light-gray {
-    rgba(0,0,0,.3)
+    color:rgba(0,0,0,.3)
 }
 
 .red {
