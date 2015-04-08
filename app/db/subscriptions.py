@@ -40,6 +40,8 @@ class Subscription(Base, BaseModelObject):
         return u"{}/subscription/{}".format(config.APP_BASE_LINK, self.uuid)
 
     def subscribed_to_categories(self, category_uuids):
+        if not category_uuids:
+            return True
         subscription_categories = SubscriptionCategory.get_list(subscription_uuid=self.uuid)
         sc_uuids = [sc.category_uuid for sc in subscription_categories]
         # Return true if any subscription categories are in the given categories
@@ -47,6 +49,15 @@ class Subscription(Base, BaseModelObject):
             if uuid in category_uuids:
                 return True
         return False
+
+    @staticmethod
+    def send_subscription_email(email, gallery):
+        subscription = Subscription.get(dead=False, verified=True, email=email)
+        if not subscription:
+            return
+        gallery_category_uuids = gallery.category_uuids()
+        if subscription.subscribed_to_categories(gallery_category_uuids):
+            send_subscription_email(subscription, gallery)
 
     @staticmethod
     def send_subscription_emails(gallery):
