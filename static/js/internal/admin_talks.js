@@ -141,7 +141,7 @@ angularApp.controller('EditTalkController', ['$scope', '$http', '$log', '$window
             $http.post("/admin/api/talks", data).success(function(data) {
                 $scope.editing = false;
                 $scope.initTalk(data);
-                $window.location = "/admin/api/talks/" + $scope.talk_uuid;
+                $window.location = "/admin/talk/" + $scope.talk_uuid;
             });
         }
     };
