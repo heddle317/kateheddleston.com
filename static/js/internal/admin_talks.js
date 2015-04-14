@@ -167,10 +167,7 @@ angularApp.controller('UploadImageController', ['$scope', '$http', '$window', '$
     $scope.loading = false;
     $scope.widthStyle = {"width": "0%"};
     $scope.generatingSizes = false;
-    $scope.init = function(imageRoute, item) {
-        $scope.imageRoute = imageRoute;
-        $scope.item = item;
-    };
+    $scope.imageRoute = 'talks/' + talkUUID;
     $scope.onFileSelect = function($files) {
         $scope.files = $files;
         for (var i = 0; i < $files.length; i++) {
@@ -204,7 +201,7 @@ angularApp.controller('UploadImageController', ['$scope', '$http', '$window', '$
                     "filename": fileName};
             $http.post('/images/generate_sizes', data).success(function(data) {
                 $scope.generatingSizes = false;
-                $scope.item.image_name = fileName;
+                $scope.talk.image_name = fileName;
             });
         }).error(function(data, status, headers, config) {
             $scope.error = true;

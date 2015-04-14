@@ -40,24 +40,24 @@
                 <input type="text" placeholder='Title' class="form-control" ng-show='editing' ng-model='title'>
             </div>
             <div class='row'>
-                <div class='col-md-12 text-center' ng-controller='UploadImageController' ng-init='init("talks/" + talk_uuid, talk)'>
-                    <img ng-if='item.image_name' ng-show='!generatingSizes' ng-src="{[{talk.base_url}]}/{[{item.image_name}]}" />
-                    <img ng-if='!item.image_name' ng-show='!generatingSizes' ng-src="{{g.images_base}}/images/no_image.png" />
+                <div class='col-md-12 text-center' ng-controller='UploadImageController'>
+                    <img ng-if='talk.image_name' ng-show='!generatingSizes' ng-src="{[{talk.base_url}]}/{[{talk.image_name}]}" />
+                    <img ng-if='!talk.image_name' ng-show='!generatingSizes' ng-src="{{g.images_base}}/images/no_image.png" />
                     <div class='loading' ng-show='generatingSizes' style='margin:20px auto 0;width:60%'>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" aria-valuenow="{[{percent}]}" aria-valuemin="0" aria-valuemax="100" ng-style="widthStyle">
                             </div>
                         </div>
                     </div>
-                    <input type="text" placeholder='Image Name' class="form-control" ng-show='editing' ng-model='item.image_name'>
+                    <input type="text" placeholder='Image Name' class="form-control" ng-show='editing' ng-model='talk.image_name'>
                     <div class='alert alert-warning' role='alert' ng-show='error'>
                         <button type="button" class="close" ng-click="toggleAlert(false, '', '')"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                         <span class='message' ng-bind='alertMessage'></span>
                     </div>
                     <button class='add-image-button' ng-show="talk_uuid" ng-file-select="onFileSelect($files)" accept="image/*">
                         <i class='fa fa-plus'></i>
-                        <span ng-if='item.image_name'>Change Image</span>
-                        <span ng-if='!item.image_name'>Add Image</span>
+                        <span ng-if='talk.image_name'>Change Image</span>
+                        <span ng-if='!talk.image_name'>Add Image</span>
                     </button>
                 </div>
             </div>
