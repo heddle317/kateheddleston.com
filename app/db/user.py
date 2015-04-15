@@ -18,7 +18,7 @@ class User(Base, BaseModelObject):
     email = Column(String(120), unique=True)
     role = Column(SmallInteger)
     password_hash = Column(String(60), unique=False)
-    name = Column(String(500), nullable=False)
+    name = Column(String(500))
     code = Column(String(512), unique=False)
     created_at = Column(DateTime(), unique=False)
     dead = Column(Boolean(), default=False, nullable=False)
