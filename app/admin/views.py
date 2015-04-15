@@ -9,9 +9,13 @@ from app import app
 from app import config
 from app.db.galleries import Gallery
 from app.db.user import get_verified_user
+from app.db.user import User
+from app.db.user import update_user
 from app.utils.decorators.template_globals import use_template_globals
 
+from flask import abort
 from flask import g
+from flask import flash
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -116,6 +120,14 @@ def subscribers():
     return render_template('admin/subscribers.html')
 
 
+@app.route('/admin/users', methods=['GET'])
+@login_required
+@use_template_globals
+def admin_users():
+    g.nav_view = 'users'
+    return render_template('admin/admin_users.html')
+
+
 @app.route('/admin/auth', methods=['GET'])
 @login_required
 @use_template_globals
@@ -146,3 +158,37 @@ def facebook_auth_redirect():
               'scope': scope,
               'response_type': 'code'}
     return redirect('https://www.facebook.com/dialog/oauth?{}'.format(urllib.urlencode(params)))
+
+
+@app.route("/admin/users/<uuid>", methods=['GET'])
+@use_template_globals
+def accept_invite(uuid):
+    user = User.get(uuid=uuid)
+    if not user:
+        abort(404)
+    return render_template('admin/register.html', user=user)
+
+
+@app.route("/admin/users/<uuid>", methods=['POST'])
+@use_template_globals
+def update_user_info(uuid):
+    user = User.get(uuid=uuid)
+    existing = True if user.password_hash else False
+    if not user:
+        abort(404)
+    email = request.form.get('email')
+    name = request.form.get('name')
+    new_password = request.form.get('new_password')
+    password_verification = request.form.get('password_verification')
+    if new_password != password_verification:
+        flash('Passwords do not match.', 'danger')
+        return render_template('admin/register.html', user=user)
+    current_password = request.form.get('current_password')
+    try:
+        user = update_user(uuid, email, name, new_password, current_password)
+    except:
+        flash('Incorrect current password for updating account.', 'danger')
+        return render_template('admin/register.html', user=user)
+    if existing:
+        return render_template('admin/register.html', user=user)
+    return redirect('/login')

@@ -2,6 +2,7 @@ from app import login_manager
 from app.db import Base
 from app.db import BaseModelObject
 from app.utils.crypto import authenticate_password
+from app.utils.crypto import hash_password
 
 from sqlalchemy import Boolean
 from sqlalchemy import Column
@@ -10,8 +11,6 @@ from sqlalchemy import SmallInteger
 from sqlalchemy import String
 from sqlalchemy.dialects.postgresql import UUID
 
-from uuid import uuid4
-
 
 class User(Base, BaseModelObject):
     __tablename__ = 'users'
@@ -19,7 +18,7 @@ class User(Base, BaseModelObject):
     email = Column(String(120), unique=True)
     role = Column(SmallInteger)
     password_hash = Column(String(60), unique=False)
-    email_verification_token = Column(String(50), unique=False)
+    name = Column(String(500), nullable=False)
     code = Column(String(512), unique=False)
     created_at = Column(DateTime(), unique=False)
     dead = Column(Boolean(), default=False, nullable=False)
@@ -52,14 +51,33 @@ def load_user(id):
     return User.get(uuid=id)
 
 
-def create_user(email, password_hash):
+def create_user(email):
     role = 0
     if User.get(email=email):
         raise Exception('A User with that email has already been created.')
     user = User.create(email=email,
-                       role=role,
-                       password_hash=password_hash,
-                       email_verification_token=str(uuid4()))
+                       role=role)
+    return user
+
+
+def get_or_create_user(email):
+    user = User.get(email=email)
+    if user:
+        return user
+    return create_user(email)
+
+
+def update_user(uuid, email, name, new_password, current_password=None):
+    user = User.get(uuid=uuid)
+    if user.password_hash:
+        verified = authenticate_password(current_password, user.password_hash.encode('utf-8'))
+        if not verified:
+            raise Exception("Current password does not match user password.")
+    password_hash = hash_password(new_password)
+    print password_hash
+    user = User.update(uuid,
+                       name=name,
+                       password_hash=password_hash)
     return user
 
 

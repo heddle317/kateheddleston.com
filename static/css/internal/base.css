@@ -210,12 +210,20 @@
     margin-left:10px;
 }
 
+#kateheddleston-wrap .margin-bottom-20 {
+    margin-bottom:20px;
+}
+
 #kateheddleston-wrap .margin-top-10 {
     margin-top:10px;
 }
 
 #kateheddleston-wrap .margin-top-20 {
     margin-top:20px;
+}
+
+#kateheddleston-wrap .width-300 {
+    width:300px;
 }
 
 #kateheddleston-wrap .message-404 {

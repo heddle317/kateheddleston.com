@@ -48,6 +48,13 @@ def send_contact_email(from_email, subject, body):
     send_email(config.EMAIL_PERSONAL, subject, body_text=body)
 
 
+def send_invite(user):
+    subject = 'You have been invited to be an admin on KateHeddleston.com!'
+    body = 'Click here to accept your invitation to KateHeddleston.com.' \
+           '\n\n{}/admin/users/{}'.format(config.APP_BASE_LINK, user.uuid)
+    send_email(user.email, subject, body)
+
+
 def send_email(to, subject, body_text=None, body_html=None):
     # Send a single message
     message = pystmark.Message(sender=config.EMAIL_SENDER,

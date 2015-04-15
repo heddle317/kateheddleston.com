@@ -79,6 +79,12 @@
     margin:30px auto;
 }
 
+#kateheddleston-wrap .signup-wrapper {
+    width:600px;
+    display:block;
+    margin:30px auto;
+}
+
 #kateheddleston-wrap .login-wrapper button {
     width:100%;
 }
@@ -237,4 +243,25 @@
 
 #kateheddleston-wrap .edit_gallery .form-control {
     margin-top:10px;
+}
+
+#kateheddleston-wrap .dropdown a {
+    font-size:16px;
+    letter-spacing:1px;
+    text-transform:none;
+    line-height:35px;
+}
+
+#kateheddleston-wrap .dropdown-menu {
+    right:0;
+    left:auto;
+}
+
+#kateheddleston-wrap .dropdown-menu li {
+    display:block;
+    margin:5px 0;
+}
+
+#kateheddleston-wrap .dropdown-menu li:hover {
+    background-color:#eaeaea;
 }

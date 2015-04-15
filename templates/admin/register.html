@@ -1,0 +1,58 @@
+{% extends "admin/admin_base.html" %}
+{% block head %}
+  <title>KateHeddleston.com | Register</title>
+{% endblock %}
+{% block content %}
+    <div class='center_login_section row'>
+        <div class='signup-wrapper'>
+        {% if user.password_hash %}
+            <h3 class='deep-pink'>Update Account</h3>
+            <form class='form text-center' action='/admin/users/{{user.uuid}}' method="POST">
+                <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+                <input type='hidden' name='user_uuid' value='{{user.uuid}}' />
+                <input type='hidden' name='invite_code' value='{{user.email_verification_token}}' />
+                <div class="form-group">
+                    <input class='form-control' value='{{user.name}}' placeholder="Name" type='text' name='name' />
+                </div>
+                <div class="form-group">
+                    <input class='form-control' value="{{user.email}}" placeholder="Email" type='email' name='email' />
+                </div>
+                <div class="form-group">
+                    <input class='form-control' placeholder='Current Password' type='password' name='current_password' />
+                </div>
+                <div class="form-group">
+                    <input class='form-control' placeholder='New Password' type='password' name='new_password' />
+                </div>
+                <div class="form-group">
+                    <input class='form-control' placeholder='Verify Password' type='password' name='password_verification' />
+                </div>
+                <div class='form-group'>
+                    <button type="submit" class="btn btn-info pull-right">Update Account</button>
+                </div>
+            </form>
+        {% else %}
+            <h3 class='deep-pink'>Signup</h3>
+            <form class='form text-center' action='/admin/users/{{user.uuid}}' method="POST">
+                <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+                <input type='hidden' name='user_uuid' value='{{user.uuid}}' />
+                <input type='hidden' name='invite_code' value='{{user.email_verification_token}}' />
+                <div class="form-group">
+                    <input class='form-control' value='{{user.name}}' placeholder="Name" type='text' name='name' />
+                </div>
+                <div class="form-group">
+                    <input class='form-control' value="{{user.email}}" placeholder="Email" type='email' name='email' />
+                </div>
+                <div class="form-group">
+                    <input class='form-control' placeholder='New Password' type='password' name='new_password' />
+                </div>
+                <div class="form-group">
+                    <input class='form-control' placeholder='Verify Password' type='password' name='password_verification' />
+                </div>
+                <div class='form-group'>
+                    <button type="submit" class="btn btn-info pull-right">Update Account</button>
+                </div>
+            </form>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

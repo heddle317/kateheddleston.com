@@ -1,0 +1,30 @@
+{% extends "admin/admin_base.html" %}
+{% block content %}
+<div class='admin_users' ng-controller='AdminUsersController'>
+    <form class='form-inline margin-bottom-20'>
+        <input class='form-control width-300' type='text' ng-model='email' />
+        <button class='btn btn-default send-invite' ng-click='sendInviteEmail()' data-loading-text='Sending...'>Send Invite</button>
+    </form>
+    <table class='table'>
+        <tr class='users-header'>
+            <th>UUID</th>
+            <th>Email</th>
+            <th>Created</th>
+            <th>Active</th>
+        </tr>
+        <tr ng-repeat='user in users' class='{[{user.uuid}]} user' ng-class='{dead: user.dead}'>
+            <td ng-bind='user.uuid'></td>
+            <td ng-bind='user.email'></td>
+            <td ng-bind='user.created_at'></td>
+            <td>
+                <i ng-show='user.password_hash' class='fa fa-check green'></i>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}
+{% block script %}
+    {% assets "admin_users_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}

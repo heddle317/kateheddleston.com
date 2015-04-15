@@ -62,6 +62,9 @@ if config.ENVIRONMENT == 'production':
     admin_talks_js = Bundle('js/internal/admin_talks.js',
                             filters='jsmin', output='gen/admin_galleries.%(version)s.js')
 
+    admin_users_js = Bundle('js/internal/admin_users.js',
+                            filters='jsmin', output='gen/admin_subscriptions.%(version)s.js')
+
     angular_admin_js = Bundle('js/external/angular-file-upload-shim.min.js',
                               'js/external/angular.min.js',
                               'js/external/angular-file-upload.min.js',
@@ -109,6 +112,9 @@ else:
     admin_subscriptions_js = Bundle('js/internal/admin_subscriptions.js',
                                     output='gen/admin_subscriptions.%(version)s.js')
 
+    admin_users_js = Bundle('js/internal/admin_users.js',
+                            filters='jsmin', output='gen/admin_subscriptions.%(version)s.js')
+
     angular_admin_js = Bundle('js/external/angular-file-upload-shim.js',
                               'js/external/angular.js',
                               'js/external/angular-file-upload.js',
@@ -154,4 +160,5 @@ assets.register('contact_js', contact_js)
 assets.register('post_js', post_js)
 assets.register('social_js', social_js)
 assets.register('admin_subscriptions_js', admin_subscriptions_js)
+assets.register('admin_users_js', admin_users_js)
 assets.register('subscription_js', subscription_js)

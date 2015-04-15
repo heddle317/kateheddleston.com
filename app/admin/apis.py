@@ -9,7 +9,10 @@ from app.db.galleries import GalleryItem
 from app.db.galleries import GalleryItemComment
 from app.db.subscriptions import Subscription
 from app.db.subscriptions import SubscriptionCategory
+from app.db.user import get_or_create_user
+from app.db.user import User
 from app.db.talks import Talk
+from app.utils.email import send_invite
 
 from flask import g
 # from flask import redirect
@@ -233,3 +236,19 @@ def gallery_delete_category(gallery_uuid, category_uuid):
     GalleryCategory.delete(uuid=category_uuid)
     gallery_categories = GalleryCategory.get_list(gallery_uuid=gallery_uuid, to_json=True)
     return json.dumps(gallery_categories), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/users', methods=['GET'])
+@login_required
+def get_users():
+    users = User.get_list(to_json=True)
+    return json.dumps(users), 200, {'Content-Type': 'application/json'}
+
+
+@app.route('/admin/api/users/invite', methods=['POST'])
+@login_required
+def invite_user():
+    email = json.loads(request.data).get('email')
+    user = get_or_create_user(email)
+    send_invite(user)
+    return '', 200, {'Content-Type': 'application/json'}
