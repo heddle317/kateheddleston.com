@@ -8,12 +8,14 @@
     <table class='table'>
         <tr class='users-header'>
             <th>UUID</th>
+            <th>Name</th>
             <th>Email</th>
             <th>Created</th>
             <th>Active</th>
         </tr>
         <tr ng-repeat='user in users' class='{[{user.uuid}]} user' ng-class='{dead: user.dead}'>
             <td ng-bind='user.uuid'></td>
+            <td ng-bind='user.name'></td>
             <td ng-bind='user.email'></td>
             <td ng-bind='user.created_at'></td>
             <td>
