@@ -42,7 +42,7 @@ angularApp.controller('AdminTalksController', ['$scope', '$http', '$sce', functi
         imagesLoaded($($scope.currentContainer), function() {
             $($scope.currentContainer).show();
             $('.loading.main-loader').hide();
-            var msnry = new Masonry($scope.currentContainer, {columnWidth: 100,
+            var msnry = new Masonry($scope.currentContainer, {columnWidth: 125,
                                                               itemSelector: ".item",
                                                               gutter: 10,
                                                               isFitWidth: true,
