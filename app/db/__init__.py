@@ -25,7 +25,18 @@ def get_list(model, **kwargs):
     limit = kwargs.pop('limit', None)
     desc = kwargs.pop('desc', True)
     published = kwargs.pop('published', True)
-    items = KateHeddlestonDB.query(model).filter_by(**kwargs)
+    items = KateHeddlestonDB.query(model)
+
+    list_keys = []
+    for key, value in kwargs.iteritems():
+        if isinstance(value, list):
+            field = getattr(model, key)
+            items = items.filter(field.in_(kwargs.get(key)))
+            list_keys.append(key)
+    for key in list_keys:
+        kwargs.pop(key)
+    items = items.filter_by(**kwargs)
+
     if published and hasattr(model, 'published'):
         items = items.filter_by(published=published)
     if hasattr(model, sort_by):

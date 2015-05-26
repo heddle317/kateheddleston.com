@@ -61,11 +61,11 @@ class Subscription(Base, BaseModelObject):
 
     @staticmethod
     def send_subscription_emails(gallery):
-        subscriptions = Subscription.get_list(dead=False, verified=True)
         gallery_category_uuids = gallery.category_uuids()
+        subscription_uuids = list(set([s.subscription_uuid for s in SubscriptionCategory.get_list(category_uuid=gallery_category_uuids)]))
+        subscriptions = Subscription.get_list(dead=False, verified=True, uuid=subscription_uuids)
         for subscription in subscriptions:
-            if subscription.subscribed_to_categories(gallery_category_uuids):
-                send_subscription_email(subscription, gallery)
+            send_subscription_email(subscription, gallery)
 
     @staticmethod
     def create_or_update(email, name=None):
