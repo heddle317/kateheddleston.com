@@ -98,6 +98,9 @@ angularApp.controller('EditSubscriptionController', ['$scope', '$http', '$window
             setTimeout(function(){ elem.fadeOut() }, 1000);
         }).then(function() {
             $('.' + category.uuid + ' .loading').hide();
+            if ($scope.subscription.categories.length == 0) {
+                $scope.cancelSubscription();
+            }
         });
     };
     $scope.toggleCategory = function(category) {

@@ -17,6 +17,7 @@
     </div>
     <table class='table'>
         <tr class='subscriptions-header'>
+            <th>UUID</th>
             <th>Verification Token</th>
             <th>Name</th>
             <th>Email</th>
@@ -26,6 +27,7 @@
             <th>Categories</th>
         </tr>
         <tr ng-repeat='subscription in subscriptions' class='{[{user.uuid}]} subscription' ng-class='{dead: subscription.dead}'>
+            <td ng-bind='subscription.uuid'></td>
             <td ng-bind='subscription.email_verification_token'></td>
             <td ng-bind='subscription.name'></td>
             <td ng-bind='subscription.email'></td>

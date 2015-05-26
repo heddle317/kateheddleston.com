@@ -136,6 +136,8 @@ def verify_email(verification_code):
 @use_template_globals
 def manage_subscription(uuid):
     subscription = Subscription.get(uuid=uuid)
+    if not subscription:
+        abort(404)
     if not subscription.verified:
         Subscription.verify_email(subscription.email_verification_token)
     return render_template("edit_subscription.html", subscription=json.dumps(subscription.to_dict()))
