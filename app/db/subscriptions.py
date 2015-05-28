@@ -1,4 +1,5 @@
 from app import config
+from app import q
 from app.db import Base
 from app.db import BaseModelObject
 from app.db.categories import Category
@@ -65,7 +66,7 @@ class Subscription(Base, BaseModelObject):
         subscription_uuids = list(set([s.subscription_uuid for s in SubscriptionCategory.get_list(category_uuid=gallery_category_uuids)]))
         subscriptions = Subscription.get_list(dead=False, verified=True, uuid=subscription_uuids)
         for subscription in subscriptions:
-            send_subscription_email(subscription, gallery)
+            q.enqueue(send_subscription_email, subscription, gallery)
 
     @staticmethod
     def create_or_update(email, name=None):

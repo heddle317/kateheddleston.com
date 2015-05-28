@@ -2,23 +2,24 @@ import bugsnag
 import logging
 
 from app import config
-
 from bugsnag.flask import handle_exceptions
-
 from flask import Flask
 from flask import g
 from flask import redirect
 from flask import request
-
-
 from flask.ext.compress import Compress
 from flask.ext.login import current_user
 from flask.ext.sqlalchemy import SQLAlchemy
-
 from flask_login import LoginManager
-
 from flask_wtf.csrf import CsrfProtect
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
+from rq import Queue
+from worker import conn
 
+
+q = Queue(connection=conn)
+env = Environment(loader=FileSystemLoader(config.FLASK_TEMPLATE_FOLDER))
 
 app = Flask(__name__,
             template_folder=config.FLASK_TEMPLATE_FOLDER,
