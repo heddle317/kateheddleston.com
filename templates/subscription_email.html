@@ -13,8 +13,8 @@ Hi {{user_name}}, there's a new <a href='{{blog_url}}'>blog post</a> available a
             <h1 style='color:#cd1076;'>{{ gallery_title }}</h1>
             {% if subtitle %}<h3>{{ subtitle }}</h3>{% endif %}
             {% if author %}<h5>{{ author }}</h5>{% endif %}
-            <p style='color:#777777;font-size:12px;'>Posted on {{published_at}} under <strong>{{category}}</strong> content.</p>
-            <p>{{ description | safe }}</p>
+            <p style='color:#777777;font-size:12px;text-align:left;'>Posted on {{published_at}} under <strong>{{category}}</strong> content.</p>
+            <p style='text-align:left'>{{ description | safe }}</p>
 
             <a style='display:inline-block;color:#ffffff;padding:10px 15px;font-size:18px;cursor:pointer;text-transformation:none;text-decoration:none;background-color:#cd1076;line-height:24px;' href='{{ blog_url }}'>Read Now</a>
             <br><br><br>

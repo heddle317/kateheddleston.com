@@ -57,15 +57,16 @@
 
 #kateheddleston-wrap .blog_item {
     overflow:hidden;
-    padding:0;
+    padding:15px;
     line-height:1.42857143;
     display:block;
     text-decoration:none;
     color:#353435;
     margin-bottom:30px;
     background-color:rgba(255, 255, 255, .9);
-    border-radius:6px;
+    border-radius:1px;
     border:1px solid #c7c7c7;
+    border-top:4px solid rgba(205, 16, 118, 1);
     box-shadow:0 1px 2px 0 #c7c7c7;
 }
 
@@ -75,14 +76,12 @@
 }
 
 #kateheddleston-wrap .blog_item .blog_item_footer {
-    border-top:3px solid rgba(205, 16, 118, 1);
-    background-color:#f7f7f7;
     color:rgba(0,0,0,.8);
     width:100%;
 }
 
 #kateheddleston-wrap .blog_item .blog_item_footer .footer-title {
-    padding:20px 15px;
+    padding-top:15px;
 }
 
 #kateheddleston-wrap .blog_item .blog_item_footer .footer-title h4 {
@@ -93,8 +92,6 @@
 #kateheddleston-wrap .blog_item .info-icons {
     background-color:transparent;
     margin:0;
-    padding:5px 15px;
-    border-top:1px solid #eaeaea;
     color:rgba(0,0,0,.5);
 }
 
