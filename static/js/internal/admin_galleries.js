@@ -18,6 +18,15 @@ angularApp.controller('AdminGalleriesController', ['$scope', '$http', '$log', fu
                 $scope.items['unpublished'].push(item);
             }
         };
+        $scope.items['unpublished'].sort(function(a, b) {
+            if (a.created_at < b.created_at) {
+                    return 1;
+                      }
+            if (a.created_at > b.created_at) {
+                return -1;
+            }
+            return 0;
+        });
         $scope.changeTab('unpublished');
     });
     $scope.sortLists = function() {

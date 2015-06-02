@@ -54,7 +54,8 @@
                             <div class='row'>
                                 <div class='col-md-6 date'>
                                     <i class='fa fa-clock-o'></i>
-                                    <span ng-bind='gallery.published_ago'></span>
+                                    <span ng-if='gallery.published_ago' ng-bind='gallery.published_ago'></span>
+                                    <span ng-if='gallery.created_ago && !gallery.published_ago' ng-bind='gallery.created_ago'></span>
                                 </div>
                                 <div class='col-md-6'>
                                 </div>
