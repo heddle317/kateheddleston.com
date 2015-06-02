@@ -7,6 +7,8 @@ from app.db.galleries import Gallery
 from app.db.subscriptions import Subscription
 from app.db.subscriptions import SubscriptionCategory
 from app.utils.aws import s3_change_image_resolutions
+from app.utils.datetime_tools import format_date
+from app.utils.datetime_tools import now_utc
 from app.utils.email import send_contact_email
 
 from flask import request
@@ -21,7 +23,9 @@ def email_message():
     if not email or not body:
         return_data = {'message': 'An email and body are required.'}
         return json.dumps(return_data), 500, {'Content-Type': 'application/json'}
-    send_contact_email(email, subject, body)
+    data = {'ip': request.remote_addr,
+            'time': format_date(now_utc(), '%H:%M:%S, %B %d, %Y')}
+    send_contact_email(email, subject, body, data=data)
     return json.dumps(data), 200, {'Content-Type': 'application/json'}
 
 

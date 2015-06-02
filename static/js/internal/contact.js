@@ -16,7 +16,7 @@ angularApp.controller('ContactController', ['$scope', '$http', '$log', function(
       $scope.body = '';
       $scope.toggleAlert(true, 'alert-success', 'Your email was successfully sent.');
     }).error(function(data) {
-      $scope.toggleAlert(true, 'alert-danger', 'There was an error sending your email. My bad. You can email me directly at kate@heddleston.com to complain. Thanks!');
+      $scope.toggleAlert(true, 'alert-danger', 'There was an error sending your email. My bad. I\'ll try to get this fixed ASAP. Thanks for your patience!');
     });
   };
   $scope.toggleAlert = function(show, showClass, message) {
