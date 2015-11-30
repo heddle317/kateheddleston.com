@@ -38,7 +38,7 @@ TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(FLASK_ROOT_PATH, 'db_repository')
 
 if ENVIRONMENT == 'dev':
-    PORT = 8080
+    PORT = 8000
     APP_BASE_LINK = 'http://localhost:' + str(PORT)
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/kateheddleston_db'
