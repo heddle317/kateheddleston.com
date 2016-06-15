@@ -1,0 +1,9 @@
+files:
+    - /var/log/*
+    - /var/log/deploys/*
+    - /var/log/gunicorn/*
+destination:
+    host: logs3.papertrailapp.com
+    port: 16270
+    protocol: tls
+hostname: www.opsolutely.com

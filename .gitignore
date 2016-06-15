@@ -16,3 +16,4 @@ logs/
 *.swj
 *.swh
 *.rdb
+static/gen/*
