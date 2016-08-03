@@ -22,7 +22,7 @@ Recommended Tutorials for building an app like this:
 How to setup this code repository if you want to fork it and use it for your own nefarious purposes:
 ---------------------------------------------------------------
 * To setup the app locally:
-  * Get setup with ```mkvirtualenv`` - http://newcoder.io/pyladiessf/
+  * Get setup with ```mkvirtualenv``` - http://newcoder.io/pyladiessf/
   * ```mkvirtualenv [venv-name]```
   * ```pip install -r requirements.txt```
   * Create a keys.sh file locally. This will hold all the keys you need for interfacing with Facebook, Twitter, AWS, PostmarkApp, etc (see below for the full list of third party accounts and environment variables needed).
