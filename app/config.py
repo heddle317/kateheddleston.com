@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')
 
 LOGENTRIES_TOKEN = os.environ.get('LOGENTRIES_TOKEN')
 
-# REDIS_URL='redis://localhost:6379'
+REDIS_URL= os.environ.get('REDIS_URL', 'redis://localhost:6379')
 
 POSTMARKAPP_API_KEY = os.environ.get('POSTMARKAPP_API_KEY')
 
