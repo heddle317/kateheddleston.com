@@ -7,13 +7,18 @@ from flask import Flask
 from flask import g
 from flask import redirect
 from flask import request
+from flask import send_from_directory
+
 from flask.ext.compress import Compress
 from flask.ext.login import current_user
 from flask.ext.sqlalchemy import SQLAlchemy
+
 from flask_login import LoginManager
 from flask_wtf.csrf import CsrfProtect
+
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
+
 from rq import Queue
 from worker import conn
 
@@ -60,6 +65,11 @@ def before_request():
     g.user = current_user
     if request.headers.get('X_FORWARDED_PROTO') == 'http' and config.ENVIRONMENT != 'dev':
         return redirect(request.url.replace("http://", "https://"))
+
+
+@app.route('/static/<path:path>')
+def send_js(path):
+    return send_from_directory('static', path)
 
 
 from app import assets  # NOQA
