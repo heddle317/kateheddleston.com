@@ -1,3 +1,5 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 {% extends "base.html" %}
 {% block head %}
     <title>{{gallery.name}}</title>
@@ -23,8 +25,8 @@
     {% endassets %}
 {% endblock %}
 {% block content %}
-<div class='gallery-item' ng-controller='PostController'>
-    <div class='gallery-content'>
+<div class="gallery-item" ng-controller="PostController">
+    <div class="gallery-content">
         {% include "header_slide.html" %}
         {% include "post_sections.html" %}
     </div>
@@ -42,7 +44,7 @@
     {% assets "subscription_js" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
-    <script type='text/javascript'>
-        var galleryUUID = '{{gallery_uuid}}';
+    <script type="text/javascript">
+        var galleryUUID = "{{gallery_uuid}}";
     </script>
 {% endblock %}
