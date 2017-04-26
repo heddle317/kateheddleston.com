@@ -63,8 +63,11 @@ class Subscription(Base, BaseModelObject):
     @staticmethod
     def send_subscription_emails(gallery):
         gallery_category_uuids = gallery.category_uuids()
-        subscription_uuids = list(set([s.subscription_uuid for s in SubscriptionCategory.get_list(category_uuid=gallery_category_uuids)]))
-        subscriptions = Subscription.get_list(dead=False, verified=True, uuid=subscription_uuids)
+        if gallery_category_uuids:
+            subscription_uuids = list(set([s.subscription_uuid for s in SubscriptionCategory.get_list(category_uuid=gallery_category_uuids)]))
+            subscriptions = Subscription.get_list(dead=False, verified=True, uuid=subscription_uuids)
+        else:
+            subscriptions = Subscription.get_list(dead=False, verified=True)
         for subscription in subscriptions:
             q.enqueue(send_subscription_email, subscription, gallery)
 
