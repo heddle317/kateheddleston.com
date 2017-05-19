@@ -22,6 +22,6 @@ RUN pip install -r /opt/code/requirements.txt
 WORKDIR /opt/code
 
 # expose port(s)
-EXPOSE 80
+EXPOSE 80 81
 
 CMD supervisord -c /etc/supervisor/conf.d/supervisord.conf
