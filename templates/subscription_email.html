@@ -1,41 +1,43 @@
 <p>
-Hi {{user_name}}, there's a new <a href='{{blog_url}}'>blog post</a> available at Kateheddleston.com. 
+Hi {{user_name}}, there"s a new <a href="{{blog_url}}">blog post</a> available at Kateheddleston.com.
     <br>
     <br>
-    I hope you're having a wonderful day!
+    I hope you"re having a wonderful day!
     <br>
     Kate
     <br>
 </p>
-<table style='margin:0 auto;max-width:640px;color:#353435;font-size:14px;line-height:1.42857143;font-family:"Raleway",sans-serif;'>
-    <tr style='text-align:center;'>
+<table style="margin:0 auto;max-width:640px;color:#353435;font-size:14px;line-height:1.42857143;font-family:'Raleway',sans-serif;">
+    <tr style="text-align:center;">
         <td>
-            <h1 style='color:#cd1076;'>{{ gallery_title }}</h1>
+            <h1 style="color:#cd1076;">{{ gallery_title }}</h1>
             {% if subtitle %}<h3>{{ subtitle }}</h3>{% endif %}
             {% if author %}<h5>{{ author }}</h5>{% endif %}
-            <p style='color:#777777;font-size:12px;text-align:left;'>Posted on {{published_at}} under <strong>{{category}}</strong> content.</p>
-            <p style='text-align:left'>{{ description | safe }}</p>
+            <p style="color:#777777;font-size:12px;text-align:left;">Posted on {{published_at}} {% if category %}under <strong>{{category}}</strong> content.{% endif %}</p>
+            <p style="text-align:left">{{ description | safe }}...</p>
 
-            <a style='display:inline-block;color:#ffffff;padding:10px 15px;font-size:18px;cursor:pointer;text-transformation:none;text-decoration:none;background-color:#cd1076;line-height:24px;' href='{{ blog_url }}'>Read Now</a>
+            <p style="text-align:center">
+                <a style="display:inline-block;color:#ffffff;padding:10px 15px;font-size:18px;cursor:pointer;text-transformation:none;text-decoration:none;background-color:#cd1076;line-height:24px;" href="{{ blog_url }}">Read Now</a>
+            </p>
             <br><br><br>
         </td>
     </tr>
 </table>
-<table style='margin:0 auto;max-width:640px;color:#353435;font-size:14px;line-height:1.42857143;font-family:"Raleway",sans-serif;'>
-    <tr style='text-align:center;'>
+<table style="margin:0 auto;max-width:640px;color:#353435;font-size:14px;line-height:1.42857143;font-family:'Raleway',sans-serif;">
+    <tr style="text-align:center;">
         {% if category %}
         <td>
             To unsubscribe from <strong>{{category}}</strong> content, click here:
             <br>
             <br>
-            <a style='display:inline-block;color:#ffffff;padding:5px 7px;font-size:14px;cursor:pointer;text-transformation:none;text-decoration:none;background-color:#353435;line-height:20px;' href='{{ unsubscribe_url }}' style=''>Unsubscribe</a>
+            <a style="display:inline-block;color:#ffffff;padding:5px 7px;font-size:14px;cursor:pointer;text-transformation:none;text-decoration:none;background-color:#353435;line-height:20px;" href="{{ unsubscribe_url }}">Unsubscribe</a>
         </td>
         {% else %}
         <td>
             To cancel your subscription, click here:
             <br>
             <br>
-            <a style='display:inline-block;color:#ffffff;padding:5px 7px;font-size:14px;cursor:pointer;text-transformation:none;text-decoration:none;background-color:#353435;line-height:20px;' href='{{ cancel_url }}' style=''>Cancel Subscription</a>
+            <a style="display:inline-block;color:#ffffff;padding:5px 7px;font-size:14px;cursor:pointer;text-transformation:none;text-decoration:none;background-color:#353435;line-height:20px;" href="{{ cancel_url }}">Cancel Subscription</a>
         </td>
         {% endif %}
     </tr>
