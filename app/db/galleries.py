@@ -53,8 +53,6 @@ class Gallery(Base, BaseModelObject):
                         'next': Gallery.next(self, attrs=['uuid', 'url_title'], sort_by='published_at',
                                              published=True, desc=False)}
         attr_dict.update(gallery_dict)
-        from app import app
-        app.logger.info(attr_dict)
         return attr_dict
 
     def description(self):
@@ -187,7 +185,7 @@ class GalleryTitle(Base, BaseModelObject):
 
     @staticmethod
     def add_title(gallery_uuid, url_title):
-        gallery_title = GalleryTitle.get(gallery_uuid=gallery_uuid, title=url_title)
+        gallery_title = GalleryTitle.get(title=url_title)
         if not gallery_title:
             gallery_title = GalleryTitle.create(gallery_uuid=gallery_uuid, title=url_title)
         return gallery_title
