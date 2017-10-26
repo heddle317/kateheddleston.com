@@ -27,7 +27,10 @@ def index():
 def about():
     g.nav_view = 'about'
     gallery = Gallery.get(uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
-    return render_template('about.html', gallery=gallery.to_dict(), gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
+    return render_template('about.html',
+                           gallery=gallery.to_dict(),
+                           gallery_items=[item.to_dict() for item in gallery.items()],
+                           gallery_uuid='7baf4d66-afa2-46dd-8fee-8b113d255d14')
 
 
 @app.route('/contact', methods=['GET'])
