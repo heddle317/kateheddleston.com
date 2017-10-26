@@ -2,9 +2,13 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- Header slide -->
 <div class="post-section name text-center">
-    <h1 class="deep-pink" ng-bind-html="gallery.name"></h1>
-    <h3 class="" ng-bind="gallery.subtitle"></h3>
-    <h5 ng-bind="gallery.author"></h5>
-    <h5 class="" ng-bind="gallery.published_at"></h5>
+    <h1 class="deep-pink">{{gallery.name | safe}}</h1>
+    {% if gallery.subtitle %}
+    <h3>{{gallery.subtitle}}</h3>
+    {% endif %}
+    {% if gallery.author %}
+    <h5>{{gallery.author}}</h5>
+    {% endif %}
+    <h5 class="">{{gallery.published_at}}</h5>
 </div>
 <!-- end Header -->

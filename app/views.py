@@ -79,6 +79,7 @@ def blog_post_title(blog_attr):
     return render_template('post.html',
                            gallery_uuid=gallery.uuid,
                            gallery=gallery.to_dict(),
+                           gallery_items=[item.to_dict() for item in gallery.items()],
                            current_url=current_url,
                            facebook_app_id=config.FACEBOOK_APP_ID,
                            full_page=True)

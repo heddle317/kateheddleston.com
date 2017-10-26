@@ -1,31 +1,45 @@
-<div class='post_footer'>
-    <div class='links text-center ng-claok' ng-cloak>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<div class="post_footer">
+    <div class="links text-center ng-claok" ng-cloak>
         {% if g.user.is_authenticated() %}
-            <div class='link col-lg-1 col-md-2 col-sm-3 col-xs-4 pull-left border-right'>
+            <div class="link col-lg-1 col-md-2 col-sm-3 col-xs-4 pull-left border-right">
                 <a href="/admin/gallery/{{gallery.uuid}}">Edit</a>
             </div>
-            <div class='prev-link link col-lg-1 col-md-2 col-sm-3 col-xs-4' ng-class='gallery.prev ? "border-right": ""'>
-                <a ng-if='gallery.prev && gallery.prev.url_title' href="/blog/{[{ gallery.prev.url_title }]}">Read Prev</a>
-                <a ng-if='gallery.prev && !gallery.prev.url_title' href="/blog/{[{ gallery.prev.uuid }]}">Read Prev</a>
+            <div class="prev-link link col-lg-1 col-md-2 col-sm-3 col-xs-4" ng-class="gallery.prev ? 'border-right': ''">
+                {% if gallery.prev and gallery.prev.url_title %}
+                    <a href="/blog/{[{ gallery.prev.url_title }]}">Read Prev</a>
+                {% elif gallery.prev and not gallery.prev.url_title %}
+                    <a href="/blog/{[{ gallery.prev.uuid }]}">Read Prev</a>
+                {% endif %}
             </div>
-            <div class='copyright col-lg-9 col-md-5 col-sm-3 col-xs-0'>
+            <div class="copyright col-lg-9 col-md-5 col-sm-3 col-xs-0">
                 <!--<span><em>Copyright © 2015 Kate Heddleston LLC</em></span>-->
             </div>
-            <div class='next-link link col-lg-1 col-md-2 col-sm-3 col-xs-4' ng-class='gallery.next ? "border-left": ""'>
-                <a ng-if='gallery.next && gallery.next.url_title' href="/blog/{[{ gallery.next.url_title }]}">Read Next</a>
-                <a ng-if='gallery.next && !gallery.next.url_title' href="/blog/{[{ gallery.next.uuid }]}">Read Next</a>
+            <div class="next-link link col-lg-1 col-md-2 col-sm-3 col-xs-4" ng-class="gallery.next ? 'border-left': ''">
+                {% if gallery.next and gallery.next.url_title %}
+                    <a href="/blog/{[{ gallery.next.url_title }]}">Read Next</a>
+                {% elif gallery.next and not gallery.next.url_title %}
+                    <a href="/blog/{[{ gallery.next.uuid }]}">Read Next</a>
+                {% endif %}
             </div>
         {% else %}
-            <div class='prev-link link col-lg-1 col-md-2 col-sm-3 col-xs-4' ng-class='gallery.prev ? "border-right": ""'>
-                <a ng-if='gallery.prev && gallery.prev.url_title' href="/blog/{[{ gallery.prev.url_title }]}">Read Prev</a>
-                <a ng-if='gallery.prev && !gallery.prev.url_title' href="/blog/{[{ gallery.prev.uuid }]}">Read Prev</a>
+            <div class="prev-link link col-lg-1 col-md-2 col-sm-3 col-xs-4" ng-class="gallery.prev ? 'border-right': ''">
+                {% if gallery.prev and gallery.prev.url_title %}
+                    <a href="/blog/{[{ gallery.prev.url_title }]}">Read Prev</a>
+                {% elif gallery.prev and not gallery.prev.url_title %}
+                    <a href="/blog/{[{ gallery.prev.uuid }]}">Read Prev</a>
+                {% endif %}
             </div>
-            <div class='copyright col-lg-10 col-md-8 col-sm-6 col-xs-4'>
+            <div class="copyright col-lg-10 col-md-8 col-sm-6 col-xs-4">
                 <!--<span><em>Copyright © 2015 Kate Heddleston LLC</em></span>-->
             </div>
-            <div class='next-link link col-lg-1 col-md-2 col-sm-3 col-xs-4' ng-class='gallery.next ? "border-left": ""'>
-                <a ng-if='gallery.next && gallery.next.url_title' href="/blog/{[{ gallery.next.url_title }]}">Read Next</a>
-                <a ng-if='gallery.next && !gallery.next.url_title' href="/blog/{[{ gallery.next.uuid }]}">Read Next</a>
+            <div class="next-link link col-lg-1 col-md-2 col-sm-3 col-xs-4" ng-class="gallery.next ? 'border-left': ''">
+                {% if gallery.next and gallery.next.url_title %}
+                    <a href="/blog/{[{ gallery.next.url_title }]}">Read Next</a>
+                {% elif gallery.next and not gallery.next.url_title %}
+                    <a href="/blog/{[{ gallery.next.uuid }]}">Read Next</a>
+                {% endif %}
             </div>
         {% endif %}
     </div>

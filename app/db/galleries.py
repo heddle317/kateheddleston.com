@@ -36,20 +36,25 @@ class Gallery(Base, BaseModelObject):
     published_at = Column(DateTime(), unique=False)
 
     def to_dict(self, admin=False):
+        attr_dict = BaseModelObject.to_dict(self)
         base_url = '{}/galleries/{}'.format(config.AWS_IMAGES_BASE, self.uuid)
         gallery_categories = GalleryCategory.get_list(gallery_uuid=self.uuid, to_json=True)
-        attr_dict = BaseModelObject.to_dict(self)
-        attr_dict.update({'cover_photo_url': '{}/{}'.format(base_url, self.cover_photo),
-                          'base_url': base_url,
-                          'url_title': self.latest_url_title(),
-                          'description': self.description(),
-                          'created_ago': relative_time(self.created_at),
-                          'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%S') if self.published_at else '',
-                          'published_ago': relative_time(self.published_at) if self.published_at else '',
-                          'gallery_categories': gallery_categories,
-                          'items': GalleryItem.get_items(gallery_uuid=self.uuid, sort_by='position', desc=False, to_json=True, admin=admin),
-                          'prev': Gallery.prev(self, attrs=['uuid', 'url_title'], sort_by='published_at', published=True, desc=False),
-                          'next': Gallery.next(self, attrs=['uuid', 'url_title'], sort_by='published_at', published=True, desc=False)})
+        gallery_dict = {'cover_photo_url': '{}/{}'.format(base_url, self.cover_photo),
+                        'base_url': base_url,
+                        'url_title': self.latest_url_title(),
+                        'description': self.description(),
+                        'created_ago': relative_time(self.created_at),
+                        'published_at_raw': format_date(self.published_at, format='%Y-%m-%dT%H:%M:%S'),
+                        'published_ago': relative_time(self.published_at) if self.published_at else '',
+                        'gallery_categories': gallery_categories,
+                        'items': [item.to_dict() for item in self.items(admin=admin)],
+                        'prev': Gallery.prev(self, attrs=['uuid', 'url_title'], sort_by='published_at',
+                                             published=True, desc=False),
+                        'next': Gallery.next(self, attrs=['uuid', 'url_title'], sort_by='published_at',
+                                             published=True, desc=False)}
+        attr_dict.update(gallery_dict)
+        from app import app
+        app.logger.info(attr_dict)
         return attr_dict
 
     def description(self):
@@ -78,6 +83,9 @@ class Gallery(Base, BaseModelObject):
 
     def url(self):
         return u'{}/blog/{}'.format(config.APP_BASE_LINK, self.latest_url_title())
+
+    def items(self, admin=False):
+        return GalleryItem.get_items(gallery_uuid=self.uuid, sort_by='position', desc=False, admin=admin)
 
     @staticmethod
     def blank():
@@ -201,7 +209,7 @@ class GalleryItem(Base, BaseModelObject):
     def to_dict(self, admin=False):
         attr_dict = BaseModelObject.to_dict(self)
         if admin:
-            attr_dict.update({'comments': GalleryItemComment.get_list(to_json=True, gallery_item_uuid=self.uuid)})
+            attr_dict['comments'] = GalleryItemComment.get_list(to_json=True, gallery_item_uuid=self.uuid)
         return attr_dict
 
     def add_comment(self, **kwargs):
