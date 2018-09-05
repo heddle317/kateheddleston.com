@@ -1,8 +1,8 @@
-bcrypt==1.1.0
+bcrypt==3.1.4
 blinker==1.4
 boto==2.36.0
 bugsnag==2.3.0
-cffi==0.8.6
+cffi==1.11.5
 click==4.0
 cssmin==0.2.0
 facebook-sdk==0.4.0
