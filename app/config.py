@@ -24,7 +24,8 @@ FLASK_ROOT_PATH = BASE_DIR = os.path.join(os.path.dirname(__file__), '..')
 FLASK_STATIC_FOLDER = os.path.join(FLASK_ROOT_PATH, 'static')
 FLASK_TEMPLATE_FOLDER = os.path.join(FLASK_ROOT_PATH, 'templates')
 MODEL_HASH = os.environ.get('FLASK_MODEL_HASH')
-SECRET_KEY = os.environ.get('FLASK_SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+WTF_CSRF_SECRET_KEY = os.environ.get('WTF_CSRF_SECRET_KEY')
 
 LOGENTRIES_TOKEN = os.environ.get('LOGENTRIES_TOKEN')
 
