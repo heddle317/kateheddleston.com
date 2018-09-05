@@ -9,9 +9,9 @@ from flask import g
 # from flask import request
 from flask import send_from_directory
 
-from flask.ext.compress import Compress
-from flask.ext.login import current_user
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_compress import Compress
+from flask_login import current_user
+from flask_sqlalchemy import SQLAlchemy
 
 from flask_login import LoginManager
 from flask_wtf.csrf import CsrfProtect
