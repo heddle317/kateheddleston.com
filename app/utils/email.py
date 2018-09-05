@@ -48,7 +48,7 @@ def send_contact_email(from_email, subject, body, data=None):
     body = u"\n This email was sent by {}\n\n".format(from_email) + body
     if data:
         body = body + "\n\n"
-        for key, value in data.iteritems():
+        for key, value in data.items():
             body = body + "\n{}: {}".format(key.capitalize(), value)
     send_email(config.EMAIL_PERSONAL, subject, body_text=body)
 

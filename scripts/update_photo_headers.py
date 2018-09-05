@@ -9,7 +9,7 @@ def update_gallery_images():
     for gallery in galleries:
         for item in gallery.get('items', []):
             if item.get('image_name'):
-                print "{}    {}".format(gallery.get('uuid'), item.get('image_name'))
+                print("{}    {}".format(gallery.get('uuid'), item.get('image_name')))
                 update_image_headers('galleries/{}'.format(gallery.get('uuid')), item.get('image_name'))
                 update_image_headers('galleries/{}'.format(gallery.get('uuid')), "{}_thumbnail".format(item.get('image_name')))
                 update_image_headers('galleries/{}'.format(gallery.get('uuid')), "{}_small".format(item.get('image_name')))

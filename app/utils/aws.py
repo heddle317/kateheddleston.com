@@ -1,4 +1,4 @@
-import cStringIO
+import io
 import os
 import urllib
 
@@ -20,7 +20,7 @@ def s3_change_image_resolutions(image_route, filename):
     fp = urllib.urlopen(url)
     content_type = fp.info().get('content-type')
     # Load the URL data into an image
-    img = cStringIO.StringIO(fp.read())
+    img = io.StringIO(fp.read())
     img_original = Image.open(img)
 
     change_image_resolution(image_route, filename, img_original, content_type, 500, key)
@@ -43,7 +43,7 @@ def update_image_headers(image_route, filename):
     fp = urllib.urlopen(url)
     content_type = fp.info().get('content-type')
     # Load the URL data into an image
-    img = cStringIO.StringIO(fp.read())
+    img = io.StringIO(fp.read())
 
     # img.seek(0, os.SEEK_END)
     # content_length = img.tell()
@@ -64,8 +64,8 @@ def change_image_resolution(image_route, filename, img_original, content_type, w
     new_size = get_width_height(img_original.size, width)
     img_resized = img_original.resize(new_size, Image.NEAREST)
 
-    # NOTE, we're saving the image into a cStringIO object to avoid writing to disk
-    out_location = cStringIO.StringIO()
+    # NOTE, we're saving the image into a StringIO object to avoid writing to disk
+    out_location = io.StringIO()
     file_type = get_file_type(content_type)
     img_resized.save(out_location, file_type)
 

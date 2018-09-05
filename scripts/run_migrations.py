@@ -1,6 +1,6 @@
 import os
 import psycopg2
-import urlparse
+from urllib.parse import urlparse
 
 from app import config
 
@@ -9,7 +9,7 @@ class Migrate(object):
 
     def __init__(self):
         self._patches_dir = 'migrations'
-        result = urlparse.urlparse(config.SQLALCHEMY_DATABASE_URI)
+        result = urlparse(config.SQLALCHEMY_DATABASE_URI)
         username = result.username
         password = result.password
         database = result.path[1:]
@@ -24,6 +24,7 @@ class Migrate(object):
 
     def migrate(self):
         patches = os.listdir(self._patches_dir)
+        patches.sort()
         patch_level = 0
 
         for idx, patch in enumerate(patches[patch_level:]):
@@ -32,7 +33,7 @@ class Migrate(object):
 
             try:
                 self._execute(patch_sql)
-                print "%s: Executed patch - %s" % (idx, patch)
+                print("%s: Executed patch - %s" % (idx, patch))
             except:
                 pass
 

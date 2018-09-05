@@ -28,7 +28,7 @@ def get_list(model, **kwargs):
     items = KateHeddlestonDB.query(model)
 
     list_keys = []
-    for key, value in kwargs.iteritems():
+    for key, value in kwargs.items():
         if isinstance(value, list):
             field = getattr(model, key)
             items = items.filter(field.in_(kwargs.get(key)))
@@ -133,7 +133,7 @@ class BaseModelObject(object):
 
     def to_dict(self):
         attr_dict = copy.deepcopy(self.__dict__)
-        for key, value in attr_dict.iteritems():
+        for key, value in attr_dict.items():
             if isinstance(value, datetime.datetime):
                 attr_dict[key] = format_date(value)
         if attr_dict.get('_sa_instance_state'):

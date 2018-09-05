@@ -74,7 +74,7 @@ def update_user(uuid, email, name, new_password, current_password=None):
         if not verified:
             raise Exception("Current password does not match user password.")
     password_hash = hash_password(new_password)
-    print password_hash
+    print(password_hash)
     user = User.update(uuid,
                        name=name,
                        password_hash=password_hash)
