@@ -2,7 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html ng-app='angularApp' xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />    
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
         <link rel="shortcut icon" href="{{g.images_base}}/images/winery_bowl_small.jpg">
         <title>Admin Panel</title>
 
@@ -20,7 +20,7 @@
         {% block head%}{% endblock %}
     </head>
     <body id="kateheddleston-wrap">
-        {% if g.current_user.is_authenticated() %}
+        {% if g.current_user.is_authenticated %}
         <div class="navbar-custom container-fluid {%if g.nav_view!='home'%}white-background{%endif%}" id="nav-target">
           <div class='navbar-header'>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-nav-button">
