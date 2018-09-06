@@ -17,7 +17,7 @@ class User(Base, BaseModelObject):
     uuid = Column(UUID, primary_key=True)
     email = Column(String(120), unique=True)
     role = Column(SmallInteger)
-    password_hash = Column(String(60), unique=False)
+    password_hash = Column(String(1024), unique=False)
     name = Column(String(500))
     code = Column(String(512), unique=False)
     created_at = Column(DateTime(), unique=False)
@@ -33,7 +33,7 @@ class User(Base, BaseModelObject):
         return False
 
     def get_id(self):
-        return unicode(self.uuid)
+        return self.uuid
 
     def get_code(self):
         return self.code
@@ -70,11 +70,10 @@ def get_or_create_user(email):
 def update_user(uuid, email, name, new_password, current_password=None):
     user = User.get(uuid=uuid)
     if user.password_hash:
-        verified = authenticate_password(current_password, user.password_hash.encode('utf-8'))
+        verified = authenticate_password(current_password, user.password_hash)
         if not verified:
             raise Exception("Current password does not match user password.")
     password_hash = hash_password(new_password)
-    print(password_hash)
     user = User.update(uuid,
                        name=name,
                        password_hash=password_hash)
@@ -84,7 +83,7 @@ def update_user(uuid, email, name, new_password, current_password=None):
 def get_verified_user(email, password):
     user = User.get(email=email)
     if user:
-        verified = authenticate_password(password, user.password_hash.encode('utf-8'))
+        verified = authenticate_password(password, user.password_hash)
         if verified:
             return user
     return None

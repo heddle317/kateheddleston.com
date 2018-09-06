@@ -9,6 +9,7 @@ from flask import redirect
 from flask import request
 from flask import send_from_directory
 
+from flask_bcrypt import Bcrypt
 from flask_compress import Compress
 from flask_login import current_user
 from flask_sqlalchemy import SQLAlchemy
@@ -32,6 +33,7 @@ app = Flask(__name__,
 app.config.from_object(config)
 Compress(app)
 CsrfProtect(app)
+bcrypt = Bcrypt(app)
 app_db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.login_view = "login"
