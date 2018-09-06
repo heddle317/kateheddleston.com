@@ -2,7 +2,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <div class="post_footer">
     <div class="links text-center ng-claok" ng-cloak>
-        {% if g.user.is_authenticated() %}
+        {% if g.user.is_authenticated %}
             <div class="link col-lg-1 col-md-2 col-sm-3 col-xs-4 pull-left border-right">
                 <a href="/admin/gallery/{{gallery.uuid}}">Edit</a>
             </div>
