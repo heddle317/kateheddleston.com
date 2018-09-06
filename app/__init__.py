@@ -5,8 +5,8 @@ from app import config
 from bugsnag.flask import handle_exceptions
 from flask import Flask
 from flask import g
-# from flask import redirect
-# from flask import request
+from flask import redirect
+from flask import request
 from flask import send_from_directory
 
 from flask_compress import Compress
@@ -62,7 +62,6 @@ else:
 
 @app.before_request
 def before_request():
-    from flask import request
 
     g.user = current_user
     if request.headers.get('X_FORWARDED_PROTO') == 'http' and config.ENVIRONMENT != 'dev':
