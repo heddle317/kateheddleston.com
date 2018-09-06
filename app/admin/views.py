@@ -71,8 +71,8 @@ def get_talks():
 @use_template_globals
 def edit_talk(uuid=None):
     g.nav_view = 'talks'
-    policy = base64.b64encode(json.dumps(policy_document))
-    signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
+    policy = base64.b64encode(json.dumps(policy_document).encode('utf-8'))
+    signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY.encode('utf-8'), policy, hashlib.sha1).digest())
     access_key = config.AWS_ACCESS_KEY_ID
     return render_template('admin/edit_talk.html',
                            talk_uuid=uuid or '',
@@ -102,8 +102,8 @@ def get_admin_gallery(uuid=None):
 @use_template_globals
 def edit_gallery(uuid=None):
     g.nav_view = 'galleries'
-    policy = base64.b64encode(json.dumps(policy_document))
-    signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY, policy, hashlib.sha1).digest())
+    policy = base64.b64encode(json.dumps(policy_document).encode('utf-8'))
+    signature = base64.b64encode(hmac.new(config.AWS_SECRET_ACCESS_KEY.encode('utf-8'), policy, hashlib.sha1).digest())
     access_key = config.AWS_ACCESS_KEY_ID
     return render_template('admin/edit_gallery.html',
                            gallery_uuid=uuid or '',
